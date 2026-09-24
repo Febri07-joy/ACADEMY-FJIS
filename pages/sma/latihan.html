@@ -1,0 +1,3329 @@
+<!DOCTYPE html>
+<html lang="id">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0"
+    >
+
+    <meta
+        name="description"
+        content="FJIS Academy — Latihan Soal"
+    >
+
+    <meta
+        name="theme-color"
+        content="#073b2d"
+    >
+
+    <title>
+        Latihan Soal — FJIS Academy
+    </title>
+
+
+    <!-- =====================================================
+         GOOGLE FONTS
+    ====================================================== -->
+
+    <link
+        rel="preconnect"
+        href="https://fonts.googleapis.com"
+    >
+
+    <link
+        rel="preconnect"
+        href="https://fonts.gstatic.com"
+        crossorigin
+    >
+
+    <link
+        href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Playfair+Display:wght@500;600;700&display=swap"
+        rel="stylesheet"
+    >
+
+
+    <!-- =====================================================
+         MAIN CSS
+    ====================================================== -->
+
+    <link
+        rel="stylesheet"
+        href="../../css/style.css"
+    >
+
+    <link
+        rel="stylesheet"
+        href="../../css/components.css"
+    >
+
+    <link
+        rel="stylesheet"
+        href="../../css/landing.css"
+    >
+
+    <link
+        rel="stylesheet"
+        href="../../css/responsive.css"
+    >
+
+
+    <!-- =====================================================
+         PAGE STYLE
+    ====================================================== -->
+
+    <style>
+
+        /* =================================================
+           GENERAL
+        ================================================= */
+
+        .practice-section {
+            padding: 72px 0 100px;
+        }
+
+
+        .practice-wrapper {
+            max-width: 920px;
+            margin: 0 auto;
+        }
+
+
+        /* =================================================
+           HEADER
+        ================================================= */
+
+        .practice-header {
+            margin-bottom: 42px;
+        }
+
+
+        .practice-breadcrumb {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
+            align-items: center;
+
+            margin-bottom: 20px;
+
+            color:
+                rgba(7, 59, 45, 0.65);
+
+            font-size: 0.86rem;
+        }
+
+
+        .practice-breadcrumb span {
+            font-weight: 700;
+        }
+
+
+        .practice-title {
+            margin-bottom: 14px;
+        }
+
+
+        .practice-description {
+            max-width: 720px;
+
+            line-height: 1.8;
+
+            color:
+                rgba(20, 35, 30, 0.68);
+        }
+
+
+        /* =================================================
+           META
+        ================================================= */
+
+        .practice-meta {
+            display: flex;
+            flex-wrap: wrap;
+
+            gap: 12px;
+
+            margin-top: 24px;
+        }
+
+
+        .practice-meta-item {
+            padding: 9px 14px;
+
+            border-radius: 10px;
+
+            background:
+                rgba(7, 59, 45, 0.055);
+
+            border:
+                1px solid
+                rgba(7, 59, 45, 0.08);
+
+            color:
+                rgba(7, 59, 45, 0.72);
+
+            font-size: 0.82rem;
+
+            font-weight: 600;
+        }
+
+
+        /* =================================================
+           SELECTOR
+        ================================================= */
+
+        .practice-selector {
+            padding: 34px;
+
+            border-radius: 16px;
+
+            margin-bottom: 38px;
+        }
+
+
+        .selector-heading {
+            margin-bottom: 28px;
+        }
+
+
+        .selector-heading h2 {
+            margin-bottom: 8px;
+        }
+
+
+        .selector-heading p {
+            margin: 0;
+
+            line-height: 1.7;
+
+            color:
+                rgba(20, 35, 30, 0.62);
+        }
+
+
+        .selector-group {
+            margin-bottom: 28px;
+        }
+
+
+        .selector-group:last-child {
+            margin-bottom: 0;
+        }
+
+
+        .selector-label {
+            display: block;
+
+            margin-bottom: 12px;
+
+            color:
+                #073b2d;
+
+            font-size: 0.9rem;
+
+            font-weight: 700;
+        }
+
+
+        .selector-options {
+            display: grid;
+
+            grid-template-columns:
+                repeat(7, 1fr);
+
+            gap: 10px;
+        }
+
+
+        .difficulty-options {
+            display: grid;
+
+            grid-template-columns:
+                repeat(3, 1fr);
+
+            gap: 10px;
+        }
+
+
+        .selector-option {
+            position: relative;
+        }
+
+
+        .selector-option input {
+            position: absolute;
+
+            opacity: 0;
+
+            pointer-events: none;
+        }
+
+
+        .selector-option label {
+            display: flex;
+
+            align-items: center;
+            justify-content: center;
+
+            min-height: 50px;
+
+            padding: 10px;
+
+            text-align: center;
+
+            border:
+                1px solid
+                rgba(7, 59, 45, 0.12);
+
+            border-radius: 10px;
+
+            background:
+                rgba(255, 255, 255, 0.62);
+
+            color:
+                rgba(20, 35, 30, 0.72);
+
+            cursor: pointer;
+
+            font-size: 0.86rem;
+
+            font-weight: 600;
+
+            transition:
+                border-color 0.2s ease,
+                background 0.2s ease,
+                transform 0.2s ease,
+                box-shadow 0.2s ease;
+        }
+
+
+        .selector-option label:hover {
+            border-color:
+                rgba(7, 59, 45, 0.30);
+
+            transform:
+                translateY(-1px);
+        }
+
+
+        .selector-option input:checked + label {
+            background:
+                rgba(7, 59, 45, 0.09);
+
+            border-color:
+                rgba(7, 59, 45, 0.45);
+
+            color:
+                #073b2d;
+
+            box-shadow:
+                0 6px 18px
+                rgba(7, 59, 45, 0.08);
+        }
+
+
+        .selector-help {
+            margin-top: 12px;
+
+            color:
+                rgba(20, 35, 30, 0.52);
+
+            font-size: 0.78rem;
+
+            line-height: 1.6;
+        }
+
+
+        .selector-action {
+            margin-top: 30px;
+
+            display: flex;
+
+            align-items: center;
+
+            justify-content: space-between;
+
+            gap: 16px;
+
+            flex-wrap: wrap;
+        }
+
+
+        .available-info {
+            color:
+                rgba(20, 35, 30, 0.58);
+
+            font-size: 0.82rem;
+        }
+
+
+        /* =================================================
+           QUIZ
+        ================================================= */
+
+        .quiz-section {
+            display: none;
+        }
+
+
+        .quiz-topbar {
+            display: flex;
+
+            justify-content: space-between;
+
+            align-items: center;
+
+            gap: 18px;
+
+            margin-bottom: 26px;
+
+            flex-wrap: wrap;
+        }
+
+
+        .quiz-progress {
+            font-weight: 700;
+
+            color:
+                #073b2d;
+        }
+
+
+        .quiz-info {
+            display: flex;
+
+            gap: 10px;
+
+            flex-wrap: wrap;
+        }
+
+
+        .quiz-info span {
+            padding: 7px 11px;
+
+            border-radius: 10px;
+
+            background:
+                rgba(7, 59, 45, 0.06);
+
+            font-size: 0.76rem;
+
+            font-weight: 600;
+
+            color:
+                rgba(7, 59, 45, 0.72);
+        }
+
+
+        .question-list {
+            display: flex;
+
+            flex-direction: column;
+
+            gap: 22px;
+        }
+
+
+        .question-card {
+            padding: 30px;
+
+            border-radius: 16px;
+
+            background:
+                rgba(255, 255, 255, 0.78);
+
+            border:
+                1px solid
+                rgba(7, 59, 45, 0.09);
+
+            box-shadow:
+                0 8px 24px
+                rgba(7, 59, 45, 0.045);
+        }
+
+
+        .question-number {
+            display: inline-flex;
+
+            align-items: center;
+            justify-content: center;
+
+            padding: 7px 12px;
+
+            margin-bottom: 14px;
+
+            border-radius: 10px;
+
+            background:
+                rgba(7, 59, 45, 0.08);
+
+            color:
+                #073b2d;
+
+            font-size: 0.78rem;
+
+            font-weight: 700;
+        }
+
+
+        .question-type {
+            display: inline-block;
+            margin-left: 6px;
+            padding: 7px 12px;
+            border-radius: 10px;
+            background: rgba(7, 59, 45, 0.045);
+            color: rgba(7, 59, 45, 0.66);
+            font-size: 0.74rem;
+            font-weight: 700;
+        }
+
+
+        .question-difficulty {
+            display: inline-block;
+
+            margin-left: 6px;
+
+            padding: 7px 12px;
+
+            border-radius: 10px;
+
+            background:
+                rgba(191, 157, 93, 0.10);
+
+            color:
+                rgba(110, 78, 27, 0.80);
+
+            font-size: 0.76rem;
+
+            font-weight: 700;
+        }
+
+
+        .question-text {
+            margin: 8px 0 22px;
+
+            line-height: 1.75;
+
+            font-size: 1.05rem;
+        }
+
+
+        .question-options {
+            display: flex;
+
+            flex-direction: column;
+
+            gap: 10px;
+        }
+
+
+        .question-option {
+            display: flex;
+
+            align-items: center;
+
+            gap: 12px;
+
+            padding: 15px 16px;
+
+            border:
+                1px solid
+                rgba(7, 59, 45, 0.10);
+
+            border-radius: 13px;
+
+            cursor: pointer;
+
+            background:
+                rgba(255, 255, 255, 0.42);
+
+            transition:
+                border-color 0.2s ease,
+                background 0.2s ease,
+                transform 0.2s ease,
+                box-shadow 0.2s ease;
+        }
+
+
+        .question-option:hover {
+            background:
+                rgba(7, 59, 45, 0.035);
+
+            border-color:
+                rgba(7, 59, 45, 0.24);
+
+            transform:
+                translateY(-1px);
+        }
+
+
+        .question-option input {
+            accent-color:
+                #073b2d;
+        }
+
+
+        .question-option.selected {
+            background:
+                rgba(7, 59, 45, 0.065);
+
+            border-color:
+                rgba(7, 59, 45, 0.35);
+        }
+
+
+        .option-letter {
+            display: inline-flex;
+
+            align-items: center;
+            justify-content: center;
+
+            flex: 0 0 30px;
+
+            width: 30px;
+            height: 30px;
+
+            border-radius: 50%;
+
+            background:
+                rgba(7, 59, 45, 0.07);
+
+            color:
+                #073b2d;
+
+            font-size: 0.82rem;
+
+            font-weight: 700;
+        }
+
+
+        /* =================================================
+           QUIZ ACTION
+        ================================================= */
+
+        .quiz-actions {
+            margin-top: 30px;
+
+            display: flex;
+
+            justify-content: space-between;
+
+            align-items: center;
+
+            gap: 16px;
+
+            flex-wrap: wrap;
+        }
+
+
+        .quiz-warning {
+            color:
+                rgba(20, 35, 30, 0.55);
+
+            font-size: 0.82rem;
+
+            line-height: 1.5;
+        }
+
+
+        /* =================================================
+           RESULT
+        ================================================= */
+
+        .result-section {
+            display: none;
+
+            margin-top: 42px;
+        }
+
+
+        .result-card {
+            padding: 40px;
+
+            border-radius: 16px;
+
+            text-align: center;
+
+            background:
+                rgba(7, 59, 45, 0.055);
+
+            border:
+                1px solid
+                rgba(7, 59, 45, 0.10);
+        }
+
+
+        .result-label {
+            display: block;
+
+            margin-bottom: 10px;
+
+            color:
+                rgba(7, 59, 45, 0.65);
+
+            font-size: 0.78rem;
+
+            font-weight: 800;
+
+            letter-spacing: 0.12em;
+        }
+
+
+        .result-score {
+            margin: 0;
+
+            font-family:
+                "Playfair Display",
+                serif;
+
+            color:
+                #073b2d;
+
+            font-size: 3.8rem;
+
+            line-height: 1.1;
+        }
+
+
+        .result-percentage {
+            margin-top: 10px;
+
+            font-size: 1.05rem;
+
+            font-weight: 700;
+
+            color:
+                #073b2d;
+        }
+
+
+        .result-detail {
+            margin-top: 8px;
+
+            color:
+                rgba(20, 35, 30, 0.60);
+
+            line-height: 1.6;
+        }
+
+
+        .result-actions {
+            margin-top: 26px;
+
+            display: flex;
+
+            justify-content: center;
+
+            gap: 12px;
+
+            flex-wrap: wrap;
+        }
+
+
+        /* =================================================
+           FEEDBACK
+        ================================================= */
+
+        .answer-feedback {
+            margin-top: 18px;
+
+            padding: 18px;
+
+            border-radius: 10px;
+
+            line-height: 1.7;
+
+            font-size: 0.88rem;
+        }
+
+
+        .answer-feedback.correct {
+            background:
+                rgba(7, 59, 45, 0.075);
+
+            border:
+                1px solid
+                rgba(7, 59, 45, 0.14);
+        }
+
+
+        .answer-feedback.incorrect {
+            background:
+                rgba(130, 75, 45, 0.065);
+
+            border:
+                1px solid
+                rgba(130, 75, 45, 0.13);
+        }
+
+
+        .answer-feedback.unanswered {
+            background:
+                rgba(90, 90, 90, 0.055);
+
+            border:
+                1px solid
+                rgba(90, 90, 90, 0.10);
+        }
+
+
+        .feedback-title {
+            font-weight: 800;
+
+            margin-bottom: 6px;
+        }
+
+
+        .feedback-explanation {
+            margin-top: 10px;
+
+            color:
+                rgba(20, 35, 30, 0.68);
+        }
+
+
+        .correct-option {
+            border-color:
+                rgba(7, 59, 45, 0.38)
+            !important;
+
+            background:
+                rgba(7, 59, 45, 0.065)
+            !important;
+        }
+
+
+        .wrong-option {
+            border-color:
+                rgba(130, 75, 45, 0.32)
+            !important;
+        }
+
+
+        /* =================================================
+           EMPTY / ERROR
+        ================================================= */
+
+        .practice-message {
+            padding: 42px 30px;
+
+            text-align: center;
+
+            border-radius: 22px;
+        }
+
+
+        .practice-message h3 {
+            margin-bottom: 10px;
+        }
+
+
+        .practice-message p {
+            margin: 0;
+
+            color:
+                rgba(20, 35, 30, 0.62);
+
+            line-height: 1.7;
+        }
+
+
+        /* =================================================
+           RESPONSIVE
+        ================================================= */
+
+        @media (max-width: 800px) {
+
+            .selector-options {
+                grid-template-columns:
+                    repeat(4, 1fr);
+            }
+
+
+            .difficulty-options {
+                grid-template-columns:
+                    repeat(2, 1fr);
+            }
+
+        }
+
+
+        @media (max-width: 600px) {
+
+            .practice-section {
+                padding: 48px 0 70px;
+            }
+
+
+            .practice-title {
+                font-size: 2.15rem;
+            }
+
+
+            .practice-selector {
+                padding: 24px;
+            }
+
+
+            .selector-options {
+                grid-template-columns:
+                    repeat(3, 1fr);
+            }
+
+
+            .difficulty-options {
+                grid-template-columns:
+                    1fr;
+            }
+
+
+            .question-card {
+                padding: 22px;
+            }
+
+
+            .quiz-actions {
+                align-items: stretch;
+
+                flex-direction: column;
+            }
+
+
+            .quiz-actions .button {
+                width: 100%;
+
+                text-align: center;
+            }
+
+
+            .result-card {
+                padding: 30px 22px;
+            }
+
+
+            .result-score {
+                font-size: 3rem;
+            }
+
+        }
+
+
+        /* =================================================
+           GROUPED PRACTICE
+        ================================================= */
+
+        .group-result-note {
+            margin-top: 12px;
+            color: rgba(20, 35, 30, 0.62);
+            line-height: 1.65;
+        }
+
+        .group-progress-bar {
+            width: 100%;
+            height: 7px;
+            margin-top: 14px;
+            border-radius: 10px;
+            background: rgba(7, 59, 45, 0.08);
+            overflow: hidden;
+        }
+
+        .group-progress-fill {
+            height: 100%;
+            width: 0;
+            border-radius: inherit;
+            background: #073b2d;
+            transition: width 0.25s ease;
+        }
+
+        .group-feedback-heading {
+            margin: 34px 0 18px;
+            color: #073b2d;
+            font-family: "Playfair Display", serif;
+            font-size: 1.45rem;
+        }
+
+        .group-complete-badge {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            padding: 7px 12px;
+            margin-bottom: 12px;
+            border-radius: 10px;
+            background: rgba(7, 59, 45, 0.08);
+            color: #073b2d;
+            font-size: 0.78rem;
+            font-weight: 800;
+        }
+
+        .result-actions .button[hidden] {
+            display: none;
+        }
+
+
+        /* =================================================
+           FJIS VISUAL REFINEMENT
+           Tampilan saja — tidak mengubah logic.
+        ================================================= */
+
+        .practice-selector,
+        .question-card,
+        .result-card,
+        .practice-message {
+            backdrop-filter: blur(8px);
+            -webkit-backdrop-filter: blur(8px);
+        }
+
+        .selector-option label {
+            min-height: 54px;
+            border-width: 1px;
+            letter-spacing: 0.005em;
+        }
+
+        .selector-option label:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 14px rgba(7, 59, 45, 0.055);
+        }
+
+        .selector-option input:checked + label {
+            box-shadow: inset 0 0 0 1px rgba(7, 59, 45, 0.10),
+                        0 5px 14px rgba(7, 59, 45, 0.06);
+        }
+
+        .question-card {
+            position: relative;
+        }
+
+        .question-card::before {
+            content: "";
+            position: absolute;
+            top: 0;
+            left: 24px;
+            right: 24px;
+            height: 2px;
+            border-radius: 2px;
+            background: rgba(7, 59, 45, 0.12);
+        }
+
+        .question-option {
+            border-radius: 10px;
+        }
+
+        .question-option:hover {
+            box-shadow: 0 4px 12px rgba(7, 59, 45, 0.045);
+        }
+
+        .question-option.selected {
+            box-shadow: inset 0 0 0 1px rgba(7, 59, 45, 0.07);
+        }
+
+        .button {
+            border-radius: 10px !important;
+            min-height: 46px;
+            padding: 11px 19px;
+            font-weight: 700;
+            letter-spacing: 0.005em;
+            box-shadow: none;
+        }
+
+        .button-primary {
+            box-shadow: 0 5px 14px rgba(7, 59, 45, 0.10);
+        }
+
+        .button-primary:hover {
+            transform: translateY(-1px);
+            box-shadow: 0 7px 18px rgba(7, 59, 45, 0.14);
+        }
+
+        .button-outline,
+        .button-ghost {
+            box-shadow: none;
+        }
+
+        .practice-meta-item,
+        .quiz-info span,
+        .question-number,
+        .question-difficulty,
+        .group-complete-badge {
+            border-radius: 8px;
+        }
+
+        .group-progress-bar {
+            height: 6px;
+            border-radius: 3px;
+        }
+
+        .group-progress-fill {
+            border-radius: 3px;
+        }
+
+        @media (max-width: 600px) {
+            .button {
+                min-height: 48px;
+                border-radius: 9px !important;
+            }
+
+            .question-card::before {
+                left: 18px;
+                right: 18px;
+            }
+        }
+
+    
+        .question-stimulus{margin:14px 0;padding:14px 16px;border:1px solid rgba(34,70,55,.14);border-radius:14px;background:rgba(248,246,238,.72)}
+        .stimulus-title{font-weight:700;margin-bottom:10px;color:#244735}
+        .stimulus-table-wrap{overflow-x:auto}
+        .stimulus-table{width:100%;border-collapse:collapse;font-size:.92rem}
+        .stimulus-table th,.stimulus-table td{padding:9px 10px;border:1px solid rgba(34,70,55,.14);text-align:left;vertical-align:top}
+        .stimulus-table th{font-weight:700}
+
+    </style>
+
+</head>
+
+
+<body>
+
+
+    <!-- =====================================================
+         LOADER
+    ====================================================== -->
+
+    <div
+        class="page-loader"
+        id="pageLoader"
+        aria-hidden="true"
+    >
+
+        <div class="loader-mark">
+            FJIS
+        </div>
+
+        <p>
+            Student Learner
+        </p>
+
+    </div>
+
+
+    <!-- =====================================================
+         HEADER
+    ====================================================== -->
+
+    <header
+        class="site-header"
+        id="siteHeader"
+    >
+
+        <div class="container header-inner">
+
+
+            <!-- BRAND -->
+
+            <a
+                href="../../index.html"
+                class="brand"
+            >
+
+                <div class="brand-icon">
+
+                    <span></span>
+                    <span></span>
+
+                </div>
+
+
+                <div class="brand-text">
+
+                    <strong>
+                        FJIS Academy
+                    </strong>
+
+                    <small>
+                        STUDENT LEARNER
+                    </small>
+
+                </div>
+
+            </a>
+
+
+            <!-- NAVIGATION -->
+
+            <nav
+                class="main-navigation"
+                id="mainNavigation"
+                aria-label="Navigasi utama"
+            >
+
+                <a
+                    href="../../index.html"
+                    class="nav-link"
+                >
+                    Beranda
+                </a>
+
+
+                <a
+                    href="../../index.html#tentang"
+                    class="nav-link"
+                >
+                    Tentang
+                </a>
+
+
+                <a
+                    href="../../index.html#program"
+                    class="nav-link active"
+                >
+                    Program
+                </a>
+
+
+                <a
+                    href="../../index.html#fitur"
+                    class="nav-link"
+                >
+                    Fitur
+                </a>
+
+
+                <a
+                    href="../../index.html#kontak"
+                    class="nav-link"
+                >
+                    Kontak
+                </a>
+
+            </nav>
+
+
+            <!-- ACTION -->
+
+            <div class="header-actions">
+
+                <a
+                    href="../login.html"
+                    class="button button-ghost"
+                >
+                    Masuk
+                </a>
+
+
+                <a
+                    href="../register.html"
+                    class="button button-primary"
+                >
+                    Daftar Sekarang
+                </a>
+
+            </div>
+
+
+            <!-- MOBILE -->
+
+            <button
+                class="mobile-menu-button"
+                id="mobileMenuButton"
+                type="button"
+                aria-label="Buka menu"
+                aria-expanded="false"
+            >
+
+                <span></span>
+                <span></span>
+                <span></span>
+
+            </button>
+
+        </div>
+
+    </header>
+
+
+    <!-- =====================================================
+         MAIN
+    ====================================================== -->
+
+    <main>
+
+
+        <section class="practice-section">
+
+            <div class="container">
+
+                <div class="practice-wrapper">
+
+
+                    <!-- =================================================
+                         HEADER
+                    ================================================== -->
+
+                    <div class="practice-header">
+
+                        <div
+                            class="practice-breadcrumb"
+                            id="practiceBreadcrumb"
+                        >
+
+                            SMA
+
+                            <span>›</span>
+
+                            Kelas 10
+
+                            <span>›</span>
+
+                            Semester 1
+
+                            <span>›</span>
+
+                            Matematika
+
+                        </div>
+
+
+                        <span class="section-label">
+                            FJIS PRACTICE
+                        </span>
+
+
+                        <h1
+                            class="practice-title"
+                            id="practiceTitle"
+                        >
+                            Latihan Soal
+                        </h1>
+
+
+                        <p
+                            class="practice-description"
+                            id="practiceDescription"
+                        >
+                            Pilih jumlah soal dan tingkat kesulitan
+                            sebelum memulai latihan.
+                        </p>
+
+
+                        <div class="practice-meta">
+
+                            <span
+                                class="practice-meta-item"
+                                id="classMeta"
+                            >
+                                Kelas 10
+                            </span>
+
+
+                            <span
+                                class="practice-meta-item"
+                                id="semesterMeta"
+                            >
+                                Semester 1
+                            </span>
+
+
+                            <span
+                                class="practice-meta-item"
+                                id="subjectMeta"
+                            >
+                                Matematika
+                            </span>
+
+                        </div>
+
+                    </div>
+
+
+                    <!-- =================================================
+                         SELECTOR
+                    ================================================== -->
+
+                    <section
+                        class="practice-selector glass-card"
+                        id="practiceSelector"
+                    >
+
+                        <div class="selector-heading">
+
+                            <h2>
+                                Atur Latihanmu
+                            </h2>
+
+                            <p>
+                                Tentukan jumlah soal dan level
+                                kesulitan sesuai tujuan belajarmu.
+                            </p>
+
+                        </div>
+
+
+                        <!-- JUMLAH SOAL -->
+
+                        <div class="selector-group">
+
+                            <span class="selector-label">
+                                Jumlah Soal
+                            </span>
+
+
+                            <div
+                                class="selector-options"
+                                id="questionCountOptions"
+                            >
+
+                                <div class="selector-option">
+
+                                    <input
+                                        type="radio"
+                                        id="count-5"
+                                        name="questionCount"
+                                        value="5"
+                                        checked
+                                    >
+
+                                    <label for="count-5">
+                                        5
+                                    </label>
+
+                                </div>
+
+
+                                <div class="selector-option">
+
+                                    <input
+                                        type="radio"
+                                        id="count-10"
+                                        name="questionCount"
+                                        value="10"
+                                    >
+
+                                    <label for="count-10">
+                                        10
+                                    </label>
+
+                                </div>
+
+
+                                <div class="selector-option">
+
+                                    <input
+                                        type="radio"
+                                        id="count-15"
+                                        name="questionCount"
+                                        value="15"
+                                    >
+
+                                    <label for="count-15">
+                                        15
+                                    </label>
+
+                                </div>
+
+
+                                <div class="selector-option">
+
+                                    <input
+                                        type="radio"
+                                        id="count-20"
+                                        name="questionCount"
+                                        value="20"
+                                    >
+
+                                    <label for="count-20">
+                                        20
+                                    </label>
+
+                                </div>
+
+
+                                <div class="selector-option">
+
+                                    <input
+                                        type="radio"
+                                        id="count-25"
+                                        name="questionCount"
+                                        value="25"
+                                    >
+
+                                    <label for="count-25">
+                                        25
+                                    </label>
+
+                                </div>
+
+
+                                <div class="selector-option">
+
+                                    <input
+                                        type="radio"
+                                        id="count-30"
+                                        name="questionCount"
+                                        value="30"
+                                    >
+
+                                    <label for="count-30">
+                                        30
+                                    </label>
+
+                                </div>
+
+
+                                <div class="selector-option">
+
+                                    <input
+                                        type="radio"
+                                        id="count-50"
+                                        name="questionCount"
+                                        value="50"
+                                    >
+
+                                    <label for="count-50">
+                                        50
+                                    </label>
+
+                                </div>
+
+                            </div>
+
+
+                            <div
+                                class="selector-help"
+                                id="countHelp"
+                            >
+                                Jumlah maksimal mengikuti jumlah soal
+                                yang tersedia.
+                            </div>
+
+                        </div>
+
+
+                        <!-- DIFFICULTY -->
+
+                        <div class="selector-group">
+
+                            <span class="selector-label">
+                                Tingkat Kesulitan
+                            </span>
+
+
+                            <div
+                                class="difficulty-options"
+                            >
+
+                                <div class="selector-option">
+
+                                    <input
+                                        type="radio"
+                                        id="difficulty-all"
+                                        name="difficulty"
+                                        value="all"
+                                        checked
+                                    >
+
+                                    <label for="difficulty-all">
+                                        Semua Level
+                                    </label>
+
+                                </div>
+
+
+                                <div class="selector-option">
+
+                                    <input
+                                        type="radio"
+                                        id="difficulty-1"
+                                        name="difficulty"
+                                        value="1"
+                                    >
+
+                                    <label for="difficulty-1">
+                                        Level 1
+                                    </label>
+
+                                </div>
+
+
+                                <div class="selector-option">
+
+                                    <input
+                                        type="radio"
+                                        id="difficulty-2"
+                                        name="difficulty"
+                                        value="2"
+                                    >
+
+                                    <label for="difficulty-2">
+                                        Level 2
+                                    </label>
+
+                                </div>
+
+
+                                <div class="selector-option">
+
+                                    <input
+                                        type="radio"
+                                        id="difficulty-3"
+                                        name="difficulty"
+                                        value="3"
+                                    >
+
+                                    <label for="difficulty-3">
+                                        Level 3
+                                    </label>
+
+                                </div>
+
+
+                                <div class="selector-option">
+
+                                    <input
+                                        type="radio"
+                                        id="difficulty-4"
+                                        name="difficulty"
+                                        value="4"
+                                    >
+
+                                    <label for="difficulty-4">
+                                        Level 4
+                                    </label>
+
+                                </div>
+
+
+                                <div class="selector-option">
+
+                                    <input
+                                        type="radio"
+                                        id="difficulty-5"
+                                        name="difficulty"
+                                        value="5"
+                                    >
+
+                                    <label for="difficulty-5">
+                                        Level 5 — HOTS
+                                    </label>
+
+                                </div>
+
+                            </div>
+
+
+                            <div
+                                class="selector-help"
+                                id="difficultyHelp"
+                            >
+                                Level 1 paling dasar hingga Level 5
+                                yang menuntut penalaran lebih tinggi.
+                            </div>
+
+                        </div>
+
+
+                        <!-- QUESTION TYPE -->
+
+                        <div class="selector-block">
+
+                            <div class="selector-label">Jenis Soal</div>
+
+                            <div class="selector-options">
+                                <div class="selector-option"><input type="radio" id="type-all" name="questionType" value="all" checked><label for="type-all">Semua Jenis</label></div>
+                                <div class="selector-option"><input type="radio" id="type-concept" name="questionType" value="concept"><label for="type-concept">Konsep</label></div>
+                                <div class="selector-option"><input type="radio" id="type-identification" name="questionType" value="identification"><label for="type-identification">Identifikasi</label></div>
+                                <div class="selector-option"><input type="radio" id="type-application" name="questionType" value="application"><label for="type-application">Aplikasi</label></div>
+                                <div class="selector-option"><input type="radio" id="type-analysis" name="questionType" value="analysis"><label for="type-analysis">Analisis</label></div>
+                                <div class="selector-option"><input type="radio" id="type-evaluation" name="questionType" value="evaluation"><label for="type-evaluation">Evaluasi</label></div>
+                                <div class="selector-option"><input type="radio" id="type-interpretation" name="questionType" value="interpretation"><label for="type-interpretation">Interpretasi</label></div>
+                                <div class="selector-option"><input type="radio" id="type-problem-solving" name="questionType" value="problem-solving"><label for="type-problem-solving">Problem Solving</label></div>
+                                <div class="selector-option"><input type="radio" id="type-misconception" name="questionType" value="misconception"><label for="type-misconception">Miskonsepsi</label></div>
+                            </div>
+
+                            <div class="selector-help" id="typeHelp">Semua jenis soal tersedia.</div>
+
+                        </div>
+
+
+                        <!-- ACTION -->
+
+                        <div class="selector-action">
+
+                            <span
+                                class="available-info"
+                                id="availableInfo"
+                            >
+                                Memeriksa bank soal...
+                            </span>
+
+
+                            <button
+                                type="button"
+                                class="button button-primary"
+                                id="startQuizButton"
+                            >
+                                Mulai Latihan →
+                            </button>
+
+                        </div>
+
+                    </section>
+
+
+                    <!-- =================================================
+                         QUIZ
+                    ================================================== -->
+
+                    <section
+                        class="quiz-section"
+                        id="quizSection"
+                    >
+
+                        <div class="quiz-topbar">
+
+                            <div
+                                class="quiz-progress"
+                                id="quizProgress"
+                            >
+                                0 soal
+                            </div>
+
+
+                            <div class="quiz-info">
+
+                                <span id="quizDifficulty">
+                                    Semua Level
+                                </span>
+
+
+                                <span id="quizCount">
+                                    0 soal
+                                </span>
+
+                            </div>
+
+                        </div>
+
+
+                        <div
+                            class="question-list"
+                            id="questionList"
+                        ></div>
+
+
+                        <div class="quiz-actions">
+
+                            <span
+                                class="quiz-warning"
+                                id="quizWarning"
+                            >
+                                Pastikan jawabanmu sudah diperiksa
+                                sebelum dikumpulkan.
+                            </span>
+
+
+                            <button
+                                type="button"
+                                class="button button-primary"
+                                id="submitQuizButton"
+                            >
+                                Kumpulkan Jawaban
+                            </button>
+
+                        </div>
+
+                    </section>
+
+
+                    <!-- =================================================
+                         RESULT
+                    ================================================== -->
+
+                    <section
+                        class="result-section"
+                        id="resultSection"
+                    >
+
+                        <div class="result-card">
+
+                            <span class="result-label">
+                                HASIL LATIHAN
+                            </span>
+
+
+                            <h2
+                                class="result-score"
+                                id="resultScore"
+                            >
+                                0 / 0
+                            </h2>
+
+
+                            <div
+                                class="result-percentage"
+                                id="resultPercentage"
+                            >
+                                0% benar
+                            </div>
+
+
+                            <div
+                                class="result-detail"
+                                id="resultDetail"
+                            >
+                                0 soal dijawab.
+                            </div>
+
+
+                            <div class="result-actions">
+
+                                <button
+                                    type="button"
+                                    class="button button-primary"
+                                    id="repeatGroupButton"
+                                    hidden
+                                >
+                                    Ulangi Kelompok
+                                </button>
+
+                                <button
+                                    type="button"
+                                    class="button button-primary"
+                                    id="nextGroupButton"
+                                    hidden
+                                >
+                                    Lanjut Kelompok →
+                                </button>
+
+                                <button
+                                    type="button"
+                                    class="button button-primary"
+                                    id="retryButton"
+                                >
+                                    Coba Lagi
+                                </button>
+
+
+                                <a
+                                    href="#"
+                                    class="button button-outline"
+                                    id="backMaterialButton"
+                                >
+                                    ← Kembali ke Materi
+                                </a>
+
+                            </div>
+
+                        </div>
+
+                    </section>
+
+
+                    <!-- =================================================
+                         ERROR / EMPTY
+                    ================================================== -->
+
+                    <div
+                        id="practiceMessage"
+                        style="display:none;"
+                    ></div>
+
+                </div>
+
+            </div>
+
+        </section>
+
+    </main>
+
+
+    <!-- =====================================================
+         JAVASCRIPT
+    ====================================================== -->
+
+    <script src="../../js/app.js"></script>
+
+    <script src="../../js/content-engine.js"></script>
+
+
+    <!-- =====================================================
+         PRACTICE CONTROLLER
+    ====================================================== -->
+
+    <script>
+
+        document.addEventListener(
+            "DOMContentLoaded",
+            async () => {
+
+                console.log("=================================");
+                console.log("FJIS PRACTICE GROUP SYSTEM START");
+                console.log("=================================");
+
+                /* ==========================================
+                   URL PARAMETERS
+                ========================================== */
+
+                const params = new URLSearchParams(window.location.search);
+
+                const classNumber = params.get("class") || "";
+                const semester = params.get("semester") || "";
+                const subjectCode = params.get("subject") || "";
+                const chapterId = params.get("chapter") || "";
+                const subchapterId = params.get("subchapter") || "";
+
+                /* ==========================================
+                   ELEMENTS
+                ========================================== */
+
+                const practiceTitle = document.getElementById("practiceTitle");
+                const practiceDescription = document.getElementById("practiceDescription");
+                const practiceBreadcrumb = document.getElementById("practiceBreadcrumb");
+
+                const classMeta = document.getElementById("classMeta");
+                const semesterMeta = document.getElementById("semesterMeta");
+                const subjectMeta = document.getElementById("subjectMeta");
+
+                const practiceSelector = document.getElementById("practiceSelector");
+                const quizSection = document.getElementById("quizSection");
+                const resultSection = document.getElementById("resultSection");
+                const questionList = document.getElementById("questionList");
+
+                const startQuizButton = document.getElementById("startQuizButton");
+                const submitQuizButton = document.getElementById("submitQuizButton");
+
+                const retryButton = document.getElementById("retryButton");
+                const repeatGroupButton = document.getElementById("repeatGroupButton");
+                const nextGroupButton = document.getElementById("nextGroupButton");
+
+                const backMaterialButton = document.getElementById("backMaterialButton");
+
+                const availableInfo = document.getElementById("availableInfo");
+                const countHelp = document.getElementById("countHelp");
+                const difficultyHelp = document.getElementById("difficultyHelp");
+                const typeHelp = document.getElementById("typeHelp");
+
+                const quizProgress = document.getElementById("quizProgress");
+                const quizDifficulty = document.getElementById("quizDifficulty");
+                const quizCount = document.getElementById("quizCount");
+                const quizInfo = quizSection.querySelector(".quiz-info");
+
+                const resultScore = document.getElementById("resultScore");
+                const resultPercentage = document.getElementById("resultPercentage");
+                const resultDetail = document.getElementById("resultDetail");
+                const practiceMessage = document.getElementById("practiceMessage");
+
+                function quizInfoSafeAppend(element) {
+                    if (quizInfo && !quizInfo.contains(element)) {
+                        quizInfo.insertBefore(element, quizCount);
+                    }
+                }
+
+                /* ==========================================
+                   STATE
+                ========================================== */
+
+                let normalizedQuestions = [];
+                let currentQuestions = [];
+                let currentDifficulty = "all";
+                let currentType = "all";
+
+                let questionGroups = [];
+                let currentGroupIndex = 0;
+
+                let totalCorrect = 0;
+                let totalAnswered = 0;
+                let totalAttempted = 0;
+
+                let lastGroupQuestions = [];
+
+                /* ==========================================
+                   VALIDATE ENGINE
+                ========================================== */
+
+                if (typeof FJISContent === "undefined") {
+
+                    showMessage(
+                        "Sistem belum siap",
+                        "Content engine FJIS Academy tidak ditemukan."
+                    );
+
+                    return;
+                }
+
+                /* ==========================================
+                   VALIDATE URL
+                ========================================== */
+
+                if (
+                    !classNumber ||
+                    !semester ||
+                    !subjectCode ||
+                    !chapterId ||
+                    !subchapterId
+                ) {
+
+                    console.error("FJIS Practice: parameter tidak lengkap");
+
+                    showMessage(
+                        "Latihan belum dapat dibuka",
+                        "Halaman latihan harus dibuka dari tombol Mulai Latihan pada halaman materi."
+                    );
+
+                    practiceSelector.style.display = "none";
+                    return;
+                }
+
+                /* ==========================================
+                   LOAD CLASS
+                ========================================== */
+
+                const classData =
+                    await FJISContent.loadClass(classNumber);
+
+                if (!classData) {
+
+                    showMessage(
+                        "Data kelas tidak ditemukan",
+                        `Data Kelas ${classNumber} belum tersedia.`
+                    );
+
+                    practiceSelector.style.display = "none";
+                    return;
+                }
+
+                /* ==========================================
+                   STRUCTURE DETECTION + SUBJECT
+                   Kelas 10/11 = struktur semester lama
+                   Kelas 12   = struktur subjects[] baru
+                ========================================== */
+
+                const newStructure = Array.isArray(classData.subjects);
+                let semesterData = null;
+                let selectedSubject = null;
+
+                if (newStructure) {
+                    selectedSubject =
+                        FJISContent.findSubject(
+                            { subjects: classData.subjects },
+                            subjectCode
+                        );
+                } else {
+                    semesterData =
+                        FJISContent.getSemester(classData, semester);
+
+                    if (!semesterData) {
+                        showMessage(
+                            "Semester tidak ditemukan",
+                            `Data Semester ${semester} belum tersedia.`
+                        );
+
+                        practiceSelector.style.display = "none";
+                        return;
+                    }
+
+                    selectedSubject =
+                        FJISContent.findSubject(
+                            semesterData,
+                            subjectCode
+                        );
+                }
+
+                if (!selectedSubject) {
+
+                    showMessage(
+                        "Mata pelajaran tidak ditemukan",
+                        `Data "${subjectCode}" belum tersedia.`
+                    );
+
+                    practiceSelector.style.display = "none";
+                    return;
+                }
+
+                /* ==========================================
+                   LOAD SUBJECT DATA
+                ========================================== */
+
+                const subjectFile =
+                    selectedSubject.file ||
+                    selectedSubject.slug ||
+                    selectedSubject.code;
+
+                const subjectData =
+                    await FJISContent.loadSubject(
+                        classNumber,
+                        semester,
+                        subjectFile
+                    );
+
+                if (!subjectData) {
+
+                    showMessage(
+                        "Data materi tidak ditemukan",
+                        `File materi ${selectedSubject.name} belum tersedia.`
+                    );
+
+                    practiceSelector.style.display = "none";
+                    return;
+                }
+
+                /* ==========================================
+                   CHAPTER
+                ========================================== */
+
+                const selectedChapter =
+                    subjectData.chapters?.find(
+                        chapter =>
+                            String(chapter.id) === String(chapterId)
+                    );
+
+                if (!selectedChapter) {
+
+                    showMessage(
+                        "Bab tidak ditemukan",
+                        `Bab "${chapterId}" belum tersedia.`
+                    );
+
+                    practiceSelector.style.display = "none";
+                    return;
+                }
+
+                /* ==========================================
+                   SUBCHAPTER
+                ========================================== */
+
+                const selectedSubchapter =
+                    selectedChapter.subchapters?.find(
+                        subchapter =>
+                            String(subchapter.id) === String(subchapterId)
+                    );
+
+                if (!selectedSubchapter) {
+
+                    showMessage(
+                        "Subbab tidak ditemukan",
+                        `Subbab "${subchapterId}" belum tersedia.`
+                    );
+
+                    practiceSelector.style.display = "none";
+                    return;
+                }
+
+                /* ==========================================
+                   QUESTIONS
+                ========================================== */
+
+                const allQuestions =
+                    selectedSubchapter.exercises?.questions;
+
+                if (
+                    !Array.isArray(allQuestions) ||
+                    allQuestions.length === 0
+                ) {
+
+                    showMessage(
+                        "Soal belum tersedia",
+                        "Subbab ini belum memiliki bank soal."
+                    );
+
+                    practiceSelector.style.display = "none";
+                    return;
+                }
+
+                /* ==========================================
+                   NORMALIZE QUESTIONS
+                ========================================== */
+
+                normalizedQuestions =
+                    allQuestions.map(
+                        (question, index) => ({
+                            ...question,
+
+                            id:
+                                question.id ||
+                                `${subjectCode}-${chapterId}-${subchapterId}-${index + 1}`,
+
+                            difficulty:
+                                Number(question.difficulty) || 3
+                        })
+                    );
+
+                /* ==========================================
+                   HEADER
+                ========================================== */
+
+                practiceTitle.textContent =
+                    `Latihan ${selectedSubject.name}`;
+
+                practiceDescription.textContent =
+                    `Latihan soal ${selectedSubchapter.title}. Pilih jumlah soal, tingkat kesulitan, dan jenis soal sebelum memulai.`;
+
+                classMeta.textContent =
+                    `Kelas ${classNumber}`;
+
+                semesterMeta.textContent =
+                    `Semester ${semester}`;
+
+                subjectMeta.textContent =
+                    selectedSubject.name;
+
+                practiceBreadcrumb.innerHTML = `
+                    SMA
+                    <span>›</span>
+                    Kelas ${escapeHTML(classNumber)}
+                    <span>›</span>
+                    Semester ${escapeHTML(semester)}
+                    <span>›</span>
+                    ${escapeHTML(selectedSubject.name)}
+                    <span>›</span>
+                    ${escapeHTML(selectedChapter.title)}
+                    <span>›</span>
+                    ${escapeHTML(selectedSubchapter.title)}
+                `;
+
+                /* ==========================================
+                   BACK TO MATERIAL
+                ========================================== */
+
+                backMaterialButton.href =
+                    `materi-belajar.html?class=${encodeURIComponent(classNumber)}&semester=${encodeURIComponent(semester)}&subject=${encodeURIComponent(subjectCode)}&chapter=${encodeURIComponent(chapterId)}&subchapter=${encodeURIComponent(subchapterId)}`;
+
+                /* ==========================================
+                   DIFFICULTY LABEL
+                ========================================== */
+
+                const difficultyLabels = {
+                    all: "Semua Level",
+                    1: "Level 1 — Sangat Mudah",
+                    2: "Level 2 — Mudah",
+                    3: "Level 3 — Sedang",
+                    4: "Level 4 — Sulit",
+                    5: "Level 5 — HOTS"
+                };
+
+                const questionTypeLabels = {
+                    concept: "Konsep",
+                    identification: "Identifikasi",
+                    application: "Aplikasi",
+                    analysis: "Analisis",
+                    evaluation: "Evaluasi",
+                    interpretation: "Interpretasi",
+                    "problem-solving": "Problem Solving",
+                    misconception: "Miskonsepsi"
+                };
+
+                /* ==========================================
+                   UPDATE AVAILABLE INFO
+                ========================================== */
+
+                updateAvailableInfo();
+
+                document
+                    .querySelectorAll('input[name="difficulty"]')
+                    .forEach(
+                        input => {
+                            input.addEventListener(
+                                "change",
+                                updateAvailableInfo
+                            );
+                        }
+                    );
+
+                document
+                    .querySelectorAll('input[name="questionType"]')
+                    .forEach(
+                        input => {
+                            input.addEventListener(
+                                "change",
+                                updateAvailableInfo
+                            );
+                        }
+                    );
+
+                document
+                    .querySelectorAll('input[name="questionCount"]')
+                    .forEach(
+                        input => {
+                            input.addEventListener(
+                                "change",
+                                updateAvailableInfo
+                            );
+                        }
+                    );
+
+                /* ==========================================
+                   BUTTON EVENTS
+                ========================================== */
+
+                startQuizButton.addEventListener(
+                    "click",
+                    startQuiz
+                );
+
+                submitQuizButton.addEventListener(
+                    "click",
+                    submitGroup
+                );
+
+                retryButton.addEventListener(
+                    "click",
+                    resetToSelector
+                );
+
+                repeatGroupButton.addEventListener(
+                    "click",
+                    repeatCurrentGroup
+                );
+
+                nextGroupButton.addEventListener(
+                    "click",
+                    nextGroup
+                );
+
+                /* ==========================================
+                   UPDATE AVAILABLE INFO
+                ========================================== */
+
+                function updateAvailableInfo() {
+
+                    const difficulty =
+                        document.querySelector(
+                            'input[name="difficulty"]:checked'
+                        )?.value || "all";
+
+                    const type =
+                        document.querySelector(
+                            'input[name="questionType"]:checked'
+                        )?.value || "all";
+
+                    const requestedCount =
+                        Number(
+                            document.querySelector(
+                                'input[name="questionCount"]:checked'
+                            )?.value || 5
+                        );
+
+                    const filtered =
+                        filterQuestions(
+                            normalizedQuestions,
+                            difficulty,
+                            type
+                        );
+
+                    const available = filtered.length;
+
+                    availableInfo.textContent =
+                        `${available} soal tersedia untuk kombinasi filter ini.`;
+
+                    if (requestedCount > available) {
+
+                        countHelp.textContent =
+                            `Kamu memilih ${requestedCount} soal, tetapi hanya ${available} soal tersedia. Sistem akan menggunakan ${available} soal.`;
+
+                    } else {
+
+                        countHelp.textContent =
+                            `${available} soal tersedia untuk level yang dipilih.`;
+
+                    }
+
+                    const difficultyText =
+                        difficultyLabels[difficulty];
+
+                    difficultyHelp.textContent =
+                        `${difficultyText}: ${available} soal tersedia.`;
+
+                    const typeLabels = {
+                        all: "Semua Jenis",
+                        concept: "Konsep",
+                        identification: "Identifikasi",
+                        application: "Aplikasi",
+                        analysis: "Analisis",
+                        evaluation: "Evaluasi",
+                        interpretation: "Interpretasi",
+                        "problem-solving": "Problem Solving",
+                        misconception: "Miskonsepsi"
+                    };
+
+                    if (typeHelp) {
+                        typeHelp.textContent =
+                            `${typeLabels[type]}: ${available} soal cocok dengan filter saat ini.`;
+                    }
+                }
+
+                /* ==========================================
+                   FILTER QUESTIONS
+                ========================================== */
+
+                function filterQuestions(
+                    questions,
+                    difficulty,
+                    type = "all"
+                ) {
+                    const level = difficulty === "all" ? null : Number(difficulty);
+
+                    return questions.filter(
+                        question => {
+                            const levelMatch =
+                                level === null ||
+                                Number(question.difficulty) === level;
+
+                            const typeMatch =
+                                type === "all" ||
+                                String(question.type || "concept") === type;
+
+                            return levelMatch && typeMatch;
+                        }
+                    );
+                }
+
+                /* ==========================================
+                   SHUFFLE
+                ========================================== */
+
+                function shuffleQuestions(questions) {
+
+                    const result = [...questions];
+
+                    for (
+                        let i = result.length - 1;
+                        i > 0;
+                        i--
+                    ) {
+
+                        const randomIndex =
+                            Math.floor(
+                                Math.random() * (i + 1)
+                            );
+
+                        [
+                            result[i],
+                            result[randomIndex]
+                        ] = [
+                            result[randomIndex],
+                            result[i]
+                        ];
+                    }
+
+                    return result;
+                }
+
+                /* ==========================================
+                   GROUP QUESTIONS BY 5
+                ========================================== */
+
+                function makeGroups(questions) {
+
+                    const groups = [];
+
+                    for (
+                        let i = 0;
+                        i < questions.length;
+                        i += 5
+                    ) {
+
+                        groups.push(
+                            questions.slice(i, i + 5)
+                        );
+                    }
+
+                    return groups;
+                }
+
+                /* ==========================================
+                   START QUIZ
+                ========================================== */
+
+                function startQuiz() {
+
+                    const difficulty =
+                        document.querySelector(
+                            'input[name="difficulty"]:checked'
+                        )?.value || "all";
+
+                    const type =
+                        document.querySelector(
+                            'input[name="questionType"]:checked'
+                        )?.value || "all";
+
+                    const requestedCount =
+                        Number(
+                            document.querySelector(
+                                'input[name="questionCount"]:checked'
+                            )?.value || 5
+                        );
+
+                    let filteredQuestions =
+                        filterQuestions(
+                            normalizedQuestions,
+                            difficulty,
+                            type
+                        );
+
+                    if (filteredQuestions.length === 0) {
+
+                        alert(
+                            "Belum ada soal untuk tingkat kesulitan yang dipilih."
+                        );
+
+                        return;
+                    }
+
+                    filteredQuestions =
+                        shuffleQuestions(
+                            filteredQuestions
+                        );
+
+                    const selectedQuestions =
+                        filteredQuestions.slice(
+                            0,
+                            requestedCount
+                        );
+
+                    currentDifficulty = difficulty;
+                    currentType = type;
+
+                    questionGroups =
+                        makeGroups(selectedQuestions);
+
+                    currentGroupIndex = 0;
+
+                    totalCorrect = 0;
+                    totalAnswered = 0;
+                    totalAttempted = 0;
+
+                    lastGroupQuestions = [];
+
+                    practiceSelector.style.display = "none";
+                    resultSection.style.display = "none";
+                    repeatGroupButton.hidden = true;
+                    nextGroupButton.hidden = true;
+
+                    quizSection.style.display = "block";
+
+                    renderCurrentGroup();
+
+                    window.scrollTo({
+                        top: 0,
+                        behavior: "smooth"
+                    });
+
+                    console.log(
+                        "FJIS Practice:",
+                        selectedQuestions.length,
+                        "questions in",
+                        questionGroups.length,
+                        "groups"
+                    );
+                }
+
+                /* ==========================================
+                   RENDER CURRENT GROUP
+                ========================================== */
+
+                function renderCurrentGroup() {
+
+                    const group =
+                        questionGroups[currentGroupIndex];
+
+                    if (!group || group.length === 0) {
+                        finishPractice();
+                        return;
+                    }
+
+                    currentQuestions = group;
+                    lastGroupQuestions = group;
+
+                    questionList.innerHTML = "";
+
+                    const totalGroups =
+                        questionGroups.length;
+
+                    const groupNumber =
+                        currentGroupIndex + 1;
+
+                    const startNumber =
+                        currentGroupIndex * 5 + 1;
+
+                    const endNumber =
+                        startNumber + group.length - 1;
+
+                    quizProgress.textContent =
+                        `Kelompok ${groupNumber} dari ${totalGroups}`;
+
+                    quizDifficulty.textContent =
+                        difficultyLabels[currentDifficulty];
+
+                    let quizType = document.getElementById("quizType");
+                    if (!quizType) {
+                        quizType = document.createElement("span");
+                        quizType.id = "quizType";
+                        quizInfoSafeAppend(quizType);
+                    }
+                    const typeLabels = {
+                        all: "Semua Jenis",
+                        concept: "Konsep",
+                        identification: "Identifikasi",
+                        application: "Aplikasi",
+                        analysis: "Analisis",
+                        evaluation: "Evaluasi",
+                        interpretation: "Interpretasi",
+                        "problem-solving": "Problem Solving",
+                        misconception: "Miskonsepsi"
+                    };
+                    quizType.textContent = typeLabels[currentType] || "Semua Jenis";
+
+                    quizCount.textContent =
+                        `${group.length} soal`;
+
+                    const progressPercent =
+                        Math.round(
+                            (groupNumber / totalGroups) * 100
+                        );
+
+                    renderGroupProgress(
+                        groupNumber,
+                        totalGroups,
+                        progressPercent
+                    );
+
+                    renderQuiz(
+                        group,
+                        startNumber
+                    );
+
+                    submitQuizButton.disabled = false;
+                    submitQuizButton.textContent =
+                        "Kumpulkan Kelompok";
+
+                    quizSection
+                        .querySelectorAll("input")
+                        .forEach(
+                            input => {
+                                input.disabled = false;
+                            }
+                        );
+
+                    quizSection
+                        .scrollIntoView({
+                            behavior: "smooth",
+                            block: "start"
+                        });
+                }
+
+                /* ==========================================
+                   GROUP PROGRESS
+                ========================================== */
+
+                function renderGroupProgress(
+                    groupNumber,
+                    totalGroups,
+                    progressPercent
+                ) {
+
+                    let progress =
+                        document.getElementById(
+                            "groupProgressContainer"
+                        );
+
+                    if (!progress) {
+
+                        progress =
+                            document.createElement("div");
+
+                        progress.id =
+                            "groupProgressContainer";
+
+                        progress.innerHTML = `
+                            <div class="group-result-note">
+                                Sesi latihan dibagi menjadi kelompok maksimal 5 soal.
+                                Setelah setiap kelompok, hasil dan pembahasan langsung ditampilkan.
+                            </div>
+
+                            <div class="group-progress-bar"
+                                 aria-label="Progress kelompok">
+                                <div
+                                    class="group-progress-fill"
+                                    id="groupProgressFill"
+                                ></div>
+                            </div>
+                        `;
+
+                        quizSection
+                            .querySelector(".quiz-topbar")
+                            .insertAdjacentElement(
+                                "afterend",
+                                progress
+                            );
+                    }
+
+                    const fill =
+                        document.getElementById(
+                            "groupProgressFill"
+                        );
+
+                    if (fill) {
+                        fill.style.width =
+                            `${progressPercent}%`;
+                    }
+                }
+
+                function renderStimulus(stimulus) {
+                    if (!stimulus || typeof stimulus !== "object") return "";
+
+                    if (stimulus.type === "table" && Array.isArray(stimulus.columns) && Array.isArray(stimulus.rows)) {
+                        const head = stimulus.columns.map(c => `<th>${escapeHTML(String(c))}</th>`).join("");
+                        const body = stimulus.rows.map(row => `<tr>${row.map(cell => `<td>${escapeHTML(String(cell))}</td>`).join("")}</tr>`).join("");
+                        return `<div class="question-stimulus"><div class="stimulus-title">${escapeHTML(stimulus.title || "Stimulus")}</div><div class="stimulus-table-wrap"><table class="stimulus-table"><thead><tr>${head}</tr></thead><tbody>${body}</tbody></table></div></div>`;
+                    }
+
+                    if (stimulus.type === "text") {
+                        return `<div class="question-stimulus"><div class="stimulus-title">${escapeHTML(stimulus.title || "Stimulus")}</div><p>${escapeHTML(stimulus.content || "")}</p></div>`;
+                    }
+
+                    return "";
+                }
+
+                /* ==========================================
+                   RENDER QUIZ
+                ========================================== */
+
+                function renderQuiz(
+                    questions,
+                    startingNumber
+                ) {
+
+                    questions.forEach(
+                        (question, index) => {
+
+                            const difficultyNumber =
+                                Number(question.difficulty) || 3;
+
+                            const difficultyLabel =
+                                difficultyLabels[
+                                    difficultyNumber
+                                ];
+
+                            const options =
+                                Array.isArray(question.options)
+                                    ? question.options
+                                    : [];
+
+                            const card =
+                                document.createElement("article");
+
+                            card.className =
+                                "question-card";
+
+                            card.dataset.index =
+                                index;
+
+                            let optionsHTML = "";
+
+                            options.forEach(
+                                (
+                                    option,
+                                    optionIndex
+                                ) => {
+
+                                    const letter =
+                                        String.fromCharCode(
+                                            65 + optionIndex
+                                        );
+
+                                    optionsHTML += `
+                                        <label class="question-option">
+                                            <input
+                                                type="radio"
+                                                name="quiz-question-${index}"
+                                                value="${escapeAttribute(letter)}"
+                                            >
+
+                                            <span class="option-letter">
+                                                ${letter}
+                                            </span>
+
+                                            <span>
+                                                ${option}
+                                            </span>
+                                        </label>
+                                    `;
+                                }
+                            );
+
+                            card.innerHTML = `
+                                <div>
+                                    <span class="question-number">
+                                        Soal ${startingNumber + index}
+                                    </span>
+
+                                    <span class="question-difficulty">
+                                        ${difficultyLabel}
+                                    </span>
+
+                                    <span class="question-type">
+                                        ${escapeHTML(questionTypeLabels[question.type] || "Konsep")}
+                                    </span>
+                                </div>
+
+                                ${renderStimulus(question.stimulus)}
+
+                                <h3 class="question-text">
+                                    ${question.question || ""}
+                                </h3>
+
+                                <div class="question-options">
+                                    ${optionsHTML}
+                                </div>
+                            `;
+
+                            questionList.appendChild(card);
+                        }
+                    );
+
+                    questionList
+                        .querySelectorAll(
+                            'input[type="radio"]'
+                        )
+                        .forEach(
+                            input => {
+
+                                input.addEventListener(
+                                    "change",
+                                    () => {
+
+                                        const card =
+                                            input.closest(
+                                                ".question-card"
+                                            );
+
+                                        if (!card) {
+                                            return;
+                                        }
+
+                                        card
+                                            .querySelectorAll(
+                                                ".question-option"
+                                            )
+                                            .forEach(
+                                                option => {
+                                                    option.classList.remove(
+                                                        "selected"
+                                                    );
+                                                }
+                                            );
+
+                                        const selected =
+                                            input.closest(
+                                                ".question-option"
+                                            );
+
+                                        if (selected) {
+                                            selected.classList.add(
+                                                "selected"
+                                            );
+                                        }
+                                    }
+                                );
+                            }
+                        );
+                }
+
+                /* ==========================================
+                   SUBMIT CURRENT GROUP
+                ========================================== */
+
+                function submitGroup() {
+
+                    if (currentQuestions.length === 0) {
+                        return;
+                    }
+
+                    let score = 0;
+                    let answered = 0;
+
+                    currentQuestions.forEach(
+                        (
+                            question,
+                            index
+                        ) => {
+
+                            const card =
+                                questionList.querySelector(
+                                    `[data-index="${index}"]`
+                                );
+
+                            if (!card) {
+                                return;
+                            }
+
+                            const selected =
+                                card.querySelector(
+                                    'input[type="radio"]:checked'
+                                );
+
+                            if (selected) {
+                                answered++;
+                            }
+
+                            const correctAnswer =
+                                String(
+                                    question.answer || ""
+                                ).toUpperCase();
+
+                            const selectedAnswer =
+                                selected
+                                    ? String(
+                                        selected.value
+                                    ).toUpperCase()
+                                    : "";
+
+                            const optionLabels =
+                                card.querySelectorAll(
+                                    ".question-option"
+                                );
+
+                            optionLabels.forEach(
+                                option => {
+
+                                    const input =
+                                        option.querySelector("input");
+
+                                    if (!input) {
+                                        return;
+                                    }
+
+                                    const value =
+                                        String(
+                                            input.value
+                                        ).toUpperCase();
+
+                                    input.disabled = true;
+
+                                    if (
+                                        value === correctAnswer
+                                    ) {
+
+                                        option.classList.add(
+                                            "correct-option"
+                                        );
+                                    }
+
+                                    if (
+                                        value === selectedAnswer &&
+                                        selectedAnswer !== correctAnswer
+                                    ) {
+
+                                        option.classList.add(
+                                            "wrong-option"
+                                        );
+                                    }
+                                }
+                            );
+
+                            if (
+                                selectedAnswer === correctAnswer
+                            ) {
+                                score++;
+                            }
+
+                            let feedbackClass =
+                                "unanswered";
+
+                            let feedbackTitle =
+                                "Belum dijawab";
+
+                            if (selectedAnswer) {
+
+                                if (
+                                    selectedAnswer === correctAnswer
+                                ) {
+
+                                    feedbackClass =
+                                        "correct";
+
+                                    feedbackTitle =
+                                        "✓ Jawaban benar";
+
+                                } else {
+
+                                    feedbackClass =
+                                        "incorrect";
+
+                                    feedbackTitle =
+                                        "✕ Jawaban belum tepat";
+                                }
+                            }
+
+                            const explanation =
+                                question.explanation ||
+                                "Pembahasan untuk soal ini belum tersedia.";
+
+                            const feedback =
+                                document.createElement("div");
+
+                            feedback.className =
+                                `answer-feedback ${feedbackClass}`;
+
+                            feedback.innerHTML = `
+                                <div class="feedback-title">
+                                    ${feedbackTitle}
+                                </div>
+
+                                ${
+                                    selectedAnswer
+                                        ? `
+                                            <div>
+                                                Jawaban kamu:
+                                                <strong>
+                                                    ${escapeHTML(selectedAnswer)}
+                                                </strong>
+                                            </div>
+                                          `
+                                        : ""
+                                }
+
+                                <div>
+                                    Jawaban benar:
+                                    <strong>
+                                        ${escapeHTML(correctAnswer || "-")}
+                                    </strong>
+                                </div>
+
+                                <div class="feedback-explanation">
+                                    <strong>
+                                        Pembahasan:
+                                    </strong>
+
+                                    ${explanation}
+                                </div>
+                            `;
+
+                            card.appendChild(feedback);
+                        }
+                    );
+
+                    const total =
+                        currentQuestions.length;
+
+                    const percentage =
+                        total > 0
+                            ? Math.round(
+                                (score / total) * 100
+                            )
+                            : 0;
+
+                    totalCorrect += score;
+                    totalAnswered += answered;
+                    totalAttempted += total;
+
+                    submitQuizButton.disabled = true;
+                    submitQuizButton.textContent =
+                        "Kelompok Selesai ✓";
+
+                    showGroupResult(
+                        score,
+                        total,
+                        answered,
+                        percentage
+                    );
+
+                    console.log(
+                        "FJIS Group Result:",
+                        {
+                            group:
+                                currentGroupIndex + 1,
+                            score,
+                            total,
+                            answered,
+                            percentage
+                        }
+                    );
+                }
+
+                /* ==========================================
+                   SHOW GROUP RESULT
+                ========================================== */
+
+                function showGroupResult(
+                    score,
+                    total,
+                    answered,
+                    percentage
+                ) {
+
+                    resultScore.textContent =
+                        `${score} / ${total}`;
+
+                    resultPercentage.textContent =
+                        `${percentage}% benar`;
+
+                    resultDetail.textContent =
+                        `${answered} dari ${total} soal kelompok ini dijawab.`;
+
+                    const totalGroups =
+                        questionGroups.length;
+
+                    const isLastGroup =
+                        currentGroupIndex >=
+                        totalGroups - 1;
+
+                    const resultLabel =
+                        resultSection.querySelector(
+                            ".result-label"
+                        );
+
+                    if (resultLabel) {
+
+                        resultLabel.textContent =
+                            isLastGroup
+                                ? "HASIL AKHIR LATIHAN"
+                                : `HASIL KELOMPOK ${currentGroupIndex + 1}`;
+                    }
+
+                    repeatGroupButton.hidden = false;
+
+                    if (isLastGroup) {
+
+                        nextGroupButton.hidden = true;
+
+                        resultDetail.textContent =
+                            `${answered} dari ${total} soal kelompok terakhir dijawab. Total keseluruhan: ${totalCorrect} dari ${totalAttempted} benar.`;
+
+                    } else {
+
+                        nextGroupButton.hidden = false;
+
+                        nextGroupButton.textContent =
+                            `Lanjut Kelompok ${currentGroupIndex + 2} →`;
+                    }
+
+                    resultSection.style.display = "block";
+
+                    const heading =
+                        resultSection.querySelector(
+                            ".result-card"
+                        );
+
+                    if (heading && !resultSection.querySelector(".group-feedback-heading")) {
+
+                        const feedbackHeading =
+                            document.createElement("h3");
+
+                        feedbackHeading.className =
+                            "group-feedback-heading";
+
+                        feedbackHeading.innerHTML =
+                            `<span class="group-complete-badge">PEMBAHASAN KELOMPOK ${currentGroupIndex + 1}</span><br>Periksa pembahasan di setiap soal di atas.`;
+
+                        heading.insertAdjacentElement(
+                            "beforebegin",
+                            feedbackHeading
+                        );
+                    }
+
+                    setTimeout(
+                        () => {
+
+                            resultSection.scrollIntoView({
+                                behavior: "smooth",
+                                block: "center"
+                            });
+
+                        },
+                        100
+                    );
+                }
+
+                /* ==========================================
+                   REPEAT CURRENT GROUP
+                ========================================== */
+
+                function repeatCurrentGroup() {
+
+                    resultSection.style.display = "none";
+
+                    renderCurrentGroup();
+
+                    window.scrollTo({
+                        top: 0,
+                        behavior: "smooth"
+                    });
+                }
+
+                /* ==========================================
+                   NEXT GROUP
+                ========================================== */
+
+                function nextGroup() {
+
+                    if (
+                        currentGroupIndex >=
+                        questionGroups.length - 1
+                    ) {
+
+                        finishPractice();
+                        return;
+                    }
+
+                    currentGroupIndex++;
+
+                    resultSection.style.display = "none";
+
+                    renderCurrentGroup();
+
+                    window.scrollTo({
+                        top: 0,
+                        behavior: "smooth"
+                    });
+                }
+
+                /* ==========================================
+                   FINISH PRACTICE
+                ========================================== */
+
+                function finishPractice() {
+
+                    quizSection.style.display = "none";
+
+                    resultSection.style.display = "block";
+
+                    repeatGroupButton.hidden = true;
+                    nextGroupButton.hidden = true;
+
+                    resultScore.textContent =
+                        `${totalCorrect} / ${totalAttempted}`;
+
+                    const finalPercentage =
+                        totalAttempted > 0
+                            ? Math.round(
+                                (totalCorrect / totalAttempted) * 100
+                            )
+                            : 0;
+
+                    resultPercentage.textContent =
+                        `${finalPercentage}% benar`;
+
+                    resultDetail.textContent =
+                        `Latihan selesai. ${totalAnswered} dari ${totalAttempted} soal dijawab.`;
+
+                    const resultLabel =
+                        resultSection.querySelector(
+                            ".result-label"
+                        );
+
+                    if (resultLabel) {
+                        resultLabel.textContent =
+                            "HASIL AKHIR LATIHAN";
+                    }
+
+                    resultSection.scrollIntoView({
+                        behavior: "smooth",
+                        block: "center"
+                    });
+                }
+
+                /* ==========================================
+                   RESET / COBA LAGI
+                ========================================== */
+
+                function resetToSelector() {
+
+                    resultSection.style.display = "none";
+                    quizSection.style.display = "none";
+                    practiceSelector.style.display = "block";
+
+                    repeatGroupButton.hidden = true;
+                    nextGroupButton.hidden = true;
+
+                    questionGroups = [];
+                    currentGroupIndex = 0;
+                    currentQuestions = [];
+
+                    totalCorrect = 0;
+                    totalAnswered = 0;
+                    totalAttempted = 0;
+
+                    window.scrollTo({
+                        top: 0,
+                        behavior: "smooth"
+                    });
+                }
+
+                /* ==========================================
+                   MESSAGE
+                ========================================== */
+
+                function showMessage(
+                    title,
+                    description
+                ) {
+
+                    practiceMessage.style.display =
+                        "block";
+
+                    practiceMessage.className =
+                        "practice-message glass-card";
+
+                    practiceMessage.innerHTML = `
+                        <h3>
+                            ${escapeHTML(title)}
+                        </h3>
+
+                        <p>
+                            ${escapeHTML(description)}
+                        </p>
+                    `;
+                }
+
+                /* ==========================================
+                   SAFE HELPERS
+                ========================================== */
+
+                function escapeHTML(value) {
+
+                    const div =
+                        document.createElement("div");
+
+                    div.textContent =
+                        value == null
+                            ? ""
+                            : String(value);
+
+                    return div.innerHTML;
+                }
+
+                function escapeAttribute(value) {
+
+                    return escapeHTML(value)
+                        .replace(/"/g, "&quot;");
+                }
+
+                /* ==========================================
+                   FINAL LOG
+                ========================================== */
+
+                console.log(
+                    "FJIS Practice: bank soal loaded",
+                    normalizedQuestions.length
+                );
+
+                console.log(
+                    "FJIS Practice: grouped mode ready"
+                );
+
+                console.log(
+                    "================================="
+                );
+
+            }
+
+        );
+
+    </script>
+
+
+</body>
+
+</html>

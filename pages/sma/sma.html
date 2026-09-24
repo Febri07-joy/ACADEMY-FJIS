@@ -1,0 +1,813 @@
+<!DOCTYPE html>
+<html lang="id">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0"
+    >
+
+    <meta
+        name="description"
+        content="FJIS Academy — Program SMA. Ruang belajar untuk kelas 10, 11, dan 12."
+    >
+
+    <meta
+        name="theme-color"
+        content="#073b2d"
+    >
+
+    <title>SMA — FJIS Academy</title>
+
+
+    <!-- =====================================================
+         GOOGLE FONTS
+    ====================================================== -->
+
+    <link
+        rel="preconnect"
+        href="https://fonts.googleapis.com"
+    >
+
+    <link
+        rel="preconnect"
+        href="https://fonts.gstatic.com"
+        crossorigin
+    >
+
+    <link
+        href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Playfair+Display:wght@500;600;700&display=swap"
+        rel="stylesheet"
+    >
+
+
+    <!-- =====================================================
+         MAIN CSS
+    ====================================================== -->
+
+    <link
+        rel="stylesheet"
+        href="../../css/style.css"
+    >
+
+    <link
+        rel="stylesheet"
+        href="../../css/components.css"
+    >
+
+    <link
+        rel="stylesheet"
+        href="../../css/landing.css"
+    >
+
+    <link
+        rel="stylesheet"
+        href="../../css/responsive.css"
+    >
+
+</head>
+
+
+<body>
+
+
+    <!-- =====================================================
+         PAGE LOADER
+    ====================================================== -->
+
+    <div
+        class="page-loader"
+        id="pageLoader"
+        aria-hidden="true"
+    >
+
+        <div class="loader-mark">
+            FJIS
+        </div>
+
+        <p>
+            Student Learner
+        </p>
+
+    </div>
+
+
+    <!-- =====================================================
+         HEADER
+    ====================================================== -->
+
+    <header
+        class="site-header"
+        id="siteHeader"
+    >
+
+        <div class="container header-inner">
+
+
+            <!-- BRAND -->
+
+            <a
+                href="../../index.html"
+                class="brand"
+                aria-label="FJIS Academy Beranda"
+            >
+
+                <div class="brand-icon">
+                    <span></span>
+                    <span></span>
+                </div>
+
+                <div class="brand-text">
+
+                    <strong>
+                        FJIS Academy
+                    </strong>
+
+                    <small>
+                        STUDENT LEARNER
+                    </small>
+
+                </div>
+
+            </a>
+
+
+            <!-- NAVIGATION -->
+
+            <nav
+                class="main-navigation"
+                id="mainNavigation"
+                aria-label="Navigasi utama"
+            >
+
+                <a
+                    href="../../index.html"
+                    class="nav-link"
+                >
+                    Beranda
+                </a>
+
+                <a
+                    href="../../index.html#tentang"
+                    class="nav-link"
+                >
+                    Tentang
+                </a>
+
+                <a
+                    href="../../index.html#program"
+                    class="nav-link active"
+                >
+                    Program
+                </a>
+
+                <a
+                    href="../../index.html#fitur"
+                    class="nav-link"
+                >
+                    Fitur
+                </a>
+
+                <a
+                    href="../../index.html#kontak"
+                    class="nav-link"
+                >
+                    Kontak
+                </a>
+
+            </nav>
+
+
+            <!-- HEADER ACTION -->
+
+            <div class="header-actions">
+
+                <a
+                    href="../login.html"
+                    class="button button-ghost"
+                >
+                    Masuk
+                </a>
+
+                <a
+                    href="../register.html"
+                    class="button button-primary"
+                >
+                    Daftar Sekarang
+                </a>
+
+            </div>
+
+
+            <!-- MOBILE MENU -->
+
+            <button
+                class="mobile-menu-button"
+                id="mobileMenuButton"
+                type="button"
+                aria-label="Buka menu"
+                aria-expanded="false"
+            >
+
+                <span></span>
+                <span></span>
+                <span></span>
+
+            </button>
+
+        </div>
+
+    </header>
+
+
+
+    <!-- =====================================================
+         MAIN
+    ====================================================== -->
+
+    <main>
+
+
+        <!-- =================================================
+             SMA HERO
+        ================================================== -->
+
+        <section class="hero-section">
+
+            <div class="container">
+
+                <div class="section-heading">
+
+                    <span class="section-label">
+                        PROGRAM SMA
+                    </span>
+
+                    <h1>
+                        Bangun fondasi,
+                        <br>
+                        siapkan masa depan.
+                    </h1>
+
+                    <p>
+                        Ruang belajar FJIS Academy untuk membantu
+                        kamu memahami materi SMA, berlatih,
+                        mengevaluasi kemampuan, dan mempersiapkan
+                        langkah berikutnya.
+                    </p>
+
+                </div>
+
+
+                <!-- REAL TIME -->
+
+                <div class="hero-meta">
+
+                    <div class="live-indicator">
+
+                        <span></span>
+
+                        <strong>
+                            Student Learner
+                        </strong>
+
+                    </div>
+
+                    <div
+                        class="real-time-clock"
+                        data-clock
+                    >
+                        Memuat waktu...
+                    </div>
+
+                </div>
+
+            </div>
+
+        </section>
+
+
+
+        <!-- =================================================
+             PILIH KELAS
+        ================================================== -->
+
+        <section class="program-section">
+
+            <div class="container">
+
+
+                <div class="section-heading centered">
+
+                    <span class="section-label">
+                        JENJANG
+                    </span>
+
+                    <h2>
+                        Mulai dari kelasmu.
+                    </h2>
+
+                    <p>
+                        Pilih tingkat kelas untuk melihat
+                        pembelajaran yang tersedia.
+                    </p>
+
+                </div>
+
+
+                <!-- CLASS CARDS -->
+
+                <div class="program-grid">
+
+
+                    <!-- KELAS 10 -->
+
+                    <article class="program-card">
+
+                        <div class="program-card-header">
+
+                            <span class="program-index">
+                                01
+                            </span>
+
+                            <span class="program-tag">
+                                SMA
+                            </span>
+
+                        </div>
+
+
+                        <div class="program-icon">
+                            10
+                        </div>
+
+
+                        <h3>
+                            Kelas 10
+                        </h3>
+
+
+                        <p>
+                            Bangun dasar pemahaman akademik
+                            dan mulai mengenal berbagai materi
+                            pembelajaran SMA.
+                        </p>
+
+
+                        <ul>
+
+                            <li>
+                                Semester 1
+                            </li>
+
+                            <li>
+                                Semester 2
+                            </li>
+
+                            <li>
+                                Materi pembelajaran
+                            </li>
+
+                            <li>
+                                Latihan soal
+                            </li>
+
+                        </ul>
+
+
+                        <a
+                            href="kelas-10.html"
+                            class="text-link"
+                        >
+
+                            Mulai Kelas 10
+
+                            <span>
+                                →
+                            </span>
+
+                        </a>
+
+                    </article>
+
+
+
+                    <!-- KELAS 11 -->
+
+                    <article class="program-card">
+
+                        <div class="program-card-header">
+
+                            <span class="program-index">
+                                02
+                            </span>
+
+                            <span class="program-tag">
+                                SMA
+                            </span>
+
+                        </div>
+
+
+                        <div class="program-icon">
+                            11
+                        </div>
+
+
+                        <h3>
+                            Kelas 11
+                        </h3>
+
+
+                        <p>
+                            Perdalam pemahaman materi dan
+                            kembangkan kemampuan berpikir
+                            melalui pembelajaran yang lebih
+                            terarah.
+                        </p>
+
+
+                        <ul>
+
+                            <li>
+                                Semester 1
+                            </li>
+
+                            <li>
+                                Semester 2
+                            </li>
+
+                            <li>
+                                Materi pembelajaran
+                            </li>
+
+                            <li>
+                                Latihan soal
+                            </li>
+
+                        </ul>
+
+
+                        <a
+                            href="kelas-11.html"
+                            class="text-link"
+                        >
+
+                            Mulai Kelas 11
+
+                            <span>
+                                →
+                            </span>
+
+                        </a>
+
+                    </article>
+
+
+
+                    <!-- KELAS 12 -->
+
+                    <article class="program-card program-card-featured">
+
+                        <div class="program-card-header">
+
+                            <span class="program-index">
+                                03
+                            </span>
+
+                            <span class="program-tag">
+                                PERSIAPAN
+                            </span>
+
+                        </div>
+
+
+                        <div class="program-icon">
+                            12
+                        </div>
+
+
+                        <h3>
+                            Kelas 12
+                        </h3>
+
+
+                        <p>
+                            Persiapkan diri menghadapi tahap
+                            akhir SMA sekaligus membangun
+                            kesiapan menuju pendidikan tinggi
+                            dan seleksi berikutnya.
+                        </p>
+
+
+                        <ul>
+
+                            <li>
+                                Semester 1
+                            </li>
+
+                            <li>
+                                Semester 2
+                            </li>
+
+                            <li>
+                                Materi & latihan
+                            </li>
+
+                            <li>
+                                TKA
+                            </li>
+
+                            <li>
+                                SNBP & SNBT
+                            </li>
+
+                        </ul>
+
+
+                        <a
+                            href="kelas-12.html"
+                            class="text-link"
+                        >
+
+                            Mulai Kelas 12
+
+                            <span>
+                                →
+                            </span>
+
+                        </a>
+
+                    </article>
+
+                </div>
+
+            </div>
+
+        </section>
+
+
+
+        <!-- =================================================
+             SISTEM PEMBELAJARAN
+        ================================================== -->
+
+        <section class="features-section">
+
+            <div class="container">
+
+
+                <div class="section-heading">
+
+                    <span class="section-label">
+                        SISTEM BELAJAR
+                    </span>
+
+                    <h2>
+                        Belajar secara bertahap.
+                    </h2>
+
+                    <p>
+                        Setiap materi nantinya akan tersusun
+                        dari tingkat kelas sampai latihan,
+                        sehingga perjalanan belajar tidak
+                        tercampur.
+                    </p>
+
+                </div>
+
+
+                <div class="features-layout">
+
+
+                    <!-- STEP 01 -->
+
+                    <article class="feature-item">
+
+                        <span>
+                            01
+                        </span>
+
+                        <div>
+
+                            <h3>
+                                Pilih Kelas
+                            </h3>
+
+                            <p>
+                                Tentukan kelas 10, 11, atau 12
+                                sesuai tingkat pendidikanmu.
+                            </p>
+
+                        </div>
+
+                    </article>
+
+
+                    <!-- STEP 02 -->
+
+                    <article class="feature-item">
+
+                        <span>
+                            02
+                        </span>
+
+                        <div>
+
+                            <h3>
+                                Pilih Semester
+                            </h3>
+
+                            <p>
+                                Materi akan dipisahkan berdasarkan
+                                semester agar pembelajaran lebih
+                                terarah.
+                            </p>
+
+                        </div>
+
+                    </article>
+
+
+                    <!-- STEP 03 -->
+
+                    <article class="feature-item">
+
+                        <span>
+                            03
+                        </span>
+
+                        <div>
+
+                            <h3>
+                                Pilih Mata Pelajaran
+                            </h3>
+
+                            <p>
+                                Setelah memilih semester, kamu
+                                dapat memilih mata pelajaran
+                                yang ingin dipelajari.
+                            </p>
+
+                        </div>
+
+                    </article>
+
+
+                    <!-- STEP 04 -->
+
+                    <article class="feature-item">
+
+                        <span>
+                            04
+                        </span>
+
+                        <div>
+
+                            <h3>
+                                Belajar & Berlatih
+                            </h3>
+
+                            <p>
+                                Pelajari materi, kerjakan latihan,
+                                lihat pembahasan, dan nantinya
+                                pantau perkembanganmu.
+                            </p>
+
+                        </div>
+
+                    </article>
+
+
+                </div>
+
+            </div>
+
+        </section>
+
+
+
+        <!-- =================================================
+             PERSIAPAN KELAS 12
+        ================================================== -->
+
+        <section class="about-section">
+
+            <div class="container">
+
+                <div class="section-heading">
+
+                    <span class="section-label">
+                        LANGKAH BERIKUTNYA
+                    </span>
+
+                    <h2>
+                        Dari belajar hari ini
+                        menuju tujuan berikutnya.
+                    </h2>
+
+                    <p>
+                        Khusus untuk kelas 12, FJIS Academy
+                        nantinya akan menyediakan ruang persiapan
+                        untuk TKA serta jalur menuju perguruan
+                        tinggi seperti SNBP, SNBT, dan seleksi
+                        mandiri.
+                    </p>
+
+                </div>
+
+
+                <div class="about-quote">
+
+                    <div class="quote-mark">
+                        “
+                    </div>
+
+                    <p>
+                        Kita belajar hari ini bukan karena
+                        kita sedang berlomba menjadi yang
+                        paling hebat, tetapi karena kita
+                        sedang mempersiapkan diri untuk
+                        menjadi lebih siap menghadapi hari esok.
+                    </p>
+
+                    <span>
+                        — FJIS Academy, Student Learner
+                    </span>
+
+                </div>
+
+            </div>
+
+        </section>
+
+
+
+        <!-- =================================================
+             BACK TO HOME
+        ================================================== -->
+
+        <section class="intro-section">
+
+            <div class="container">
+
+                <div class="section-heading centered">
+
+                    <span class="section-label">
+                        FJIS ACADEMY
+                    </span>
+
+                    <h2>
+                        Student Learner.
+                    </h2>
+
+                    <p>
+                        Belajar. Bertumbuh. Berbagi.
+                        Mempersiapkan diri.
+                    </p>
+
+                    <div class="hero-actions">
+
+                        <a
+                            href="../../index.html"
+                            class="button button-outline button-large"
+                        >
+                            ← Kembali ke Beranda
+                        </a>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+        </section>
+
+    </main>
+
+
+
+    <!-- =====================================================
+         JAVASCRIPT
+    ====================================================== -->
+
+    <script src="../../js/app.js"></script>
+
+    <script src="../../js/navigation.js"></script>
+
+    <script src="../../js/clock.js"></script>
+
+    <script src="../../js/motivation.js"></script>
+
+    <script src="../../js/counter.js"></script>
+
+    <script src="../../js/community.js"></script>
+
+    <script src="../../js/content-engine.js"></script>
+
+
+</body>
+
+</html>

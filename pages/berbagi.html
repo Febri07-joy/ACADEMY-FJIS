@@ -1,0 +1,5502 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Dashboard — FJIS Academy</title>
+  <link rel="stylesheet" href="../css/style.css">
+  <link rel="stylesheet" href="../css/components.css">
+  <link rel="stylesheet" href="../css/visual-refresh.css">
+  <link rel="stylesheet" href="../css/responsive.css">
+
+<style>
+
+
+    /* =====================================================
+       FJIS ACADEMY
+       STUDENT EXPERIENCE
+       ===================================================== */
+
+    :root {
+
+      --ivory: #f8f4ec;
+      --cream: #fffdf8;
+      --cream-soft: #f2e9dc;
+
+      --coffee: #5c4635;
+      --coffee-dark: #3e3025;
+      --coffee-soft: #806a56;
+
+      --brown-light: #a58d77;
+
+      --line: rgba(92,70,53,.12);
+
+      --shadow:
+        0 14px 38px rgba(70,52,38,.08);
+
+      --shadow-soft:
+        0 7px 22px rgba(70,52,38,.055);
+
+    }
+
+
+    /* =====================================================
+       RESET
+       ===================================================== */
+
+    * {
+      box-sizing: border-box;
+    }
+
+
+    html {
+      scroll-behavior: smooth;
+    }
+
+
+    body {
+
+      margin: 0;
+
+      font-family:
+        Inter,
+        system-ui,
+        -apple-system,
+        BlinkMacSystemFont,
+        "Segoe UI",
+        sans-serif;
+
+      color: var(--coffee-dark);
+
+      background:
+
+        radial-gradient(
+          circle at 5% 5%,
+          rgba(255,255,255,.95),
+          transparent 28%
+        ),
+
+        radial-gradient(
+          circle at 95% 10%,
+          rgba(225,207,186,.25),
+          transparent 27%
+        ),
+
+        var(--ivory);
+
+    }
+
+
+    button,
+    input,
+    textarea,
+    select {
+      font: inherit;
+    }
+
+
+    button {
+      cursor: pointer;
+    }
+
+
+    a {
+      color: inherit;
+      text-decoration: none;
+    }
+
+
+
+    /* =====================================================
+       HEADER
+       ===================================================== */
+
+    .experience-header {
+
+      position: sticky;
+
+      top: 0;
+
+      z-index: 1000;
+
+      min-height: 70px;
+
+      display: flex;
+
+      align-items: center;
+
+      background:
+        rgba(255,253,248,.90);
+
+      backdrop-filter: blur(18px);
+
+      -webkit-backdrop-filter: blur(18px);
+
+      border-bottom:
+        1px solid var(--line);
+
+    }
+
+
+    .experience-header-inner {
+
+      width: min(1180px, 90%);
+
+      margin: auto;
+
+      display: flex;
+
+      align-items: center;
+
+      justify-content: space-between;
+
+      gap: 20px;
+
+    }
+
+
+
+    /* =====================================================
+       BRAND
+       ===================================================== */
+
+    .experience-brand {
+
+      display: flex;
+
+      align-items: center;
+
+      gap: 11px;
+
+      flex-shrink: 0;
+
+    }
+
+
+    .experience-brand-icon {
+
+      width: 42px;
+
+      height: 42px;
+
+      display: flex;
+
+      align-items: center;
+
+      justify-content: center;
+
+      border-radius: 13px;
+
+      background:
+        linear-gradient(
+          145deg,
+          #eee2d2,
+          #faf4eb
+        );
+
+      border:
+        1px solid rgba(92,70,53,.08);
+
+      box-shadow:
+        0 5px 14px rgba(70,52,38,.06);
+
+      font-size: 23px;
+
+    }
+
+
+    .experience-brand-copy {
+
+      display: flex;
+
+      flex-direction: column;
+
+      line-height: 1.1;
+
+    }
+
+
+    .experience-brand-name {
+
+      font-size: 16px;
+
+      font-weight: 800;
+
+    }
+
+
+    .experience-brand-tagline {
+
+      margin-top: 4px;
+
+      font-size: 10px;
+
+      color: var(--coffee-soft);
+
+      letter-spacing: .3px;
+
+    }
+
+
+
+    /* =====================================================
+       HEADER ACTIONS
+       ===================================================== */
+
+    .experience-header-actions {
+
+      display: flex;
+
+      align-items: center;
+
+      gap: 9px;
+
+    }
+
+
+    .header-button {
+
+      min-height: 38px;
+
+      padding:
+        8px 14px;
+
+      border-radius: 12px;
+
+      border:
+        1px solid var(--line);
+
+      background:
+        rgba(255,255,255,.72);
+
+      color: var(--coffee);
+
+      font-size: 12px;
+
+      font-weight: 700;
+
+      transition:
+        .2s ease;
+
+    }
+
+
+    .header-button:hover {
+
+      background: white;
+
+      transform:
+        translateY(-1px);
+
+    }
+
+
+    .header-button.primary {
+
+      border-color:
+        transparent;
+
+      background:
+        var(--coffee);
+
+      color: white;
+
+    }
+
+
+
+    /* =====================================================
+       MAIN
+       ===================================================== */
+
+    .experience-main {
+
+      width: min(1180px, 90%);
+
+      margin: auto;
+
+      padding:
+        30px 0 65px;
+
+    }
+
+
+
+    /* =====================================================
+       HERO
+       ===================================================== */
+
+    .experience-hero {
+
+      position: relative;
+
+      overflow: hidden;
+
+      padding:
+        28px 30px;
+
+      border:
+        1px solid var(--line);
+
+      border-radius: 25px;
+
+      background:
+        linear-gradient(
+          135deg,
+          rgba(255,255,255,.95),
+          rgba(246,237,224,.90)
+        );
+
+      box-shadow:
+        var(--shadow);
+
+    }
+
+
+    .experience-hero::before {
+
+      content: "";
+
+      position: absolute;
+
+      width: 190px;
+
+      height: 190px;
+
+      right: -70px;
+
+      top: -95px;
+
+      border-radius: 50%;
+
+      background:
+        rgba(130,101,73,.07);
+
+    }
+
+
+    .experience-hero::after {
+
+      content: "";
+
+      position: absolute;
+
+      width: 90px;
+
+      height: 90px;
+
+      right: 170px;
+
+      bottom: -55px;
+
+      border-radius: 50%;
+
+      background:
+        rgba(190,165,135,.08);
+
+    }
+
+
+    .experience-hero-content {
+
+      position: relative;
+
+      z-index: 2;
+
+      max-width: 720px;
+
+    }
+
+
+    .experience-eyebrow {
+
+      display: inline-flex;
+
+      align-items: center;
+
+      gap: 6px;
+
+      margin-bottom: 9px;
+
+      font-size: 10px;
+
+      font-weight: 800;
+
+      color: var(--coffee-soft);
+
+      letter-spacing: .7px;
+
+    }
+
+
+    .experience-eyebrow::before {
+
+      content: "✦";
+
+      font-size: 11px;
+
+    }
+
+
+    .experience-hero h1 {
+
+      margin: 0;
+
+      font-size:
+        clamp(28px,4vw,40px);
+
+      line-height: 1.15;
+
+      letter-spacing: -1px;
+
+    }
+
+
+    .experience-hero h1 span {
+
+      color: var(--coffee);
+
+    }
+
+
+    .experience-hero p {
+
+      margin:
+        10px 0 0;
+
+      max-width: 680px;
+
+      font-size: 13px;
+
+      line-height: 1.7;
+
+      color: #786858;
+
+    }
+
+
+
+    /* =====================================================
+       LIVE EXPERIENCE
+       ===================================================== */
+
+    .live-experience {
+
+      position: relative;
+
+      margin-top: 17px;
+
+      padding:
+        18px 21px;
+
+      border:
+        1px solid rgba(92,70,53,.12);
+
+      border-radius: 20px;
+
+      background:
+        rgba(255,255,255,.80);
+
+      box-shadow:
+        var(--shadow-soft);
+
+      overflow: hidden;
+
+      transition:
+        opacity .25s ease,
+        transform .25s ease;
+
+    }
+
+
+    .live-experience::after {
+
+      content: "";
+
+      position: absolute;
+
+      width: 95px;
+
+      height: 95px;
+
+      right: -35px;
+
+      bottom: -45px;
+
+      border-radius: 50%;
+
+      background:
+        rgba(130,101,73,.055);
+
+    }
+
+
+    .live-top {
+
+      display: flex;
+
+      align-items: center;
+
+      justify-content: space-between;
+
+      gap: 12px;
+
+      margin-bottom: 12px;
+
+    }
+
+
+    .live-label {
+
+      display: inline-flex;
+
+      align-items: center;
+
+      gap: 7px;
+
+      font-size: 10px;
+
+      font-weight: 800;
+
+      color: var(--coffee-soft);
+
+      letter-spacing: .5px;
+
+      text-transform: uppercase;
+
+    }
+
+
+    .live-dot {
+
+      width: 7px;
+
+      height: 7px;
+
+      border-radius: 50%;
+
+      background: #806a56;
+
+      box-shadow:
+        0 0 0 4px rgba(128,106,86,.10);
+
+    }
+
+
+    .live-status {
+
+      padding:
+        5px 8px;
+
+      border-radius: 8px;
+
+      background:
+        var(--cream-soft);
+
+      color: var(--coffee-soft);
+
+      font-size: 9px;
+
+      font-weight: 800;
+
+    }
+
+
+    .live-content {
+
+      display: flex;
+
+      align-items: flex-start;
+
+      gap: 12px;
+
+    }
+
+
+    .live-avatar {
+
+      width: 45px;
+
+      height: 45px;
+
+      flex-shrink: 0;
+
+      display: flex;
+
+      align-items: center;
+
+      justify-content: center;
+
+      border-radius: 14px;
+
+      background:
+        linear-gradient(
+          145deg,
+          #eee2d2,
+          #faf4eb
+        );
+
+      border:
+        1px solid rgba(92,70,53,.09);
+
+      font-size: 25px;
+
+    }
+
+
+    .live-story {
+
+      min-width: 0;
+
+      flex: 1;
+
+    }
+
+
+    .live-story-meta {
+
+      display: flex;
+
+      align-items: center;
+
+      flex-wrap: wrap;
+
+      gap: 7px;
+
+      margin-bottom: 5px;
+
+    }
+
+
+    .live-author {
+
+      font-size: 12px;
+
+      font-weight: 800;
+
+      color: var(--coffee);
+
+    }
+
+
+    .live-level {
+
+      padding:
+        3px 7px;
+
+      border-radius: 7px;
+
+      background:
+        #f1e7da;
+
+      color: var(--coffee-soft);
+
+      font-size: 9px;
+
+      font-weight: 700;
+
+    }
+
+
+    .live-story-text {
+
+      margin: 0;
+
+      font-size: 13px;
+
+      line-height: 1.6;
+
+      color: #665545;
+
+    }
+
+
+
+    /* =====================================================
+       TOOLBAR
+       ===================================================== */
+
+    .experience-toolbar {
+
+      display: flex;
+
+      align-items: center;
+
+      justify-content: space-between;
+
+      gap: 15px;
+
+      margin-top: 25px;
+
+    }
+
+
+    .experience-toolbar-title h2 {
+
+      margin: 0;
+
+      font-size: 21px;
+
+      letter-spacing: -.4px;
+
+    }
+
+
+    .experience-toolbar-title p {
+
+      margin:
+        4px 0 0;
+
+      font-size: 11px;
+
+      color: var(--coffee-soft);
+
+    }
+
+
+    .write-button {
+
+      display: inline-flex;
+
+      align-items: center;
+
+      gap: 7px;
+
+      min-height: 40px;
+
+      padding:
+        9px 15px;
+
+      border: none;
+
+      border-radius: 12px;
+
+      background:
+        var(--coffee);
+
+      color: white;
+
+      font-size: 11px;
+
+      font-weight: 800;
+
+      box-shadow:
+        0 7px 18px rgba(70,52,38,.12);
+
+      transition:
+        .2s ease;
+
+    }
+
+
+    .write-button:hover {
+
+      transform:
+        translateY(-2px);
+
+      box-shadow:
+        0 10px 23px rgba(70,52,38,.16);
+
+    }
+
+
+
+    /* =====================================================
+       FILTERS
+       ===================================================== */
+
+    .experience-filters {
+
+      display: flex;
+
+      align-items: center;
+
+      gap: 7px;
+
+      margin-top: 16px;
+
+      padding:
+        5px;
+
+      width: fit-content;
+
+      border:
+        1px solid var(--line);
+
+      border-radius: 13px;
+
+      background:
+        rgba(255,255,255,.64);
+
+    }
+
+
+    .filter-button {
+
+      border: none;
+
+      padding:
+        7px 12px;
+
+      border-radius: 9px;
+
+      background: transparent;
+
+      color: var(--coffee-soft);
+
+      font-size: 10px;
+
+      font-weight: 750;
+
+      cursor: pointer;
+
+    }
+
+
+    .filter-button:hover {
+
+      background:
+        rgba(92,70,53,.05);
+
+    }
+
+
+    .filter-button.active {
+
+      background:
+        var(--coffee);
+
+      color: white;
+
+    }
+
+
+
+    /* =====================================================
+       FEED
+       ===================================================== */
+
+    .experience-feed {
+
+      display: grid;
+
+      grid-template-columns:
+        repeat(2,minmax(0,1fr));
+
+      gap: 15px;
+
+      margin-top: 16px;
+
+    }
+
+
+
+    /* =====================================================
+       EXPERIENCE CARD
+       ===================================================== */
+
+    .experience-card {
+
+      position: relative;
+
+      overflow: hidden;
+
+      padding:
+        19px;
+
+      border:
+        1px solid var(--line);
+
+      border-radius: 21px;
+
+      background:
+        rgba(255,255,255,.78);
+
+      box-shadow:
+        var(--shadow-soft);
+
+      transition:
+        transform .2s ease,
+        box-shadow .2s ease;
+
+    }
+
+
+    .experience-card:hover {
+
+      transform:
+        translateY(-3px);
+
+      box-shadow:
+        0 13px 28px rgba(70,52,38,.085);
+
+    }
+
+
+    .experience-card::after {
+
+      content: "";
+
+      position: absolute;
+
+      width: 75px;
+
+      height: 75px;
+
+      right: -30px;
+
+      bottom: -30px;
+
+      border-radius: 50%;
+
+      background:
+        rgba(130,101,73,.045);
+
+    }
+
+
+    .card-header {
+
+      display: flex;
+
+      align-items: center;
+
+      justify-content: space-between;
+
+      gap: 10px;
+
+    }
+
+
+    .card-user {
+
+      display: flex;
+
+      align-items: center;
+
+      gap: 9px;
+
+      min-width: 0;
+
+      cursor: pointer;
+
+    }
+
+
+    .story-avatar {
+
+      width: 39px;
+
+      height: 39px;
+
+      flex-shrink: 0;
+
+      display: flex;
+
+      align-items: center;
+
+      justify-content: center;
+
+      border-radius: 12px;
+
+      background:
+        linear-gradient(
+          145deg,
+          #eee2d2,
+          #faf4eb
+        );
+
+      border:
+        1px solid rgba(92,70,53,.08);
+
+      font-size: 22px;
+
+    }
+
+
+    .story-avatar svg,
+    #liveAvatar svg,
+    #profileModalAvatar svg {
+
+      width: 100%;
+
+      height: 100%;
+
+      display: block;
+
+      object-fit: contain;
+
+    }
+
+
+    .story-author-area {
+
+      min-width: 0;
+
+    }
+
+
+    .story-author {
+
+      display: block;
+
+      max-width: 190px;
+
+      overflow: hidden;
+
+      text-overflow: ellipsis;
+
+      white-space: nowrap;
+
+      font-size: 12px;
+
+      font-weight: 800;
+
+      color: var(--coffee);
+
+    }
+
+
+    .story-user-level {
+
+      display: block;
+
+      margin-top: 2px;
+
+      font-size: 9px;
+
+      color: var(--coffee-soft);
+
+    }
+
+
+    .story-date {
+
+      flex-shrink: 0;
+
+      font-size: 9px;
+
+      color: #a08d79;
+
+    }
+
+
+    .story-text {
+
+      margin:
+        15px 0 14px;
+
+      font-size: 13px;
+
+      line-height: 1.7;
+
+      color: #554538;
+
+      white-space: pre-wrap;
+
+      word-break: break-word;
+
+    }
+
+
+    .starter-badge {
+
+      display: inline-flex;
+
+      align-items: center;
+
+      margin-bottom: 11px;
+
+      padding:
+        5px 8px;
+
+      border-radius: 8px;
+
+      background:
+        #f1e8dc;
+
+      color: var(--coffee-soft);
+
+      font-size: 8px;
+
+      font-weight: 800;
+
+      letter-spacing: .3px;
+
+      text-transform: uppercase;
+
+    }
+
+
+
+    /* =====================================================
+       REACTIONS
+       ===================================================== */
+
+    .reaction-area {
+
+      position: relative;
+
+      z-index: 2;
+
+      display: flex;
+
+      flex-wrap: wrap;
+
+      gap: 5px;
+
+      padding-top: 11px;
+
+      border-top:
+        1px solid rgba(92,70,53,.08);
+
+    }
+
+
+    .reaction-button {
+
+      display: inline-flex;
+
+      align-items: center;
+
+      gap: 4px;
+
+      padding:
+        6px 8px;
+
+      border:
+        1px solid rgba(92,70,53,.09);
+
+      border-radius: 9px;
+
+      background:
+        rgba(255,255,255,.76);
+
+      color: var(--coffee-soft);
+
+      font-size: 11px;
+
+      transition:
+        .15s ease;
+
+    }
+
+
+    .reaction-button:hover {
+
+      transform:
+        translateY(-1px);
+
+      background:
+        #fff;
+
+    }
+
+
+    .reaction-button.selected {
+
+      border-color:
+        rgba(92,70,53,.20);
+
+      background:
+        #f0e5d7;
+
+      color:
+        var(--coffee-dark);
+
+    }
+
+
+    .reaction-count {
+
+      min-width: 8px;
+
+      font-size: 9px;
+
+      font-weight: 800;
+
+    }
+
+
+
+    /* =====================================================
+       EMPTY
+       ===================================================== */
+
+    .experience-empty {
+
+      grid-column:
+        1 / -1;
+
+      padding:
+        45px 25px;
+
+      text-align: center;
+
+      border:
+        1px dashed rgba(92,70,53,.18);
+
+      border-radius: 21px;
+
+      background:
+        rgba(255,255,255,.50);
+
+    }
+
+
+    .experience-empty-icon {
+
+      margin-bottom: 8px;
+
+      font-size: 30px;
+
+    }
+
+
+    .experience-empty h3 {
+
+      margin: 0;
+
+      font-size: 16px;
+
+    }
+
+
+    .experience-empty p {
+
+      margin:
+        6px 0 0;
+
+      font-size: 11px;
+
+      color: var(--coffee-soft);
+
+    }
+
+
+
+    /* =====================================================
+       MODAL BACKDROP
+       ===================================================== */
+
+    .modal-backdrop {
+
+      position: fixed;
+
+      inset: 0;
+
+      z-index: 2000;
+
+      display: none;
+
+      align-items: center;
+
+      justify-content: center;
+
+      padding: 20px;
+
+      background:
+        rgba(45,34,26,.42);
+
+      backdrop-filter:
+        blur(5px);
+
+    }
+
+
+    .modal-backdrop.open {
+
+      display: flex;
+
+    }
+
+
+
+    /* =====================================================
+       COMPOSER MODAL
+       ===================================================== */
+
+    .composer-modal {
+
+      width:
+        min(560px,100%);
+
+      max-height:
+        calc(100vh - 40px);
+
+      overflow-y: auto;
+
+      padding:
+        25px;
+
+      border:
+        1px solid rgba(255,255,255,.5);
+
+      border-radius: 23px;
+
+      background:
+        #fffdf8;
+
+      box-shadow:
+        0 25px 70px rgba(40,29,21,.22);
+
+    }
+
+
+    .modal-header {
+
+      display: flex;
+
+      align-items: flex-start;
+
+      justify-content: space-between;
+
+      gap: 15px;
+
+      margin-bottom: 20px;
+
+    }
+
+
+    .modal-eyebrow {
+
+      font-size: 9px;
+
+      font-weight: 800;
+
+      color: var(--coffee-soft);
+
+      letter-spacing: .7px;
+
+    }
+
+
+    .modal-header h2 {
+
+      margin:
+        5px 0 0;
+
+      font-size: 22px;
+
+    }
+
+
+    .modal-header p {
+
+      margin:
+        5px 0 0;
+
+      font-size: 11px;
+
+      line-height: 1.55;
+
+      color: var(--coffee-soft);
+
+    }
+
+
+    .modal-close {
+
+      width: 34px;
+
+      height: 34px;
+
+      flex-shrink: 0;
+
+      border:
+        1px solid var(--line);
+
+      border-radius: 10px;
+
+      background:
+        rgba(255,255,255,.75);
+
+      color: var(--coffee);
+
+      font-size: 20px;
+
+      line-height: 1;
+
+    }
+
+
+    .modal-close:hover {
+
+      background:
+        var(--cream-soft);
+
+    }
+
+
+
+    /* =====================================================
+       FORM
+       ===================================================== */
+
+    .form-group {
+
+      margin-bottom: 15px;
+
+    }
+
+
+    .form-group label {
+
+      display: block;
+
+      margin-bottom: 6px;
+
+      font-size: 10px;
+
+      font-weight: 800;
+
+      color: var(--coffee);
+
+    }
+
+
+    .form-input,
+    .form-select,
+    .form-textarea {
+
+      width: 100%;
+
+      border:
+        1px solid rgba(92,70,53,.13);
+
+      border-radius: 12px;
+
+      background:
+        #fff;
+
+      color:
+        var(--coffee-dark);
+
+      outline: none;
+
+      transition:
+        border .15s ease,
+        box-shadow .15s ease;
+
+    }
+
+
+    .form-input,
+    .form-select {
+
+      min-height: 42px;
+
+      padding:
+        9px 12px;
+
+      font-size: 12px;
+
+    }
+
+
+    .form-textarea {
+
+      min-height: 145px;
+
+      resize: vertical;
+
+      padding:
+        12px;
+
+      font-size: 12px;
+
+      line-height: 1.6;
+
+    }
+
+
+    .form-input:focus,
+    .form-select:focus,
+    .form-textarea:focus {
+
+      border-color:
+        rgba(92,70,53,.35);
+
+      box-shadow:
+        0 0 0 3px rgba(92,70,53,.06);
+
+    }
+
+
+    .form-note {
+
+      margin:
+        -4px 0 14px;
+
+      font-size: 9px;
+
+      line-height: 1.5;
+
+      color: var(--coffee-soft);
+
+    }
+
+
+
+    /* =====================================================
+       EMOJI PICKER
+       ===================================================== */
+
+    .emoji-section {
+
+      margin-top: 4px;
+
+    }
+
+
+    .emoji-section-title {
+
+      margin-bottom: 7px;
+
+      font-size: 10px;
+
+      font-weight: 800;
+
+      color: var(--coffee);
+
+    }
+
+
+    .emoji-picker {
+
+      display: flex;
+
+      flex-wrap: wrap;
+
+      gap: 5px;
+
+      padding:
+        9px;
+
+      border:
+        1px solid rgba(92,70,53,.09);
+
+      border-radius: 13px;
+
+      background:
+        #f8f1e8;
+
+    }
+
+
+    .emoji-button {
+
+      width: 36px;
+
+      height: 36px;
+
+      display: flex;
+
+      align-items: center;
+
+      justify-content: center;
+
+      border:
+        1px solid transparent;
+
+      border-radius: 9px;
+
+      background:
+        rgba(255,255,255,.55);
+
+      font-size: 19px;
+
+      transition:
+        .15s ease;
+
+    }
+
+
+    .emoji-button:hover {
+
+      background:
+        white;
+
+      transform:
+        translateY(-1px);
+
+    }
+
+
+
+    /* =====================================================
+       MODAL ACTIONS
+       ===================================================== */
+
+    .modal-actions {
+
+      display: flex;
+
+      justify-content: flex-end;
+
+      gap: 8px;
+
+      margin-top: 18px;
+
+    }
+
+
+    .modal-button {
+
+      min-height: 39px;
+
+      padding:
+        8px 14px;
+
+      border-radius: 11px;
+
+      border:
+        1px solid var(--line);
+
+      background:
+        white;
+
+      color: var(--coffee);
+
+      font-size: 11px;
+
+      font-weight: 800;
+
+    }
+
+
+    .modal-button.primary {
+
+      border-color:
+        transparent;
+
+      background:
+        var(--coffee);
+
+      color: white;
+
+    }
+
+
+
+    /* =====================================================
+       PROFILE MODAL
+       ===================================================== */
+
+    .profile-modal {
+
+      width:
+        min(390px,100%);
+
+      padding:
+        27px;
+
+      border-radius: 23px;
+
+      background:
+        #fffdf8;
+
+      box-shadow:
+        0 25px 70px rgba(40,29,21,.22);
+
+    }
+
+
+    .profile-top {
+
+      display: flex;
+
+      align-items: center;
+
+      gap: 13px;
+
+      padding-bottom: 18px;
+
+      border-bottom:
+        1px solid var(--line);
+
+    }
+
+
+    .profile-large-avatar {
+
+      width: 62px;
+
+      height: 62px;
+
+      display: flex;
+
+      align-items: center;
+
+      justify-content: center;
+
+      border-radius: 19px;
+
+      background:
+        linear-gradient(
+          145deg,
+          #eee2d2,
+          #faf4eb
+        );
+
+      border:
+        1px solid rgba(92,70,53,.09);
+
+      font-size: 34px;
+
+    }
+
+
+    .profile-modal-name {
+
+      font-size: 16px;
+
+      font-weight: 850;
+
+      color: var(--coffee-dark);
+
+    }
+
+
+    .profile-modal-level {
+
+      margin-top: 4px;
+
+      font-size: 10px;
+
+      color: var(--coffee-soft);
+
+    }
+
+
+    .profile-modal-description {
+
+      margin:
+        17px 0;
+
+      font-size: 12px;
+
+      line-height: 1.65;
+
+      color: #766656;
+
+    }
+
+
+    .profile-message-button {
+
+      width: 100%;
+
+      min-height: 42px;
+
+      border: none;
+
+      border-radius: 12px;
+
+      background:
+        var(--coffee);
+
+      color: white;
+
+      font-size: 11px;
+
+      font-weight: 800;
+
+    }
+
+
+
+    /* =====================================================
+       TOAST
+       ===================================================== */
+
+    .experience-toast {
+
+      position: fixed;
+
+      right: 20px;
+
+      bottom: 20px;
+
+      z-index: 3000;
+
+      max-width: 330px;
+
+      padding:
+        12px 15px;
+
+      border-radius: 12px;
+
+      background:
+        var(--coffee-dark);
+
+      color: white;
+
+      font-size: 11px;
+
+      line-height: 1.45;
+
+      box-shadow:
+        0 12px 30px rgba(40,29,21,.20);
+
+      opacity: 0;
+
+      transform:
+        translateY(10px);
+
+      pointer-events: none;
+
+      transition:
+        opacity .2s ease,
+        transform .2s ease;
+
+    }
+
+
+    .experience-toast.show {
+
+      opacity: 1;
+
+      transform:
+        translateY(0);
+
+    }
+
+
+
+    /* =====================================================
+       FOOTER
+       ===================================================== */
+
+    .experience-footer {
+
+      margin-top: 15px;
+
+      padding:
+        24px 0;
+
+      border-top:
+        1px solid var(--line);
+
+      text-align: center;
+
+      color: var(--coffee-soft);
+
+    }
+
+
+    .experience-footer strong {
+
+      display: block;
+
+      font-size: 13px;
+
+      color: var(--coffee);
+
+    }
+
+
+    .experience-footer span {
+
+      display: block;
+
+      margin-top: 4px;
+
+      font-size: 9px;
+
+    }
+
+
+
+    /* =====================================================
+       RESPONSIVE
+       ===================================================== */
+
+    @media (max-width: 850px) {
+
+      .experience-feed {
+
+        grid-template-columns:
+          1fr;
+
+      }
+
+
+      .top-motivation {
+        max-width: 350px;
+      }
+
+    }
+
+
+    @media (max-width: 650px) {
+
+      .experience-header {
+
+        min-height: 63px;
+
+      }
+
+
+      .experience-header-inner {
+
+        width: 92%;
+
+      }
+
+
+      .experience-brand-tagline {
+
+        display: none;
+
+      }
+
+
+      .experience-header-actions {
+
+        gap: 5px;
+
+      }
+
+
+      .header-button {
+
+        padding:
+          8px 10px;
+
+        font-size: 10px;
+
+      }
+
+
+      .experience-main {
+
+        width: 92%;
+
+        padding-top: 22px;
+
+      }
+
+
+      .experience-hero {
+
+        padding:
+          23px;
+
+        border-radius: 22px;
+
+      }
+
+
+      .experience-hero h1 {
+
+        font-size: 29px;
+
+      }
+
+
+      .experience-toolbar {
+
+        align-items: flex-start;
+
+        flex-direction: column;
+
+      }
+
+
+      .write-button {
+
+        width: 100%;
+
+        justify-content: center;
+
+      }
+
+
+      .experience-filters {
+
+        width: 100%;
+
+        overflow-x: auto;
+
+      }
+
+
+      .filter-button {
+
+        flex: 1;
+
+        white-space: nowrap;
+
+      }
+
+
+      .live-content {
+
+        align-items: flex-start;
+
+      }
+
+    }
+
+
+    @media (max-width: 450px) {
+
+      .experience-brand-name {
+
+        font-size: 14px;
+
+      }
+
+
+      .experience-brand-icon {
+
+        width: 39px;
+
+        height: 39px;
+
+        font-size: 21px;
+
+      }
+
+
+      .experience-header-actions .back-button {
+
+        display: none;
+
+      }
+
+
+      .live-experience {
+
+        padding:
+          16px;
+
+      }
+
+
+      .experience-card {
+
+        padding:
+          16px;
+
+      }
+
+
+      .composer-modal,
+      .profile-modal {
+
+        padding:
+          21px;
+
+        border-radius: 19px;
+
+      }
+
+
+      .modal-actions {
+
+        flex-direction: column-reverse;
+
+      }
+
+
+      .modal-button {
+
+        width: 100%;
+
+      }
+
+    }
+
+  
+</style>
+
+<style>
+/* Dashboard integration adapter */
+.experience-section-anchor{scroll-margin-top:90px}
+</style>
+</head>
+<body class="fjis-dashboard-page">
+
+<header class="site-header fjis-dashboard-header">
+  <div class="container header-inner">
+    <a href="../index.html" class="brand fjis-brand">
+      <span class="fjis-logo-book" aria-hidden="true">
+        <span class="book book-back"></span>
+        <span class="book book-middle"></span>
+        <span class="book book-front"><span class="book-page"></span></span>
+      </span>
+      <span class="brand-copy">
+        <span class="brand-name">FJIS Academy</span>
+        <span class="brand-tagline">STUDENT LEARNER</span>
+      </span>
+    </a>
+
+    <div class="fjis-user-area">
+      <div class="fjis-user-copy">
+        <strong id="dashboardUserName">Student</strong>
+        <span id="dashboardUserLevel">Student Learner</span>
+      </div>
+      <div class="fjis-avatar" id="dashboardAvatar">S</div>
+      <button type="button" class="button button-ghost fjis-logout" id="logoutButton">
+        Keluar
+      </button>
+    </div>
+  </div>
+</header>
+
+<main>
+  <section class="fjis-dashboard-hero">
+    <div class="fjis-dashboard-hero-inner container">
+      <div class="fjis-hero-copy">
+        <div class="fjis-eyebrow"><span>•</span> DASHBOARD STUDENT LEARNER</div>
+        <h1>Halo, <span id="heroUserName">Student</span></h1>
+        <p>Selamat datang kembali. Pilih apa yang ingin kamu pelajari dan lanjutkan prosesmu hari ini.</p>
+      </div>
+
+      <div class="fjis-quote-card">
+        <div class="fjis-quote-mark">“</div>
+        <div class="fjis-motivation" data-fjis-motivation></div>
+      </div>
+    </div>
+  </section>
+
+  <section class="fjis-main-section container">
+    <div class="fjis-section-heading">
+      <span class="fjis-section-label">RUANG UTAMA</span>
+      <h2>Mau ngapain hari ini?</h2>
+      <p>Pilih perjalanan yang ingin kamu mulai.</p>
+    </div>
+
+    <div class="fjis-dashboard-actions">
+      <a href="sma/sma.html" class="fjis-dashboard-action action-sage">
+        <span class="action-icon">📖</span>
+        <span>
+          <strong>Belajar</strong>
+          <small>Materi dan latihan untuk memperkuat pemahaman.</small>
+        </span>
+        <span class="action-arrow">→</span>
+      </a>
+
+      <a href="#progress" class="fjis-dashboard-action action-blue">
+        <span class="action-icon">🌱</span>
+        <span>
+          <strong>Bertumbuh</strong>
+          <small>Lihat perkembangan dan perjalanan belajarmu.</small>
+        </span>
+        <span class="action-arrow">→</span>
+      </a>
+
+      <a href="#berbagi" class="fjis-dashboard-action action-rose">
+        <span class="action-icon">☕</span>
+        <span>
+          <strong>Berbagi</strong>
+          <small>Ceritakan pengalaman dan baca cerita student learner.</small>
+        </span>
+        <span class="action-arrow">→</span>
+      </a>
+
+      <a href="kedinasan/kedinasan.html" class="fjis-dashboard-action action-gold">
+        <span class="action-icon">🎯</span>
+        <span>
+          <strong>Persiapan</strong>
+          <small>Persiapkan diri untuk jalur seleksi yang kamu tuju.</small>
+        </span>
+        <span class="action-arrow">→</span>
+      </a>
+    </div>
+  </section>
+
+  <section class="fjis-program-section container">
+    <div class="fjis-section-heading">
+      <span class="fjis-section-label">PROGRAM BELAJAR</span>
+      <h2>Pilih ruang belajarmu.</h2>
+      <p>Semua program utama tersedia dari dashboard setelah kamu masuk.</p>
+    </div>
+
+    <div class="fjis-program-grid">
+      <a href="sma/sma.html" class="fjis-program-card program-sma">
+        <span class="fjis-program-icon">📚</span>
+        <div>
+          <span class="fjis-program-label">01</span>
+          <h3>SMA</h3>
+          <p>Materi, latihan, dan persiapan akademik kelas 10–12.</p>
+        </div>
+        <span class="fjis-card-arrow">→</span>
+      </a>
+
+      <a href="kuliah/kuliah.html" class="fjis-program-card program-kuliah">
+        <span class="fjis-program-icon">🎓</span>
+        <div>
+          <span class="fjis-program-label">02</span>
+          <h3>Kuliah</h3>
+          <p>Ruang belajar untuk perjalanan akademik di perguruan tinggi.</p>
+        </div>
+        <span class="fjis-card-arrow">→</span>
+      </a>
+
+      <a href="kedinasan/kedinasan.html" class="fjis-program-card program-kedinasan">
+        <span class="fjis-program-icon">🗂️</span>
+        <div>
+          <span class="fjis-program-label">03</span>
+          <h3>Kedinasan</h3>
+          <p>Persiapan materi dan latihan untuk seleksi kedinasan.</p>
+        </div>
+        <span class="fjis-card-arrow">→</span>
+      </a>
+    </div>
+  </section>
+
+
+  <!-- =====================================================
+       MAIN
+       ===================================================== -->
+
+  <main class="experience-main">
+
+
+    <!-- ===================================================
+         HERO
+         =================================================== -->
+
+    <section class="experience-hero">
+
+      <div class="experience-hero-content">
+
+        <div class="experience-eyebrow">
+          STUDENT EXPERIENCE
+        </div>
+
+        <h1>
+          Cerita kamu,
+          <span>bisa berarti.</span>
+        </h1>
+
+        <p>
+          Setiap student punya perjalanan yang berbeda.
+          Ceritakan apa yang kamu pelajari, pengalaman yang
+          pernah kamu alami, atau sesuatu yang mungkin
+          membantu student learner lainnya.
+        </p>
+
+      </div>
+
+    </section>
+
+
+
+    <!-- ===================================================
+         LIVE EXPERIENCE
+         =================================================== -->
+
+    <section
+      class="live-experience"
+      id="liveExperience"
+    >
+
+      <div class="live-top">
+
+        <div class="live-label">
+
+          <span class="live-dot"></span>
+
+          Pengalaman berjalan
+
+        </div>
+
+        <div
+          class="live-status"
+          id="liveStatus"
+        >
+          Memuat...
+        </div>
+
+      </div>
+
+
+      <div class="live-content">
+
+        <div
+          class="live-avatar"
+          id="liveAvatar"
+        >
+          🧑🏻
+        </div>
+
+
+        <div class="live-story">
+
+          <div class="live-story-meta">
+
+            <span
+              class="live-author"
+              id="liveAuthor"
+            >
+              Student
+            </span>
+
+            <span
+              class="live-level"
+              id="liveLevel"
+            >
+              SMA
+            </span>
+
+          </div>
+
+
+          <p
+            class="live-story-text"
+            id="liveStoryText"
+          >
+            Memuat pengalaman...
+          </p>
+
+        </div>
+
+      </div>
+
+    </section>
+
+
+
+    <!-- ===================================================
+         TOOLBAR
+         =================================================== -->
+
+    <div class="experience-toolbar">
+
+      <div class="experience-toolbar-title">
+
+        <h2>
+          Cerita Student Learner
+        </h2>
+
+        <p>
+          Cerita terbaru muncul lebih dulu.
+        </p>
+
+      </div>
+
+
+      <button
+        type="button"
+        class="write-button"
+        id="openWriteButton"
+      >
+        ✦ Ceritakan pengalamanmu
+      </button>
+
+    </div>
+
+
+
+    <!-- ===================================================
+         FILTER
+         =================================================== -->
+
+    <div
+      class="experience-filters"
+      id="experienceFilters"
+      aria-label="Filter pengalaman"
+    >
+
+      <button
+        type="button"
+        class="filter-button active"
+        data-filter="all"
+      >
+        Semua
+      </button>
+
+      <button
+        type="button"
+        class="filter-button"
+        data-filter="SMA"
+      >
+        SMA
+      </button>
+
+      <button
+        type="button"
+        class="filter-button"
+        data-filter="Kuliah"
+      >
+        Kuliah
+      </button>
+
+      <button
+        type="button"
+        class="filter-button"
+        data-filter="Kedinasan"
+      >
+        Kedinasan
+      </button>
+
+    </div>
+
+
+
+    <!-- ===================================================
+         FEED
+         =================================================== -->
+
+    <section
+      class="experience-feed"
+      id="experienceFeed"
+      aria-live="polite"
+    >
+    </section>
+</main>
+
+
+
+
+  <!-- =====================================================
+       COMPOSER MODAL
+       ===================================================== -->
+
+  <div
+    class="modal-backdrop"
+    id="composerBackdrop"
+    aria-hidden="true"
+  >
+
+    <div
+      class="composer-modal"
+      role="dialog"
+      aria-modal="true"
+      aria-labelledby="composerTitle"
+    >
+
+
+      <div class="modal-header">
+
+        <div>
+
+          <div class="modal-eyebrow">
+            SHARE YOUR STORY
+          </div>
+
+          <h2 id="composerTitle">
+            Ceritakan pengalamanmu
+          </h2>
+
+          <p>
+            Nggak harus formal. Tulis seperti kamu
+            lagi cerita ke teman.
+          </p>
+
+        </div>
+
+
+        <button
+          type="button"
+          class="modal-close"
+          id="closeComposerButton"
+          aria-label="Tutup"
+        >
+          ×
+        </button>
+
+      </div>
+
+
+
+      <!-- FORM -->
+
+      <form id="experienceForm">
+
+
+        <!-- NAME -->
+
+        <div class="form-group">
+
+          <label for="experienceName">
+            Nama
+          </label>
+
+          <input
+            type="text"
+            class="form-input"
+            id="experienceName"
+            maxlength="80"
+            placeholder="Nama kamu"
+            required
+          >
+
+        </div>
+
+
+
+        <!-- LEVEL -->
+
+        <div class="form-group">
+
+          <label for="experienceLevel">
+            Jenjang
+          </label>
+
+          <select
+            class="form-select"
+            id="experienceLevel"
+            required
+          >
+
+            <option value="SMA">
+              SMA
+            </option>
+
+            <option value="Kuliah">
+              Kuliah
+            </option>
+
+            <option value="Kedinasan">
+              Kedinasan
+            </option>
+
+          </select>
+
+        </div>
+
+
+
+        <!-- STORY -->
+
+        <div class="form-group">
+
+          <label for="experienceStory">
+            Ceritamu
+          </label>
+
+          <textarea
+            class="form-textarea"
+            id="experienceStory"
+            maxlength="1000"
+            placeholder="Ceritain aja seperti lagi ngobrol..."
+            required
+          ></textarea>
+
+        </div>
+
+
+        <p class="form-note">
+          Nama yang kamu masukkan akan otomatis
+          disamarkan saat tampil di halaman pengalaman.
+        </p>
+
+
+
+        <!-- EMOJI -->
+
+        <div class="emoji-section">
+
+          <div class="emoji-section-title">
+            Tambahkan emoji
+          </div>
+
+
+          <div class="emoji-picker">
+
+            <button
+              type="button"
+              class="emoji-button"
+              data-emoji="😀"
+            >
+              😀
+            </button>
+
+            <button
+              type="button"
+              class="emoji-button"
+              data-emoji="😄"
+            >
+              😄
+            </button>
+
+            <button
+              type="button"
+              class="emoji-button"
+              data-emoji="😂"
+            >
+              😂
+            </button>
+
+            <button
+              type="button"
+              class="emoji-button"
+              data-emoji="🤣"
+            >
+              🤣
+            </button>
+
+            <button
+              type="button"
+              class="emoji-button"
+              data-emoji="😊"
+            >
+              😊
+            </button>
+
+            <button
+              type="button"
+              class="emoji-button"
+              data-emoji="🥹"
+            >
+              🥹
+            </button>
+
+            <button
+              type="button"
+              class="emoji-button"
+              data-emoji="😭"
+            >
+              😭
+            </button>
+
+            <button
+              type="button"
+              class="emoji-button"
+              data-emoji="😢"
+            >
+              😢
+            </button>
+
+            <button
+              type="button"
+              class="emoji-button"
+              data-emoji="❤️"
+            >
+              ❤️
+            </button>
+
+            <button
+              type="button"
+              class="emoji-button"
+              data-emoji="🫶"
+            >
+              🫶
+            </button>
+
+            <button
+              type="button"
+              class="emoji-button"
+              data-emoji="👍"
+            >
+              👍
+            </button>
+
+            <button
+              type="button"
+              class="emoji-button"
+              data-emoji="👏"
+            >
+              👏
+            </button>
+
+            <button
+              type="button"
+              class="emoji-button"
+              data-emoji="😮"
+            >
+              😮
+            </button>
+
+            <button
+              type="button"
+              class="emoji-button"
+              data-emoji="💪"
+            >
+              💪
+            </button>
+
+            <button
+              type="button"
+              class="emoji-button"
+              data-emoji="✨"
+            >
+              ✨
+            </button>
+
+          </div>
+
+        </div>
+
+
+
+        <!-- ACTIONS -->
+
+        <div class="modal-actions">
+
+          <button
+            type="button"
+            class="modal-button"
+            id="cancelComposerButton"
+          >
+            Batal
+          </button>
+
+          <button
+            type="submit"
+            class="modal-button primary"
+          >
+            Publikasikan Cerita
+          </button>
+
+        </div>
+
+      </form>
+
+    </div>
+
+  </div>
+
+
+
+  <!-- =====================================================
+       PROFILE MODAL
+       ===================================================== -->
+
+  <div
+    class="modal-backdrop"
+    id="profileBackdrop"
+    aria-hidden="true"
+  >
+
+    <div
+      class="profile-modal"
+      role="dialog"
+      aria-modal="true"
+      aria-labelledby="profileModalName"
+    >
+
+
+      <div class="modal-header">
+
+        <div>
+
+          <div class="modal-eyebrow">
+            STUDENT PROFILE
+          </div>
+
+        </div>
+
+
+        <button
+          type="button"
+          class="modal-close"
+          id="closeProfileButton"
+          aria-label="Tutup"
+        >
+          ×
+        </button>
+
+      </div>
+
+
+
+      <div class="profile-top">
+
+        <div
+          class="profile-large-avatar"
+          id="profileModalAvatar"
+        >
+          🧑🏻
+        </div>
+
+
+        <div>
+
+          <div
+            class="profile-modal-name"
+            id="profileModalName"
+          >
+            Student
+          </div>
+
+          <div
+            class="profile-modal-level"
+            id="profileModalLevel"
+          >
+            Student Learner
+          </div>
+
+        </div>
+
+      </div>
+
+
+
+      <p class="profile-modal-description">
+
+        Profil ini merupakan identitas tampilan
+        dari student learner yang berbagi pengalaman.
+        Nama ditampilkan secara tersamarkan untuk
+        menjaga kenyamanan saat berbagi.
+
+      </p>
+
+
+      <button
+        type="button"
+        class="profile-message-button"
+        id="profileMessageButton"
+      >
+        💬 Kirim Pesan
+      </button>
+
+    </div>
+
+  </div>
+
+
+
+  <!-- =====================================================
+       TOAST
+       ===================================================== -->
+
+  <div
+    class="experience-toast"
+    id="experienceToast"
+    role="status"
+  ></div>
+
+
+
+
+  <section class="fjis-progress-section container" id="progress">
+    <div class="fjis-progress-card">
+      <div>
+        <span class="fjis-section-label">PERJALANANMU</span>
+        <h2>Belajar sedikit demi sedikit.</h2>
+        <p>Setiap materi yang kamu selesaikan adalah satu langkah yang kamu tambahkan.</p>
+      </div>
+      <div class="fjis-progress-number">
+        <strong id="progressValue">0%</strong>
+        <span>progress</span>
+      </div>
+    </div>
+  </section>
+
+  <section class="fjis-sharing-section container" id="berbagi">
+    <a href="berbagi.html" class="fjis-sharing-card fjis-sharing-link">
+      <div class="sharing-icon">☕</div>
+      <div>
+        <span class="fjis-section-label">BERBAGI</span>
+        <h2>Pengalamanmu juga bisa berarti.</h2>
+        <p>Ceritakan pengalamanmu, baca cerita student learner lainnya, dan lihat respons yang tersedia.</p>
+      </div>
+      <span class="fjis-sharing-arrow">→</span>
+    </a>
+  </section>
+</main>
+
+<footer class="fjis-dashboard-footer">
+  <div class="container">
+    <strong>FJIS Academy</strong>
+    <span>Student Learner · Belajar · Bertumbuh · Berbagi</span>
+  </div>
+</footer>
+
+<script src="../js/motivation.js"></script>
+
+<script>
+(function () {
+  "use strict";
+
+  const currentUserKey = "fjis_current_user";
+  let session = null;
+
+  try {
+    session = JSON.parse(localStorage.getItem(currentUserKey) || "null");
+  } catch (error) {
+    session = null;
+  }
+
+  if (!session || !session.email) {
+    window.location.replace("login.html");
+    return;
+  }
+
+  const name = String(session.name || "Student").trim() || "Student";
+  const level = String(session.level || "Student Learner").trim() || "Student Learner";
+
+  document.getElementById("dashboardUserName").textContent = name;
+  document.getElementById("dashboardUserLevel").textContent = level;
+  document.getElementById("heroUserName").textContent = name.split(/\s+/)[0];
+
+  const initials = name
+    .split(/\s+/)
+    .filter(Boolean)
+    .slice(0, 2)
+    .map(part => part.charAt(0).toUpperCase())
+    .join("") || "S";
+
+  document.getElementById("dashboardAvatar").textContent = initials;
+
+  const logoutButton = document.getElementById("logoutButton");
+
+  logoutButton.addEventListener("click", function () {
+    localStorage.removeItem(currentUserKey);
+    window.location.replace("login.html");
+  });
+
+  if (window.FJISMotivation && typeof window.FJISMotivation.init === "function") {
+    window.FJISMotivation.init();
+  }
+})();
+</script>
+
+<style>
+  .fjis-sharing-link {
+    display: flex;
+    align-items: center;
+    gap: 18px;
+    text-decoration: none;
+    color: inherit;
+    cursor: pointer;
+  }
+
+  .fjis-sharing-link .fjis-sharing-arrow {
+    margin-left: auto;
+    font-size: 1.6rem;
+    transition: transform .2s ease;
+  }
+
+  .fjis-sharing-link:hover .fjis-sharing-arrow {
+    transform: translateX(5px);
+  }
+
+  @media (max-width: 600px) {
+    .fjis-sharing-link {
+      align-items: flex-start;
+    }
+  }
+</style>
+
+
+<script src="../js/starter-stories.js"></script>
+
+<script>
+/* FJIS dashboard -> Student Experience identity bridge */
+(function () {
+  try {
+    const svg = localStorage.getItem("fjis_user_avatar_svg");
+    const current = JSON.parse(localStorage.getItem("fjis_current_user") || "null");
+    if (current && svg && !current.avatarSvg) {
+      current.avatarSvg = svg;
+      localStorage.setItem("fjis_current_user", JSON.stringify(current));
+    }
+  } catch (e) {}
+})();
+</script>
+
+  <script>
+
+    "use strict";
+
+
+    /* =====================================================
+       STORAGE
+       ===================================================== */
+
+    const STORIES_KEY =
+      "fjis_student_experiences";
+
+    const CURRENT_USER_KEY =
+      "fjis_current_user";
+
+    const STARTER_REACTIONS_KEY =
+      "fjis_starter_reactions";
+
+
+
+    /* =====================================================
+       REACTIONS
+       ===================================================== */
+
+    const REACTION_TYPES = {
+
+      like: {
+        emoji: "👍",
+        label: "Like"
+      },
+
+      love: {
+        emoji: "❤️",
+        label: "Suka"
+      },
+
+      laugh: {
+        emoji: "😂",
+        label: "Lucu"
+      },
+
+      sad: {
+        emoji: "😢",
+        label: "Sedih"
+      },
+
+      wow: {
+        emoji: "😮",
+        label: "Kaget"
+      },
+
+      support: {
+        emoji: "💪",
+        label: "Semangat"
+      }
+
+    };
+
+
+
+    /* =====================================================
+       EMOJI
+       ===================================================== */
+
+    const EMOJIS = [
+      "😀",
+      "😄",
+      "😂",
+      "🤣",
+      "😊",
+      "🥹",
+      "😭",
+      "😢",
+      "❤️",
+      "🫶",
+      "👍",
+      "👏",
+      "😮",
+      "💪",
+      "✨"
+    ];
+
+
+
+    /* =====================================================
+       STATE
+       ===================================================== */
+
+    let activeFilter = "all";
+
+    let liveStories = [];
+
+    let liveIndex = 0;
+
+    let liveTimer = null;
+
+    let toastTimer = null;
+
+
+
+    /* =====================================================
+       DOM
+       ===================================================== */
+
+    const experienceFeed =
+      document.getElementById(
+        "experienceFeed"
+      );
+
+    const liveExperience =
+      document.getElementById(
+        "liveExperience"
+      );
+
+    const liveAvatar =
+      document.getElementById(
+        "liveAvatar"
+      );
+
+    const liveAuthor =
+      document.getElementById(
+        "liveAuthor"
+      );
+
+    const liveLevel =
+      document.getElementById(
+        "liveLevel"
+      );
+
+    const liveStoryText =
+      document.getElementById(
+        "liveStoryText"
+      );
+
+    const liveStatus =
+      document.getElementById(
+        "liveStatus"
+      );
+
+    const composerBackdrop =
+      document.getElementById(
+        "composerBackdrop"
+      );
+
+    const profileBackdrop =
+      document.getElementById(
+        "profileBackdrop"
+      );
+
+    const experienceForm =
+      document.getElementById(
+        "experienceForm"
+      );
+
+    const experienceName =
+      document.getElementById(
+        "experienceName"
+      );
+
+    const experienceLevel =
+      document.getElementById(
+        "experienceLevel"
+      );
+
+    const experienceStory =
+      document.getElementById(
+        "experienceStory"
+      );
+
+    const experienceToast =
+      document.getElementById(
+        "experienceToast"
+      );
+
+
+
+    /* =====================================================
+       CURRENT USER
+       ===================================================== */
+
+    function getCurrentUser() {
+
+      try {
+
+        return JSON.parse(
+          localStorage.getItem(
+            CURRENT_USER_KEY
+          ) || "null"
+        );
+
+      } catch (error) {
+
+        return null;
+
+      }
+
+    }
+
+
+
+    const currentUser =
+      getCurrentUser();
+
+
+
+    /* =====================================================
+       LOGIN CHECK
+       ===================================================== */
+
+    if (
+      !currentUser ||
+      !currentUser.email
+    ) {
+
+      window.location.replace(
+        "login.html"
+      );
+
+    }
+
+
+
+    /* =====================================================
+       LOAD USER STORIES
+       ===================================================== */
+
+    function loadUserStories() {
+
+      try {
+
+        const raw =
+          JSON.parse(
+            localStorage.getItem(
+              STORIES_KEY
+            ) || "[]"
+          );
+
+        return Array.isArray(raw)
+          ? raw
+          : [];
+
+      } catch (error) {
+
+        return [];
+
+      }
+
+    }
+
+
+
+    /* =====================================================
+       SAVE USER STORIES
+       ===================================================== */
+
+    function saveUserStories(stories) {
+
+      localStorage.setItem(
+        STORIES_KEY,
+        JSON.stringify(stories)
+      );
+
+    }
+
+
+
+    /* =====================================================
+       STARTER REACTION STORAGE
+       ===================================================== */
+
+    function loadStarterReactions() {
+
+      try {
+
+        const raw =
+          JSON.parse(
+            localStorage.getItem(
+              STARTER_REACTIONS_KEY
+            ) || "{}"
+          );
+
+        return raw &&
+          typeof raw === "object"
+          ? raw
+          : {};
+
+      } catch (error) {
+
+        return {};
+
+      }
+
+    }
+
+
+
+    function saveStarterReactions(data) {
+
+      localStorage.setItem(
+        STARTER_REACTIONS_KEY,
+        JSON.stringify(data)
+      );
+
+    }
+
+
+
+    /* =====================================================
+       GET USER ID
+       ===================================================== */
+
+    function getReactionUserId() {
+
+      if (!currentUser) {
+        return "";
+      }
+
+      return (
+        currentUser.id ||
+        currentUser.email ||
+        currentUser.name ||
+        ""
+      );
+
+    }
+
+
+
+    /* =====================================================
+       MASK NAME
+       ===================================================== */
+
+    function maskName(name) {
+
+      const clean =
+        String(
+          name ||
+          "Student"
+        )
+        .trim()
+        .replace(/\s+/g, " ");
+
+
+      if (!clean) {
+        return "Student";
+      }
+
+
+      const parts =
+        clean.split(" ");
+
+
+      const maskedParts =
+        parts.map(function(part) {
+
+          const chars =
+            Array.from(part);
+
+
+          if (chars.length === 1) {
+
+            return "*";
+
+          }
+
+
+          if (chars.length === 2) {
+
+            return (
+              chars[0] +
+              "*"
+            );
+
+          }
+
+
+          if (chars.length === 3) {
+
+            return (
+              chars[0] +
+              "*" +
+              chars[2]
+            );
+
+          }
+
+
+          return (
+            chars.slice(0, 2).join("") +
+            "*".repeat(
+              Math.max(
+                1,
+                chars.length - 3
+              )
+            ) +
+            chars[chars.length - 1]
+          );
+
+        });
+
+
+      return maskedParts.join(" ");
+
+    }
+
+
+
+    /* =====================================================
+       ESCAPE HTML
+       ===================================================== */
+
+    function escapeHTML(value) {
+
+      return String(
+        value ?? ""
+      )
+      .replace(
+        /[&<>"']/g,
+        function(character) {
+
+          const map = {
+
+            "&": "&amp;",
+
+            "<": "&lt;",
+
+            ">": "&gt;",
+
+            '"': "&quot;",
+
+            "'": "&#039;"
+
+          };
+
+          return map[character];
+
+        }
+      );
+
+    }
+
+
+
+    /* =====================================================
+       STORY TIME
+       ===================================================== */
+
+    function getStoryTime(story) {
+
+      const value =
+        story &&
+        story.createdAt;
+
+
+      if (
+        typeof value === "number" &&
+        Number.isFinite(value)
+      ) {
+
+        return value;
+
+      }
+
+
+      const parsed =
+        new Date(
+          value
+        ).getTime();
+
+
+      return Number.isNaN(parsed)
+        ? 0
+        : parsed;
+
+    }
+
+
+
+    /* =====================================================
+       DATE FORMAT
+       ===================================================== */
+
+    function formatStoryDate(value) {
+
+      const timestamp =
+        getStoryTime({
+          createdAt: value
+        });
+
+
+      if (!timestamp) {
+        return "";
+      }
+
+
+      const date =
+        new Date(timestamp);
+
+
+      return date.toLocaleDateString(
+        "id-ID",
+        {
+          day: "2-digit",
+          month: "short",
+          year: "numeric"
+        }
+      );
+
+    }
+
+
+
+    /* =====================================================
+       AVATAR RENDERING — PATCH ONLY
+       Menjaga avatar lama tetap kompatibel, sekaligus
+       menampilkan avatarSvg dari akun yang sedang login.
+       ===================================================== */
+
+    function sanitizeAvatarSvg(svg) {
+
+      if (!svg || typeof svg !== "string") return "";
+
+      const value = svg.trim();
+
+      if (!value || !value.toLowerCase().startsWith("<svg")) {
+        return "";
+      }
+
+      try {
+        const doc = new DOMParser().parseFromString(
+          value,
+          "image/svg+xml"
+        );
+
+        const root = doc.documentElement;
+
+        if (!root || root.nodeName.toLowerCase() !== "svg") {
+          return "";
+        }
+
+        root.querySelectorAll("script, foreignObject").forEach(function(el) {
+          el.remove();
+        });
+
+        root.querySelectorAll("*").forEach(function(el) {
+          Array.from(el.attributes).forEach(function(attr) {
+            const name = attr.name.toLowerCase();
+            const value = attr.value.trim().toLowerCase();
+
+            if (
+              name.startsWith("on") ||
+              name === "href" ||
+              name === "xlink:href" ||
+              value.startsWith("javascript:")
+            ) {
+              el.removeAttribute(attr.name);
+            }
+          });
+        });
+
+        return new XMLSerializer().serializeToString(root);
+
+      } catch (error) {
+        return "";
+      }
+    }
+
+
+    function getAvatarSvg(value) {
+
+      if (typeof value === "string") {
+        return sanitizeAvatarSvg(value);
+      }
+
+      if (value && typeof value === "object") {
+        return sanitizeAvatarSvg(
+          value.avatarSvg ||
+          value.svg ||
+          ""
+        );
+      }
+
+      return "";
+    }
+
+
+    function getAvatarFallback(value) {
+
+      if (typeof value === "string" && value.trim()) {
+        return value;
+      }
+
+      if (value && typeof value === "object") {
+        return value.id || value.name || "✨";
+      }
+
+      return "✨";
+    }
+
+
+    function renderAvatar(story) {
+
+      const safeStory = story || {};
+
+      const svg =
+        getAvatarSvg(safeStory.avatarSvg) ||
+        getAvatarSvg(safeStory.avatar);
+
+      if (svg) {
+        return svg;
+      }
+
+      return escapeHTML(
+        getAvatarFallback(safeStory.avatar)
+      );
+    }
+
+
+    /* =====================================================
+       NORMALIZE STORY
+       ===================================================== */
+
+    function normalizeStory(
+      story
+    ) {
+
+      const safeStory =
+        story || {};
+
+
+      const originalName =
+        safeStory.author ||
+        safeStory.name ||
+        "Student";
+
+
+      const displayAuthor =
+        safeStory.displayAuthor ||
+        maskName(
+          originalName
+        );
+
+
+      const avatarSvg =
+        safeStory.avatarSvg ||
+        getAvatarSvg(safeStory.avatar) ||
+        "";
+
+
+      const avatar =
+        safeStory.avatar ||
+        "✨";
+
+
+      const reactions =
+        safeStory.reactions &&
+        typeof safeStory.reactions === "object"
+          ? safeStory.reactions
+          : {};
+
+
+      const reactedBy =
+        safeStory.reactedBy &&
+        typeof safeStory.reactedBy === "object"
+          ? safeStory.reactedBy
+          : {};
+
+
+      Object.keys(
+        REACTION_TYPES
+      ).forEach(function(key) {
+
+        reactions[key] =
+          Number(
+            reactions[key] || 0
+          );
+
+
+        if (
+          !Array.isArray(
+            reactedBy[key]
+          )
+        ) {
+
+          reactedBy[key] = [];
+
+        }
+
+      });
+
+
+      return {
+
+        ...safeStory,
+
+        id:
+          safeStory.id ||
+          (
+            "story-" +
+            Date.now() +
+            "-" +
+            Math.random()
+          ),
+
+        level:
+          safeStory.level ||
+          "SMA",
+
+        text:
+          safeStory.text ||
+          safeStory.message ||
+          "",
+
+        author:
+          displayAuthor,
+
+        originalAuthor:
+          originalName,
+
+        avatar:
+
+          avatar,
+
+        createdAt:
+          safeStory.createdAt ||
+          Date.now(),
+
+        starter:
+          Boolean(
+            safeStory.starter
+          ),
+
+        reactions:
+          reactions,
+
+        reactedBy:
+          reactedBy
+
+      };
+
+    }
+
+
+
+    /* =====================================================
+       GET STARTER STORIES
+       ===================================================== */
+
+    function getStarterStories() {
+
+      const source =
+        Array.isArray(
+          window.FJISStarterStories
+        )
+          ? window.FJISStarterStories
+          : [];
+
+
+      return source.map(
+        normalizeStory
+      );
+
+    }
+
+
+
+    /* =====================================================
+       GET ALL STORIES
+       ===================================================== */
+
+    function getAllStories() {
+
+      const userStories =
+        loadUserStories()
+        .map(
+          normalizeStory
+        );
+
+
+      const starterStories =
+        getStarterStories();
+
+
+      const combined = [
+        ...userStories,
+        ...starterStories
+      ];
+
+
+      combined.sort(
+        function(a,b) {
+
+          /*
+           * Pengalaman user selalu
+           * lebih tinggi daripada
+           * starter.
+           */
+
+          if (
+            Boolean(a.starter) !==
+            Boolean(b.starter)
+          ) {
+
+            return a.starter
+              ? 1
+              : -1;
+
+          }
+
+
+          return (
+            getStoryTime(b) -
+            getStoryTime(a)
+          );
+
+        }
+      );
+
+
+      return combined;
+
+    }
+
+
+
+    /* =====================================================
+       FILTER
+       ===================================================== */
+
+    function getFilteredStories() {
+
+      const stories =
+        getAllStories();
+
+
+      if (
+        activeFilter === "all"
+      ) {
+
+        return stories;
+
+      }
+
+
+      return stories.filter(
+        function(story) {
+
+          return (
+            String(
+              story.level
+            ).toLowerCase()
+            ===
+            String(
+              activeFilter
+            ).toLowerCase()
+          );
+
+        }
+      );
+
+    }
+
+
+
+    /* =====================================================
+       REACTION DATA
+       ===================================================== */
+
+    function getReactionState(
+      story,
+      reactionKey
+    ) {
+
+      const userId =
+        getReactionUserId();
+
+
+      const reactedBy =
+        story.reactedBy &&
+        story.reactedBy[
+          reactionKey
+        ];
+
+
+      return (
+        Array.isArray(
+          reactedBy
+        ) &&
+        reactedBy.includes(
+          userId
+        )
+      );
+
+    }
+
+
+
+    /* =====================================================
+       REACTION CLICK
+       ===================================================== */
+
+    function toggleReaction(
+      storyId,
+      reactionKey
+    ) {
+
+      const userId =
+        getReactionUserId();
+
+
+      if (!userId) {
+
+        showToast(
+          "Silakan login terlebih dahulu."
+        );
+
+        return;
+
+      }
+
+
+      const userStories =
+        loadUserStories();
+
+
+      const userIndex =
+        userStories.findIndex(
+          function(story) {
+
+            return String(
+              story.id
+            ) === String(
+              storyId
+            );
+
+          }
+        );
+
+
+      /*
+       * ===============================================
+       * USER STORY
+       * ===============================================
+       */
+
+      if (userIndex !== -1) {
+
+        const story =
+          normalizeStory(
+            userStories[
+              userIndex
+            ]
+          );
+
+
+        if (
+          !Array.isArray(
+            story.reactedBy[
+              reactionKey
+            ]
+          )
+        ) {
+
+          story.reactedBy[
+            reactionKey
+          ] = [];
+
+        }
+
+
+        const list =
+          story.reactedBy[
+            reactionKey
+          ];
+
+
+        const alreadyReacted =
+          list.includes(
+            userId
+          );
+
+
+        if (
+          alreadyReacted
+        ) {
+
+          story.reactedBy[
+            reactionKey
+          ] =
+            list.filter(
+              function(id) {
+
+                return id !== userId;
+
+              }
+            );
+
+          story.reactions[
+            reactionKey
+          ] =
+            Math.max(
+              0,
+              Number(
+                story.reactions[
+                  reactionKey
+                ] || 0
+              ) - 1
+            );
+
+        } else {
+
+          list.push(
+            userId
+          );
+
+          story.reactions[
+            reactionKey
+          ] =
+            Number(
+              story.reactions[
+                reactionKey
+              ] || 0
+            ) + 1;
+
+        }
+
+
+        userStories[
+          userIndex
+        ] = story;
+
+
+        saveUserStories(
+          userStories
+        );
+
+
+        renderFeed();
+
+        prepareLiveStories();
+
+        return;
+
+      }
+
+
+
+      /*
+       * ===============================================
+       * STARTER STORY
+       * ===============================================
+       */
+
+      const starterStories =
+        getStarterStories();
+
+
+      const starter =
+        starterStories.find(
+          function(story) {
+
+            return String(
+              story.id
+            ) === String(
+              storyId
+            );
+
+          }
+        );
+
+
+      if (!starter) {
+        return;
+      }
+
+
+      const storage =
+        loadStarterReactions();
+
+
+      if (
+        !storage[
+          storyId
+        ]
+      ) {
+
+        storage[
+          storyId
+        ] = {};
+
+      }
+
+
+      if (
+        !Array.isArray(
+          storage[
+            storyId
+          ][
+            reactionKey
+          ]
+        )
+      ) {
+
+        storage[
+          storyId
+        ][
+          reactionKey
+        ] = [];
+
+      }
+
+
+      const list =
+        storage[
+          storyId
+        ][
+          reactionKey
+        ];
+
+
+      const alreadyReacted =
+        list.includes(
+          userId
+        );
+
+
+      if (
+        alreadyReacted
+      ) {
+
+        storage[
+          storyId
+        ][
+          reactionKey
+        ] =
+          list.filter(
+            function(id) {
+
+              return id !== userId;
+
+            }
+          );
+
+      } else {
+
+        list.push(
+          userId
+        );
+
+      }
+
+
+      saveStarterReactions(
+        storage
+      );
+
+
+      renderFeed();
+
+    }
+
+
+
+    /* =====================================================
+       APPLY STARTER REACTIONS
+       ===================================================== */
+
+    function applyStarterReactions(
+      story
+    ) {
+
+      if (!story.starter) {
+        return story;
+      }
+
+
+      const storage =
+        loadStarterReactions();
+
+
+      const saved =
+        storage[
+          story.id
+        ];
+
+
+      if (!saved) {
+        return story;
+      }
+
+
+      Object.keys(
+        REACTION_TYPES
+      ).forEach(
+        function(key) {
+
+          const list =
+            Array.isArray(
+              saved[key]
+            )
+              ? saved[key]
+              : [];
+
+
+          story.reactedBy[
+            key
+          ] =
+            list;
+
+
+          story.reactions[
+            key
+          ] =
+            Number(
+              story.reactions[
+                key
+              ] || 0
+            ) +
+            list.length;
+
+        }
+      );
+
+
+      return story;
+
+    }
+
+
+
+    /* =====================================================
+       RENDER FEED
+       ===================================================== */
+
+    function renderFeed() {
+
+      if (!experienceFeed) {
+        return;
+      }
+
+
+      let stories =
+        getFilteredStories();
+
+
+      stories =
+        stories.map(
+          function(story) {
+
+            return applyStarterReactions(
+              story
+            );
+
+          }
+        );
+
+
+      if (!stories.length) {
+
+        experienceFeed.innerHTML = `
+
+          <div class="experience-empty">
+
+            <div class="experience-empty-icon">
+              📖
+            </div>
+
+            <h3>
+              Belum ada pengalaman di bagian ini
+            </h3>
+
+            <p>
+              Jadilah yang pertama berbagi
+              pengalamanmu.
+            </p>
+
+          </div>
+
+        `;
+
+        return;
+
+      }
+
+
+
+      experienceFeed.innerHTML =
+        stories.map(
+          function(story) {
+
+            const reactionButtons =
+              Object.entries(
+                REACTION_TYPES
+              )
+              .map(
+                function(entry) {
+
+                  const key =
+                    entry[0];
+
+                  const meta =
+                    entry[1];
+
+
+                  const count =
+                    Number(
+                      story.reactions[
+                        key
+                      ] || 0
+                    );
+
+
+                  const selected =
+                    getReactionState(
+                      story,
+                      key
+                    );
+
+
+                  return `
+
+                    <button
+                      type="button"
+                      class="reaction-button ${
+                        selected
+                          ? "selected"
+                          : ""
+                      }"
+                      data-reaction="${key}"
+                      data-story-id="${escapeHTML(
+                        story.id
+                      )}"
+                      title="${escapeHTML(
+                        meta.label
+                      )}"
+                    >
+
+                      <span>
+                        ${meta.emoji}
+                      </span>
+
+                      <span class="reaction-count">
+                        ${count}
+                      </span>
+
+                    </button>
+
+                  `;
+
+                }
+              )
+              .join("");
+
+
+            return `
+
+              <article
+                class="experience-card"
+                data-story-card="${escapeHTML(
+                  story.id
+                )}"
+              >
+
+
+                ${
+                  story.starter
+                    ? `
+                      <div class="starter-badge">
+                        ✦ Contoh Pemantik
+                      </div>
+                    `
+                    : ""
+                }
+
+
+                <div class="card-header">
+
+
+                  <div
+                    class="card-user"
+                    data-profile-story="${escapeHTML(
+                      story.id
+                    )}"
+                  >
+
+                    <div class="story-avatar">
+
+                      ${renderAvatar(story)}
+
+                    </div>
+
+
+                    <div class="story-author-area">
+
+                      <span class="story-author">
+
+                        ${escapeHTML(
+                          story.author
+                        )}
+
+                      </span>
+
+                      <span class="story-user-level">
+
+                        ${escapeHTML(
+                          story.level
+                        )}
+
+                      </span>
+
+                    </div>
+
+                  </div>
+
+
+                  <span class="story-date">
+
+                    ${escapeHTML(
+                      formatStoryDate(
+                        story.createdAt
+                      )
+                    )}
+
+                  </span>
+
+
+                </div>
+
+
+
+                <p class="story-text">
+
+                  ${escapeHTML(
+                    story.text
+                  )}
+
+                </p>
+
+
+
+                <div class="reaction-area">
+
+                  ${reactionButtons}
+
+                </div>
+
+
+              </article>
+
+            `;
+
+          }
+        )
+        .join("");
+
+
+      attachFeedEvents();
+
+    }
+
+
+
+    /* =====================================================
+       FEED EVENTS
+       ===================================================== */
+
+    function attachFeedEvents() {
+
+      const reactionButtons =
+        document.querySelectorAll(
+          "[data-reaction]"
+        );
+
+
+      reactionButtons.forEach(
+        function(button) {
+
+          button.addEventListener(
+            "click",
+            function(event) {
+
+              event.stopPropagation();
+
+
+              toggleReaction(
+                button.dataset.storyId,
+                button.dataset.reaction
+              );
+
+            }
+          );
+
+        }
+      );
+
+
+
+      const profileButtons =
+        document.querySelectorAll(
+          "[data-profile-story]"
+        );
+
+
+      profileButtons.forEach(
+        function(button) {
+
+          button.addEventListener(
+            "click",
+            function() {
+
+              openProfile(
+                button.dataset.profileStory
+              );
+
+            }
+          );
+
+        }
+      );
+
+    }
+
+
+
+    /* =====================================================
+       PREPARE LIVE STORIES
+       ===================================================== */
+
+    function prepareLiveStories() {
+
+      const all =
+        getAllStories();
+
+
+      /*
+       * Semua story ikut rotasi.
+       * User story berada di depan.
+       */
+
+      liveStories =
+        all.slice();
+
+
+      if (
+        liveIndex >=
+        liveStories.length
+      ) {
+
+        liveIndex = 0;
+
+      }
+
+
+      renderLiveStory();
+
+    }
+
+
+
+    /* =====================================================
+       RENDER LIVE STORY
+       ===================================================== */
+
+    function renderLiveStory() {
+
+      if (
+        !liveStories.length
+      ) {
+
+        if (liveAuthor) {
+
+          liveAuthor.textContent =
+            "Student";
+
+        }
+
+        if (liveLevel) {
+
+          liveLevel.textContent =
+            "Student Learner";
+
+        }
+
+        if (liveStoryText) {
+
+          liveStoryText.textContent =
+            "Belum ada pengalaman.";
+
+        }
+
+        return;
+
+      }
+
+
+      const story =
+        liveStories[
+          liveIndex
+        ];
+
+
+      if (
+        liveExperience
+      ) {
+
+        liveExperience.style.opacity =
+          "0";
+
+        liveExperience.style.transform =
+          "translateY(3px)";
+
+      }
+
+
+      setTimeout(
+        function() {
+
+          if (liveAvatar) {
+
+            liveAvatar.innerHTML =
+              renderAvatar(story);
+
+          }
+
+
+          if (liveAuthor) {
+
+            liveAuthor.textContent =
+              story.author ||
+              "Student";
+
+          }
+
+
+          if (liveLevel) {
+
+            liveLevel.textContent =
+              story.level ||
+              "Student Learner";
+
+          }
+
+
+          if (liveStoryText) {
+
+            liveStoryText.textContent =
+              story.text ||
+              "";
+
+          }
+
+
+          if (liveStatus) {
+
+            liveStatus.textContent =
+              story.starter
+                ? "Contoh Pemantik"
+                : "Baru Dibagikan";
+
+          }
+
+
+          if (
+            liveExperience
+          ) {
+
+            liveExperience.style.opacity =
+              "1";
+
+            liveExperience.style.transform =
+              "translateY(0)";
+
+          }
+
+        },
+        180
+      );
+
+    }
+
+
+
+    /* =====================================================
+       START LIVE ROTATION
+       ===================================================== */
+
+    function startLiveRotation() {
+
+      if (liveTimer) {
+
+        clearInterval(
+          liveTimer
+        );
+
+      }
+
+
+      liveTimer =
+        setInterval(
+          function() {
+
+            if (
+              liveStories.length <= 1
+            ) {
+
+              return;
+
+            }
+
+
+            liveIndex =
+              (
+                liveIndex + 1
+              )
+              %
+              liveStories.length;
+
+
+            renderLiveStory();
+
+          },
+          3000
+        );
+
+    }
+
+
+
+    /* =====================================================
+       OPEN COMPOSER
+       ===================================================== */
+
+    function openComposer() {
+
+      if (!currentUser) {
+
+        showToast(
+          "Silakan login terlebih dahulu."
+        );
+
+        return;
+
+      }
+
+
+      composerBackdrop.classList.add(
+        "open"
+      );
+
+
+      composerBackdrop.setAttribute(
+        "aria-hidden",
+        "false"
+      );
+
+
+      /*
+       * Isi nama otomatis dari akun.
+       */
+
+      if (
+        !experienceName.value
+      ) {
+
+        experienceName.value =
+          currentUser.name ||
+          currentUser.fullName ||
+          "";
+
+      }
+
+
+      /*
+       * Level otomatis dari akun.
+       */
+
+      const accountLevel =
+        String(
+          currentUser.level ||
+          ""
+        ).toLowerCase();
+
+
+      if (
+        accountLevel.includes(
+          "kuliah"
+        )
+      ) {
+
+        experienceLevel.value =
+          "Kuliah";
+
+      } else if (
+        accountLevel.includes(
+          "kedinasan"
+        )
+      ) {
+
+        experienceLevel.value =
+          "Kedinasan";
+
+      } else {
+
+        experienceLevel.value =
+          "SMA";
+
+      }
+
+
+      setTimeout(
+        function() {
+
+          experienceStory.focus();
+
+        },
+        100
+      );
+
+    }
+
+
+
+    /* =====================================================
+       CLOSE COMPOSER
+       ===================================================== */
+
+    function closeComposer() {
+
+      composerBackdrop.classList.remove(
+        "open"
+      );
+
+
+      composerBackdrop.setAttribute(
+        "aria-hidden",
+        "true"
+      );
+
+    }
+
+
+
+    /* =====================================================
+       OPEN PROFILE
+       ===================================================== */
+
+    function openProfile(
+      storyId
+    ) {
+
+      const story =
+        getAllStories().find(
+          function(item) {
+
+            return String(
+              item.id
+            ) === String(
+              storyId
+            );
+
+          }
+        );
+
+
+      if (!story) {
+        return;
+      }
+
+
+      const avatar =
+        document.getElementById(
+          "profileModalAvatar"
+        );
+
+
+      const name =
+        document.getElementById(
+          "profileModalName"
+        );
+
+
+      const level =
+        document.getElementById(
+          "profileModalLevel"
+        );
+
+
+      if (avatar) {
+
+        avatar.innerHTML =
+          renderAvatar(story);
+
+      }
+
+
+      if (name) {
+
+        name.textContent =
+          story.author ||
+          "Student";
+
+      }
+
+
+      if (level) {
+
+        level.textContent =
+          story.level ||
+          "Student Learner";
+
+      }
+
+
+      profileBackdrop.dataset.storyId =
+        story.id;
+
+
+      profileBackdrop.classList.add(
+        "open"
+      );
+
+
+      profileBackdrop.setAttribute(
+        "aria-hidden",
+        "false"
+      );
+
+    }
+
+
+
+    /* =====================================================
+       CLOSE PROFILE
+       ===================================================== */
+
+    function closeProfile() {
+
+      profileBackdrop.classList.remove(
+        "open"
+      );
+
+
+      profileBackdrop.setAttribute(
+        "aria-hidden",
+        "true"
+      );
+
+    }
+
+
+
+    /* =====================================================
+       MESSAGE PLACEHOLDER
+       ===================================================== */
+
+    function profileMessageComingSoon() {
+
+      showToast(
+        "Fitur Kirim Pesan masih dalam tahap pengembangan."
+      );
+
+    }
+
+
+
+    /* =====================================================
+       TOAST
+       ===================================================== */
+
+    function showToast(
+      message
+    ) {
+
+      if (!experienceToast) {
+        return;
+      }
+
+
+      clearTimeout(
+        toastTimer
+      );
+
+
+      experienceToast.textContent =
+        message;
+
+
+      experienceToast.classList.add(
+        "show"
+      );
+
+
+      toastTimer =
+        setTimeout(
+          function() {
+
+            experienceToast.classList.remove(
+              "show"
+            );
+
+          },
+          2800
+        );
+
+    }
+
+
+
+    /* =====================================================
+       SUBMIT EXPERIENCE
+       ===================================================== */
+
+    experienceForm.addEventListener(
+      "submit",
+      function(event) {
+
+        event.preventDefault();
+
+
+        const name =
+          experienceName.value
+          .trim();
+
+
+        const level =
+          experienceLevel.value;
+
+
+        const text =
+          experienceStory.value
+          .trim();
+
+
+        if (!name) {
+
+          showToast(
+            "Nama belum diisi."
+          );
+
+          experienceName.focus();
+
+          return;
+
+        }
+
+
+        if (!text) {
+
+          showToast(
+            "Ceritamu belum diisi."
+          );
+
+          experienceStory.focus();
+
+          return;
+
+        }
+
+
+        /*
+         * ================================================
+         * AVATAR AKUN
+         * ================================================
+         */
+
+        const avatar =
+          currentUser.avatar ||
+          "✨";
+
+
+        const avatarSvg =
+          currentUser.avatarSvg ||
+          getAvatarSvg(currentUser.avatar) ||
+          "";
+
+
+        /*
+         * ================================================
+         * STORY BARU
+         * ================================================
+         */
+
+        const newStory = {
+
+          id:
+            "student-" +
+            Date.now(),
+
+          name:
+            name,
+
+          author:
+            name,
+
+          displayAuthor:
+            maskName(
+              name
+            ),
+
+          avatar:
+            avatar,
+
+          avatarSvg:
+            avatarSvg,
+
+          level:
+            level,
+
+          text:
+            text,
+
+          createdAt:
+            Date.now(),
+
+          starter:
+            false,
+
+          reactions: {
+
+            like: 0,
+
+            love: 0,
+
+            laugh: 0,
+
+            sad: 0,
+
+            wow: 0,
+
+            support: 0
+
+          },
+
+          reactedBy: {
+
+            like: [],
+
+            love: [],
+
+            laugh: [],
+
+            sad: [],
+
+            wow: [],
+
+            support: []
+
+          }
+
+        };
+
+
+        /*
+         * ================================================
+         * INSERT DI PALING ATAS
+         * ================================================
+         */
+
+        const existing =
+          loadUserStories();
+
+
+        existing.unshift(
+          newStory
+        );
+
+
+        saveUserStories(
+          existing
+        );
+
+
+        /*
+         * ================================================
+         * RESET FORM
+         * ================================================
+         */
+
+        experienceStory.value =
+          "";
+
+
+        closeComposer();
+
+
+        /*
+         * ================================================
+         * USER STORY LANGSUNG JADI LIVE STORY
+         * ================================================
+         */
+
+        liveIndex = 0;
+
+
+        prepareLiveStories();
+
+
+        renderFeed();
+
+
+        showToast(
+          "Pengalamanmu berhasil dibagikan."
+        );
+
+      }
+    );
+
+
+
+    /* =====================================================
+       EMOJI BUTTONS
+       ===================================================== */
+
+    const emojiButtons =
+      document.querySelectorAll(
+        "[data-emoji]"
+      );
+
+
+    emojiButtons.forEach(
+      function(button) {
+
+        button.addEventListener(
+          "click",
+          function() {
+
+            const emoji =
+              button.dataset.emoji;
+
+
+            const currentText =
+              experienceStory.value;
+
+
+            /*
+             * Tambahkan emoji di posisi cursor
+             * kalau browser mendukung.
+             */
+
+            const start =
+              experienceStory.selectionStart ??
+              currentText.length;
+
+
+            const end =
+              experienceStory.selectionEnd ??
+              currentText.length;
+
+
+            experienceStory.value =
+              currentText.slice(
+                0,
+                start
+              )
+              +
+              emoji
+              +
+              currentText.slice(
+                end
+              );
+
+
+            experienceStory.focus();
+
+
+            const cursor =
+              start +
+              emoji.length;
+
+
+            try {
+
+              experienceStory.setSelectionRange(
+                cursor,
+                cursor
+              );
+
+            } catch (error) {}
+
+          }
+        );
+
+      }
+    );
+
+
+
+    /* =====================================================
+       OPEN BUTTONS
+       ===================================================== */
+
+    document
+      .getElementById(
+        "openWriteButton"
+      )
+      .addEventListener(
+        "click",
+        openComposer
+      );
+
+
+    document
+      .getElementById(
+        "headerWriteButton"
+      )
+      .addEventListener(
+        "click",
+        openComposer
+      );
+
+
+
+    /* =====================================================
+       CLOSE COMPOSER BUTTON
+       ===================================================== */
+
+    document
+      .getElementById(
+        "closeComposerButton"
+      )
+      .addEventListener(
+        "click",
+        closeComposer
+      );
+
+
+    document
+      .getElementById(
+        "cancelComposerButton"
+      )
+      .addEventListener(
+        "click",
+        closeComposer
+      );
+
+
+
+    /* =====================================================
+       CLOSE PROFILE
+       ===================================================== */
+
+    document
+      .getElementById(
+        "closeProfileButton"
+      )
+      .addEventListener(
+        "click",
+        closeProfile
+      );
+
+
+    document
+      .getElementById(
+        "profileMessageButton"
+      )
+      .addEventListener(
+        "click",
+        profileMessageComingSoon
+      );
+
+
+
+    /* =====================================================
+       BACKDROP CLOSE
+       ===================================================== */
+
+    composerBackdrop.addEventListener(
+      "click",
+      function(event) {
+
+        if (
+          event.target ===
+          composerBackdrop
+        ) {
+
+          closeComposer();
+
+        }
+
+      }
+    );
+
+
+    profileBackdrop.addEventListener(
+      "click",
+      function(event) {
+
+        if (
+          event.target ===
+          profileBackdrop
+        ) {
+
+          closeProfile();
+
+        }
+
+      }
+    );
+
+
+
+    /* =====================================================
+       ESCAPE
+       ===================================================== */
+
+    document.addEventListener(
+      "keydown",
+      function(event) {
+
+        if (
+          event.key === "Escape"
+        ) {
+
+          closeComposer();
+
+          closeProfile();
+
+        }
+
+      }
+    );
+
+
+
+    /* =====================================================
+       FILTER
+       ===================================================== */
+
+    const filterButtons =
+      document.querySelectorAll(
+        "[data-filter]"
+      );
+
+
+    filterButtons.forEach(
+      function(button) {
+
+        button.addEventListener(
+          "click",
+          function() {
+
+
+            filterButtons.forEach(
+              function(item) {
+
+                item.classList.remove(
+                  "active"
+                );
+
+              }
+            );
+
+
+            button.classList.add(
+              "active"
+            );
+
+
+            activeFilter =
+              button.dataset.filter;
+
+
+            renderFeed();
+
+          }
+        );
+
+      }
+    );
+
+
+
+    /* =====================================================
+       INITIALIZE
+       ===================================================== */
+
+    renderFeed();
+
+
+    prepareLiveStories();
+
+
+    startLiveRotation();
+
+
+    /* =====================================================
+       DEBUG
+       ===================================================== */
+
+    console.log(
+      "FJIS Student Experience loaded."
+    );
+
+
+    console.log(
+      "Starter stories:",
+      getStarterStories().length
+    );
+
+
+    console.log(
+      "User stories:",
+      loadUserStories().length
+    );
+
+  </script>
+</body>
+</html>

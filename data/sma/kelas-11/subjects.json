@@ -1,0 +1,72 @@
+{
+  "class": 11,
+  "level": "SMA",
+  "title": "Mata Pelajaran Kelas XI",
+  "description": "Daftar mata pelajaran dan materi pembelajaran FJIS Academy kelas XI.",
+  "subjects": [
+    {
+      "code": "MAT",
+      "name": "Matematika",
+      "folder": "matematika",
+      "file": "matematika.json",
+      "description": "Matematika Wajib dan Matematika Tingkat Lanjut kelas XI",
+      "available": true
+    },
+    {
+      "code": "FIS",
+      "name": "Fisika",
+      "folder": "fisika",
+      "file": "fisika.json",
+      "description": "Materi Fisika kelas XI",
+      "available": true
+    },
+    {
+      "code": "KIM",
+      "name": "Kimia",
+      "folder": "kimia",
+      "file": "kimia.json",
+      "description": "Materi Kimia kelas XI",
+      "available": true
+    },
+    {
+      "code": "BIO",
+      "name": "Biologi",
+      "folder": "biologi",
+      "file": "biologi.json",
+      "description": "Materi Biologi kelas XI",
+      "available": true
+    },
+    {
+      "code": "BIN",
+      "name": "Bahasa Indonesia",
+      "folder": "bahasa-indonesia",
+      "file": "bahasa-indonesia.json",
+      "description": "Materi Bahasa Indonesia kelas XI",
+      "available": true
+    },
+    {
+      "code": "BIG",
+      "name": "Bahasa Inggris",
+      "folder": "bahasa-inggris",
+      "file": "bahasa-inggris.json",
+      "description": "Materi Bahasa Inggris kelas XI",
+      "available": true
+    },
+    {
+      "code": "EKO",
+      "name": "Ekonomi",
+      "folder": "ekonomi",
+      "file": "ekonomi.json",
+      "description": "Materi Ekonomi kelas XI",
+      "available": true
+    },
+    {
+      "code": "PPKN",
+      "name": "PPKn",
+      "folder": "ppkn",
+      "file": "ppkn.json",
+      "description": "Materi PPKn kelas XI",
+      "available": true
+    }
+  ]
+}

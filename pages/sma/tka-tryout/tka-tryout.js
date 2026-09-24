@@ -1,0 +1,925 @@
+/*
+ FJIS Academy — TKA TRYOUT ENGINE
+ Grade 12
+ - 3 mandatory subjects first
+ - exactly 2 optional subjects
+ - loads user-provided source banks without rewriting question content
+ - supports PG / MCMA / KATEGORI / BS
+ - supports A-E (and whatever option keys exist in source)
+ - isolated storage namespace
+*/
+(() => {
+  'use strict';
+
+  const CFG = window.FJIS_TKA_CONFIG || {};
+  const SOURCE = window.FJIS_TKA_SOURCE || {
+    wajib: './sources/wajib.js',
+    pilihan: [
+      './sources/pilihan-bagian-1.js',
+      './sources/pilihan-bagian-2.js',
+      './sources/pilihan-bagian-3.js'
+    ]
+  };
+
+  const STORAGE_KEY = 'fjis_tka_tryout_history';
+  const SESSION_KEY = 'fjis_tka_tryout_session';
+
+  const state = {
+    package: null,
+    optional: [],
+    subjects: [],
+    subjectIndex: 0,
+    questions: [],
+    questionIndex: 0,
+    answers: {},
+    startedAt: null,
+    subjectStartedAt: null,
+    timerId: null,
+    remainingSeconds: 0,
+    banksLoaded: false,
+    banks: {},
+    packageBanks: {
+      'tka-2026-001': {},
+      'tka-2026-002': {}
+    },
+    package2Loaded: false,
+    package2Banks: {}
+  };
+
+  const SUBJECTS = [
+    ...(CFG.mandatorySubjects || []),
+    ...(CFG.optionalSubjects || [])
+  ];
+
+  const byId = id => document.getElementById(id);
+  const qs = sel => document.querySelector(sel);
+  const qsa = sel => [...document.querySelectorAll(sel)];
+
+  function normalizeId(value) {
+    return String(value || '').trim().toLowerCase();
+  }
+
+  function subjectById(id) {
+    return SUBJECTS.find(s => s.id === id) || null;
+  }
+
+  function showScreen(name) {
+    const map = {
+      access: ['screenAccess', 'accessScreen', 'accessForm'],
+      selection: ['screenSelection', 'selectionScreen', 'subjectSelection'],
+      confirmation: ['screenConfirmation', 'confirmationScreen', 'confirmScreen'],
+      exam: ['screenExam', 'examScreen'],
+      subjectResult: ['screenSubjectResult', 'subjectResultScreen'],
+      final: ['screenFinal', 'finalScreen', 'resultScreen']
+    };
+
+    const wanted = map[name] || [];
+    const screens = qsa('[data-tka-screen]');
+    if (screens.length) {
+      screens.forEach(el => {
+        el.hidden = !wanted.includes(el.id) && el.dataset.tkaScreen !== name;
+      });
+      const exact = screens.find(el => el.dataset.tkaScreen === name) || screens.find(el => wanted.includes(el.id));
+      if (exact) exact.hidden = false;
+      return;
+    }
+
+    const all = qsa('.tka-screen, .screen-tka, [id*="Screen"], [id^="screen"]');
+    all.forEach(el => {
+      if (!el.id) return;
+      el.hidden = true;
+      el.classList.remove('active');
+    });
+    const target = wanted.map(byId).find(Boolean);
+    if (target) {
+      target.hidden = false;
+      target.classList.add('active');
+    }
+  }
+
+  function setText(ids, value) {
+    (Array.isArray(ids) ? ids : [ids]).forEach(id => {
+      const el = byId(id);
+      if (el) el.textContent = value == null ? '' : String(value);
+    });
+  }
+
+  function setHTML(ids, html) {
+    (Array.isArray(ids) ? ids : [ids]).forEach(id => {
+      const el = byId(id);
+      if (el) el.innerHTML = html;
+    });
+  }
+
+  function escapeHTML(value) {
+    return String(value ?? '')
+      .replaceAll('&', '&amp;')
+      .replaceAll('<', '&lt;')
+      .replaceAll('>', '&gt;')
+      .replaceAll('"', '&quot;')
+      .replaceAll("'", '&#039;');
+  }
+
+  // Presentation-only formatter: keeps the original source text intact,
+  // but renders common mathematical notation in a readable form.
+  function formatText(value) {
+    let html = escapeHTML(value ?? '');
+    if (!html) return '';
+
+    // Remove inline math delimiters such as $...$ without exposing the $.
+    html = html.replace(/\$([^$]+)\$/g, '$1');
+
+    // Fractions: \frac{a}{b} -> stacked, readable fraction.
+    html = html.replace(/\\frac\{([^{}]+)\}\{([^{}]+)\}/g,
+      '<span class=\"tka-frac\"><span class=\"tka-frac-num\">$1</span><span class=\"tka-frac-den\">$2</span></span>');
+
+    // Square roots and common operators.
+    html = html.replace(/\\sqrt\{([^{}]+)\}/g, '<span class=\"tka-sqrt\">√<span>$1</span></span>');
+    html = html
+      .replace(/\\times/g, '×')
+      .replace(/\\cdot/g, '·')
+      .replace(/\\div/g, '÷')
+      .replace(/\\leq/g, '≤').replace(/\\le/g, '≤')
+      .replace(/\\geq/g, '≥').replace(/\\ge/g, '≥')
+      .replace(/\\neq/g, '≠').replace(/\\pm/g, '±')
+      .replace(/\\infty/g, '∞').replace(/\\rightarrow/g, '→')
+      .replace(/\\left/g, '').replace(/\\right/g, '')
+      .replace(/\\text\{([^{}]+)\}/g, '$1')
+      .replace(/\\mathrm\{([^{}]+)\}/g, '$1');
+
+    // Matrix notation: make common pmatrix/bmatrix readable without raw LaTeX.
+    html = html.replace(/\\begin\{(?:pmatrix|bmatrix|matrix)\}([\s\S]*?)\\end\{(?:pmatrix|bmatrix|matrix)\}/g, (_, body) => {
+      return '[' + body.replace(/\\/g, '; ').replace(/&/g, '  ') + ']';
+    });
+
+    // Simple superscripts/subscripts.
+    html = html.replace(/\^\{([^{}]+)\}/g, '<sup>$1</sup>');
+    html = html.replace(/_\{([^{}]+)\}/g, '<sub>$1</sub>');
+    html = html.replace(/\^([A-Za-z0-9])/g, '<sup>$1</sup>');
+    html = html.replace(/_([A-Za-z0-9])/g, '<sub>$1</sub>');
+
+    return html.replace(/\r?\n/g, '<br>');
+  }
+
+  function normalizeOption(opt, index = 0) {
+    if (opt == null) return null;
+    if (typeof opt === 'string' || typeof opt === 'number') {
+      return { key: String.fromCharCode(65 + index), text: String(opt) };
+    }
+    return {
+      key: String(opt.key ?? opt.k ?? opt.id ?? opt.labelKey ?? '').toUpperCase(),
+      text: String(opt.text ?? opt.t ?? opt.label ?? opt.value ?? opt.option ?? opt.opsi ?? '')
+    };
+  }
+
+  function normalizeQuestion(raw, subjectId, index, sourceName) {
+    if (!raw || typeof raw !== 'object') return null;
+
+    // Paket 2 menyimpan soal asli di raw.sourceOriginal.
+    // Jangan mengubah isi soal; engine hanya menormalkan bentuk datanya.
+    const original = raw.sourceOriginal && typeof raw.sourceOriginal === 'object'
+      ? raw.sourceOriginal
+      : raw;
+
+    const typeRaw = String(
+      original.type ?? raw.type ?? original.jenis ?? raw.jenis ?? 'PG'
+    ).toUpperCase();
+
+    let type = typeRaw;
+    if (typeRaw === 'SIMPLE' || typeRaw === 'SEDERHANA') type = 'PG';
+    if (typeRaw === 'CATEGORY' || typeRaw === 'KATEGORI') type = 'KATEGORI';
+    if (typeRaw === 'BENAR_SALAH' || typeRaw === 'TRUE_FALSE') type = 'BS';
+
+    const originalNo = original.no ?? raw.number ?? raw.no ?? index + 1;
+    const id = `${subjectId}::${sourceName || 'bank'}::${original.id ?? raw.id ?? originalNo}`;
+
+    // Sumber Paket 2 menggunakan options untuk PG dan mcmaOptions untuk MCMA.
+    const rawOptions =
+      Array.isArray(original.options) ? original.options :
+      Array.isArray(original.mcmaOptions) ? original.mcmaOptions :
+      Array.isArray(original.opsi) ? original.opsi :
+      Array.isArray(raw.options) ? raw.options :
+      Array.isArray(raw.opsi) ? raw.opsi : [];
+
+    const options = rawOptions
+      .map((opt, i) => normalizeOption(opt, i))
+      .filter(o => o && o.key && o.text !== '');
+
+    let answer =
+      original.answer ??
+      original.kunci ??
+      raw.answer ??
+      raw.correct ??
+      raw.kunci ??
+      null;
+
+    if (typeof answer === 'string') answer = answer.trim();
+    if (Array.isArray(answer)) {
+      answer = answer.map(x => {
+        if (typeof x === 'string') return x.toUpperCase();
+        return x;
+      });
+    }
+
+    // Paket 2 KATEGORI memakai kategori + kunciKategori.
+    let statements =
+      original.statements ??
+      original.bs ??
+      raw.statements ??
+      raw.bs ??
+      null;
+
+    const kategori = original.kategori ?? raw.kategori;
+    const kunciKategori = original.kunciKategori ?? raw.kunciKategori;
+
+    if (!statements && Array.isArray(kategori)) {
+      statements = kategori.map((s, i) => ({
+        text: String(s ?? ''),
+        answer: Array.isArray(kunciKategori) ? kunciKategori[i] : null
+      }));
+    }
+
+    if (Array.isArray(statements)) {
+      statements = statements.map((s, i) => {
+        if (typeof s === 'string') {
+          return {
+            text: s,
+            answer: Array.isArray(kunciKategori) ? kunciKategori[i] : null
+          };
+        }
+
+        let a = s.answer ?? s.correct ?? s.kunci ?? null;
+        if (typeof a === 'boolean') a = a ? 'B' : 'S';
+        if (typeof a === 'string') {
+          const u = a.toUpperCase();
+          if (u === 'TRUE') a = 'B';
+          if (u === 'FALSE') a = 'S';
+        }
+        return {
+          text: String(s.text ?? s.statement ?? s.pernyataan ?? ''),
+          answer: a
+        };
+      });
+
+      if (!Array.isArray(answer) && statements.some(s => s.answer != null)) {
+        answer = statements.map(s => s.answer);
+      }
+    }
+
+    // Stimulus/image/custom HTML dipertahankan jika tersedia.
+    const stimulus = original.stimulus ?? raw.stimulus ?? original.stimulusContent ?? raw.stimulusContent ?? raw.context ?? '';
+    const image = original.image ?? raw.image ?? null;
+    const customHTML = original.customHTML ?? raw.customHTML ?? '';
+
+    // Paket 1 English #30 is a known legacy source record that can arrive
+    // without its options. Use the exact options from the preserved source bank.
+    if (subjectId === 'bahasa-inggris' && Number(originalNo) === 30 && options.length === 0) {
+      options.push(
+        { key: 'A', text: 'How to Make Solar Panel' },
+        { key: 'B', text: 'Why Renewable Energy Transition is Urgent' },
+        { key: 'C', text: 'Fossil Fuel is Best' },
+        { key: 'D', text: 'Lake Toba Story' },
+        { key: 'E', text: 'Invitation Email' }
+      );
+      if (answer == null) answer = 'B';
+    }
+
+    return {
+      id,
+      originalId: originalNo,
+      subjectId,
+      type,
+      topic: original.topic ?? raw.topic ?? original.kompetensi ?? raw.kompetensi ?? '',
+      stimulus: typeof stimulus === 'string' ? stimulus : '',
+      stimulusData: (stimulus && typeof stimulus === 'object') ? stimulus : null,
+      stimulusGroup: original.stimulusGroup ?? raw.stimulusGroup ?? '',
+      image,
+      customHTML,
+      question: String(
+        original.question ??
+        raw.question ??
+        original.pertanyaan ??
+        raw.pertanyaan ??
+        original.soal ??
+        raw.soal ??
+        original.text ??
+        raw.text ??
+        ''
+      ),
+      options,
+      statements: statements || [],
+      answer,
+      explanation: String(original.explanation ?? original.pembahasan ?? raw.explanation ?? raw.pembahasan ?? ''),
+      sourceName: sourceName || ''
+    };
+  }
+
+  function mergeBank(subjectId, arr, sourceName, packageId = 'tka-2026-001') {
+    if (!Array.isArray(arr)) return;
+
+    const target =
+      packageId === 'tka-2026-002'
+        ? state.packageBanks['tka-2026-002']
+        : state.packageBanks['tka-2026-001'];
+
+    if (!target[subjectId]) target[subjectId] = [];
+
+    arr.forEach((raw, i) => {
+      const q = normalizeQuestion(raw, subjectId, i, sourceName);
+      if (q) target[subjectId].push(q);
+    });
+  }
+
+  function loadScript(src) {
+    return new Promise((resolve, reject) => {
+      const existing = [...document.scripts].find(s => s.dataset.fjisTkaSource === src);
+      if (existing) return resolve();
+      const script = document.createElement('script');
+      script.src = src;
+      script.dataset.fjisTkaSource = src;
+      script.onload = () => resolve();
+      script.onerror = () => reject(new Error(`Gagal memuat sumber: ${src}`));
+      document.head.appendChild(script);
+    });
+  }
+
+  async function loadPackage1Banks() {
+    if (state.banksLoaded) return state.banks;
+
+    const wajibSrc = SOURCE.wajib || './sources/wajib.js';
+    const optionalSrc = Array.isArray(SOURCE.pilihan) ? SOURCE.pilihan : [SOURCE.pilihan].filter(Boolean);
+
+    await loadScript(wajibSrc);
+    for (const src of optionalSrc) await loadScript(src);
+
+    const wajib = window.FJIS_TKA_WAJIB || {};
+    const p1 = window.FJIS_TKA_PILIHAN_1 || {};
+    const p2 = window.FJIS_TKA_PILIHAN_2 || {};
+    const p3 = window.FJIS_TKA_PILIHAN_3 || {};
+
+    mergeBank('matematika', wajib.matematika || wajib.Wi || [], 'wajib');
+    mergeBank('bahasa-indonesia', wajib['bahasa-indonesia'] || wajib.bahasaIndonesia || wajib.dn || [], 'wajib');
+    mergeBank('bahasa-inggris', wajib['bahasa-inggris'] || wajib.bahasaInggris || wajib.pn || [], 'wajib');
+
+    mergeBank('ekonomi', p1.ekonomi || p1.wv || [], 'pilihan-bagian-1');
+    mergeBank('ppkn', p1.ppkn || p1.PPKn || p1.Nv || [], 'pilihan-bagian-1');
+    mergeBank('sejarah', p1.sejarah || p1.zv || [], 'pilihan-bagian-1');
+
+    mergeBank('matematika-lanjutan', p2['matematika-lanjutan'] || p2.matematikaLanjutan || p2.eo || [], 'pilihan-bagian-2');
+    mergeBank('geografi', p2.geografi || p2.to || [], 'pilihan-bagian-2');
+    mergeBank('sosiologi', p2.sosiologi || p2.no || [], 'pilihan-bagian-2');
+
+    mergeBank('fisika', p3.fisika || p3.Nr || [], 'pilihan-bagian-3');
+    mergeBank('ekonomi', p3.ekonomi || p3.Lr || [], 'pilihan-bagian-3');
+    mergeBank('biologi', p3.biologi || p3.Sr || [], 'pilihan-bagian-3');
+
+    state.banksLoaded = true;
+    return state.banks;
+  }
+
+  // SAFE STIMULUS FIX: only propagates stimulus data already present in the
+  // original Paket 2 source. It does NOT change package loading or bank selection.
+  function applySharedStimulusGroups(rawArray, normalizedArray) {
+    const groups = {};
+
+    rawArray.forEach((raw) => {
+      const original = raw?.sourceOriginal && typeof raw.sourceOriginal === 'object'
+        ? raw.sourceOriginal
+        : raw;
+      const group = original?.stimulusGroup ?? raw?.stimulusGroup ?? '';
+      if (!group) return;
+
+      const stimulus = original?.stimulus ?? raw?.stimulus ?? null;
+      const image = original?.image ?? raw?.image ?? null;
+      const customHTML = original?.customHTML ?? raw?.customHTML ?? '';
+
+      if (!groups[group]) groups[group] = {};
+      if (stimulus && !groups[group].stimulus) groups[group].stimulus = stimulus;
+      if (image && !groups[group].image) groups[group].image = image;
+      if (customHTML && !groups[group].customHTML) groups[group].customHTML = customHTML;
+    });
+
+    normalizedArray.forEach((q) => {
+      const shared = q.stimulusGroup ? groups[q.stimulusGroup] : null;
+      if (!shared) return;
+
+      if (!q.stimulus && !q.stimulusData && shared.stimulus) {
+        if (typeof shared.stimulus === 'object') q.stimulusData = shared.stimulus;
+        else q.stimulus = shared.stimulus;
+      }
+      if (!q.image && shared.image) q.image = shared.image;
+      if (!q.customHTML && shared.customHTML) q.customHTML = shared.customHTML;
+    });
+  }
+
+  async function loadPackage2Banks() {
+    if (state.package2Loaded) return state.package2Banks;
+
+    const base = './paket-2/sources/';
+    const files = [
+      'bahasa-indonesia.js', 'matematika.js', 'bahasa-inggris.js',
+      'fisika.js', 'kimia.js', 'biologi.js', 'ekonomi.js',
+      'sejarah.js', 'ppkn.js', 'matematika-lanjutan.js',
+      'geografi.js', 'sosiologi.js'
+    ];
+
+    for (const file of files) await loadScript(base + file);
+
+    const raw = window.FJIS_TKA_PACKAGE_2_BANK || {};
+    state.package2Banks = {};
+    Object.keys(raw).forEach(subjectId => {
+      const arr = Array.isArray(raw[subjectId]) ? raw[subjectId] : [];
+      const normalized = arr
+        .map((q, i) => normalizeQuestion(q, subjectId, i, 'paket-2'))
+        .filter(Boolean);
+      applySharedStimulusGroups(arr, normalized);
+      state.package2Banks[subjectId] = normalized;
+    });
+
+    state.package2Loaded = true;
+    return state.package2Banks;
+  }
+
+  async function loadBanks() {
+    if (state.banksLoaded) return state.banks;
+
+    // =========================
+    // PAKET 1 — TETAP
+    // =========================
+    const wajibSrc = SOURCE.wajib || './sources/wajib.js';
+    const optionalSrc = Array.isArray(SOURCE.pilihan)
+      ? SOURCE.pilihan
+      : [SOURCE.pilihan].filter(Boolean);
+
+    await loadScript(wajibSrc);
+    for (const s of optionalSrc) await loadScript(s);
+
+    const wajib = window.FJIS_TKA_WAJIB || {};
+    const p1 = window.FJIS_TKA_PILIHAN_1 || {};
+    const p2 = window.FJIS_TKA_PILIHAN_2 || {};
+    const p3 = window.FJIS_TKA_PILIHAN_3 || {};
+
+    mergeBank('matematika', wajib.matematika || wajib.Wi || [], 'wajib', 'tka-2026-001');
+    mergeBank('bahasa-indonesia', wajib['bahasa-indonesia'] || wajib.bahasaIndonesia || wajib.dn || [], 'wajib', 'tka-2026-001');
+    mergeBank('bahasa-inggris', wajib['bahasa-inggris'] || wajib.bahasaInggris || wajib.pn || [], 'wajib', 'tka-2026-001');
+
+    mergeBank('ekonomi', p1.ekonomi || p1.wv || [], 'pilihan-bagian-1', 'tka-2026-001');
+    mergeBank('ppkn', p1.ppkn || p1.PPKn || p1.Nv || [], 'pilihan-bagian-1', 'tka-2026-001');
+    mergeBank('sejarah', p1.sejarah || p1.zv || [], 'pilihan-bagian-1', 'tka-2026-001');
+
+    mergeBank('matematika-lanjutan', p2['matematika-lanjutan'] || p2.matematikaLanjutan || p2.eo || [], 'pilihan-bagian-2', 'tka-2026-001');
+    mergeBank('geografi', p2.geografi || p2.to || [], 'pilihan-bagian-2', 'tka-2026-001');
+    mergeBank('sosiologi', p2.sosiologi || p2.no || [], 'pilihan-bagian-2', 'tka-2026-001');
+
+    mergeBank('fisika', p3.fisika || p3.Nr || [], 'pilihan-bagian-3', 'tka-2026-001');
+    mergeBank('ekonomi', p3.ekonomi || p3.Lr || [], 'pilihan-bagian-3', 'tka-2026-001');
+    mergeBank('biologi', p3.biologi || p3.Sr || [], 'pilihan-bagian-3', 'tka-2026-001');
+
+    // Paket 2 tidak dimuat di sini. Ia dimuat lazy saat kode Paket 2 dipakai.
+
+    // Default tetap Paket 1 agar perilaku lama tidak berubah.
+    state.banks = state.packageBanks['tka-2026-001'];
+    state.banksLoaded = true;
+    return state.banks;
+  }
+
+  function isPackage2Active() {
+    const p = state.package || {};
+    const code = String(p.code || '').trim().toUpperCase();
+    const id = String(p.id || p.packageId || '').trim().toLowerCase();
+    return code === 'Q8V7-XM2K-PL9R' ||
+           code === 'FJIS-TKA-2026-002' ||
+           id === 'tka-2026-002' ||
+           id === 'paket-2';
+  }
+
+  function bankFor(subjectId) {
+    // Gunakan bank aktif yang sudah dipasang oleh ensureActivePackageBanks().
+    // Ini penting untuk Paket 2 karena bank Paket 2 tidak disimpan di packageBanks.
+    const activeBanks = state.banks || {};
+    if (Array.isArray(activeBanks?.[subjectId])) return activeBanks[subjectId];
+
+    // Fallback khusus Paket 2.
+    if (isPackage2Active() && Array.isArray(state.package2Banks?.[subjectId])) {
+      return state.package2Banks[subjectId];
+    }
+
+    const packageId = state.package?.id || 'tka-2026-001';
+    const selectedBanks = state.packageBanks[packageId] || state.packageBanks['tka-2026-001'];
+    return Array.isArray(selectedBanks?.[subjectId]) ? selectedBanks[subjectId] : [];
+  }
+
+  async function ensureActivePackageBanks() {
+    // Pastikan bank Paket 1 tetap tersedia sebagai baseline.
+    if (!state.banksLoaded) await loadBanks();
+
+    if (isPackage2Active()) {
+      await loadPackage2Banks();
+      state.banks = state.package2Banks;
+      return state.banks;
+    }
+
+    state.banks = state.packageBanks['tka-2026-001'] || {};
+    return state.banks;
+  }
+
+  function validatePackage(code) {
+    if (typeof window.validateFJISTKAAccessCode === 'function') return window.validateFJISTKAAccessCode(code);
+    const packages = window.FJIS_TKA_PACKAGES || {};
+    const p = packages[String(code || '').trim().toUpperCase()];
+    return p ? { valid: true, package: { ...p } } : { valid: false, reason: 'Kode akses tidak ditemukan.' };
+  }
+
+  function validateOptional(ids) {
+    if (typeof window.validateFJISTKAOptionalSelection === 'function') return window.validateFJISTKAOptionalSelection(ids);
+    const unique = [...new Set(ids || [])];
+    return unique.length === 2
+      ? { valid: true, selected: unique }
+      : { valid: false, reason: 'Pilih tepat 2 mapel pilihan.' };
+  }
+
+  function getUser() {
+    try {
+      const raw = localStorage.getItem('fjis_current_user') || localStorage.getItem('fjis_session');
+      return raw ? JSON.parse(raw) : null;
+    } catch { return null; }
+  }
+
+  function getSelectedOptional() {
+    return qsa('input[name="optionalSubject"]:checked, input[name="optionalSubjects"]:checked, input[data-tka-optional]:checked')
+      .map(el => el.value || el.dataset.subjectId)
+      .filter(Boolean);
+  }
+
+  function getAccessCode() {
+    const el = byId('accessCode') || byId('tkaAccessCode') || qs('[name="accessCode"]');
+    return el ? el.value.trim() : '';
+  }
+
+  function renderOptionalSelection(packageData) {
+    const container = byId('optionalSubjects') || byId('optionalSubjectList') || qs('[data-tka-optional-list]');
+    if (!container) return;
+    const pool = packageData?.optionalPool?.length ? packageData.optionalPool : (CFG.optionalSubjects || []).map(s => s.id);
+    container.innerHTML = pool.map(id => {
+      const s = subjectById(id);
+      if (!s) return '';
+      const count = bankFor(id).length;
+      const disabled = count === 0;
+      return `<label class="tka-option-card${disabled ? ' is-disabled' : ''}">
+        <input type="checkbox" name="optionalSubject" value="${escapeHTML(id)}" ${disabled ? 'disabled' : ''}>
+        <span><strong>${escapeHTML(s.name)}</strong><small>${count ? `${count} soal tersedia • ${s.durationMinutes} menit` : 'Bank soal belum tersedia'}</small></span>
+      </label>`;
+    }).join('');
+    qsa('input[name="optionalSubject"]').forEach(input => {
+      input.addEventListener('change', () => {
+        const checked = qsa('input[name="optionalSubject"]:checked');
+        if (checked.length > 2) input.checked = false;
+        setText('optionalCount', `${qsa('input[name="optionalSubject"]:checked').length}/2 dipilih`);
+      });
+    });
+    setText('optionalCount', '0/2 dipilih');
+  }
+
+  function renderConfirmation() {
+    const list = byId('confirmationSubjects') || qs('[data-tka-confirmation-subjects]');
+    if (!list) return;
+    list.innerHTML = state.subjects.map((s, i) => `<li><span>${i + 1}. ${escapeHTML(s.name)}</span><small>${s.durationMinutes} menit • ${bankFor(s.id).length} soal</small></li>`).join('');
+  }
+
+  function questionAnswered(question) {
+    const a = state.answers[question.id];
+    if (question.type === 'MCMA') return Array.isArray(a) && a.length > 0;
+    if (question.type === 'KATEGORI' || question.type === 'BS') return Array.isArray(a) && a.some(v => v != null && v !== '');
+    return a != null && a !== '';
+  }
+
+  function renderQuestion() {
+    const q = state.questions[state.questionIndex];
+    if (!q) return;
+    const area = byId('questionArea') || qs('[data-tka-question-area]');
+    if (!area) return;
+
+    if (!document.getElementById('fjis-tka-math-readable-style')) {
+      const style = document.createElement('style');
+      style.id = 'fjis-tka-math-readable-style';
+      style.textContent = '.tka-frac{display:inline-flex;flex-direction:column;vertical-align:middle;text-align:center;line-height:1.05;margin:0 .12em}.tka-frac-num{border-bottom:1px solid currentColor;padding:0 .2em}.tka-frac-den{padding:0 .2em}.tka-sqrt{display:inline-flex;align-items:flex-start}.tka-sqrt>span{border-top:1px solid currentColor;padding-left:.08em}';
+      document.head.appendChild(style);
+    }
+
+    setText(['examSubjectName', 'currentSubjectName'], subjectById(q.subjectId)?.name || '');
+    setText(['questionCounter'], `Soal ${state.questionIndex + 1} dari ${state.questions.length}`);
+    setText(['examSubjectProgress'], `${state.subjectIndex + 1} / ${state.subjects.length}`);
+
+    let html = '';
+    const stim = q.stimulusData || q.stimulus;
+    if (stim) {
+      if (typeof stim === 'object') {
+        const title = stim.title ? `<div class="tka-stimulus-title">${escapeHTML(String(stim.title))}</div>` : '';
+        const content = stim.content != null
+          ? formatText(String(stim.content))
+          : '';
+        html += `<div class="tka-stimulus">${title}<div class="tka-stimulus-content">${content}</div></div>`;
+      } else {
+        html += `<div class="tka-stimulus">${formatText(String(stim))}</div>`;
+      }
+    }
+    if (q.customHTML) html += `<div class="tka-stimulus-custom">${q.customHTML}</div>`;
+    if (q.image) html += `<div class="tka-question-image"><img src="${escapeHTML(q.image)}" alt="Stimulus soal"></div>`;
+    html += `<div class="tka-question-type">${escapeHTML(q.type)}</div>`;
+    html += `<div class="tka-question-text">${formatText(q.question)}</div>`;
+
+    if (q.type === 'PG' || q.type === 'MCMA') {
+      const selected = Array.isArray(state.answers[q.id]) ? state.answers[q.id] : (state.answers[q.id] ? [state.answers[q.id]] : []);
+      html += `<div class="tka-answer-options">${q.options.map(opt => {
+        const checked = selected.includes(opt.key);
+        return `<label class="tka-answer-option"><input type="${q.type === 'MCMA' ? 'checkbox' : 'radio'}" name="q-${escapeHTML(q.id)}" value="${escapeHTML(opt.key)}" ${checked ? 'checked' : ''}><span class="tka-option-key">${escapeHTML(opt.key)}</span><span>${formatText(opt.text)}</span></label>`;
+      }).join('')}</div>`;
+    } else if (q.type === 'KATEGORI' || q.type === 'BS') {
+      const answers = Array.isArray(state.answers[q.id]) ? state.answers[q.id] : [];
+      html += `<div class="tka-statements">${q.statements.map((s, i) => `<div class="tka-statement"><div>${i + 1}. ${formatText(s.text)}</div><div class="tka-statement-actions"><label><input type="radio" name="st-${escapeHTML(q.id)}-${i}" value="B" ${answers[i] === 'B' ? 'checked' : ''}> Benar</label><label><input type="radio" name="st-${escapeHTML(q.id)}-${i}" value="S" ${answers[i] === 'S' ? 'checked' : ''}> Salah</label></div></div>`).join('')}</div>`;
+    }
+
+    area.innerHTML = html;
+    area.querySelectorAll('input[type="radio"], input[type="checkbox"]').forEach(input => {
+      input.addEventListener('change', () => captureCurrentAnswer());
+    });
+    renderQuestionMap();
+    updateNavButtons();
+  }
+
+  function captureCurrentAnswer() {
+    const q = state.questions[state.questionIndex];
+    if (!q) return;
+    if (q.type === 'PG') {
+      const el = qs(`input[name="q-${CSS.escape(q.id)}"]:checked`);
+      state.answers[q.id] = el ? el.value : '';
+    } else if (q.type === 'MCMA') {
+      state.answers[q.id] = qsa(`input[name="q-${CSS.escape(q.id)}"]:checked`).map(el => el.value);
+    } else {
+      state.answers[q.id] = q.statements.map((_, i) => {
+        const el = qs(`input[name="st-${CSS.escape(q.id)}-${i}"]:checked`);
+        return el ? el.value : '';
+      });
+    }
+    renderQuestionMap();
+  }
+
+  function renderQuestionMap() {
+    const map = byId('questionMap') || qs('[data-tka-question-map]');
+    if (!map) return;
+    map.innerHTML = state.questions.map((q, i) => `<button type="button" class="tka-map-btn${i === state.questionIndex ? ' active' : ''}${questionAnswered(q) ? ' answered' : ''}" data-index="${i}">${i + 1}</button>`).join('');
+    map.querySelectorAll('button').forEach(btn => btn.addEventListener('click', () => {
+      captureCurrentAnswer();
+      state.questionIndex = Number(btn.dataset.index);
+      renderQuestion();
+    }));
+  }
+
+  function updateNavButtons() {
+    const prev = byId('previousQuestionButton') || qs('[data-tka-prev]');
+    const next = byId('nextQuestionButton') || qs('[data-tka-next]');
+    if (prev) prev.disabled = state.questionIndex <= 0;
+    if (next) next.textContent = state.questionIndex >= state.questions.length - 1 ? 'Selesai Mapel' : 'Soal Berikutnya';
+  }
+
+  function stopTimer() {
+    if (state.timerId) clearInterval(state.timerId);
+    state.timerId = null;
+  }
+
+  function startTimer(minutes) {
+    stopTimer();
+    state.remainingSeconds = Math.max(0, Number(minutes || 0) * 60);
+    tickTimer();
+    state.timerId = setInterval(() => {
+      state.remainingSeconds -= 1;
+      tickTimer();
+      if (state.remainingSeconds <= 0) {
+        stopTimer();
+        finishSubject(true);
+      }
+    }, 1000);
+  }
+
+  function tickTimer() {
+    const m = Math.floor(state.remainingSeconds / 60).toString().padStart(2, '0');
+    const s = (state.remainingSeconds % 60).toString().padStart(2, '0');
+    setText(['examTimer', 'tkaTimer'], `${m}:${s}`);
+    const el = byId('examTimer') || byId('tkaTimer');
+    if (el) el.classList.toggle('danger', state.remainingSeconds <= 60);
+  }
+
+  function startSubject(index) {
+    state.subjectIndex = index;
+    const subject = state.subjects[index];
+    const questions = bankFor(subject.id);
+    if (!questions.length) {
+      alert(`Bank soal ${subject.name} belum tersedia.`);
+      return;
+    }
+    state.questions = questions.slice();
+    state.questionIndex = 0;
+    state.answers = {};
+    state.subjectStartedAt = Date.now();
+    setText(['examSubjectName', 'currentSubjectName'], subject.name);
+    setText(['examSubjectProgress'], `${index + 1} / ${state.subjects.length}`);
+    showScreen('exam');
+    renderQuestion();
+    startTimer(subject.durationMinutes);
+  }
+
+  function scoreQuestion(q) {
+    const user = state.answers[q.id];
+    if (q.type === 'PG') return String(user || '').toUpperCase() === String(q.answer || '').toUpperCase();
+    if (q.type === 'MCMA') {
+      const a = [...new Set((Array.isArray(user) ? user : []).map(x => String(x).toUpperCase()))].sort();
+      const b = [...new Set((Array.isArray(q.answer) ? q.answer : []).map(x => String(x).toUpperCase()))].sort();
+      return a.length === b.length && a.every((x, i) => x === b[i]);
+    }
+    const a = Array.isArray(user) ? user : [];
+    const b = Array.isArray(q.answer) ? q.answer : [];
+    if (!b.length || a.length !== b.length) return false;
+    return b.every((x, i) => normalizeBS(x) === normalizeBS(a[i]));
+  }
+
+  function normalizeBS(x) {
+    if (typeof x === 'boolean') return x ? 'B' : 'S';
+    const s = String(x ?? '').trim().toUpperCase();
+    if (s === 'TRUE' || s === 'BENAR' || s === 'B') return 'B';
+    if (s === 'FALSE' || s === 'SALAH' || s === 'S') return 'S';
+    return s;
+  }
+
+  function category(score) {
+    if (score >= 90) return 'Istimewa';
+    if (score >= 80) return 'Sangat Baik';
+    if (score >= 70) return 'Baik';
+    if (score >= 60) return 'Memenuhi';
+    if (score >= 50) return 'Perlu Penguatan';
+    return 'Perlu Pembinaan';
+  }
+
+  function finishSubject(auto = false) {
+    captureCurrentAnswer();
+    stopTimer();
+    const subject = state.subjects[state.subjectIndex];
+    const correct = state.questions.filter(scoreQuestion).length;
+    const total = state.questions.length;
+    const score = total ? Math.round(correct / total * 100) : 0;
+    const result = { subjectId: subject.id, subjectName: subject.name, correct, total, score, category: category(score), autoFinished: auto, at: new Date().toISOString() };
+    state.results = state.results || [];
+    state.results[state.subjectIndex] = result;
+    setText('subjectResultName', subject.name);
+    setText('subjectScore', score);
+    setText('subjectCategory', result.category);
+    setText('subjectCorrect', `${correct}/${total}`);
+    setText('subjectCategoryDescription', 'Kategori ini adalah kategori internal Nilai Tryout FJIS.');
+    showScreen('subjectResult');
+  }
+
+  function continueAfterSubject() {
+    const nextIndex = state.subjectIndex + 1;
+    if (nextIndex >= state.subjects.length) return finishAll();
+    startSubject(nextIndex);
+  }
+
+  function finishAll() {
+    stopTimer();
+    const results = state.results || [];
+    const avg = results.length ? Math.round(results.reduce((sum, r) => sum + r.score, 0) / results.length) : 0;
+    const record = {
+      id: `tka-${Date.now()}`,
+      packageCode: state.package?.code || '',
+      packageTitle: state.package?.title || '',
+      optionalSubjects: state.optional.slice(),
+      subjects: results,
+      averageScore: avg,
+      category: category(avg),
+      completedAt: new Date().toISOString(),
+      user: getUser()?.email || getUser()?.name || null
+    };
+    saveHistory(record);
+    setText('finalScore', avg);
+    setText('finalCategory', category(avg));
+    const list = byId('finalSubjectResults') || qs('[data-tka-final-results]');
+    if (list) list.innerHTML = results.map(r => `<div class="tka-result-row"><strong>${escapeHTML(r.subjectName)}</strong><span>${r.score}</span><small>${escapeHTML(r.category)}</small></div>`).join('');
+    localStorage.removeItem(SESSION_KEY);
+    showScreen('final');
+  }
+
+  function saveHistory(record) {
+    try {
+      const history = JSON.parse(localStorage.getItem(STORAGE_KEY) || '[]');
+      history.unshift(record);
+      localStorage.setItem(STORAGE_KEY, JSON.stringify(history.slice(0, 50)));
+    } catch (e) { console.warn('FJIS TKA history gagal disimpan', e); }
+  }
+
+  function persistSession() {
+    try {
+      localStorage.setItem(SESSION_KEY, JSON.stringify({ package: state.package, optional: state.optional, subjects: state.subjects, subjectIndex: state.subjectIndex }));
+    } catch {}
+  }
+
+  async function handleAccess() {
+    const code = getAccessCode();
+    const validation = validatePackage(code);
+    const msg = byId('accessMessage') || qs('[data-tka-access-message]');
+    if (!validation.valid) {
+      if (msg) msg.textContent = validation.reason || 'Kode akses tidak valid.';
+      return;
+    }
+    try {
+      state.package = validation.package;
+      await ensureActivePackageBanks();
+      renderOptionalSelection(validation.package);
+      setText('packageTitle', validation.package.title || 'TKA Kelas 12');
+      setText('packageDescription', validation.package.description || '');
+      if (msg) msg.textContent = '';
+      showScreen('selection');
+    } catch (err) {
+      console.error(err);
+      if (msg) msg.textContent = `Sumber soal gagal dimuat: ${err.message}`;
+    }
+  }
+
+  function handleConfirm() {
+    const selected = getSelectedOptional();
+    const validation = validateOptional(selected);
+    const msg = byId('selectionMessage') || qs('[data-tka-selection-message]');
+    if (!validation.valid) {
+      if (msg) msg.textContent = validation.reason || 'Pilih tepat 2 mapel pilihan.';
+      return;
+    }
+    const mandatory = (CFG.mandatorySubjects || []).map(s => s.id);
+    state.optional = validation.selected;
+    state.subjects = [...mandatory, ...state.optional.map(normalizeId).sort((a,b) => (subjectById(a)?.order || 0) - (subjectById(b)?.order || 0))].map(subjectById).filter(Boolean);
+    const missing = state.subjects.filter(s => !bankFor(s.id).length);
+    if (missing.length) {
+      if (msg) msg.textContent = `Bank soal belum tersedia: ${missing.map(s => s.name).join(', ')}.`;
+      return;
+    }
+    renderConfirmation();
+    persistSession();
+    showScreen('confirmation');
+  }
+
+  function bind() {
+    const accessBtn = byId('accessButton') || byId('validateAccessButton') || byId('startAccessButton') || qs('[data-tka-access-submit]');
+    if (accessBtn) accessBtn.addEventListener('click', handleAccess);
+    const accessForm = byId('accessForm');
+    if (accessForm) accessForm.addEventListener('submit', e => { e.preventDefault(); handleAccess(); });
+
+    const confirmBtn = byId('confirmPackageButton') || byId('confirmSelectionButton') || qs('[data-tka-confirm-selection]');
+    if (confirmBtn) confirmBtn.addEventListener('click', handleConfirm);
+
+    const startBtn = byId('startExamButton') || qs('[data-tka-start-exam]');
+    if (startBtn) startBtn.addEventListener('click', () => startSubject(0));
+
+    const prev = byId('previousQuestionButton') || qs('[data-tka-prev]');
+    if (prev) prev.addEventListener('click', () => { captureCurrentAnswer(); if (state.questionIndex > 0) { state.questionIndex--; renderQuestion(); } });
+    const next = byId('nextQuestionButton') || qs('[data-tka-next]');
+    if (next) next.addEventListener('click', () => { captureCurrentAnswer(); if (state.questionIndex < state.questions.length - 1) { state.questionIndex++; renderQuestion(); } else finishSubject(false); });
+
+    const finish = byId('finishSubjectButton') || qs('[data-tka-finish-subject]');
+    if (finish) finish.addEventListener('click', () => finishSubject(false));
+
+    const cont = byId('continueSubjectButton') || qs('[data-tka-continue-subject]');
+    if (cont) cont.addEventListener('click', continueAfterSubject);
+
+    const restart = byId('restartTKAButton') || qs('[data-tka-restart]');
+    if (restart) restart.addEventListener('click', () => location.reload());
+  }
+
+  function exposeAPI() {
+    window.FJISTKA = {
+      state,
+      loadBanks,
+      loadPackage2Banks,
+      ensureActivePackageBanks,
+      startSubject,
+      finishSubject,
+      finishAll,
+      getHistory: () => { try { return JSON.parse(localStorage.getItem(STORAGE_KEY) || '[]'); } catch { return []; } },
+      getBanks: () => state.banks,
+      getPackageBanks: () => state.packageBanks,
+      getCurrentPackage: () => state.package
+    };
+  }
+
+  async function init() {
+    exposeAPI();
+    bind();
+    try {
+      await loadBanks();
+      setText('tkaBankStatus', 'Bank soal siap');
+    } catch (e) {
+      console.warn('FJIS TKA source belum dapat dimuat:', e);
+      setText('tkaBankStatus', 'Bank soal belum dimuat');
+    }
+    showScreen('access');
+  }
+
+  if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', init);
+  else init();
+})();

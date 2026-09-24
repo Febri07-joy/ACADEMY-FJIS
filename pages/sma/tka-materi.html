@@ -1,0 +1,558 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Materi TKA Kelas 12 — FJIS Academy</title>
+
+    <link rel="stylesheet" href="../../css/style.css">
+    <link rel="stylesheet" href="../../css/components.css">
+    <link rel="stylesheet" href="../../css/landing.css">
+    <link rel="stylesheet" href="../../css/responsive.css">
+
+    <style>
+        * {
+            box-sizing: border-box;
+        }
+
+        body {
+            margin: 0;
+            background: #f7f7f5;
+            color: #202020;
+            font-family:
+                Inter,
+                system-ui,
+                -apple-system,
+                BlinkMacSystemFont,
+                "Segoe UI",
+                sans-serif;
+        }
+
+        a {
+            color: inherit;
+            text-decoration: none;
+        }
+
+        .page {
+            width: min(1180px, calc(100% - 32px));
+            margin: auto;
+            padding: 28px 0 60px;
+        }
+
+        .topbar {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            gap: 20px;
+            margin-bottom: 34px;
+        }
+
+        .brand {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .brand-mark {
+            width: 42px;
+            height: 42px;
+            border-radius: 12px;
+            display: grid;
+            place-items: center;
+            background: #202020;
+            color: white;
+            font-size: 14px;
+            font-weight: 800;
+        }
+
+        .brand-title {
+            font-size: 17px;
+            font-weight: 800;
+        }
+
+        .brand-subtitle {
+            margin-top: 3px;
+            color: #777;
+            font-size: 12px;
+        }
+
+        .back-button {
+            padding: 10px 14px;
+            border: 1px solid #dededb;
+            border-radius: 11px;
+            background: white;
+            font-size: 13px;
+            font-weight: 650;
+            transition: .2s ease;
+        }
+
+        .back-button:hover {
+            transform: translateY(-1px);
+            background: #fafafa;
+        }
+
+        .hero {
+            padding: 38px;
+            border: 1px solid #e8e8e4;
+            border-radius: 24px;
+            background: white;
+            margin-bottom: 30px;
+        }
+
+        .eyebrow {
+            display: inline-flex;
+            padding: 7px 11px;
+            margin-bottom: 15px;
+            border-radius: 999px;
+            background: #f0f0ed;
+            color: #666;
+            font-size: 11px;
+            font-weight: 750;
+            letter-spacing: .04em;
+            text-transform: uppercase;
+        }
+
+        .hero h1 {
+            margin: 0;
+            font-size: clamp(32px, 5vw, 48px);
+            line-height: 1.05;
+            letter-spacing: -.04em;
+        }
+
+        .hero p {
+            max-width: 800px;
+            margin: 15px 0 0;
+            color: #696969;
+            font-size: 15px;
+            line-height: 1.7;
+        }
+
+        .notice {
+            margin-top: 20px;
+            padding: 15px 17px;
+            border: 1px solid #e6e6e1;
+            border-radius: 14px;
+            background: #fafaf8;
+            color: #666;
+            font-size: 12px;
+            line-height: 1.65;
+        }
+
+        .section-header {
+            margin: 35px 0 18px;
+        }
+
+        .section-header h2 {
+            margin: 0;
+            font-size: 23px;
+        }
+
+        .section-header p {
+            margin: 6px 0 0;
+            color: #777;
+            font-size: 13px;
+        }
+
+        .subject-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 14px;
+        }
+
+        .subject-card {
+            min-height: 190px;
+            padding: 22px;
+            border: 1px solid #e4e4e0;
+            border-radius: 19px;
+            background: white;
+            display: flex;
+            flex-direction: column;
+            transition:
+                transform .2s ease,
+                box-shadow .2s ease,
+                border-color .2s ease;
+        }
+
+        .subject-card:hover {
+            transform: translateY(-3px);
+            border-color: #cecec9;
+            box-shadow: 0 12px 30px rgba(0,0,0,.06);
+        }
+
+        .subject-number {
+            color: #999;
+            font-size: 10px;
+            font-weight: 800;
+            letter-spacing: .06em;
+        }
+
+        .subject-icon {
+            width: 42px;
+            height: 42px;
+            margin-top: 13px;
+            display: grid;
+            place-items: center;
+            border-radius: 12px;
+            background: #f0f0ed;
+            font-size: 19px;
+        }
+
+        .subject-card h3 {
+            margin: 14px 0 7px;
+            font-size: 17px;
+        }
+
+        .subject-card p {
+            margin: 0;
+            color: #777;
+            font-size: 12px;
+            line-height: 1.6;
+        }
+
+        .subject-status {
+            margin-top: auto;
+            padding-top: 17px;
+            color: #888;
+            font-size: 11px;
+            font-weight: 700;
+        }
+
+        .framework {
+            margin-top: 34px;
+            padding: 25px;
+            border: 1px solid #e5e5e1;
+            border-radius: 20px;
+            background: white;
+        }
+
+        .framework h3 {
+            margin: 0 0 8px;
+            font-size: 19px;
+        }
+
+        .framework > p {
+            margin: 0;
+            color: #727272;
+            font-size: 13px;
+            line-height: 1.7;
+        }
+
+        .framework-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 12px;
+            margin-top: 20px;
+        }
+
+        .framework-item {
+            padding: 16px;
+            border: 1px solid #ecece8;
+            border-radius: 14px;
+            background: #fafaf8;
+        }
+
+        .framework-item strong {
+            display: block;
+            margin-bottom: 6px;
+            font-size: 13px;
+        }
+
+        .framework-item span {
+            color: #777;
+            font-size: 11px;
+            line-height: 1.6;
+        }
+
+        .footer-note {
+            margin-top: 22px;
+            color: #888;
+            font-size: 11px;
+            line-height: 1.6;
+        }
+
+        footer {
+            margin-top: 55px;
+            padding-top: 22px;
+            border-top: 1px solid #e3e3df;
+            color: #888;
+            font-size: 12px;
+            text-align: center;
+        }
+
+        @media (max-width: 900px) {
+            .subject-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
+
+        @media (max-width: 700px) {
+            .page {
+                width: min(100% - 22px, 1180px);
+                padding-top: 18px;
+            }
+
+            .topbar {
+                align-items: flex-start;
+            }
+
+            .hero {
+                padding: 25px;
+            }
+
+            .subject-grid,
+            .framework-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+<div class="page">
+
+    <header class="topbar">
+
+        <a href="../../index.html" class="brand">
+            <div class="brand-mark">FJ</div>
+
+            <div>
+                <div class="brand-title">FJIS Academy</div>
+                <div class="brand-subtitle">Student Learner</div>
+            </div>
+        </a>
+
+        <a href="kelas-12-tka.html" class="back-button">
+            ← Kembali ke TKA
+        </a>
+
+    </header>
+
+
+    <section class="hero">
+
+        <div class="eyebrow">
+            SMA · KELAS 12 · TKA · MATERI
+        </div>
+
+        <h1>
+            Materi TKA
+        </h1>
+
+        <p>
+            Ruang belajar TKA Kelas 12 yang disusun berdasarkan mata
+            uji wajib dan mata pelajaran pilihan. Struktur materi
+            akan dikembangkan dari kerangka asesmen resmi sehingga
+            pembahasan, latihan, dan tryout nantinya bisa terhubung
+            dalam satu alur.
+        </p>
+
+        <div class="notice">
+            <strong>Struktur TKA SMA:</strong>
+            mata uji wajib terdiri dari Bahasa Indonesia, Matematika,
+            dan Bahasa Inggris. Peserta juga mengerjakan dua mata
+            pelajaran pilihan.
+        </div>
+
+    </section>
+
+
+    <section>
+
+        <div class="section-header">
+
+            <h2>
+                Mata Uji Wajib
+            </h2>
+
+            <p>
+                Tiga mata uji yang menjadi fondasi utama persiapan TKA SMA.
+            </p>
+
+        </div>
+
+
+        <div class="subject-grid">
+
+            <article class="subject-card">
+
+                <span class="subject-number">WAJIB · 01</span>
+
+                <div class="subject-icon">🇮🇩</div>
+
+                <h3>Bahasa Indonesia</h3>
+
+                <p>
+                    Fokus pada pemahaman teks dan kemampuan bernalar
+                    melalui informasi yang tersurat maupun tersirat.
+                </p>
+
+                <div class="subject-status">
+                    Kerangka materi · siap dikembangkan
+                </div>
+
+            </article>
+
+
+            <article class="subject-card">
+
+                <span class="subject-number">WAJIB · 02</span>
+
+                <div class="subject-icon">∑</div>
+
+                <h3>Matematika</h3>
+
+                <p>
+                    Mencakup bilangan, aljabar, geometri dan pengukuran,
+                    trigonometri, serta data dan peluang.
+                </p>
+
+                <div class="subject-status">
+                    Kerangka materi · siap dikembangkan
+                </div>
+
+            </article>
+
+
+            <article class="subject-card">
+
+                <span class="subject-number">WAJIB · 03</span>
+
+                <div class="subject-icon">A</div>
+
+                <h3>Bahasa Inggris</h3>
+
+                <p>
+                    Materi akan disusun berdasarkan kerangka asesmen
+                    resmi dan diarahkan pada pemahaman serta penalaran
+                    dalam konteks teks.
+                </p>
+
+                <div class="subject-status">
+                    Kerangka materi · siap dikembangkan
+                </div>
+
+            </article>
+
+        </div>
+
+    </section>
+
+
+    <section>
+
+        <div class="section-header">
+
+            <h2>
+                Mata Pelajaran Pilihan
+            </h2>
+
+            <p>
+                Daftar pilihan akademik TKA SMA yang tersedia dalam
+                kerangka resmi.
+            </p>
+
+        </div>
+
+
+        <div class="subject-grid">
+
+            <article class="subject-card"><span class="subject-number">PILIHAN · 01</span><div class="subject-icon">∑</div><h3>Matematika Tingkat Lanjut</h3><p>Materi matematika tingkat lanjut untuk persiapan mata uji pilihan.</p><div class="subject-status">Kerangka materi · siap dikembangkan</div></article>
+
+            <article class="subject-card"><span class="subject-number">PILIHAN · 02</span><div class="subject-icon">B</div><h3>Bahasa Indonesia Tingkat Lanjut</h3><p>Materi bahasa Indonesia tingkat lanjut berbasis kemampuan membaca dan bernalar.</p><div class="subject-status">Kerangka materi · siap dikembangkan</div></article>
+
+            <article class="subject-card"><span class="subject-number">PILIHAN · 03</span><div class="subject-icon">E</div><h3>Bahasa Inggris Tingkat Lanjut</h3><p>Materi bahasa Inggris tingkat lanjut sesuai kerangka asesmen.</p><div class="subject-status">Kerangka materi · siap dikembangkan</div></article>
+
+            <article class="subject-card"><span class="subject-number">PILIHAN · 04</span><div class="subject-icon">F</div><h3>Fisika</h3><p>Materi fisika untuk penguasaan konsep, penerapan, dan penalaran.</p><div class="subject-status">Kerangka materi · siap dikembangkan</div></article>
+
+            <article class="subject-card"><span class="subject-number">PILIHAN · 05</span><div class="subject-icon">K</div><h3>Kimia</h3><p>Materi kimia yang disusun berdasarkan elemen dan kompetensi asesmen.</p><div class="subject-status">Kerangka materi · siap dikembangkan</div></article>
+
+            <article class="subject-card"><span class="subject-number">PILIHAN · 06</span><div class="subject-icon">B</div><h3>Biologi</h3><p>Materi biologi untuk pemahaman konsep dan penerapan pada konteks.</p><div class="subject-status">Kerangka materi · siap dikembangkan</div></article>
+
+            <article class="subject-card"><span class="subject-number">PILIHAN · 07</span><div class="subject-icon">P</div><h3>Pendidikan Pancasila</h3><p>Materi Pendidikan Pancasila sesuai mata pelajaran pilihan TKA.</p><div class="subject-status">Kerangka materi · siap dikembangkan</div></article>
+
+            <article class="subject-card"><span class="subject-number">PILIHAN · 08</span><div class="subject-icon">Rp</div><h3>Ekonomi</h3><p>Materi ekonomi dengan konteks dan permasalahan yang relevan.</p><div class="subject-status">Kerangka materi · siap dikembangkan</div></article>
+
+            <article class="subject-card"><span class="subject-number">PILIHAN · 09</span><div class="subject-icon">G</div><h3>Geografi</h3><p>Materi geografi berdasarkan kerangka kompetensi dan muatan asesmen.</p><div class="subject-status">Kerangka materi · siap dikembangkan</div></article>
+
+            <article class="subject-card"><span class="subject-number">PILIHAN · 10</span><div class="subject-icon">S</div><h3>Sosiologi</h3><p>Materi sosiologi untuk pemahaman, analisis, dan penalaran.</p><div class="subject-status">Kerangka materi · siap dikembangkan</div></article>
+
+            <article class="subject-card"><span class="subject-number">PILIHAN · 11</span><div class="subject-icon">H</div><h3>Sejarah</h3><p>Materi sejarah dengan kemampuan berpikir historis dan analisis konteks.</p><div class="subject-status">Kerangka materi · siap dikembangkan</div></article>
+
+            <article class="subject-card"><span class="subject-number">PILIHAN · 12</span><div class="subject-icon">A</div><h3>Antropologi</h3><p>Materi antropologi sesuai cakupan mata pelajaran pilihan.</p><div class="subject-status">Kerangka materi · siap dikembangkan</div></article>
+
+            <article class="subject-card"><span class="subject-number">PILIHAN · 13</span><div class="subject-icon">FR</div><h3>Bahasa Prancis</h3><p>Materi bahasa Prancis sesuai kerangka asesmen TKA.</p><div class="subject-status">Kerangka materi · siap dikembangkan</div></article>
+
+            <article class="subject-card"><span class="subject-number">PILIHAN · 14</span><div class="subject-icon">JP</div><h3>Bahasa Jepang</h3><p>Materi bahasa Jepang sesuai kerangka asesmen TKA.</p><div class="subject-status">Kerangka materi · siap dikembangkan</div></article>
+
+            <article class="subject-card"><span class="subject-number">PILIHAN · 15</span><div class="subject-icon">KO</div><h3>Bahasa Korea</h3><p>Materi bahasa Korea sesuai kerangka asesmen TKA.</p><div class="subject-status">Kerangka materi · siap dikembangkan</div></article>
+
+            <article class="subject-card"><span class="subject-number">PILIHAN · 16</span><div class="subject-icon">MN</div><h3>Bahasa Mandarin</h3><p>Materi bahasa Mandarin sesuai kerangka asesmen TKA.</p><div class="subject-status">Kerangka materi · siap dikembangkan</div></article>
+
+            <article class="subject-card"><span class="subject-number">PILIHAN · 17</span><div class="subject-icon">AR</div><h3>Bahasa Arab</h3><p>Materi bahasa Arab sesuai kerangka asesmen TKA.</p><div class="subject-status">Kerangka materi · siap dikembangkan</div></article>
+
+        </div>
+
+    </section>
+
+
+    <section class="framework">
+
+        <h3>
+            Pola Penyusunan Materi FJIS
+        </h3>
+
+        <p>
+            Setiap mata pelajaran nantinya tidak berhenti pada daftar
+            topik. Kita akan susun menjadi materi → submateri →
+            pembahasan → latihan → evaluasi, sehingga bagian latihan
+            dan tryout dapat memakai struktur yang sama.
+        </p>
+
+        <div class="framework-grid">
+
+            <div class="framework-item">
+                <strong>01 · Kerangka</strong>
+                <span>Elemen, materi, kompetensi, dan batasan materi.</span>
+            </div>
+
+            <div class="framework-item">
+                <strong>02 · Materi</strong>
+                <span>Penjelasan konsep, contoh, dan konteks penerapan.</span>
+            </div>
+
+            <div class="framework-item">
+                <strong>03 · Latihan</strong>
+                <span>Soal terukur dengan variasi bentuk dan tingkat kesulitan.</span>
+            </div>
+
+            <div class="framework-item">
+                <strong>04 · Evaluasi</strong>
+                <span>Hasil latihan dan pemetaan bagian yang perlu diperbaiki.</span>
+            </div>
+
+        </div>
+
+        <div class="footer-note">
+            Daftar mata uji di halaman ini mengikuti daftar TKA SMA pada
+            Pusat Asesmen Pendidikan. Detail materi setiap mata pelajaran
+            akan dibuat berdasarkan kerangka asesmen masing-masing, bukan
+            sekadar daftar bab umum.
+        </div>
+
+    </section>
+
+
+    <footer>
+        FJIS Academy · Student Learner
+    </footer>
+
+</div>
+
+
+<script src="../../js/app.js"></script>
+<script src="../../js/navigation.js"></script>
+
+</body>
+</html>

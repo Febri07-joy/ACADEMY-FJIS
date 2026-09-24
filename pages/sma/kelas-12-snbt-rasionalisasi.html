@@ -1,0 +1,536 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>FJIS Academy — Rasionalisasi SNBT v8</title>
+<style>
+*{box-sizing:border-box}body{margin:0;font-family:Arial,sans-serif;background:#f7f6f1;color:#202020}
+.topbar{display:flex;justify-content:space-between;align-items:center;padding:16px 7%;background:#fff;border-bottom:1px solid #e5e2da;position:sticky;top:0;z-index:5}
+.brand{display:flex;gap:10px;align-items:center;text-decoration:none;color:#222}.brand-icon{font-size:25px}.brand-name{display:block;font-weight:700;font-size:14px}.brand-motto{display:block;color:#777;font-size:11px;margin-top:2px}
+.back-btn{text-decoration:none;color:#444;border:1px solid #ddd8ce;border-radius:10px;padding:8px 12px;font-size:12px;background:#fff}
+.hero{padding:58px 7% 38px;background:linear-gradient(180deg,#fff 0%,#f7f6f1 100%)}.eyebrow{font-size:12px;font-weight:700;color:#315c4b}h1{font-size:42px;margin:8px 0 10px}.hero p{max-width:780px;color:#666;line-height:1.7;font-size:14px}
+.container{width:min(1180px,86%);margin:0 auto 60px}.section{background:#fff;border:1px solid #e2dfd7;border-radius:16px;padding:24px;margin-top:18px}h2{font-size:19px;margin:0 0 7px}h3{font-size:15px;margin:0 0 7px}p{line-height:1.65;font-size:13px}.muted{color:#707070}
+.grid{display:grid;grid-template-columns:repeat(2,1fr);gap:14px}.subtest-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:12px;margin-top:16px}.field,.subtest{display:flex;flex-direction:column;gap:7px}label{font-size:12px;font-weight:700}input,select{width:100%;padding:11px 12px;border:1px solid #d9d5cc;border-radius:10px;background:#fff;font-size:13px;outline:none}input:focus,select:focus{border-color:#315c4b}.hint{font-size:10px;color:#888}
+.note{margin-top:15px;padding:13px 14px;border-radius:11px;background:#f7f6f1;border:1px solid #e5e2da;color:#666;font-size:12px;line-height:1.6}
+.choice{border:1px solid #e2dfd7;border-radius:13px;padding:16px;margin-top:12px;background:#fff}.choice-head{display:flex;justify-content:space-between;align-items:center;margin-bottom:12px}.choice-no{font-weight:700;color:#315c4b;font-size:12px}.choice-grid{display:grid;grid-template-columns:1fr 1fr 1fr;gap:12px}
+.btn{border:0;border-radius:10px;padding:12px 16px;font-weight:700;cursor:pointer;font-size:13px}.primary{background:#315c4b;color:#fff}.secondary{background:#eeeae1;color:#333}.actions{display:flex;gap:10px;flex-wrap:wrap;margin-top:18px}
+.error{color:#a33;font-size:12px;margin-top:10px}.result{display:none}.result-top{display:grid;grid-template-columns:repeat(4,1fr);gap:12px}.metric{padding:15px;border:1px solid #e2dfd7;border-radius:12px;background:#fafaf8}.metric span{display:block;font-size:10px;color:#777}.metric strong{display:block;font-size:22px;margin-top:4px}
+.result-choice{padding:18px;border:1px solid #e2dfd7;border-radius:13px;margin-top:12px}.result-line{display:grid;grid-template-columns:1.4fr .8fr .8fr .8fr;gap:12px;align-items:center}.pill{display:inline-block;padding:5px 8px;border-radius:99px;background:#eeeae1;font-size:10px;font-weight:700}.meter{height:8px;border-radius:99px;background:#e8e5de;overflow:hidden;margin-top:7px}.meter i{display:block;height:100%;background:#555}
+.small{font-size:11px;color:#777;line-height:1.6}.warning{background:#fff7e8;border-color:#ecd9ae;color:#74591d}
+footer{border-top:1px solid #e5e2da;background:#fff;padding:25px;text-align:center;color:#888;font-size:12px}
+@media(max-width:850px){.subtest-grid,.grid,.result-top,.choice-grid,.result-line{grid-template-columns:1fr 1fr}}@media(max-width:560px){.topbar{padding:14px 5%}.hero{padding:45px 5% 30px}.container{width:90%}.subtest-grid,.grid,.result-top,.choice-grid,.result-line{grid-template-columns:1fr}h1{font-size:34px}}
+</style>
+</head>
+<body>
+
+<style id="fjis-snbt-access-style">
+#fjisSnbtGate{
+  position:fixed;inset:0;z-index:99999;
+  background:#f7f6f2;
+  display:flex;align-items:center;justify-content:center;
+  padding:24px;
+}
+.fjis-gate-card{
+  width:min(460px,100%);
+  background:#fff;
+  border:1px solid #e2dfd7;
+  border-radius:18px;
+  padding:30px;
+  box-shadow:0 18px 55px rgba(0,0,0,.07);
+}
+.fjis-gate-icon{
+  width:52px;height:52px;border-radius:14px;
+  background:#f0eee8;display:flex;align-items:center;
+  justify-content:center;font-size:25px;margin-bottom:18px;
+}
+.fjis-gate-card h2{font-size:24px;margin-bottom:8px}
+.fjis-gate-card p{font-size:13px;color:#777;line-height:1.65;margin-bottom:18px}
+.fjis-gate-label{display:block;font-size:12px;font-weight:700;margin-bottom:7px}
+.fjis-gate-input{
+  width:100%;padding:13px 14px;border:1px solid #d9d5cc;
+  border-radius:10px;background:#fafaf8;font-size:14px;
+  outline:none;
+}
+.fjis-gate-input:focus{border-color:#315c4b}
+.fjis-gate-button{
+  width:100%;margin-top:12px;border:0;border-radius:10px;
+  padding:13px 16px;background:#315c4b;color:#fff;
+  font-size:13px;font-weight:700;cursor:pointer;
+}
+.fjis-gate-error{display:none;color:#a33;font-size:12px;margin-top:10px}
+.fjis-gate-note{
+  margin-top:16px;padding:12px 13px;border-radius:10px;
+  background:#f7f6f2;color:#777;font-size:11px;line-height:1.6
+}
+body.fjis-snbt-locked{overflow:hidden}
+</style>
+
+<div id="fjisSnbtGate" aria-modal="true" role="dialog" aria-labelledby="fjisSnbtGateTitle">
+  <div class="fjis-gate-card">
+    <div class="fjis-gate-icon">🔐</div>
+    <h2 id="fjisSnbtGateTitle">Akses Rasionalisasi SNBT</h2>
+    <p>
+      Masukkan kode akses untuk membuka engine Rasionalisasi SNBT FJIS Academy.
+    </p>
+
+    <label class="fjis-gate-label" for="fjisSnbtAccessCode">Kode akses</label>
+    <input
+      id="fjisSnbtAccessCode"
+      class="fjis-gate-input"
+      type="password"
+      autocomplete="off"
+      placeholder="Masukkan kode akses"
+    >
+
+    <button type="button" id="fjisSnbtAccessButton" class="fjis-gate-button">
+      Buka Rasionalisasi
+    </button>
+
+    <div id="fjisSnbtAccessError" class="fjis-gate-error">
+      Kode akses tidak sesuai. Silakan coba lagi.
+    </div>
+
+    <div class="fjis-gate-note">
+      Akses yang sudah berhasil dibuka akan tersimpan di browser ini,
+      sehingga kode tidak perlu dimasukkan kembali selama data akses lokal
+      belum dihapus.
+    </div>
+  </div>
+</div>
+
+<script>
+(function(){
+  "use strict";
+
+  const ACCESS_CODE = "FJIS-SNBT-2026";
+  const ACCESS_KEY = "fjis_snbt_rasionalisasi_authorized_v1";
+
+  document.body.classList.add("fjis-snbt-locked");
+
+  const gate = document.getElementById("fjisSnbtGate");
+  const input = document.getElementById("fjisSnbtAccessCode");
+  const button = document.getElementById("fjisSnbtAccessButton");
+  const error = document.getElementById("fjisSnbtAccessError");
+
+  function normalize(value){
+    return String(value || "").trim().toUpperCase();
+  }
+
+  function unlock(){
+    gate.style.display = "none";
+    document.body.classList.remove("fjis-snbt-locked");
+  }
+
+  let authorized = false;
+  try {
+    authorized = localStorage.getItem(ACCESS_KEY) === "1";
+  } catch(e) {
+    authorized = false;
+  }
+
+  if (authorized) {
+    unlock();
+    return;
+  }
+
+  setTimeout(function(){
+    input.focus();
+  }, 50);
+
+  function checkCode(){
+    const value = normalize(input.value);
+
+    if (value === ACCESS_CODE) {
+      try {
+        localStorage.setItem(ACCESS_KEY, "1");
+      } catch(e) {}
+
+      error.style.display = "none";
+      unlock();
+    } else {
+      error.style.display = "block";
+      input.value = "";
+      input.focus();
+    }
+  }
+
+  button.addEventListener("click", checkCode);
+
+  input.addEventListener("keydown", function(event){
+    if(event.key === "Enter"){
+      event.preventDefault();
+      checkCode();
+    }
+  });
+})();
+</script>
+
+<header class="topbar">
+<a class="brand" href="kelas-12-snbt.html"><div class="brand-icon">📚</div><div><span class="brand-name">FJIS Academy</span><span class="brand-motto">Student Learner</span></div></a>
+<a class="back-btn" href="kelas-12-snbt.html">← SNBT</a>
+</header>
+
+<section class="hero">
+<span class="eyebrow">SMA Kelas 12 · SNBT · FJIS v4</span>
+<h1>Rasionalisasi SNBT</h1>
+<p>
+Versi ini memisahkan kemampuan UTBK, tekanan kompetisi prodi, konteks universitas, dan kualitas data.
+Analisis memisahkan profil UTBK, bidang studi, PTN, fakultas/prodi, jenjang,
+indikator kompetisi, dan kualitas data. Hasil adalah estimasi model internal FJIS. Sistem memisahkan indeks kecocokan dari estimasi peluang berbasis data historis. Tidak ada angka yang dianggap sebagai passing grade resmi.
+</p>
+</section>
+
+<main class="container">
+<section class="section">
+<h2>1. Skor UTBK per Subtes</h2>
+<p class="muted">Isi 7 skor UTBK. Sistem membaca kekuatan dan kelemahan subtes, bukan sekadar rata-rata.</p>
+<div class="subtest-grid">
+<div class="subtest"><label>Penalaran Umum</label><input class="score" data-key="pu" type="number" min="0" max="1000" step="0.01" placeholder="0–1000"><div class="hint">PU</div></div><div class="subtest"><label>Pengetahuan & Pemahaman Umum</label><input class="score" data-key="ppu" type="number" min="0" max="1000" step="0.01" placeholder="0–1000"><div class="hint">PPU</div></div><div class="subtest"><label>Pemahaman Bacaan & Menulis</label><input class="score" data-key="pbm" type="number" min="0" max="1000" step="0.01" placeholder="0–1000"><div class="hint">PBM</div></div><div class="subtest"><label>Pengetahuan Kuantitatif</label><input class="score" data-key="pk" type="number" min="0" max="1000" step="0.01" placeholder="0–1000"><div class="hint">PK</div></div><div class="subtest"><label>Literasi Bahasa Indonesia</label><input class="score" data-key="lbi" type="number" min="0" max="1000" step="0.01" placeholder="0–1000"><div class="hint">LBI</div></div><div class="subtest"><label>Literasi Bahasa Inggris</label><input class="score" data-key="lbe" type="number" min="0" max="1000" step="0.01" placeholder="0–1000"><div class="hint">LBE</div></div><div class="subtest"><label>Penalaran Matematika</label><input class="score" data-key="pm" type="number" min="0" max="1000" step="0.01" placeholder="0–1000"><div class="hint">PM</div></div>
+</div>
+<div class="note">Pembobotan subtes di bawah adalah model internal FJIS. SNPMB menyatakan SNBT 2026 berbasis hasil UTBK, dan portofolio ditambahkan untuk prodi seni/olahraga. cite tidak ditulis di HTML: sumber resmi ada di halaman SNPMB.</div>
+</section>
+
+<section class="section">
+<h2>2. Bidang Program Studi</h2>
+<div class="grid">
+<div class="field"><label>Bidang utama</label><select id="field">
+<option value="">Pilih bidang</option>
+<option value="engineering">Teknik, Sains & Komputasi</option>
+<option value="health">Kesehatan & Kedokteran</option>
+<option value="social">Sosial, Humaniora & Pendidikan</option>
+<option value="business">Ekonomi, Bisnis & Manajemen</option>
+<option value="law">Hukum & Ilmu Politik</option>
+<option value="language">Bahasa, Sastra & Hubungan Internasional</option>
+<option value="arts">Seni, Desain & Olahraga</option>
+</select></div>
+<div class="field"><label>Jumlah pilihan</label><select id="choiceCount"><option>2</option><option>3</option><option>4</option></select></div>
+</div>
+<div id="weightBox" class="note">Pilih bidang untuk melihat bobot internal FJIS.</div>
+</section>
+
+<section class="section">
+<h2>3. Pilihan PTN → Program Studi</h2>
+<p class="muted">
+Pilih PTN terlebih dahulu. Program studi kemudian difilter berdasarkan katalog lokal.
+Untuk PTN yang belum memiliki daftar prodi di katalog ini, sistem tidak akan mengarang jurusan:
+pilihan akan ditandai sebagai <b>data prodi belum dimuat</b>.
+</p>
+<div id="choices"></div>
+<div id="choiceError" class="error"></div>
+</section>
+
+<section class="section">
+<div class="actions"><button class="btn primary" id="analyze">Analisis Pilihan</button><button class="btn secondary" id="reset">Reset</button></div>
+</section>
+
+<section class="section result" id="result">
+<h2>4. Hasil Analisis FJIS</h2>
+<p class="muted">Setiap pilihan dianalisis sendiri. <b>Indeks FJIS</b> adalah skor kecocokan 0–100, sedangkan <b>estimasi peluang model</b> dihitung terpisah dari rasio diterima/peminat atau daya tampung/peminat. Angka tersebut bukan peluang resmi SNPMB/PTN.</p>
+<div class="result-top">
+<div class="metric"><span>Rata-rata 7 subtes</span><strong id="rawAvg">—</strong></div>
+<div class="metric"><span>Skor berbobot bidang</span><strong id="weighted">—</strong></div>
+<div class="metric"><span>Subtes terkuat</span><strong id="strongest">—</strong></div>
+<div class="metric"><span>Subtes terlemah</span><strong id="weakest">—</strong></div>
+</div>
+<div id="resultList"></div>
+<div class="note warning">
+<b>Penting:</b> FJIS tidak boleh menyimpulkan “pasti lolos” atau “pasti gagal”.
+Tingkat persaingan masuk berubah setiap tahun dan syarat penerimaan ditentukan PTN/prodi.
+Jika data daya tampung, historis, atau akreditasi belum tersedia, sistem harus menyatakan
+data tersebut belum tersedia—bukan membuat angka.
+</div>
+</section>
+
+<section class="section">
+<h2>Metode Keketatan & Pengaman Hasil</h2>
+<p class="small">
+FJIS menggunakan dua jenis data: <b>data resmi pendaftar+diterima</b> bila tersedia, atau
+<b>daya tampung SNBT + peminat terbaru</b> sebagai indikator tekanan kursi bila angka diterima
+per prodi tidak tersedia. Sistem tidak mengubah data daya tampung menjadi "angka diterima".
+Jika data kompetisi prodi belum tersedia, sistem tidak membuat persentase peluang. Indeks juga dibatasi agar
+profil biasa tidak terlihat terlalu optimistis. Untuk prodi dengan data resmi, rasio penerimaan historis menjadi jangkar;
+untuk prodi tanpa angka diterima, sistem memakai daya tampung sebagai  dan menandainya secara eksplisit. Akreditasi juga tidak ditebak: prodi hanya mendapat
+penyesuaian akreditasi setelah statusnya diverifikasi dari lembaga akreditasi yang relevan.
+</p>
+<h2>Dasar data dan status katalog</h2>
+<p class="small">
+Daftar PTN pada versi ini mengikuti daftar pusat UTBK resmi SNPMB 2026. Halaman daya tampung
+resmi SNPMB menyebut data daya tampung program studi SNBT 2026 tersedia untuk 146 PTN dan
+menampilkan data historis lima tahun. Versi ini sudah menyiapkan struktur database untuk
+menampung data tersebut, tetapi belum mengklaim katalog prodi nasional lengkap sebelum
+data prodi resmi dimasukkan. Akreditasi prodi juga harus diisi dari sumber akreditasi resmi
+(BAN-PT/LAM), bukan ditebak dari reputasi kampus.
+</p>
+</section>
+</main>
+<footer>FJIS Academy · Student Learner · Rasionalisasi SNBT</footer>
+
+<script>
+const PTNS = [{"code": "111", "name": "Universitas Syiah Kuala", "province": "Aceh"}, {"code": "112", "name": "Universitas Malikussaleh", "province": "Aceh"}, {"code": "113", "name": "Universitas Teuku Umar", "province": "Aceh"}, {"code": "114", "name": "Universitas Samudra", "province": "Aceh"}, {"code": "115", "name": "Institut Seni Budaya Indonesia Aceh", "province": "Aceh"}, {"code": "121", "name": "Universitas Sumatera Utara", "province": "Sumatera Utara"}, {"code": "122", "name": "Universitas Negeri Medan", "province": "Sumatera Utara"}, {"code": "131", "name": "Universitas Riau", "province": "Riau"}, {"code": "133", "name": "Universitas Maritim Raja Ali Haji", "province": "Kepulauan Riau"}, {"code": "141", "name": "Universitas Andalas", "province": "Sumatera Barat"}, {"code": "142", "name": "Universitas Negeri Padang", "province": "Sumatera Barat"}, {"code": "143", "name": "Institut Seni Indonesia Padang Panjang", "province": "Sumatera Barat"}, {"code": "151", "name": "Universitas Jambi", "province": "Jambi"}, {"code": "161", "name": "Universitas Bengkulu", "province": "Bengkulu"}, {"code": "171", "name": "Universitas Sriwijaya", "province": "Sumatera Selatan"}, {"code": "181", "name": "Universitas Bangka Belitung", "province": "Kepulauan Bangka Belitung"}, {"code": "191", "name": "Universitas Lampung", "province": "Lampung"}, {"code": "192", "name": "Institut Teknologi Sumatera", "province": "Lampung"}, {"code": "311", "name": "Universitas Sultan Ageng Tirtayasa", "province": "Banten"}, {"code": "321", "name": "Universitas Indonesia", "province": "Jawa Barat"}, {"code": "323", "name": "Universitas Negeri Jakarta", "province": "DKI Jakarta"}, {"code": "324", "name": "Universitas Pembangunan Nasional Veteran Jakarta", "province": "DKI Jakarta"}, {"code": "331", "name": "Universitas Singaperbangsa Karawang", "province": "Jawa Barat"}, {"code": "332", "name": "Institut Teknologi Bandung", "province": "Jawa Barat"}, {"code": "333", "name": "Universitas Padjadjaran", "province": "Jawa Barat"}, {"code": "334", "name": "Universitas Pendidikan Indonesia", "province": "Jawa Barat"}, {"code": "335", "name": "Institut Seni Budaya Indonesia Bandung", "province": "Jawa Barat"}, {"code": "341", "name": "Institut Pertanian Bogor", "province": "Jawa Barat"}, {"code": "342", "name": "Universitas Siliwangi", "province": "Jawa Barat"}, {"code": "351", "name": "Universitas Jenderal Soedirman", "province": "Jawa Tengah"}, {"code": "352", "name": "Universitas Tidar", "province": "Jawa Tengah"}, {"code": "353", "name": "Universitas Sebelas Maret", "province": "Jawa Tengah"}, {"code": "354", "name": "Institut Seni Indonesia Surakarta", "province": "Jawa Tengah"}, {"code": "355", "name": "Universitas Diponegoro", "province": "Jawa Tengah"}, {"code": "356", "name": "Universitas Negeri Semarang", "province": "Jawa Tengah"}, {"code": "361", "name": "Universitas Gadjah Mada", "province": "DI Yogyakarta"}, {"code": "362", "name": "Universitas Negeri Yogyakarta", "province": "DI Yogyakarta"}, {"code": "363", "name": "Universitas Pembangunan Nasional Veteran Yogyakarta", "province": "DI Yogyakarta"}, {"code": "364", "name": "Institut Seni Indonesia Yogyakarta", "province": "DI Yogyakarta"}, {"code": "371", "name": "Universitas Jember", "province": "Jawa Timur"}, {"code": "372", "name": "Universitas Brawijaya", "province": "Jawa Timur"}, {"code": "373", "name": "Universitas Negeri Malang", "province": "Jawa Timur"}, {"code": "381", "name": "Universitas Airlangga", "province": "Jawa Timur"}, {"code": "382", "name": "Institut Teknologi Sepuluh Nopember", "province": "Jawa Timur"}, {"code": "383", "name": "Universitas Negeri Surabaya", "province": "Jawa Timur"}, {"code": "384", "name": "Universitas Trunojoyo Madura", "province": "Jawa Timur"}, {"code": "385", "name": "Universitas Pembangunan Nasional Veteran Jawa Timur", "province": "Jawa Timur"}, {"code": "511", "name": "Universitas Tanjungpura", "province": "Kalimantan Barat"}, {"code": "521", "name": "Universitas Palangka Raya", "province": "Kalimantan Tengah"}, {"code": "531", "name": "Universitas Lambung Mangkurat", "province": "Kalimantan Selatan"}, {"code": "541", "name": "Universitas Mulawarman", "province": "Kalimantan Timur"}, {"code": "542", "name": "Institut Teknologi Kalimantan", "province": "Kalimantan Timur"}, {"code": "551", "name": "Universitas Borneo Tarakan", "province": "Kalimantan Utara"}, {"code": "611", "name": "Universitas Udayana", "province": "Bali"}, {"code": "612", "name": "Universitas Pendidikan Ganesha", "province": "Bali"}, {"code": "613", "name": "Institut Seni Indonesia Denpasar", "province": "Bali"}, {"code": "621", "name": "Universitas Mataram", "province": "Nusa Tenggara Barat"}, {"code": "631", "name": "Universitas Nusa Cendana", "province": "Nusa Tenggara Timur"}, {"code": "632", "name": "Universitas Timor", "province": "Nusa Tenggara Timur"}, {"code": "711", "name": "Universitas Hasanuddin", "province": "Sulawesi Selatan"}, {"code": "712", "name": "Universitas Negeri Makassar", "province": "Sulawesi Selatan"}, {"code": "721", "name": "Universitas Sam Ratulangi", "province": "Sulawesi Utara"}, {"code": "722", "name": "Universitas Negeri Manado", "province": "Sulawesi Utara"}, {"code": "731", "name": "Universitas Tadulako", "province": "Sulawesi Tengah"}, {"code": "741", "name": "Universitas Sulawesi Barat", "province": "Sulawesi Barat"}, {"code": "751", "name": "Universitas Halu Oleo", "province": "Sulawesi Tenggara"}, {"code": "752", "name": "Universitas Negeri Gorontalo", "province": "Gorontalo"}, {"code": "753", "name": "Universitas Sembilanbelas November Kolaka", "province": "Sulawesi Tenggara"}, {"code": "811", "name": "Universitas Pattimura", "province": "Maluku"}, {"code": "821", "name": "Universitas Khairun", "province": "Maluku Utara"}, {"code": "911", "name": "Universitas Cenderawasih", "province": "Papua"}, {"code": "912", "name": "Universitas Musamus", "province": "Papua Selatan"}, {"code": "913", "name": "Institut Seni Budaya Indonesia Tanah Papua", "province": "Papua"}, {"code": "921", "name": "Universitas Papua", "province": "Papua Barat"}];
+const PROGRAMS = {"Universitas Indonesia": [["D3", "HUBUNGAN MASYARAKAT", "Sosial, Humaniora & Pendidikan"], ["D3", "AKUNTANSI", "Ekonomi, Bisnis & Manajemen"], ["D3", "ADMINISTRASI PERPAJAKAN", "Ekonomi, Bisnis & Manajemen"], ["D3", "PERIKLANAN KREATIF", "Sosial, Humaniora & Pendidikan"], ["D3", "ADMINISTRASI RUMAH SAKIT", "Sosial, Humaniora & Pendidikan"], ["D3", "PENYIARAN MULTIMEDIA", "Sosial, Humaniora & Pendidikan"], ["D3", "ADMINISTRASI KEUANGAN DAN PERBANKAN", "Ekonomi, Bisnis & Manajemen"], ["D3", "ADMINISTRASI PERKANTORAN", "Sosial, Humaniora & Pendidikan"], ["D3", "ADMINISTRASI ASURANSI & AKTUARIA", "Teknik, Sains & Komputasi"], ["D4", "BISNIS KREATIF", "Ekonomi, Bisnis & Manajemen"], ["D4", "PRODUKSI MEDIA", "Sosial, Humaniora & Pendidikan"], ["D4", "FISIOTERAPI", "Kesehatan & Kedokteran"], ["D4", "MANAJEMEN BISNIS PARIWISATA", "Ekonomi, Bisnis & Manajemen"], ["D4", "MANAJEMEN REKOD DAN ARSIP", "Ekonomi, Bisnis & Manajemen"], ["D4", "TERAPI OKUPASI", "Kesehatan & Kedokteran"], ["S1", "KRIMINOLOGI", "Hukum & Ilmu Politik"], ["S1", "ILMU HUBUNGAN INTERNASIONAL", "Hukum & Ilmu Politik"], ["S1", "ILMU KOMUNIKASI", "Sosial, Humaniora & Pendidikan"], ["S1", "KESELAMATAN DAN KESEHATAN KERJA", "Kesehatan & Kedokteran"], ["S1", "SASTRA INGGRIS", "Bahasa, Sastra & Hubungan Internasional"], ["S1", "PENDIDIKAN DOKTER", "Sosial, Humaniora & Pendidikan"], ["S1", "SASTRA CINA", "Bahasa, Sastra & Hubungan Internasional"], ["S1", "BAHASA DAN KEBUDAYAAN KOREA", "Bahasa, Sastra & Hubungan Internasional"], ["S1", "ILMU PSIKOLOGI", "Sosial, Humaniora & Pendidikan"], ["S1", "ILMU KESEJAHTERAAN SOSIAL", "Sosial, Humaniora & Pendidikan"], ["S1", "BISNIS ISLAM", "Ekonomi, Bisnis & Manajemen"], ["S1", "SASTRA JEPANG", "Bahasa, Sastra & Hubungan Internasional"], ["S1", "ILMU POLITIK", "Hukum & Ilmu Politik"], ["S1", "GIZI", "Kesehatan & Kedokteran"], ["S1", "ILMU ADMINISTRASI NIAGA", "Sosial, Humaniora & Pendidikan"], ["S1", "ARSITEKTUR INTERIOR", "Teknik, Sains & Komputasi"], ["S1", "TEKNIK BIOMEDIS", "Kesehatan & Kedokteran"], ["S1", "ILMU KOMPUTER", "Teknik, Sains & Komputasi"], ["S1", "SASTRA JERMAN", "Bahasa, Sastra & Hubungan Internasional"], ["S1", "ILMU HUKUM", "Hukum & Ilmu Politik"], ["S1", "AKUNTANSI", "Ekonomi, Bisnis & Manajemen"], ["S1", "ILMU ADMINISTRASI NEGARA", "Hukum & Ilmu Politik"], ["S1", "ILMU PERPUSTAKAAN", "Sosial, Humaniora & Pendidikan"], ["S1", "TEKNIK INDUSTRI", "Teknik, Sains & Komputasi"], ["S1", "SISTEM INFORMASI", "Teknik, Sains & Komputasi"], ["S1", "SOSIOLOGI", "Sosial, Humaniora & Pendidikan"], ["S1", "MANAJEMEN", "Ekonomi, Bisnis & Manajemen"], ["S1", "TEKNIK KOMPUTER", "Teknik, Sains & Komputasi"], ["S1", "ILMU KESEHATAN MASYARAKAT", "Kesehatan & Kedokteran"], ["S1", "ANTROPOLOGI SOSIAL", "Bahasa, Sastra & Hubungan Internasional"], ["S1", "ILMU EKONOMI ISLAM", "Ekonomi, Bisnis & Manajemen"], ["S1", "SASTRA ARAB", "Bahasa, Sastra & Hubungan Internasional"], ["S1", "ARSITEKTUR", "Teknik, Sains & Komputasi"], ["S1", "ILMU ADMINISTRASI FISKAL", "Hukum & Ilmu Politik"], ["S1", "ILMU AKTUARIA", "Teknik, Sains & Komputasi"], ["S1", "FARMASI", "Kesehatan & Kedokteran"], ["S1", "TEKNIK SIPIL", "Teknik, Sains & Komputasi"], ["S1", "GEOLOGI", "Teknik, Sains & Komputasi"], ["S1", "SASTRA INDONESIA", "Bahasa, Sastra & Hubungan Internasional"], ["S1", "PENDIDIKAN DOKTER GIGI", "Kesehatan & Kedokteran"], ["S1", "TEKNIK BIOPROSES", "Teknik, Sains & Komputasi"], ["S1", "ILMU SEJARAH", "Bahasa, Sastra & Hubungan Internasional"], ["S1", "STATISTIKA", "Teknik, Sains & Komputasi"], ["S1", "TEKNIK LINGKUNGAN", "Teknik, Sains & Komputasi"], ["S1", "TEKNIK PERKAPALAN", "Teknik, Sains & Komputasi"], ["S1", "TEKNIK METALURGI & MATERIAL", "Teknik, Sains & Komputasi"], ["S1", "TEKNIK MESIN", "Teknik, Sains & Komputasi"], ["S1", "KESEHATAN LINGKUNGAN", "Kesehatan & Kedokteran"], ["S1", "SASTRA BELANDA", "Bahasa, Sastra & Hubungan Internasional"], ["S1", "ILMU EKONOMI", "Ekonomi, Bisnis & Manajemen"], ["S1", "TEKNIK ELEKTRO", "Teknik, Sains & Komputasi"], ["S1", "SASTRA PERANCIS", "Bahasa, Sastra & Hubungan Internasional"], ["S1", "ILMU KEPERAWATAN", "Kesehatan & Kedokteran"], ["S1", "GEOFISIKA", "Teknik, Sains & Komputasi"], ["S1", "ILMU FILSAFAT", "Bahasa, Sastra & Hubungan Internasional"], ["S1", "TEKNIK KIMIA", "Teknik, Sains & Komputasi"], ["S1", "ARKEOLOGI", "Bahasa, Sastra & Hubungan Internasional"], ["S1", "GEOGRAFI", "Sosial, Humaniora & Pendidikan"], ["S1", "MATEMATIKA", "Teknik, Sains & Komputasi"], ["S1", "SASTRA RUSIA", "Bahasa, Sastra & Hubungan Internasional"], ["S1", "KIMIA", "Teknik, Sains & Komputasi"], ["S1", "BIOLOGI", "Teknik, Sains & Komputasi"], ["S1", "FISIKA", "Teknik, Sains & Komputasi"], ["S1", "SASTRA DAERAH UNTUK SASTRA JAWA", "Bahasa, Sastra & Hubungan Internasional"]], "Institut Teknologi Bandung": [["S1", "Informatika", "Teknik, Sains & Komputasi"], ["S1", "Sistem dan Teknologi Informasi", "Teknik, Sains & Komputasi"], ["S1", "Teknik Elektro", "Teknik, Sains & Komputasi"], ["S1", "Teknik Mesin", "Teknik, Sains & Komputasi"], ["S1", "Teknik Sipil", "Teknik, Sains & Komputasi"], ["S1", "Arsitektur", "Teknik, Sains & Komputasi"], ["S1", "Matematika", "Teknik, Sains & Komputasi"], ["S1", "Fisika", "Teknik, Sains & Komputasi"], ["S1", "Kimia", "Teknik, Sains & Komputasi"], ["S1", "Desain Komunikasi Visual", "Seni, Desain & Olahraga"]], "Institut Pertanian Bogor": [["S1", "Ilmu Komputer", "Teknik, Sains & Komputasi"], ["S1", "Statistika", "Teknik, Sains & Komputasi"], ["S1", "Kedokteran Hewan", "Kesehatan & Kedokteran"], ["S1", "Manajemen", "Ekonomi, Bisnis & Manajemen"], ["S1", "Akuntansi", "Ekonomi, Bisnis & Manajemen"], ["S1", "Agribisnis", "Ekonomi, Bisnis & Manajemen"], ["S1", "Teknologi Pangan", "Sains & Komputasi"], ["S1", "Biologi", "Teknik, Sains & Komputasi"]], "Universitas Gadjah Mada": [["S1", "Pendidikan Dokter", "Kesehatan & Kedokteran"], ["S1", "Teknologi Informasi", "Teknik, Sains & Komputasi"], ["S1", "Ilmu Komputer", "Teknik, Sains & Komputasi"], ["S1", "Teknik Sipil", "Teknik, Sains & Komputasi"], ["S1", "Teknik Industri", "Teknik, Sains & Komputasi"], ["S1", "Teknik Mesin", "Teknik, Sains & Komputasi"], ["S1", "Teknik Elektro", "Teknik, Sains & Komputasi"], ["S1", "Akuntansi", "Ekonomi, Bisnis & Manajemen"], ["S1", "Manajemen", "Ekonomi, Bisnis & Manajemen"], ["S1", "Ilmu Komunikasi", "Sosial, Humaniora & Pendidikan"], ["S1", "Ilmu Hubungan Internasional", "Bahasa, Sastra & Hubungan Internasional"], ["S1", "Psikologi", "Sosial, Humaniora & Pendidikan"], ["S1", "Ilmu Keperawatan", "Kesehatan & Kedokteran"], ["S1", "Gizi", "Kesehatan & Kedokteran"], ["D4", "Bahasa Inggris", "Bahasa, Sastra & Hubungan Internasional"], ["D4", "Teknologi Rekayasa Perangkat Lunak", "Teknik, Sains & Komputasi"], ["D4", "Teknologi Rekayasa Mesin", "Teknik, Sains & Komputasi"], ["D4", "Teknologi Informasi", "Teknik, Sains & Komputasi"], ["D4", "Akuntansi Sektor Publik", "Ekonomi, Bisnis & Manajemen"], ["D4", "Pengelolaan Arsip dan Rekaman Informasi", "Sosial, Humaniora & Pendidikan"], ["D4", "Manajemen Informasi Kesehatan", "Kesehatan & Kedokteran"], ["D4", "Sistem Informasi Geografis", "Teknik, Sains & Komputasi"], ["D4", "Bisnis Perjalanan Wisata", "Ekonomi, Bisnis & Manajemen"]], "Institut Teknologi Sepuluh Nopember": [["S1", "Informatika", "Teknik, Sains & Komputasi"], ["S1", "Teknologi Informasi", "Teknik, Sains & Komputasi"], ["S1", "Teknik Elektro", "Teknik, Sains & Komputasi"], ["S1", "Teknik Mesin", "Teknik, Sains & Komputasi"], ["S1", "Teknik Sipil", "Teknik, Sains & Komputasi"], ["S1", "Arsitektur", "Teknik, Sains & Komputasi"], ["S1", "Matematika", "Teknik, Sains & Komputasi"], ["S1", "Fisika", "Teknik, Sains & Komputasi"], ["S1", "Kimia", "Teknik, Sains & Komputasi"], ["D4", "Analitika Logistik Terapan", "Teknik, Sains & Komputasi"]], "Universitas Airlangga": [["S1", "Kedokteran", "Kesehatan & Kedokteran"], ["S1", "Kedokteran Gigi", "Kesehatan & Kedokteran"], ["S1", "Kesehatan Masyarakat", "Kesehatan & Kedokteran"], ["S1", "Farmasi", "Kesehatan & Kedokteran"], ["S1", "Ilmu Hukum", "Hukum & Ilmu Politik"], ["S1", "Manajemen", "Ekonomi, Bisnis & Manajemen"], ["S1", "Akuntansi", "Ekonomi, Bisnis & Manajemen"], ["S1", "Ilmu Komunikasi", "Sosial, Humaniora & Pendidikan"]], "Universitas Brawijaya": [["S1", "Teknik Informatika", "Teknik, Sains & Komputasi"], ["S1", "Sistem Informasi", "Teknik, Sains & Komputasi"], ["S1", "Teknik Sipil", "Teknik, Sains & Komputasi"], ["S1", "Kedokteran", "Kesehatan & Kedokteran"], ["S1", "Hukum", "Hukum & Ilmu Politik"], ["S1", "Manajemen", "Ekonomi, Bisnis & Manajemen"], ["S1", "Akuntansi", "Ekonomi, Bisnis & Manajemen"], ["S1", "Psikologi", "Sosial, Humaniora & Pendidikan"]], "Universitas Padjadjaran": [["S1", "Teknik Informatika", "Teknik, Sains & Komputasi"], ["S1", "Kedokteran", "Kesehatan & Kedokteran"], ["S1", "Farmasi", "Kesehatan & Kedokteran"], ["S1", "Hukum", "Hukum & Ilmu Politik"], ["S1", "Manajemen", "Ekonomi, Bisnis & Manajemen"], ["S1", "Akuntansi", "Ekonomi, Bisnis & Manajemen"], ["S1", "Psikologi", "Sosial, Humaniora & Pendidikan"], ["S1", "Ilmu Komunikasi", "Sosial, Humaniora & Pendidikan"]], "Universitas Diponegoro": [["S1", "Informatika", "Teknik, Sains & Komputasi"], ["S1", "Teknik Sipil", "Teknik, Sains & Komputasi"], ["S1", "Kedokteran", "Kesehatan & Kedokteran"], ["S1", "Hukum", "Hukum & Ilmu Politik"], ["S1", "Manajemen", "Ekonomi, Bisnis & Manajemen"], ["S1", "Akuntansi", "Ekonomi, Bisnis & Manajemen"], ["S1", "Psikologi", "Sosial, Humaniora & Pendidikan"]], "Universitas Sebelas Maret": [["S1", "Informatika", "Teknik, Sains & Komputasi"], ["S1", "Teknik Sipil", "Teknik, Sains & Komputasi"], ["S1", "Kedokteran", "Kesehatan & Kedokteran"], ["S1", "Hukum", "Hukum & Ilmu Politik"], ["S1", "Manajemen", "Ekonomi, Bisnis & Manajemen"], ["S1", "Akuntansi", "Ekonomi, Bisnis & Manajemen"], ["S1", "Psikologi", "Sosial, Humaniora & Pendidikan"]], "Universitas Hasanuddin": [["S1", "Teknik Informatika", "Teknik, Sains & Komputasi"], ["S1", "Teknik Sipil", "Teknik, Sains & Komputasi"], ["S1", "Kedokteran", "Kesehatan & Kedokteran"], ["S1", "Hukum", "Hukum & Ilmu Politik"], ["S1", "Manajemen", "Ekonomi, Bisnis & Manajemen"], ["S1", "Akuntansi", "Ekonomi, Bisnis & Manajemen"]], "Universitas Sumatera Utara": [["S1", "Pendidikan Dokter", "Kesehatan & Kedokteran"], ["S1", "Ilmu Komputer", "Teknik, Sains & Komputasi"], ["S1", "Teknologi Informasi", "Teknik, Sains & Komputasi"], ["S1", "Teknik Informatika", "Teknik, Sains & Komputasi"], ["S1", "Teknik Sipil", "Teknik, Sains & Komputasi"], ["S1", "Teknik Elektro", "Teknik, Sains & Komputasi"], ["S1", "Teknik Industri", "Teknik, Sains & Komputasi"], ["S1", "Teknik Mesin", "Teknik, Sains & Komputasi"], ["S1", "Teknik Kimia", "Teknik, Sains & Komputasi"], ["S1", "Teknik Lingkungan", "Teknik, Sains & Komputasi"], ["S1", "Kedokteran Gigi", "Kesehatan & Kedokteran"], ["S1", "Farmasi", "Kesehatan & Kedokteran"], ["S1", "Gizi", "Kesehatan & Kedokteran"], ["S1", "Ilmu Keperawatan", "Kesehatan & Kedokteran"], ["S1", "Ilmu Kesehatan Masyarakat", "Kesehatan & Kedokteran"], ["S1", "Psikologi", "Sosial, Humaniora & Pendidikan"], ["S1", "Ilmu Hukum", "Hukum & Ilmu Politik"], ["S1", "Ilmu Politik", "Hukum & Ilmu Politik"], ["S1", "Ilmu Komunikasi", "Sosial, Humaniora & Pendidikan"], ["S1", "Ilmu Administrasi Negara", "Hukum & Ilmu Politik"], ["S1", "Ilmu Administrasi Niaga/bisnis", "Ekonomi, Bisnis & Manajemen"], ["S1", "Manajemen", "Ekonomi, Bisnis & Manajemen"], ["S1", "Akuntansi", "Ekonomi, Bisnis & Manajemen"], ["S1", "Agribisnis", "Ekonomi, Bisnis & Manajemen"], ["S1", "Keteknikan Pertanian", "Teknik, Sains & Komputasi"], ["S1", "Ilmu dan Teknologi Pangan", "Teknik, Sains & Komputasi"], ["S1", "Kehutanan", "Teknik, Sains & Komputasi"], ["S1", "Arsitektur", "Teknik, Sains & Komputasi"], ["D4", "Statistika", "Teknik, Sains & Komputasi"], ["D4", "Akuntansi Sektor Publik", "Ekonomi, Bisnis & Manajemen"], ["D4", "Kimia Terapan", "Teknik, Sains & Komputasi"], ["D4", "Perbankan dan Keuangan", "Ekonomi, Bisnis & Manajemen"], ["D4", "Administrasi Perkantoran Digital", "Sosial, Humaniora & Pendidikan"], ["D4", "Manajemen Bisnis Pariwisata", "Ekonomi, Bisnis & Manajemen"], ["D3", "Teknik Informatika", "Teknik, Sains & Komputasi"], ["D3", "Administrasi Perpajakan", "Ekonomi, Bisnis & Manajemen"], ["D3", "Analis Farmasi dan Makanan", "Kesehatan & Kedokteran"], ["D3", "Bahasa Jepang", "Bahasa, Sastra & Hubungan Internasional"], ["D3", "Bahasa Inggris", "Bahasa, Sastra & Hubungan Internasional"], ["D3", "Metrologi dan Instrumentasi", "Teknik, Sains & Komputasi"], ["D3", "Ilmu Perpustakaan", "Sosial, Humaniora & Pendidikan"], ["D3", "Bahasa Jepang", "Bahasa, Sastra & Hubungan Internasional"], ["D3", "Teknik Informatika", "Teknik, Sains & Komputasi"], ["D3", "Administrasi Perkantoran", "Sosial, Humaniora & Pendidikan"]], "Universitas Andalas": [["S1", "Informatika", "Teknik, Sains & Komputasi"], ["S1", "Teknik Sipil", "Teknik, Sains & Komputasi"], ["S1", "Kedokteran", "Kesehatan & Kedokteran"], ["S1", "Hukum", "Hukum & Ilmu Politik"], ["S1", "Manajemen", "Ekonomi, Bisnis & Manajemen"], ["S1", "Akuntansi", "Ekonomi, Bisnis & Manajemen"]], "Universitas Udayana": [["S1", "Informatika", "Teknik, Sains & Komputasi"], ["S1", "Teknik Sipil", "Teknik, Sains & Komputasi"], ["S1", "Kedokteran", "Kesehatan & Kedokteran"], ["S1", "Hukum", "Hukum & Ilmu Politik"], ["S1", "Manajemen", "Ekonomi, Bisnis & Manajemen"], ["S1", "Akuntansi", "Ekonomi, Bisnis & Manajemen"]], "Universitas Pendidikan Indonesia": [["S1", "Pendidikan Matematika", "Sosial, Humaniora & Pendidikan"], ["S1", "Pendidikan Bahasa Indonesia", "Bahasa, Sastra & Hubungan Internasional"], ["S1", "Pendidikan Bahasa Inggris", "Bahasa, Sastra & Hubungan Internasional"], ["S1", "Pendidikan Biologi", "Sosial, Humaniora & Pendidikan"], ["S1", "Pendidikan Fisika", "Sosial, Humaniora & Pendidikan"], ["S1", "Ilmu Komputer", "Teknik, Sains & Komputasi"]], "Universitas Negeri Jakarta": [["S1", "Pendidikan Matematika", "Sosial, Humaniora & Pendidikan"], ["S1", "Pendidikan Bahasa Inggris", "Bahasa, Sastra & Hubungan Internasional"], ["S1", "Pendidikan Bahasa Indonesia", "Bahasa, Sastra & Hubungan Internasional"], ["S1", "Ilmu Komputer", "Teknik, Sains & Komputasi"], ["S1", "Manajemen", "Ekonomi, Bisnis & Manajemen"]], "Universitas Negeri Yogyakarta": [["S1", "Pendidikan Matematika", "Sosial, Humaniora & Pendidikan"], ["S1", "Pendidikan Bahasa Inggris", "Bahasa, Sastra & Hubungan Internasional"], ["S1", "Pendidikan Teknik Informatika", "Teknik, Sains & Komputasi"], ["S1", "Manajemen", "Ekonomi, Bisnis & Manajemen"]], "Universitas Negeri Malang": [["S1", "Teknik Informatika", "Teknik, Sains & Komputasi"], ["S1", "Pendidikan Matematika", "Sosial, Humaniora & Pendidikan"], ["S1", "Pendidikan Bahasa Inggris", "Bahasa, Sastra & Hubungan Internasional"], ["S1", "Manajemen", "Ekonomi, Bisnis & Manajemen"]], "Institut Teknologi Sumatera": [["S1", "Teknik Informatika", "Teknik, Sains & Komputasi"], ["S1", "Teknik Sipil", "Teknik, Sains & Komputasi"], ["S1", "Teknik Elektro", "Teknik, Sains & Komputasi"], ["S1", "Matematika", "Teknik, Sains & Komputasi"], ["S1", "Fisika", "Teknik, Sains & Komputasi"]]};
+
+const WEIGHTS = {
+engineering:{pu:10,ppu:8,pbm:7,pk:18,lbi:8,lbe:7,pm:42},
+health:{pu:10,ppu:8,pbm:10,pk:15,lbi:17,lbe:8,pm:32},
+social:{pu:16,ppu:16,pbm:18,pk:7,lbi:20,lbe:12,pm:11},
+business:{pu:14,ppu:13,pbm:10,pk:18,lbi:15,lbe:10,pm:20},
+law:{pu:15,ppu:19,pbm:20,pk:7,lbi:20,lbe:10,pm:9},
+language:{pu:10,ppu:16,pbm:18,pk:5,lbi:21,lbe:22,pm:8},
+arts:{pu:14,ppu:14,pbm:18,pk:8,lbi:20,lbe:16,pm:10}
+};
+
+const FIELD_NAMES = {
+engineering:"Teknik, Sains & Komputasi",health:"Kesehatan & Kedokteran",
+social:"Sosial, Humaniora & Pendidikan",business:"Ekonomi, Bisnis & Manajemen",
+law:"Hukum & Ilmu Politik",language:"Bahasa, Sastra & Hubungan Internasional",
+arts:"Seni, Desain & Olahraga"
+};
+
+const SUBTEST_NAMES={pu:"Penalaran Umum",ppu:"PPU",pbm:"PBM",pk:"Pengetahuan Kuantitatif",lbi:"Literasi Bahasa Indonesia",lbe:"Literasi Bahasa Inggris",pm:"Penalaran Matematika"};
+
+function ptnOptions(){
+  return '<option value="">Pilih PTN</option>'+PTNS.map(x=>`<option value="${x.name}">${x.name} — ${x.province}</option>`).join('');
+}
+
+function renderChoices(){
+  const count=Number(document.getElementById('choiceCount').value);
+  const box=document.getElementById('choices');
+  box.innerHTML='';
+  for(let i=1;i<=count;i++){
+    box.insertAdjacentHTML('beforeend',`
+      <div class="choice">
+        <div class="choice-head"><span class="choice-no">PILIHAN ${i}</span><span class="pill">Prioritas ${i}</span></div>
+        <div class="choice-grid">
+          <div class="field"><label>PTN</label><select class="ptn" data-i="${i}">${ptnOptions()}</select></div>
+          <div class="field"><label>Program Studi</label><select class="prodi" data-i="${i}" disabled><option>Pilih PTN terlebih dahulu</option></select></div>
+          <div class="field"><label>Jenjang</label><select class="jenjang" data-i="${i}" disabled><option>—</option></select></div>
+        </div>
+        <div class="small catalog-status" id="status-${i}">Belum memilih PTN.</div>
+      </div>`);
+  }
+  document.querySelectorAll('.ptn').forEach(el=>el.addEventListener('change',()=>updatePrograms(el.dataset.i)));
+}
+
+function updatePrograms(i){
+  const ptn=document.querySelector(`.ptn[data-i="${i}"]`).value;
+  const prodi=document.querySelector(`.prodi[data-i="${i}"]`);
+  const jenjang=document.querySelector(`.jenjang[data-i="${i}"]`);
+  const status=document.getElementById(`status-${i}`);
+  prodi.innerHTML='';jenjang.innerHTML='';jenjang.disabled=true;
+  if(!ptn){prodi.disabled=true;prodi.innerHTML='<option>Pilih PTN terlebih dahulu</option>';status.textContent='Belum memilih PTN.';return;}
+  const list=PROGRAMS[ptn]||[];
+  if(!list.length){
+    prodi.disabled=true;prodi.innerHTML='<option>Data prodi belum dimuat</option>';
+    status.textContent='PTN tersedia di katalog SNPMB, tetapi daftar prodi lokal FJIS untuk PTN ini belum dimuat. Sistem tidak mengarang jurusan.';
+    return;
+  }
+  prodi.disabled=false;prodi.innerHTML='<option value="">Pilih program studi</option>'+list.map((p,idx)=>`<option value="${idx}">${p[1]}</option>`).join('');
+  prodi.onchange=()=>{
+    const item=list[Number(prodi.value)];
+    if(!item){jenjang.disabled=true;jenjang.innerHTML='<option>—</option>';return;}
+    jenjang.disabled=false;jenjang.innerHTML=`<option value="${item[0]}">${item[0]}</option>`;
+    status.textContent=`Bidang: ${item[2]} · Jenjang: ${item[0]} · Status kompetisi: menunggu data daya tampung/historis resmi.`;
+  };
+}
+
+document.getElementById('choiceCount').addEventListener('change',renderChoices);
+document.getElementById('field').addEventListener('change',()=>{
+ const f=document.getElementById('field').value,w=WEIGHTS[f],box=document.getElementById('weightBox');
+ box.innerHTML=w?`<b>${FIELD_NAMES[f]}</b><br>PU ${w.pu}% · PPU ${w.ppu}% · PBM ${w.pbm}% · PK ${w.pk}% · LBI ${w.lbi}% · LBE ${w.lbe}% · PM ${w.pm}%<br><span class="small">Ini bobot internal FJIS, bukan bobot resmi SNPMB.</span>`:'Pilih bidang untuk melihat bobot internal FJIS.';
+});
+
+function getScores(){
+ const scores={};
+ document.querySelectorAll('.score').forEach(x=>scores[x.dataset.key]=Number(x.value));
+ return scores;
+}
+
+
+/*
+  DATA KOMPETISI SNBT
+  - official: pendaftar + diterima dari sumber resmi kampus.
+  - capacity_based: daya tampung SNBT 2026 + peminat SNBT 2025.
+  Data daya tampung TIDAK disebut "diterima"; data tersebut hanya digunakan untuk mengukur tekanan kursi.
+*/
+const NATIONAL_UTBK_STATS = {
+  2025: {
+    D3: {min:293.92, mean:529.39, max:731.21},
+    D4: {min:284.16, mean:541.47, max:774.38},
+    S1: {min:200.00, mean:545.78, max:819.85}
+  }
+};
+
+// Catatan penting: SNPMB tidak menerbitkan passing grade/ambang skor resmi per prodi.
+// Karena itu FJIS hanya membuat BENCHMARK MODEL berdasarkan statistik UTBK nasional + tekanan kompetisi.
+// Benchmark ini bukan angka kelulusan resmi.
+function degreeStats(degree){
+  return NATIONAL_UTBK_STATS[2025][degree] || NATIONAL_UTBK_STATS[2025].S1;
+}
+
+const COMPETITION = {"Universitas Indonesia": {"HUBUNGAN MASYARAKAT": {"applicants": 4950, "accepted": 30, "year": 2025, "quality": "official"}, "AKUNTANSI": {"applicants": 2720, "accepted": 106, "year": 2025, "quality": "official"}, "ADMINISTRASI PERPAJAKAN": {"applicants": 2965, "accepted": 30, "year": 2025, "quality": "official"}, "PERIKLANAN KREATIF": {"applicants": 2943, "accepted": 30, "year": 2025, "quality": "official"}, "ADMINISTRASI RUMAH SAKIT": {"applicants": 3016, "accepted": 31, "year": 2025, "quality": "official"}, "PENYIARAN MULTIMEDIA": {"applicants": 2908, "accepted": 30, "year": 2025, "quality": "official"}, "ADMINISTRASI KEUANGAN DAN PERBANKAN": {"applicants": 2767, "accepted": 32, "year": 2025, "quality": "official"}, "ADMINISTRASI PERKANTORAN": {"applicants": 2389, "accepted": 30, "year": 2025, "quality": "official"}, "ADMINISTRASI ASURANSI & AKTUARIA": {"applicants": 1846, "accepted": 30, "year": 2025, "quality": "official"}, "BISNIS KREATIF": {"applicants": 4167, "accepted": 47, "year": 2025, "quality": "official"}, "PRODUKSI MEDIA": {"applicants": 3374, "accepted": 47, "year": 2025, "quality": "official"}, "FISIOTERAPI": {"applicants": 2905, "accepted": 47, "year": 2025, "quality": "official"}, "MANAJEMEN BISNIS PARIWISATA": {"applicants": 2219, "accepted": 47, "year": 2025, "quality": "official"}, "MANAJEMEN REKOD DAN ARSIP": {"applicants": 2188, "accepted": 47, "year": 2025, "quality": "official"}, "TERAPI OKUPASI": {"applicants": 2173, "accepted": 47, "year": 2025, "quality": "official"}, "KRIMINOLOGI": {"applicants": 1583, "accepted": 18, "year": 2025, "quality": "official"}, "ILMU HUBUNGAN INTERNASIONAL": {"applicants": 1281, "accepted": 18, "year": 2025, "quality": "official"}, "ILMU KOMUNIKASI": {"applicants": 2412, "accepted": 48, "year": 2025, "quality": "official"}, "KESELAMATAN DAN KESEHATAN KERJA": {"applicants": 1287, "accepted": 27, "year": 2025, "quality": "official"}, "SASTRA INGGRIS": {"applicants": 969, "accepted": 24, "year": 2025, "quality": "official"}, "PENDIDIKAN DOKTER": {"applicants": 3330, "accepted": 90, "year": 2025, "quality": "official"}, "SASTRA CINA": {"applicants": 881, "accepted": 24, "year": 2025, "quality": "official"}, "BAHASA DAN KEBUDAYAAN KOREA": {"applicants": 610, "accepted": 17, "year": 2025, "quality": "official"}, "ILMU PSIKOLOGI": {"applicants": 3506, "accepted": 99, "year": 2025, "quality": "official"}, "ILMU KESEJAHTERAAN SOSIAL": {"applicants": 873, "accepted": 25, "year": 2025, "quality": "official"}, "BISNIS ISLAM": {"applicants": 625, "accepted": 18, "year": 2025, "quality": "official"}, "SASTRA JEPANG": {"applicants": 821, "accepted": 24, "year": 2025, "quality": "official"}, "ILMU POLITIK": {"applicants": 819, "accepted": 25, "year": 2025, "quality": "official"}, "GIZI": {"applicants": 645, "accepted": 20, "year": 2025, "quality": "official"}, "ILMU ADMINISTRASI NIAGA": {"applicants": 1799, "accepted": 57, "year": 2025, "quality": "official"}, "ARSITEKTUR INTERIOR": {"applicants": 621, "accepted": 20, "year": 2025, "quality": "official"}, "TEKNIK BIOMEDIS": {"applicants": 447, "accepted": 15, "year": 2025, "quality": "official"}, "ILMU KOMPUTER": {"applicants": 2132, "accepted": 75, "year": 2025, "quality": "official"}, "SASTRA JERMAN": {"applicants": 441, "accepted": 17, "year": 2025, "quality": "official"}, "ILMU HUKUM": {"applicants": 4434, "accepted": 171, "year": 2025, "quality": "official"}, "ILMU ADMINISTRASI NEGARA": {"applicants": 1448, "accepted": 57, "year": 2025, "quality": "official"}, "ILMU PERPUSTAKAAN": {"applicants": 608, "accepted": 24, "year": 2025, "quality": "official"}, "TEKNIK INDUSTRI": {"applicants": 1963, "accepted": 78, "year": 2025, "quality": "official"}, "SISTEM INFORMASI": {"applicants": 1863, "accepted": 75, "year": 2025, "quality": "official"}, "SOSIOLOGI": {"applicants": 589, "accepted": 24, "year": 2025, "quality": "official"}, "MANAJEMEN": {"applicants": 2782, "accepted": 114, "year": 2025, "quality": "official"}, "TEKNIK KOMPUTER": {"applicants": 1018, "accepted": 42, "year": 2025, "quality": "official"}, "ILMU KESEHATAN MASYARAKAT": {"applicants": 1527, "accepted": 63, "year": 2025, "quality": "official"}, "ANTROPOLOGI SOSIAL": {"applicants": 573, "accepted": 24, "year": 2025, "quality": "official"}, "ILMU EKONOMI ISLAM": {"applicants": 421, "accepted": 18, "year": 2025, "quality": "official"}, "SASTRA ARAB": {"applicants": 558, "accepted": 24, "year": 2025, "quality": "official"}, "ARSITEKTUR": {"applicants": 824, "accepted": 37, "year": 2025, "quality": "official"}, "ILMU ADMINISTRASI FISKAL": {"applicants": 1250, "accepted": 57, "year": 2025, "quality": "official"}, "ILMU AKTUARIA": {"applicants": 569, "accepted": 26, "year": 2025, "quality": "official"}, "FARMASI": {"applicants": 1154, "accepted": 55, "year": 2025, "quality": "official"}, "TEKNIK SIPIL": {"applicants": 1258, "accepted": 60, "year": 2025, "quality": "official"}, "GEOLOGI": {"applicants": 563, "accepted": 27, "year": 2025, "quality": "official"}, "SASTRA INDONESIA": {"applicants": 519, "accepted": 25, "year": 2025, "quality": "official"}, "PENDIDIKAN DOKTER GIGI": {"applicants": 1114, "accepted": 54, "year": 2025, "quality": "official"}, "TEKNIK BIOPROSES": {"applicants": 610, "accepted": 30, "year": 2025, "quality": "official"}, "ILMU SEJARAH": {"applicants": 501, "accepted": 25, "year": 2025, "quality": "official"}, "STATISTIKA": {"applicants": 519, "accepted": 26, "year": 2025, "quality": "official"}, "TEKNIK LINGKUNGAN": {"applicants": 775, "accepted": 39, "year": 2025, "quality": "official"}, "TEKNIK PERKAPALAN": {"applicants": 768, "accepted": 39, "year": 2025, "quality": "official"}, "TEKNIK METALURGI & MATERIAL": {"applicants": 990, "accepted": 51, "year": 2025, "quality": "official"}, "TEKNIK MESIN": {"applicants": 1152, "accepted": 60, "year": 2025, "quality": "official"}, "KESEHATAN LINGKUNGAN": {"applicants": 343, "accepted": 18, "year": 2025, "quality": "official"}, "SASTRA BELANDA": {"applicants": 445, "accepted": 24, "year": 2025, "quality": "official"}, "ILMU EKONOMI": {"applicants": 1147, "accepted": 63, "year": 2025, "quality": "official"}, "TEKNIK ELEKTRO": {"applicants": 916, "accepted": 51, "year": 2025, "quality": "official"}, "SASTRA PERANCIS": {"applicants": 289, "accepted": 17, "year": 2025, "quality": "official"}, "ILMU KEPERAWATAN": {"applicants": 1218, "accepted": 73, "year": 2025, "quality": "official"}, "GEOFISIKA": {"applicants": 401, "accepted": 26, "year": 2025, "quality": "official"}, "ILMU FILSAFAT": {"applicants": 363, "accepted": 24, "year": 2025, "quality": "official"}, "TEKNIK KIMIA": {"applicants": 765, "accepted": 51, "year": 2025, "quality": "official"}, "ARKEOLOGI": {"applicants": 342, "accepted": 24, "year": 2025, "quality": "official"}, "GEOGRAFI": {"applicants": 580, "accepted": 42, "year": 2025, "quality": "official"}, "MATEMATIKA": {"applicants": 401, "accepted": 30, "year": 2025, "quality": "official"}, "SASTRA RUSIA": {"applicants": 310, "accepted": 24, "year": 2025, "quality": "official"}, "KIMIA": {"applicants": 526, "accepted": 42, "year": 2025, "quality": "official"}, "BIOLOGI": {"applicants": 372, "accepted": 37, "year": 2025, "quality": "official"}, "FISIKA": {"applicants": 316, "accepted": 43, "year": 2025, "quality": "official"}, "SASTRA DAERAH UNTUK SASTRA JAWA": {"applicants": 146, "accepted": 24, "year": 2025, "quality": "official"}}, "Universitas Gadjah Mada": {"Teknologi Informasi": {"capacity": 30, "applicants": 1459, "year": 2025, "quality": "capacity_based"}, "Ilmu Komputer": {"capacity": 27, "applicants": 1237, "year": 2025, "quality": "capacity_based"}, "Pendidikan Dokter": {"capacity": 53, "applicants": 3155, "year": 2025, "quality": "capacity_based"}, "Psikologi": {"capacity": 68, "applicants": 3601, "year": 2025, "quality": "capacity_based"}, "Manajemen": {"capacity": 45, "applicants": 2262, "year": 2025, "quality": "capacity_based"}, "Akuntansi": {"capacity": 45, "applicants": 2121, "year": 2025, "quality": "capacity_based"}, "Ilmu Komunikasi": {"capacity": 25, "applicants": 1668, "year": 2025, "quality": "capacity_based"}, "Ilmu Hubungan Internasional": {"capacity": 24, "applicants": 1248, "year": 2025, "quality": "capacity_based"}}, "Universitas Sumatera Utara": {"Pendidikan Dokter": {"capacity": 81, "applicants": 1633, "year": 2025, "quality": "capacity_based"}, "Ilmu Komputer": {"capacity": 50, "applicants": 1654, "year": 2025, "quality": "capacity_based"}, "Teknologi Informasi": {"capacity": 48, "applicants": 1253, "year": 2025, "quality": "capacity_based"}, "Teknik Informatika": {"capacity": 46, "applicants": 3142, "year": 2025, "quality": "capacity_based"}, "Teknik Industri": {"capacity": 53, "applicants": 1570, "year": 2025, "quality": "capacity_based"}, "Farmasi": {"capacity": 58, "applicants": 1662, "year": 2025, "quality": "capacity_based"}, "Psikologi": {"capacity": 84, "applicants": 1716, "year": 2025, "quality": "capacity_based"}, "Ilmu Hukum": {"capacity": 201, "applicants": 3123, "year": 2025, "quality": "capacity_based"}, "Manajemen": {"capacity": 80, "applicants": 1815, "year": 2025, "quality": "capacity_based"}, "Akuntansi": {"capacity": 83, "applicants": 1754, "year": 2025, "quality": "capacity_based"}, "Ilmu Komunikasi": {"capacity": 39, "applicants": 1359, "year": 2025, "quality": "capacity_based"}}, "Institut Teknologi Bandung": {"Teknik Informatika": {"capacity": 67, "applicants": 3526, "year": 2025, "quality": "capacity_based"}, "Manajemen": {"capacity": 55, "applicants": 2483, "year": 2025, "quality": "capacity_based"}, "Teknik Pertambangan dan Perminyakan": {"capacity": 115, "applicants": 4975, "year": 2025, "quality": "capacity_based"}}, "Universitas Brawijaya": {"Teknik Informatika": {"capacity": 84, "applicants": 1951, "year": 2025, "quality": "capacity_based"}, "Teknik Sipil": {"capacity": 56, "applicants": 1238, "year": 2025, "quality": "capacity_based"}, "Kedokteran": {"capacity": 98, "applicants": 3295, "year": 2025, "quality": "capacity_based"}, "Farmasi": {"capacity": 55, "applicants": 1695, "year": 2025, "quality": "capacity_based"}, "Psikologi": {"capacity": 87, "applicants": 2358, "year": 2025, "quality": "capacity_based"}, "Ilmu Komunikasi": {"capacity": 84, "applicants": 2187, "year": 2025, "quality": "capacity_based"}, "Manajemen": {"capacity": 114, "applicants": 1969, "year": 2025, "quality": "capacity_based"}, "Sistem Informasi": {"capacity": 84, "applicants": 1353, "year": 2025, "quality": "capacity_based"}}, "Universitas Diponegoro": {"Keselamatan dan Kesehatan Kerja": {"capacity": 41, "applicants": 2565, "year": 2025, "quality": "capacity_based"}, "Kedokteran Gigi": {"capacity": 15, "applicants": 986, "year": 2025, "quality": "capacity_based"}, "Bisnis Digital": {"capacity": 36, "applicants": 1873, "year": 2025, "quality": "capacity_based"}, "Farmasi": {"capacity": 30, "applicants": 1151, "year": 2025, "quality": "capacity_based"}, "Informatika": {"capacity": 50, "applicants": 1295, "year": 2025, "quality": "capacity_based"}, "Psikologi": {"capacity": 80, "applicants": 1928, "year": 2025, "quality": "capacity_based"}}, "Universitas Padjadjaran": {"Teknik Informatika": {"capacity": 35, "applicants": 1977, "year": 2025, "quality": "capacity_based"}, "Bisnis Digital": {"capacity": 37, "applicants": 2089, "year": 2025, "quality": "capacity_based"}}, "Institut Teknologi Sepuluh Nopember": {"Bisnis Digital": {"capacity": 18, "applicants": 783, "year": 2025, "quality": "capacity_based"}, "Kedokteran": {"capacity": 15, "applicants": 546, "year": 2025, "quality": "capacity_based"}, "Rekayasa Kecerdasan Artifisial": {"capacity": 18, "applicants": 552, "year": 2025, "quality": "capacity_based"}, "Teknik Informatika": {"capacity": 60, "applicants": 1431, "year": 2025, "quality": "capacity_based"}, "Teknik Industri": {"capacity": 40, "applicants": 846, "year": 2025, "quality": "capacity_based"}, "Sains Data": {"capacity": 10, "applicants": 188, "year": 2025, "quality": "capacity_based"}}, "Institut Pertanian Bogor": {"Kecerdasan Buatan": {"capacity": 21, "applicants": 930, "year": 2025, "quality": "capacity_based"}, "Kedokteran": {"capacity": 15, "applicants": 826, "year": 2025, "quality": "capacity_based"}, "Ilmu Komputer": {"capacity": 51, "applicants": 1532, "year": 2025, "quality": "capacity_based"}}, "Universitas Airlangga": {"Kedokteran": {"capacity": 90, "applicants": 3138, "year": 2025, "quality": "capacity_based"}, "Keperawatan": {"capacity": 60, "applicants": 5215, "year": 2025, "quality": "capacity_based"}, "Fisioterapi": {"capacity": 36, "applicants": 2402, "year": 2025, "quality": "capacity_based"}, "Farmasi": {"capacity": 60, "applicants": 2500, "year": 2025, "quality": "capacity_based"}}, "Universitas Hasanuddin": {"Teknik Informatika": {"capacity": 64, "applicants": 1961, "year": 2025, "quality": "capacity_based"}, "Pendidikan Dokter": {"capacity": 132, "applicants": 3172, "year": 2025, "quality": "capacity_based"}, "Farmasi": {"capacity": 91, "applicants": 1746, "year": 2025, "quality": "capacity_based"}}, "Universitas Sebelas Maret": {"Farmasi": {"capacity": 26, "applicants": 4952, "year": 2025, "quality": "capacity_based"}, "Keselamatan dan Kesehatan Kerja": {"capacity": 43, "applicants": 5660, "year": 2025, "quality": "capacity_based"}, "Manajemen Administrasi": {"capacity": 27, "applicants": 3881, "year": 2025, "quality": "capacity_based"}}};
+
+const QS_CONTEXT = {"Universitas Indonesia": {"rank": "189", "band": 189}, "Universitas Gadjah Mada": {"rank": "224", "band": 224}, "Institut Teknologi Bandung": {"rank": "255", "band": 255}, "Universitas Airlangga": {"rank": "287", "band": 287}, "Institut Pertanian Bogor": {"rank": "399", "band": 399}, "Universitas Padjadjaran": {"rank": "515", "band": 515}, "Universitas Diponegoro": {"rank": "624", "band": 624}, "Universitas Brawijaya": {"rank": "680", "band": 680}, "Universitas Hasanuddin": {"rank": "951–1000", "band": 975}, "Universitas Sumatera Utara": {"rank": "1001–1200", "band": 1100}, "Universitas Sebelas Maret": {"rank": "1001–1200", "band": 1100}, "Universitas Pendidikan Indonesia": {"rank": "1201–1400", "band": 1300}};
+
+function competitionInfo(ptn, prodi){
+  return COMPETITION[ptn]?.[prodi] || null;
+}
+function competitionMetrics(ptn, prodi){
+  const d=competitionInfo(ptn,prodi);
+  if(!d) return null;
+  const hasAccepted=d.quality==='official' && Number.isFinite(d.accepted);
+  const denominator=hasAccepted ? d.accepted : d.capacity;
+  if(!Number.isFinite(d.applicants) || !Number.isFinite(denominator) || denominator<=0) return null;
+  const rate=(denominator/d.applicants)*100;
+  const ratio=d.applicants/denominator;
+  let level=rate<2?'Sangat ketat':rate<4?'Ketat':rate<7?'Cukup ketat':'Relatif lebih longgar';
+  return {...d,hasAccepted,rate,ratio,level};
+}
+
+function logistic(x){ return 1/(1+Math.exp(-x)); }
+
+function modelBenchmark(comp, degree, uni){
+  const st=degreeStats(degree);
+  if(!comp) return null;
+  // Tekanan kompetisi menaikkan benchmark secara bertahap; bukan passing grade resmi.
+  const pressure=Math.min(55,14*Math.log2(Math.max(1,comp.ratio)));
+  let uniAdj=0;
+  if(uni){
+    if(uni.band<=300) uniAdj=7;
+    else if(uni.band<=700) uniAdj=4;
+    else if(uni.band<=1000) uniAdj=2;
+    else uniAdj=1;
+  }
+  return Math.max(500,Math.min(690,st.mean+pressure+uniAdj));
+}
+
+function estimateChance(weighted, comp, benchmark){
+  if(!comp || !benchmark) return null;
+  const baseRate=comp.rate/100;
+  // Faktor skor dibuat konservatif: skor rendah tetap dibatasi oleh tingkat penerimaan historis.
+  const scoreFactor=0.2 + (1.6*logistic((weighted-benchmark)/35));
+  return Math.max(0.05,Math.min(20,baseRate*scoreFactor*100));
+}
+
+
+function analyze(){
+ const err=document.getElementById('choiceError');err.textContent='';
+ const f=document.getElementById('field').value;
+ if(!f){err.textContent='Pilih bidang program studi terlebih dahulu.';return;}
+ const scores=getScores(); const keys=Object.keys(SUBTEST_NAMES);
+ if(keys.some(k=>!Number.isFinite(scores[k])||scores[k]<0||scores[k]>1000)){err.textContent='Isi seluruh 7 skor UTBK dengan nilai 0–1000.';return;}
+ const rows=[...document.querySelectorAll('.choice')];
+ const selections=[];
+ for(let i=0;i<rows.length;i++){
+   const ptn=rows[i].querySelector('.ptn').value;
+   const prodiEl=rows[i].querySelector('.prodi');
+   const idx=Number(prodiEl.value);
+   if(!ptn||prodiEl.disabled||!PROGRAMS[ptn]||!PROGRAMS[ptn][idx]){err.textContent=`Pilihan ${i+1} belum memiliki PTN + prodi yang datanya tersedia.`;return;}
+   const item=PROGRAMS[ptn][idx];
+   selections.push({ptn,degree:item[0],prodi:item[1],field:item[2]});
+ }
+ const seen=new Set();
+ for(const s of selections){const k=s.ptn+'|'+s.prodi;if(seen.has(k)){err.textContent='Ada PTN + prodi yang sama lebih dari sekali.';return;}seen.add(k);}
+ const w=WEIGHTS[f];
+ const raw=keys.reduce((a,k)=>a+scores[k],0)/7;
+ const weighted=keys.reduce((a,k)=>a+scores[k]*(w[k]/100),0);
+ let strongest=keys.reduce((a,b)=>scores[a]>scores[b]?a:b);
+ let weakest=keys.reduce((a,b)=>scores[a]<scores[b]?a:b);
+ document.getElementById('rawAvg').textContent=raw.toFixed(1);
+ document.getElementById('weighted').textContent=weighted.toFixed(1);
+ document.getElementById('strongest').textContent=SUBTEST_NAMES[strongest];
+ document.getElementById('weakest').textContent=SUBTEST_NAMES[weakest];
+
+ const list=document.getElementById('resultList');list.innerHTML='';
+ selections.forEach((s,i)=>{
+   const fieldMatch=s.field===FIELD_NAMES[f];
+   const comp=competitionMetrics(s.ptn,s.prodi);
+   const uni=QS_CONTEXT[s.ptn]||null;
+   const benchmark=modelBenchmark(comp,s.degree,uni);
+
+   // A. Kemampuan UTBK. Statistik nasional 2025 dipakai sebagai jangkar, bukan passing grade.
+   const st=degreeStats(s.degree);
+   const academicScore=30 + 65*logistic((weighted-st.mean)/75);
+
+   // B. Tekanan kompetisi. Sengaja lebih kecil daripada faktor kemampuan UTBK.
+   let competitionPenalty=0;
+   if(comp){
+     competitionPenalty=Math.max(0,Math.min(12,2*Math.log2(Math.max(1,comp.ratio))));
+   }
+
+   // C. Konteks universitas hanya faktor kecil.
+   let campusPenalty=0;
+   if(uni){
+     if(uni.band<=300) campusPenalty=2;
+     else if(uni.band<=700) campusPenalty=1.5;
+     else campusPenalty=1;
+   }
+
+   // D. Kesesuaian bidang kecil; tidak boleh menutupi skor UTBK.
+   const fieldAdjustment=fieldMatch?2:-3;
+
+   // E. Benchmark gap: jika skor jauh di bawah benchmark model, indeks ditekan.
+   const benchmarkPenalty=benchmark?Math.min(10,Math.max(0,(benchmark-weighted)/12)):0;
+
+   let index=academicScore + fieldAdjustment - competitionPenalty - campusPenalty - benchmarkPenalty;
+
+   // Guardrail kualitas data.
+   if(!comp) index=Math.min(index,58);
+   else if(comp.quality==='capacity_based') index=Math.min(index,86);
+   else if(comp.quality==='official') index=Math.min(index,95);
+
+   index=Math.max(18,Math.min(95,index));
+
+   const chance=estimateChance(weighted,comp,benchmark);
+   const label=index>=85?'Sangat kuat'
+      :index>=78?'Kuat'
+      :index>=70?'Cukup kompetitif'
+      :index>=62?'Perlu diperkuat'
+      :index>=55?'Menjadi tantangan tinggi'
+      :index>=45?'Masih jauh dari target kompetitif'
+      :'Target ini sangat berat dengan profil saat ini';
+
+   const dataNote=comp
+      ? (comp.quality==='official'
+        ? `${comp.accepted.toLocaleString('id-ID')} diterima dari ${comp.applicants.toLocaleString('id-ID')} peminat pada ${comp.year}; tingkat penerimaan historis ${(comp.rate).toFixed(2)}%.`
+        : `${comp.applicants.toLocaleString('id-ID')} peminat pada ${comp.year} dibanding ${comp.capacity.toLocaleString('id-ID')} kursi SNBT 2026; rasio kursi/peminat ${(comp.rate).toFixed(2)}%. Ini tekanan berbasis daya tampung, bukan angka diterima.`)
+      : 'Belum ada data kompetisi prodi yang terverifikasi di database FJIS. Sistem tidak mengarang persentase peluang.';
+
+   const accreditationText='Belum dimasukkan ke skor karena status akreditasi prodi ini belum diverifikasi pada database FJIS.';
+   const qsText=uni?`Konteks QS World University Rankings 2026: ${uni.rank}. Faktor ini kecil dan tidak dianggap sebagai kualitas prodi atau passing grade.`:'Tidak tersedia pada dataset konteks QS FJIS.';
+   const benchmarkText=benchmark?`${benchmark.toFixed(0)} sebagai benchmark model FJIS. Ini bukan passing grade resmi.`:'Belum tersedia karena data kompetisi prodi belum ada.';
+   const targetStrong=benchmark?Math.min(820,benchmark+30):null;
+   const targetVeryStrong=benchmark?Math.min(820,benchmark+60):null;
+   const chanceText=chance===null?'Belum dapat dihitung':`${chance.toFixed(1)}%`;
+   const confidence=comp?(comp.quality==='official'?'Tinggi untuk data kompetisi historis':'Sedang — memakai data daya tampung'):'Rendah — data kompetisi belum tersedia';
+
+   list.insertAdjacentHTML('beforeend',`
+    <div class="result-choice">
+      <div class="result-line">
+        <div><b>Pilihan ${i+1} · ${s.prodi}</b><div class="small">${s.ptn} · ${s.degree}</div></div>
+        <div><span class="small">Indeks FJIS</span><br><b>${index.toFixed(1)} / 100</b></div>
+        <div><span class="small">Estimasi model</span><br><b>${chanceText}</b></div>
+        <div><span class="small">Interpretasi</span><br><b>${label}</b></div>
+      </div>
+      <div class="meter"><i style="width:${index}%"></i></div>
+      <p class="small"><b>Benchmark / ambang model skor:</b> ${benchmarkText}</p>
+      <p class="small"><b>Target kuat model:</b> ${targetStrong===null?'—':targetStrong.toFixed(0)} · <b>Target sangat kuat:</b> ${targetVeryStrong===null?'—':targetVeryStrong.toFixed(0)}. Keduanya target model, bukan jaminan lolos.</p>
+      <p class="small"><b>Keketatan prodi:</b> ${comp ? comp.level : 'Belum tersedia'}</p>
+      <p class="small"><b>Data kompetisi:</b> ${dataNote}</p>
+      <p class="small"><b>Tekanan kompetisi:</b> ${comp ? `${comp.ratio.toFixed(1)} peminat per ${comp.hasAccepted?'penerimaan historis':'kursi'}` : 'tidak dihitung'}. Semakin besar rasio, semakin ketat.</p>
+      <p class="small"><b>Kepercayaan data:</b> ${confidence}</p>
+      <p class="small"><b>Universitas:</b> ${qsText}</p>
+      <p class="small"><b>Akreditasi:</b> ${accreditationText}</p>
+      <p class="small"><b>Batas penting:</b> SNPMB tidak menerbitkan passing grade resmi per prodi. Estimasi model FJIS bukan probabilitas resmi diterima; seleksi tetap bergantung pada skor peserta lain, kuota, pilihan peserta, dan mekanisme seleksi tahun berjalan.</p>
+    </div>`);
+ });
+ document.getElementById('result').style.display='block';
+ document.getElementById('result').scrollIntoView({behavior:'smooth',block:'start'});
+}
+
+document.getElementById('analyze').addEventListener('click',analyze);
+document.getElementById('reset').addEventListener('click',()=>location.reload());
+renderChoices();
+</script>
+</body>
+</html>

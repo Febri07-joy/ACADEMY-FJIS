@@ -1,0 +1,106 @@
+{
+  "version": 1,
+  "source": "SatuBeasiswa — Kementerian Pendidikan Tinggi, Sains dan Teknologi",
+  "sourceUrl": "https://satubeasiswa.kemdiktisaintek.go.id/beasiswa",
+  "updatedAt": "2026-09-24",
+  "scholarships": [
+    {
+      "id": "satubeasiswa-kip-k-2026",
+      "name": "Kartu Indonesia Pintar Kuliah (KIP-K)",
+      "organization": "Kementerian Pendidikan Tinggi, Sains dan Teknologi",
+      "level": "S1 · D4 · D3",
+      "location": "Dalam Negeri",
+      "funding": "Pendanaan Penuh",
+      "period": "2026",
+      "start": "2026-02-03",
+      "deadline": "2026-10-31",
+      "description": "Program KIP Kuliah untuk calon mahasiswa yang memenuhi ketentuan.",
+      "requirements": [
+        "Memenuhi ketentuan KIP Kuliah",
+        "Memenuhi persyaratan jalur masuk dan perguruan tinggi"
+      ],
+      "benefit": "Sesuai ketentuan KIP Kuliah.",
+      "applyUrl": "https://kip-kuliah.kemdiktisaintek.go.id/",
+      "infoUrl": "https://satubeasiswa.kemdiktisaintek.go.id/beasiswa/kartu-indonesia-pintar-kuliah-kip-k-7p0y",
+      "linkType": "official"
+    },
+    {
+      "id": "satubeasiswa-zqs-2026",
+      "name": "Zainuddin Qodir Scholarship (ZQS)",
+      "organization": "Alakhyar Albatawi Foundation",
+      "level": "D3 · D4 · S1",
+      "location": "Dalam & Luar Negeri",
+      "funding": "Pendanaan Sebagian",
+      "period": "Berjalan",
+      "start": "2026-01-01",
+      "deadline": "2030-12-31",
+      "description": "Program beasiswa yang tercantum pada portal SatuBeasiswa.",
+      "requirements": [
+        "Cek persyaratan terbaru pada penyelenggara",
+        "Memenuhi jenjang dan ketentuan program"
+      ],
+      "benefit": "Sesuai skema penyelenggara.",
+      "applyUrl": "https://satubeasiswa.kemdiktisaintek.go.id/beasiswa?levels%5B%5D=S1",
+      "infoUrl": "https://satubeasiswa.kemdiktisaintek.go.id/beasiswa?levels%5B%5D=S1",
+      "linkType": "directory"
+    },
+    {
+      "id": "satubeasiswa-unggulan-2026",
+      "name": "Beasiswa UNGGULAN",
+      "organization": "Universitas Udayana",
+      "level": "D4 · S1 · S2 · S3",
+      "location": "Dalam Negeri",
+      "funding": "Pendanaan Penuh",
+      "period": "2026",
+      "start": "",
+      "deadline": "",
+      "description": "Program yang tercantum pada portal SatuBeasiswa. Jadwal pendaftaran perlu dicek pada sumber penyelenggara.",
+      "requirements": [
+        "Cek persyaratan terbaru pada penyelenggara"
+      ],
+      "benefit": "Sesuai program.",
+      "applyUrl": "https://www.unud.ac.id/",
+      "infoUrl": "https://satubeasiswa.kemdiktisaintek.go.id/beasiswa",
+      "linkType": "directory"
+    },
+    {
+      "id": "satubeasiswa-huma-betang-2026",
+      "name": "Bantuan Biaya Kuliah HUMA BETANG",
+      "organization": "Pemerintah Provinsi Kalimantan Tengah",
+      "level": "D3 · D4 · S1",
+      "location": "Kalimantan Tengah",
+      "funding": "Pendanaan Penuh",
+      "period": "2026",
+      "start": "",
+      "deadline": "",
+      "description": "Program bantuan biaya kuliah yang tercantum pada portal SatuBeasiswa.",
+      "requirements": [
+        "Cek persyaratan terbaru pada penyelenggara"
+      ],
+      "benefit": "Sesuai ketentuan program.",
+      "applyUrl": "https://satubeasiswa.kemdiktisaintek.go.id/beasiswa",
+      "infoUrl": "https://satubeasiswa.kemdiktisaintek.go.id/beasiswa",
+      "linkType": "directory"
+    },
+    {
+      "id": "satubeasiswa-erlangga-profesi-2026",
+      "name": "Beasiswa Erlangga Profesi",
+      "organization": "Universitas Udayana",
+      "level": "S2",
+      "location": "Dalam Negeri",
+      "funding": "Pendanaan Sebagian",
+      "period": "2026",
+      "start": "2026-07-23",
+      "deadline": "2026-10-12",
+      "description": "Program beasiswa profesi yang tercantum pada portal SatuBeasiswa.",
+      "requirements": [
+        "Memenuhi persyaratan akademik",
+        "Memenuhi dokumen yang diminta penyelenggara"
+      ],
+      "benefit": "Sesuai program.",
+      "applyUrl": "https://www.unud.ac.id/",
+      "infoUrl": "https://satubeasiswa.kemdiktisaintek.go.id/beasiswa/beasiswa-erlangga-profesi-0d7i",
+      "linkType": "official"
+    }
+  ]
+}

@@ -1,0 +1,554 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>FJIS Academy — Daftar Akun</title>
+<style>
+*{box-sizing:border-box}
+body{
+  margin:0;
+  font-family:Inter,system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;
+  background:linear-gradient(135deg,#f8f6f1,#eef4f1);
+  color:#26332e;
+  min-height:100vh;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  padding:28px 16px;
+}
+.card{
+  width:min(980px,100%);
+  background:rgba(255,255,255,.82);
+  border:1px solid rgba(255,255,255,.9);
+  box-shadow:0 20px 60px rgba(40,55,48,.12);
+  border-radius:26px;
+  padding:30px;
+  backdrop-filter:blur(14px);
+}
+.brand{text-align:center;margin-bottom:24px}
+.brand h1{margin:0;font-size:28px;letter-spacing:-.5px}
+.brand p{margin:7px 0 0;color:#708078;font-size:14px}
+.layout{display:grid;grid-template-columns:1fr 1.35fr;gap:28px}
+.panel{
+  background:rgba(255,255,255,.7);
+  border:1px solid #e6ebe8;
+  border-radius:20px;
+  padding:22px;
+}
+h2{font-size:18px;margin:0 0 8px}
+.sub{font-size:13px;color:#77847e;margin-bottom:18px}
+label{display:block;font-size:13px;font-weight:700;margin:14px 0 7px}
+input{
+  width:100%;padding:12px 13px;border:1px solid #dce4df;border-radius:11px;
+  outline:none;background:#fff;font-size:14px;
+}
+input:focus{border-color:#7e9f90;box-shadow:0 0 0 3px rgba(126,159,144,.12)}
+button{
+  border:0;border-radius:12px;padding:12px 16px;font-weight:800;cursor:pointer;
+}
+.submit{width:100%;margin-top:18px;background:#29483b;color:white}
+.submit:hover{background:#203a30}
+.error{
+  display:none;margin-top:12px;padding:10px 12px;border-radius:10px;
+  background:#fff0f0;color:#a13c3c;font-size:13px
+}
+.success{font-size:13px;color:#527466;margin-top:10px;min-height:18px}
+.avatar-grid{
+  display:grid;grid-template-columns:repeat(5,1fr);gap:11px;
+  max-height:530px;overflow:auto;padding:3px;
+}
+.avatar-card{
+  position:relative;min-height:126px;border:1px solid #e2e8e4;
+  background:#fff;border-radius:16px;padding:9px 6px 7px;
+  cursor:pointer;text-align:center;transition:.18s ease;
+}
+.avatar-card:hover{transform:translateY(-2px);border-color:#9db4a9}
+.avatar-card.selected{
+  border:2px solid #29483b;
+  background:#f3f8f5;
+  box-shadow:0 6px 18px rgba(41,72,59,.12)
+}
+.avatar-card svg{width:82px;height:82px;display:block;margin:auto}
+.avatar-name{font-size:11px;font-weight:800;color:#50625a;margin-top:2px}
+.check{
+  display:none;position:absolute;right:7px;top:7px;
+  width:20px;height:20px;border-radius:50%;background:#29483b;color:white;
+  font-size:12px;align-items:center;justify-content:center
+}
+.avatar-card.selected .check{display:flex}
+.selected-info{
+  margin-top:12px;padding:10px 12px;border-radius:11px;background:#f1f6f3;
+  font-size:13px;color:#52645c
+}
+@media(max-width:780px){
+  .layout{grid-template-columns:1fr}
+  .avatar-grid{grid-template-columns:repeat(4,1fr)}
+}
+@media(max-width:480px){
+  .card{padding:18px}
+  .avatar-grid{grid-template-columns:repeat(3,1fr)}
+}
+</style>
+</head>
+<body>
+<div class="card">
+  <div class="brand">
+    <h1>FJIS Academy</h1>
+    <p>Student Learner — Buat akun dan pilih avatar kamu.</p>
+  </div>
+
+  <div class="layout">
+    <section class="panel">
+      <h2>Buat Akun</h2>
+      <div class="sub">Data akun akan tersimpan di browser ini.</div>
+
+      <form id="registerForm" autocomplete="off">
+        <label for="name">Nama</label>
+        <input id="name" type="text" placeholder="Nama kamu" required maxlength="60">
+
+        <label for="email">Email</label>
+        <input id="email" type="email" placeholder="nama@email.com" required>
+
+        <label for="password">Password</label>
+        <input id="password" type="password" placeholder="Minimal 6 karakter" required minlength="6">
+
+        <div class="success" id="selectedInfo">Belum memilih avatar.</div>
+        <div class="error" id="errorBox"></div>
+
+        <button class="submit" type="submit">Buat Akun</button>
+      </form>
+    </section>
+
+    <section class="panel">
+      <h2>Pilih Avatar</h2>
+      <div class="sub">Bukan karakter manusia — pilih mascot yang paling cocok dengan kamu.</div>
+      <div class="avatar-grid" id="avatarGrid"></div>
+    </section>
+  </div>
+</div>
+
+<script>
+/* =========================================================
+   FJIS ACADEMY — 20 NON-HUMAN MASCOT AVATARS
+   Semua SVG inline supaya avatar bisa disimpan dan dipakai
+   kembali di dashboard / Student Experience.
+========================================================= */
+
+const AVATARS = [
+  {id:"fox",name:"Fox",svg:`<svg viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
+    <path d="M20 38L27 12 42 27Q50 23 58 27L73 12 80 38Q86 47 82 63Q77 83 50 88Q23 83 18 63Q14 47 20 38Z" fill="#e88945"/>
+    <path d="M20 38L27 12 42 27M80 38L73 12 58 27" fill="none" stroke="#b85e2e" stroke-width="3"/>
+    <path d="M27 48Q34 42 41 49M59 49Q66 42 73 48" fill="none" stroke="#3c3029" stroke-width="4" stroke-linecap="round"/>
+    <circle cx="35" cy="51" r="2.5"/><circle cx="65" cy="51" r="2.5"/>
+    <path d="M44 62Q50 67 56 62" fill="none" stroke="#3c3029" stroke-width="3" stroke-linecap="round"/>
+    <circle cx="50" cy="58" r="4" fill="#3c3029"/>
+  </svg>`},
+  {id:"panda",name:"Panda",svg:`<svg viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
+    <circle cx="28" cy="25" r="13" fill="#303735"/><circle cx="72" cy="25" r="13" fill="#303735"/>
+    <circle cx="50" cy="52" r="35" fill="#fff" stroke="#303735" stroke-width="3"/>
+    <ellipse cx="35" cy="50" rx="10" ry="14" fill="#303735" transform="rotate(35 35 50)"/>
+    <ellipse cx="65" cy="50" rx="10" ry="14" fill="#303735" transform="rotate(-35 65 50)"/>
+    <circle cx="35" cy="51" r="3" fill="#fff"/><circle cx="65" cy="51" r="3" fill="#fff"/>
+    <ellipse cx="50" cy="62" rx="7" ry="5" fill="#303735"/>
+    <path d="M43 69Q50 76 57 69" fill="none" stroke="#303735" stroke-width="3" stroke-linecap="round"/>
+  </svg>`},
+  {id:"penguin",name:"Penguin",svg:`<svg viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
+    <ellipse cx="50" cy="56" rx="34" ry="39" fill="#35434a"/>
+    <ellipse cx="50" cy="61" rx="22" ry="29" fill="#f7f4e9"/>
+    <circle cx="39" cy="44" r="4" fill="#fff"/><circle cx="61" cy="44" r="4" fill="#fff"/>
+    <circle cx="39" cy="44" r="2"/><circle cx="61" cy="44" r="2"/>
+    <path d="M43 51L50 57 57 51 50 49Z" fill="#e6a63f"/>
+    <ellipse cx="29" cy="92" rx="15" ry="5" fill="#e6a63f"/><ellipse cx="71" cy="92" rx="15" ry="5" fill="#e6a63f"/>
+  </svg>`},
+  {id:"frog",name:"Frog",svg:`<svg viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
+    <circle cx="30" cy="28" r="17" fill="#75b84c"/><circle cx="70" cy="28" r="17" fill="#75b84c"/>
+    <circle cx="30" cy="28" r="8" fill="#fff"/><circle cx="70" cy="28" r="8" fill="#fff"/>
+    <circle cx="30" cy="28" r="3"/><circle cx="70" cy="28" r="3"/>
+    <path d="M18 48Q50 25 82 48V70Q76 88 50 90Q24 88 18 70Z" fill="#75b84c"/>
+    <path d="M30 64Q50 78 70 64" fill="none" stroke="#29472c" stroke-width="4" stroke-linecap="round"/>
+    <circle cx="39" cy="58" r="2.5" fill="#29472c"/><circle cx="61" cy="58" r="2.5" fill="#29472c"/>
+  </svg>`},
+  {id:"koala",name:"Koala",svg:`<svg viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
+    <circle cx="25" cy="38" r="22" fill="#9aa3a1"/><circle cx="75" cy="38" r="22" fill="#9aa3a1"/>
+    <circle cx="50" cy="53" r="34" fill="#b4bbb9"/>
+    <circle cx="37" cy="53" r="6" fill="#fff"/><circle cx="63" cy="53" r="6" fill="#fff"/>
+    <circle cx="37" cy="53" r="2"/><circle cx="63" cy="53" r="2"/>
+    <ellipse cx="50" cy="64" rx="9" ry="7" fill="#454d4b"/>
+    <path d="M43 74Q50 79 57 74" fill="none" stroke="#454d4b" stroke-width="3" stroke-linecap="round"/>
+  </svg>`},
+  {id:"bear",name:"Bear",svg:`<svg viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
+    <circle cx="27" cy="27" r="18" fill="#a9754c"/><circle cx="73" cy="27" r="18" fill="#a9754c"/>
+    <circle cx="50" cy="53" r="35" fill="#b98357"/>
+    <circle cx="38" cy="51" r="4"/><circle cx="62" cy="51" r="4"/>
+    <ellipse cx="50" cy="63" rx="10" ry="8" fill="#efd6bd"/>
+    <circle cx="50" cy="61" r="3"/>
+    <path d="M44 70Q50 75 56 70" fill="none" stroke="#4b3326" stroke-width="3" stroke-linecap="round"/>
+  </svg>`},
+  {id:"cat",name:"Cat",svg:`<svg viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
+    <path d="M18 42L21 13 42 30Q50 27 58 30L79 13 82 42Q86 76 50 88Q14 76 18 42Z" fill="#8e9aa0"/>
+    <path d="M25 28L22 19 35 29M75 28L78 19 65 29" fill="#d6a2ae"/>
+    <ellipse cx="36" cy="51" rx="6" ry="8" fill="#fff"/><ellipse cx="64" cy="51" rx="6" ry="8" fill="#fff"/>
+    <circle cx="36" cy="52" r="2"/><circle cx="64" cy="52" r="2"/>
+    <path d="M46 62L50 65 54 62" fill="#d67e91"/>
+    <path d="M30 63L14 60M30 68L14 70M70 63L86 60M70 68L86 70" stroke="#566067" stroke-width="2"/>
+  </svg>`},
+  {id:"rabbit",name:"Rabbit",svg:`<svg viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
+    <ellipse cx="34" cy="22" rx="11" ry="27" fill="#d7c6cf"/><ellipse cx="66" cy="22" rx="11" ry="27" fill="#d7c6cf"/>
+    <ellipse cx="50" cy="57" rx="34" ry="32" fill="#eee2e7"/>
+    <ellipse cx="36" cy="55" rx="5" ry="7" fill="#fff"/><ellipse cx="64" cy="55" rx="5" ry="7" fill="#fff"/>
+    <circle cx="36" cy="55" r="2"/><circle cx="64" cy="55" r="2"/>
+    <path d="M46 65Q50 61 54 65L50 69Z" fill="#d17f99"/>
+    <path d="M43 72Q50 77 57 72" fill="none" stroke="#735866" stroke-width="3"/>
+  </svg>`},
+  {id:"owl",name:"Owl",svg:`<svg viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
+    <path d="M19 42L27 15 42 30Q50 26 58 30L73 15 81 42V72Q75 91 50 93Q25 91 19 72Z" fill="#806d9b"/>
+    <circle cx="36" cy="52" r="14" fill="#f5edcf"/><circle cx="64" cy="52" r="14" fill="#f5edcf"/>
+    <circle cx="36" cy="52" r="5"/><circle cx="64" cy="52" r="5"/>
+    <path d="M50 57L44 67H56Z" fill="#e2a53d"/>
+    <path d="M35 78Q50 86 65 78" fill="none" stroke="#554765" stroke-width="4"/>
+  </svg>`},
+  {id:"turtle",name:"Turtle",svg:`<svg viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
+    <ellipse cx="50" cy="57" rx="38" ry="30" fill="#5e9b69"/>
+    <ellipse cx="50" cy="55" rx="27" ry="23" fill="#9bc477"/>
+    <circle cx="82" cy="55" r="15" fill="#79ad73"/>
+    <circle cx="86" cy="51" r="3"/><circle cx="86" cy="61" r="3"/>
+    <path d="M94 56Q99 58 94 62" fill="none" stroke="#467653" stroke-width="3"/>
+    <path d="M31 38L23 25M69 38L77 25M31 75L22 87M69 75L78 87" stroke="#4c8057" stroke-width="9" stroke-linecap="round"/>
+  </svg>`},
+  {id:"panda_red",name:"Red Panda",svg:`<svg viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
+    <path d="M20 42L25 16 43 29Q50 26 57 29L75 16 80 42Q83 76 50 88Q17 76 20 42Z" fill="#c96e42"/>
+    <path d="M27 47Q36 39 44 49L40 64Q31 66 25 57Z" fill="#f4ead9"/>
+    <path d="M73 47Q64 39 56 49L60 64Q69 66 75 57Z" fill="#f4ead9"/>
+    <circle cx="37" cy="52" r="3"/><circle cx="63" cy="52" r="3"/>
+    <circle cx="50" cy="63" r="4"/><path d="M44 71Q50 76 56 71" fill="none" stroke="#54342a" stroke-width="3"/>
+  </svg>`},
+  {id:"bee",name:"Bee",svg:`<svg viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
+    <ellipse cx="50" cy="56" rx="30" ry="34" fill="#f0c83d" stroke="#5a4a25" stroke-width="3"/>
+    <path d="M22 48H78M21 63H79" stroke="#4a4026" stroke-width="8"/>
+    <ellipse cx="28" cy="28" rx="20" ry="13" fill="#dfeff0" opacity=".9"/><ellipse cx="72" cy="28" rx="20" ry="13" fill="#dfeff0" opacity=".9"/>
+    <circle cx="40" cy="52" r="4"/><circle cx="60" cy="52" r="4"/>
+    <path d="M43 66Q50 72 57 66" fill="none" stroke="#5a4a25" stroke-width="3"/>
+  </svg>`},
+  {id:"axolotl",name:"Axolotl",svg:`<svg viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
+    <path d="M26 39Q12 27 18 17Q30 20 36 34M74 39Q88 27 82 17Q70 20 64 34" fill="#f29ab2" stroke="#c76c88" stroke-width="3"/>
+    <ellipse cx="50" cy="57" rx="34" ry="31" fill="#ef9db3"/>
+    <circle cx="38" cy="53" r="4"/><circle cx="62" cy="53" r="4"/>
+    <path d="M39 66Q50 75 61 66" fill="none" stroke="#914e68" stroke-width="3"/>
+    <circle cx="28" cy="48" r="4" fill="#f7c5d3"/><circle cx="72" cy="48" r="4" fill="#f7c5d3"/>
+  </svg>`},
+  {id:"sloth",name:"Sloth",svg:`<svg viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
+    <circle cx="28" cy="30" r="14" fill="#8f806f"/><circle cx="72" cy="30" r="14" fill="#8f806f"/>
+    <ellipse cx="50" cy="55" rx="34" ry="35" fill="#a99682"/>
+    <path d="M26 51Q36 40 45 51Q36 65 26 51ZM74 51Q64 40 55 51Q64 65 74 51Z" fill="#e7dfd4"/>
+    <circle cx="38" cy="52" r="3"/><circle cx="62" cy="52" r="3"/>
+    <ellipse cx="50" cy="63" rx="7" ry="5" fill="#4e443c"/>
+    <path d="M43 71Q50 76 57 71" fill="none" stroke="#4e443c" stroke-width="3"/>
+  </svg>`},
+  {id:"hamster",name:"Hamster",svg:`<svg viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
+    <circle cx="27" cy="34" r="16" fill="#dca56f"/><circle cx="73" cy="34" r="16" fill="#dca56f"/>
+    <circle cx="50" cy="55" r="35" fill="#e9b77f"/>
+    <circle cx="35" cy="52" r="5" fill="#fff"/><circle cx="65" cy="52" r="5" fill="#fff"/>
+    <circle cx="35" cy="52" r="2"/><circle cx="65" cy="52" r="2"/>
+    <circle cx="29" cy="64" r="7" fill="#f3c2bb"/><circle cx="71" cy="64" r="7" fill="#f3c2bb"/>
+    <circle cx="50" cy="62" r="4"/><path d="M44 70Q50 76 56 70" fill="none" stroke="#634333" stroke-width="3"/>
+  </svg>`},
+  {id:"chick",name:"Chick",svg:`<svg viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
+    <circle cx="50" cy="55" r="34" fill="#f5cf55"/>
+    <path d="M40 23L45 10 50 23 55 10 60 25" fill="#e9b83c"/>
+    <circle cx="38" cy="51" r="4"/><circle cx="62" cy="51" r="4"/>
+    <path d="M43 60L50 66 57 60 50 57Z" fill="#df8d37"/>
+    <path d="M42 74Q50 80 58 74" fill="none" stroke="#9b6b25" stroke-width="3"/>
+    <path d="M17 60L7 54M83 60L93 54" stroke="#e5b63c" stroke-width="6" stroke-linecap="round"/>
+  </svg>`},
+  {id:"otter",name:"Otter",svg:`<svg viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
+    <circle cx="29" cy="35" r="14" fill="#8b674e"/><circle cx="71" cy="35" r="14" fill="#8b674e"/>
+    <ellipse cx="50" cy="56" rx="33" ry="35" fill="#a67c5e"/>
+    <ellipse cx="37" cy="52" rx="6" ry="7" fill="#fff"/><ellipse cx="63" cy="52" rx="6" ry="7" fill="#fff"/>
+    <circle cx="37" cy="52" r="2.5"/><circle cx="63" cy="52" r="2.5"/>
+    <ellipse cx="50" cy="63" rx="9" ry="6" fill="#4b372c"/>
+    <path d="M43 72Q50 77 57 72" fill="none" stroke="#4b372c" stroke-width="3"/>
+    <path d="M30 65L15 62M30 70L15 72M70 65L85 62M70 70L85 72" stroke="#70513f" stroke-width="2"/>
+  </svg>`},
+  {id:"penguin_blue",name:"Blue Penguin",svg:`<svg viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
+    <path d="M50 15Q82 19 82 60Q80 92 50 94Q20 92 18 60Q18 19 50 15Z" fill="#4d7895"/>
+    <ellipse cx="50" cy="62" rx="21" ry="27" fill="#f7f2df"/>
+    <circle cx="39" cy="45" r="4" fill="#fff"/><circle cx="61" cy="45" r="4" fill="#fff"/>
+    <circle cx="39" cy="45" r="2"/><circle cx="61" cy="45" r="2"/>
+    <path d="M43 53L50 59 57 53 50 51Z" fill="#e8ad3e"/>
+    <path d="M31 92L18 96M69 92L82 96" stroke="#e8ad3e" stroke-width="7" stroke-linecap="round"/>
+  </svg>`},
+  {id:"unicorn",name:"Unicorn",svg:`<svg viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
+    <path d="M50 24L56 7 64 25" fill="#ead78b" stroke="#a98d39" stroke-width="2"/>
+    <path d="M23 43L18 18 39 30Q50 25 61 30L82 18 77 43Q82 74 50 89Q18 74 23 43Z" fill="#e8d9f2"/>
+    <circle cx="37" cy="52" r="4" fill="#fff"/><circle cx="63" cy="52" r="4" fill="#fff"/>
+    <circle cx="37" cy="52" r="2" fill="#7c5b9d"/><circle cx="63" cy="52" r="2" fill="#7c5b9d"/>
+    <path d="M45 65Q50 69 55 65" fill="none" stroke="#8b659e" stroke-width="3"/>
+    <path d="M28 31Q20 38 27 47M72 31Q80 38 73 47" fill="none" stroke="#d58cb2" stroke-width="5"/>
+  </svg>`},
+  {id:"dino",name:"Dino",svg:`<svg viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
+    <path d="M25 39Q18 17 34 10L45 28Q62 23 77 37Q88 48 82 69Q76 88 50 90Q24 88 18 69Q14 51 25 39Z" fill="#65a875"/>
+    <path d="M45 28L40 12M54 26L54 9M63 29L69 13" stroke="#4a8159" stroke-width="6" stroke-linecap="round"/>
+    <circle cx="38" cy="51" r="4" fill="#fff"/><circle cx="62" cy="51" r="4" fill="#fff"/>
+    <circle cx="38" cy="51" r="2"/><circle cx="62" cy="51" r="2"/>
+    <path d="M43 66Q50 72 57 66" fill="none" stroke="#31583a" stroke-width="3"/>
+  </svg>`},
+  {id:"robot",name:"Mini Robot",svg:`<svg viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
+    <rect x="25" y="28" width="50" height="51" rx="13" fill="#8fa6ad" stroke="#40545b" stroke-width="3"/>
+    <rect x="35" y="40" width="30" height="20" rx="7" fill="#dcebee"/>
+    <circle cx="43" cy="50" r="4" fill="#40545b"/><circle cx="57" cy="50" r="4" fill="#40545b"/>
+    <path d="M43 67Q50 72 57 67" fill="none" stroke="#40545b" stroke-width="3"/>
+    <path d="M50 28V16M44 16H56" stroke="#40545b" stroke-width="4" stroke-linecap="round"/>
+    <circle cx="50" cy="12" r="5" fill="#e2ad48"/>
+    <path d="M25 48H14M75 48H86" stroke="#40545b" stroke-width="5" stroke-linecap="round"/>
+    <circle cx="12" cy="48" r="4" fill="#e2ad48"/><circle cx="88" cy="48" r="4" fill="#e2ad48"/>
+  </svg>`}
+,
+{id:"penguin_green",name:"Green Penguin",svg:`<svg viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
+    <ellipse cx="50" cy="57" rx="34" ry="39" fill="#5f9278"/>
+    <ellipse cx="50" cy="62" rx="22" ry="29" fill="#f5f0df"/>
+    <circle cx="39" cy="45" r="4" fill="#fff"/><circle cx="61" cy="45" r="4" fill="#fff"/>
+    <circle cx="39" cy="45" r="2"/><circle cx="61" cy="45" r="2"/>
+    <path d="M43 53L50 59 57 53 50 51Z" fill="#e6a13d"/>
+    <ellipse cx="29" cy="92" rx="15" ry="5" fill="#e6a13d"/><ellipse cx="71" cy="92" rx="15" ry="5" fill="#e6a13d"/>
+  </svg>`},
+  {id:"capybara",name:"Capybara",svg:`<svg viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
+    <ellipse cx="50" cy="58" rx="37" ry="31" fill="#9b765c"/>
+    <ellipse cx="24" cy="36" rx="9" ry="8" fill="#86614b"/><ellipse cx="76" cy="36" rx="9" ry="8" fill="#86614b"/>
+    <circle cx="36" cy="51" r="4" fill="#fff"/><circle cx="64" cy="51" r="4" fill="#fff"/>
+    <circle cx="36" cy="51" r="2"/><circle cx="64" cy="51" r="2"/>
+    <ellipse cx="50" cy="63" rx="12" ry="8" fill="#674a39"/>
+    <path d="M43 73Q50 78 57 73" fill="none" stroke="#4d392e" stroke-width="3"/>
+  </svg>`},
+  {id:"puffin",name:"Puffin",svg:`<svg viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
+    <ellipse cx="50" cy="57" rx="33" ry="38" fill="#303d43"/>
+    <ellipse cx="50" cy="62" rx="22" ry="27" fill="#f7f1df"/>
+    <path d="M37 43Q50 35 63 43Q60 59 50 62Q40 59 37 43Z" fill="#f4c65a"/>
+    <circle cx="39" cy="45" r="4" fill="#fff"/><circle cx="61" cy="45" r="4" fill="#fff"/>
+    <circle cx="39" cy="45" r="2"/><circle cx="61" cy="45" r="2"/>
+    <path d="M43 69Q50 74 57 69" fill="none" stroke="#39444a" stroke-width="3"/>
+  </svg>`},
+  {id:"deer",name:"Deer",svg:`<svg viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
+    <path d="M28 35L19 15M19 15L10 10M19 15L14 5M72 35L81 15M81 15L90 10M81 15L86 5" stroke="#76583e" stroke-width="5" stroke-linecap="round"/>
+    <circle cx="50" cy="56" r="34" fill="#b9855a"/>
+    <ellipse cx="38" cy="51" rx="6" ry="8" fill="#fff"/><ellipse cx="62" cy="51" rx="6" ry="8" fill="#fff"/>
+    <circle cx="38" cy="52" r="2.5"/><circle cx="62" cy="52" r="2.5"/>
+    <ellipse cx="50" cy="64" rx="8" ry="6" fill="#674832"/>
+    <path d="M44 72Q50 77 56 72" fill="none" stroke="#60422f" stroke-width="3"/>
+  </svg>`},
+  {id:"hedgehog",name:"Hedgehog",svg:`<svg viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
+    <path d="M19 61L12 40 25 43 21 25 37 34 39 15 50 29 61 15 63 34 79 25 75 43 88 40 81 61Q75 88 50 90Q25 88 19 61Z" fill="#9b7555"/>
+    <ellipse cx="55" cy="61" rx="29" ry="28" fill="#d7a77b"/>
+    <circle cx="45" cy="56" r="4" fill="#fff"/><circle cx="66" cy="56" r="4" fill="#fff"/>
+    <circle cx="45" cy="56" r="2"/><circle cx="66" cy="56" r="2"/>
+    <ellipse cx="78" cy="65" rx="7" ry="5" fill="#45352d"/>
+    <path d="M47 72Q55 77 63 72" fill="none" stroke="#654838" stroke-width="3"/>
+  </svg>`},
+  {id:"seal",name:"Seal",svg:`<svg viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
+    <ellipse cx="50" cy="57" rx="34" ry="34" fill="#8799a2"/>
+    <ellipse cx="22" cy="69" rx="13" ry="8" fill="#71858e"/><ellipse cx="78" cy="69" rx="13" ry="8" fill="#71858e"/>
+    <circle cx="38" cy="51" r="5" fill="#fff"/><circle cx="62" cy="51" r="5" fill="#fff"/>
+    <circle cx="38" cy="51" r="2.5"/><circle cx="62" cy="51" r="2.5"/>
+    <ellipse cx="50" cy="63" rx="9" ry="6" fill="#4a5960"/>
+    <path d="M43 72Q50 77 57 72" fill="none" stroke="#4a5960" stroke-width="3"/>
+  </svg>`},
+  {id:"whale",name:"Whale",svg:`<svg viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
+    <path d="M17 57Q21 28 50 27Q79 28 83 57Q84 80 61 87Q36 94 21 77Q15 70 17 57Z" fill="#668fa5"/>
+    <path d="M42 28Q50 10 58 28" fill="none" stroke="#668fa5" stroke-width="8" stroke-linecap="round"/>
+    <path d="M50 18Q46 8 40 10M50 18Q54 8 60 10" stroke="#668fa5" stroke-width="3" fill="none"/>
+    <circle cx="38" cy="53" r="4" fill="#fff"/><circle cx="62" cy="53" r="4" fill="#fff"/>
+    <circle cx="38" cy="53" r="2"/><circle cx="62" cy="53" r="2"/>
+    <path d="M43 66Q50 72 57 66" fill="none" stroke="#405f70" stroke-width="3"/>
+    <path d="M19 57L8 50 15 64Z" fill="#557c91"/><path d="M81 57L92 50 85 64Z" fill="#557c91"/>
+  </svg>`},
+  {id:"octopus",name:"Octopus",svg:`<svg viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
+    <path d="M18 65Q12 78 20 86M30 68Q23 87 31 91M43 70Q39 90 47 94M57 70Q61 90 53 94M70 68Q77 87 69 91M82 65Q88 78 80 86" stroke="#b873a0" stroke-width="9" stroke-linecap="round" fill="none"/>
+    <ellipse cx="50" cy="52" rx="34" ry="33" fill="#c987ad"/>
+    <circle cx="38" cy="50" r="5" fill="#fff"/><circle cx="62" cy="50" r="5" fill="#fff"/>
+    <circle cx="38" cy="50" r="2.5"/><circle cx="62" cy="50" r="2.5"/>
+    <path d="M43 64Q50 71 57 64" fill="none" stroke="#744b66" stroke-width="3"/>
+  </svg>`},
+  {id:"jellyfish",name:"Jellyfish",svg:`<svg viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
+    <path d="M17 51Q17 22 50 22Q83 22 83 51Z" fill="#8fc6d8"/>
+    <path d="M24 51V78M37 51V88M50 51V80M63 51V88M76 51V78" stroke="#6daabd" stroke-width="7" stroke-linecap="round"/>
+    <circle cx="38" cy="42" r="4" fill="#fff"/><circle cx="62" cy="42" r="4" fill="#fff"/>
+    <circle cx="38" cy="42" r="2"/><circle cx="62" cy="42" r="2"/>
+    <path d="M43 49Q50 54 57 49" fill="none" stroke="#4e7d8d" stroke-width="3"/>
+  </svg>`},
+  {id:"star",name:"Star Buddy",svg:`<svg viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
+    <path d="M50 9L61 36 90 38 68 57 75 86 50 70 25 86 32 57 10 38 39 36Z" fill="#e7bd4e" stroke="#a47d25" stroke-width="3" stroke-linejoin="round"/>
+    <circle cx="39" cy="49" r="4" fill="#fff"/><circle cx="61" cy="49" r="4" fill="#fff"/>
+    <circle cx="39" cy="49" r="2"/><circle cx="61" cy="49" r="2"/>
+    <path d="M43 61Q50 68 57 61" fill="none" stroke="#725722" stroke-width="3"/>
+  </svg>`},
+  {id:"cloud",name:"Cloudy",svg:`<svg viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
+    <path d="M22 70Q12 64 17 52Q20 43 31 44Q35 27 51 27Q66 27 70 43Q84 42 87 55Q91 70 76 74H28Q24 74 22 70Z" fill="#b8c9d8"/>
+    <circle cx="39" cy="55" r="4" fill="#fff"/><circle cx="61" cy="55" r="4" fill="#fff"/>
+    <circle cx="39" cy="55" r="2"/><circle cx="61" cy="55" r="2"/>
+    <path d="M43 65Q50 71 57 65" fill="none" stroke="#627685" stroke-width="3"/>
+    <path d="M31 83L28 91M50 83V93M69 83L72 91" stroke="#86a9bd" stroke-width="4" stroke-linecap="round"/>
+  </svg>`},
+  {id:"cactus",name:"Cactus",svg:`<svg viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
+    <path d="M39 88V43Q39 25 50 25Q61 25 61 43V53H71V43Q71 36 78 36Q85 36 85 44V60Q85 69 75 69H61V88Z" fill="#68a86c" stroke="#477a50" stroke-width="3"/>
+    <circle cx="43" cy="49" r="4" fill="#fff"/><circle cx="57" cy="49" r="4" fill="#fff"/>
+    <circle cx="43" cy="49" r="2"/><circle cx="57" cy="49" r="2"/>
+    <path d="M44 61Q50 66 56 61" fill="none" stroke="#3e6844" stroke-width="3"/>
+    <path d="M30 50H22Q15 50 15 43V36" fill="none" stroke="#68a86c" stroke-width="9" stroke-linecap="round"/>
+  </svg>`},
+  {id:"mushroom",name:"Mushroom",svg:`<svg viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
+    <path d="M16 48Q18 18 50 18Q82 18 84 48Z" fill="#d96b63" stroke="#a94943" stroke-width="3"/>
+    <circle cx="34" cy="33" r="6" fill="#f8e7d4"/><circle cx="61" cy="28" r="5" fill="#f8e7d4"/><circle cx="72" cy="41" r="4" fill="#f8e7d4"/>
+    <path d="M31 48V80Q31 91 50 91Q69 91 69 80V48Z" fill="#f1dfc8" stroke="#b89978" stroke-width="3"/>
+    <circle cx="42" cy="62" r="4" fill="#fff"/><circle cx="58" cy="62" r="4" fill="#fff"/>
+    <circle cx="42" cy="62" r="2"/><circle cx="58" cy="62" r="2"/>
+    <path d="M44 72Q50 77 56 72" fill="none" stroke="#80664f" stroke-width="3"/>
+  </svg>`},
+  {id:"dragon",name:"Tiny Dragon",svg:`<svg viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
+    <path d="M26 40L14 20 35 29Q50 20 65 29L86 20 74 40Q82 67 67 82Q50 94 33 82Q18 67 26 40Z" fill="#6c9b83"/>
+    <path d="M35 29L28 13M65 29L72 13" stroke="#4d755f" stroke-width="6" stroke-linecap="round"/>
+    <circle cx="38" cy="51" r="5" fill="#fff"/><circle cx="62" cy="51" r="5" fill="#fff"/>
+    <circle cx="38" cy="51" r="2.5" fill="#d69d3e"/><circle cx="62" cy="51" r="2.5" fill="#d69d3e"/>
+    <path d="M43 65Q50 72 57 65" fill="none" stroke="#3e604d" stroke-width="3"/>
+    <path d="M28 56L17 51M72 56L83 51" stroke="#4d755f" stroke-width="4" stroke-linecap="round"/>
+  </svg>`},
+  {id:"moon",name:"Moon Buddy",svg:`<svg viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
+    <path d="M69 16Q45 19 39 43Q34 67 54 82Q69 93 84 82Q63 82 56 66Q49 51 57 37Q62 25 69 16Z" fill="#e7d994" stroke="#a9954e" stroke-width="3"/>
+    <circle cx="49" cy="47" r="4" fill="#fff"/><circle cx="62" cy="54" r="4" fill="#fff"/>
+    <circle cx="49" cy="47" r="2"/><circle cx="62" cy="54" r="2"/>
+    <path d="M51 63Q57 68 63 63" fill="none" stroke="#806f35" stroke-width="3"/>
+    <circle cx="22" cy="28" r="3" fill="#e7d994"/><circle cx="20" cy="72" r="4" fill="#e7d994"/>
+  </svg>`}
+];
+
+const grid = document.getElementById("avatarGrid");
+const info = document.getElementById("selectedInfo");
+const form = document.getElementById("registerForm");
+const errorBox = document.getElementById("errorBox");
+
+let selectedAvatar = null;
+
+AVATARS.forEach((avatar, index) => {
+  const card = document.createElement("button");
+  card.type = "button";
+  card.className = "avatar-card";
+  card.dataset.id = avatar.id;
+  card.innerHTML = `
+    <span class="check">✓</span>
+    ${avatar.svg}
+    <div class="avatar-name">${avatar.name}</div>
+  `;
+  card.addEventListener("click", () => {
+    document.querySelectorAll(".avatar-card").forEach(x => x.classList.remove("selected"));
+    card.classList.add("selected");
+    selectedAvatar = {
+      id: avatar.id,
+      name: avatar.name,
+      svg: avatar.svg
+    };
+    info.textContent = "Avatar dipilih: " + avatar.name;
+  });
+  grid.appendChild(card);
+});
+
+function showError(message){
+  errorBox.textContent = message;
+  errorBox.style.display = "block";
+}
+function clearError(){
+  errorBox.textContent = "";
+  errorBox.style.display = "none";
+}
+
+const FJIS_REGISTRATION_ENDPOINT = "https://script.google.com/macros/s/AKfycbzIlJNCAiA24q7qYtlSiZAsdLqmH6ft6L7WcKrs0Oso92LsgkseqpwFvwwLQBw8o-W6/exec";
+
+form.addEventListener("submit", async function(e){
+  e.preventDefault();
+  clearError();
+
+  const name = document.getElementById("name").value.trim();
+  const email = document.getElementById("email").value.trim().toLowerCase();
+  const password = document.getElementById("password").value;
+
+  if(name.length < 2) return showError("Nama minimal 2 karakter.");
+  if(password.length < 6) return showError("Password minimal 6 karakter.");
+  if(!selectedAvatar) return showError("Pilih avatar dulu bro.");
+
+  let accounts = [];
+  try {
+    accounts = JSON.parse(localStorage.getItem("fjis_accounts") || "[]");
+    if(!Array.isArray(accounts)) accounts = [];
+  } catch(e) {
+    accounts = [];
+  }
+
+  if(accounts.some(acc => String(acc.email || "").toLowerCase() === email)){
+    return showError("Email itu sudah terdaftar. Gunakan email lain.");
+  }
+
+  const now = new Date().toISOString();
+
+  const account = {
+    id: "fjis-" + Date.now(),
+    name,
+    email,
+    password,
+    level: "Student Learner",
+    avatar: {
+      id: selectedAvatar.id,
+      name: selectedAvatar.name
+    },
+    avatarSvg: selectedAvatar.svg,
+    createdAt: now,
+    progress: 0
+  };
+
+  accounts.push(account);
+  localStorage.setItem("fjis_accounts", JSON.stringify(accounts));
+
+  // Kompatibilitas dengan bagian project lama.
+  localStorage.setItem("fjis_user_name", name);
+  localStorage.setItem("fjis_user_email", email);
+  localStorage.setItem("fjis_user_avatar", JSON.stringify(account.avatar));
+  localStorage.setItem("fjis_user_avatar_svg", selectedAvatar.svg);
+  localStorage.setItem("fjis_progress", "0");
+  localStorage.setItem("fjis_registered", "1");
+
+  // REGISTER BELUM MEMBUAT SESI LOGIN.
+  // Sesi aktif hanya dibuat setelah email + password berhasil
+  // diautentikasi di login.html.
+  localStorage.removeItem("fjis_current_user");
+  localStorage.removeItem("fjis_logged_in");
+  localStorage.removeItem("fjis_session");
+
+  // Notifikasi pendaftaran ke Gmail admin.
+  // Password TIDAK pernah dikirim.
+  try {
+    await fetch(FJIS_REGISTRATION_ENDPOINT, {
+      method: "POST",
+      mode: "no-cors",
+      headers: {
+        "Content-Type": "text/plain;charset=utf-8"
+      },
+      body: JSON.stringify({
+        name: account.name,
+        email: account.email,
+        level: account.level,
+        avatar: account.avatar.name,
+        createdAt: account.createdAt
+      })
+    });
+  } catch (notificationError) {
+    // Registrasi lokal tetap berhasil walaupun notifikasi Gmail gagal.
+    console.warn("Notifikasi Gmail gagal:", notificationError);
+  }
+
+  const params = new URLSearchParams(window.location.search);
+  const redirect = params.get("redirect");
+  const loginUrl = redirect
+    ? "./login.html?registered=1&redirect=" + encodeURIComponent(redirect)
+    : "./login.html?registered=1";
+  window.location.href = loginUrl;
+});
+</script>
+</body>
+</html>

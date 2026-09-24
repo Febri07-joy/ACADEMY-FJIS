@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="description" content="FJIS Academy — Persiapan SNBP Kelas 12.">
+<title>SNBP — FJIS Academy</title>
+<link rel="stylesheet" href="../../css/style.css">
+<link rel="stylesheet" href="../../css/components.css">
+<link rel="stylesheet" href="../../css/landing.css">
+<link rel="stylesheet" href="../../css/responsive.css">
+<style>
+*{box-sizing:border-box}
+body{margin:0;background:#f7f7f5;color:#202020;font-family:Inter,system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif}
+a{color:inherit;text-decoration:none}
+.page{width:min(1180px,calc(100% - 32px));margin:auto;padding:28px 0 60px}
+.topbar{display:flex;justify-content:space-between;align-items:center;gap:20px;margin-bottom:34px}
+.brand{display:flex;align-items:center;gap:12px}.brand-mark{width:42px;height:42px;border-radius:12px;display:grid;place-items:center;background:#202020;color:#fff;font-size:14px;font-weight:800}
+.brand-title{font-size:17px;font-weight:800}.brand-subtitle{margin-top:3px;color:#777;font-size:12px}
+.back-button{padding:10px 14px;border:1px solid #dededb;border-radius:11px;background:#fff;font-size:13px;font-weight:650}
+.hero{padding:38px;margin-bottom:30px;border:1px solid #e8e8e4;border-radius:24px;background:#fff}
+.eyebrow,.tag{display:inline-flex;padding:7px 11px;border-radius:999px;background:#f0f0ed;color:#666;font-size:11px;font-weight:750;letter-spacing:.03em;text-transform:uppercase}
+.hero h1{margin:15px 0 0;font-size:clamp(32px,5vw,50px);line-height:1.05;letter-spacing:-.04em}
+.hero p{max-width:760px;margin:15px 0 0;color:#696969;font-size:15px;line-height:1.7}
+.section-header{margin:35px 0 18px}.section-header h2{margin:0;font-size:23px}.section-header p{margin:6px 0 0;color:#777;font-size:13px}
+.menu{display:grid;grid-template-columns:repeat(2,1fr);gap:16px}
+.card{min-height:210px;padding:25px;border:1px solid #e4e4e0;border-radius:20px;background:#fff;display:flex;flex-direction:column;transition:.2s ease}
+.card:hover{transform:translateY(-4px);border-color:#cecec9;box-shadow:0 14px 35px rgba(0,0,0,.07)}
+.card.featured{grid-column:span 2}.icon{width:48px;height:48px;display:grid;place-items:center;border-radius:14px;background:#f0f0ed;font-size:22px}
+.label{margin-top:20px;color:#777;font-size:11px;font-weight:750;letter-spacing:.05em;text-transform:uppercase}
+.card h3{margin:6px 0 8px;font-size:21px}.card p{max-width:720px;margin:0;color:#727272;font-size:13px;line-height:1.65}
+.action{margin-top:auto;padding-top:22px;display:flex;justify-content:space-between;align-items:center;font-size:12px;font-weight:750}
+.arrow{font-size:20px;transition:.2s}.card:hover .arrow{transform:translateX(5px)}
+.info{margin-top:30px;padding:24px;border:1px solid #e4e4e0;border-radius:20px;background:#fff}
+.info h3{margin:0 0 10px;font-size:18px}.info p{color:#707070;font-size:13px;line-height:1.7}
+.official{display:inline-flex;margin-top:10px;padding:10px 14px;border-radius:11px;background:#202020;color:#fff;font-size:12px;font-weight:750}
+footer{margin-top:55px;padding-top:22px;border-top:1px solid #e3e3df;color:#888;font-size:12px;text-align:center}
+@media(max-width:700px){.page{width:min(100% - 22px,1180px);padding-top:18px}.topbar{align-items:flex-start}.hero{padding:25px}.menu{grid-template-columns:1fr}.card.featured{grid-column:span 1}.card{min-height:190px}}
+</style>
+</head>
+<body>
+<div class="page">
+<header class="topbar">
+<a href="../../index.html" class="brand"><div class="brand-mark">FJ</div><div><div class="brand-title">FJIS Academy</div><div class="brand-subtitle">Student Learner</div></div></a>
+<a href="kelas-12.html" class="back-button">← Kembali ke Kelas 12</a>
+</header>
+
+<section class="hero">
+<div class="eyebrow">SMA · KELAS 12 · SNBP</div>
+<h1>SNBP</h1>
+<p>Ruang persiapan Seleksi Nasional Berdasarkan Prestasi. Pahami mekanismenya, siapkan data, dan gunakan rasionalisasi sebagai alat bantu membaca posisi akademikmu.</p>
+</section>
+
+<section>
+<div class="section-header"><h2>Pilih yang ingin kamu pelajari</h2><p>Mulai dari rasionalisasi sebelum masuk ke informasi lainnya.</p></div>
+<div class="menu">
+
+<a href="snbp-rasionalisasi.html" class="card featured">
+<div class="icon">📊</div><div class="label">Alat Bantu</div><h3>Rasionalisasi SNBP</h3>
+<p>Masukkan data nilai rapor dan informasi pilihanmu untuk mendapatkan gambaran terstruktur. Hasilnya adalah estimasi berbasis data yang kamu masukkan, bukan jaminan kelulusan SNBP.</p>
+<div class="action"><span>Mulai rasionalisasi</span><span class="arrow">→</span></div>
+</a>
+
+<a href="snbp-informasi.html" class="card"><div class="icon">📚</div><div class="label">Panduan</div><h3>Informasi SNBP</h3><p>Pelajari ketentuan, komponen penilaian, pemeringkatan, dan pilihan program studi.</p><div class="action"><span>Lihat informasi</span><span class="arrow">→</span></div></a>
+
+<a href="snbp-persiapan.html" class="card"><div class="icon">📝</div><div class="label">Persiapan</div><h3>Persiapan SNBP</h3><p>Checklist data dan langkah yang perlu disiapkan sebelum pendaftaran.</p><div class="action"><span>Mulai persiapan</span><span class="arrow">→</span></div></a>
+
+<a href="snbp-ptn-prodi.html" class="card"><div class="icon">🏫</div><div class="label">Pilihan</div><h3>PTN & Prodi</h3><p>Ruang untuk menyusun pilihan PTN dan program studi yang ingin dituju.</p><div class="action"><span>Lihat pilihan</span><span class="arrow">→</span></div></a>
+
+<a href="snbp-jadwal.html" class="card"><div class="icon">📅</div><div class="label">Timeline</div><h3>Jadwal SNBP</h3><p>Lihat tahapan dan tanggal penting SNBP.</p><div class="action"><span>Lihat jadwal</span><span class="arrow">→</span></div></a>
+
+</div>
+</section>
+
+<section class="info">
+<h3>Catatan penting</h3>
+<p>Pada SNBP 2026, seleksi menggunakan nilai rapor serta prestasi akademik dan nonakademik yang ditetapkan PTN. Nilai rapor seluruh mata pelajaran menjadi komponen pertama dengan bobot minimal 50%; komponen kedua dapat mencakup paling banyak dua mata pelajaran pendukung prodi, portofolio, dan/atau prestasi, dengan bobot maksimal 50%. Komposisi akhirnya ditetapkan masing-masing PTN.</p>
+<a class="official" href="https://www.snpmb.id/snbp/informasi-umum" target="_blank" rel="noopener noreferrer">Buka informasi resmi SNPMB →</a>
+</section>
+
+<footer>FJIS Academy · Student Learner</footer>
+</div>
+<script src="../../js/app.js"></script>
+<script src="../../js/navigation.js"></script>
+</body>
+</html>

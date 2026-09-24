@@ -1,0 +1,1875 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0"
+    >
+
+    <meta
+        name="description"
+        content="Masuk ke FJIS Academy — Student Learner"
+    >
+
+    <title>Masuk — FJIS Academy</title>
+
+    <link
+        rel="stylesheet"
+        href="../css/style.css"
+    >
+
+    <link
+        rel="stylesheet"
+        href="../css/components.css"
+    >
+
+    <link
+        rel="stylesheet"
+        href="../css/responsive.css"
+    >
+
+
+    <style>
+
+        :root {
+            --login-bg: #f5f3ed;
+            --login-white: #ffffff;
+            --login-sage: #718176;
+            --login-sage-dark: #53635a;
+            --login-sage-soft: #e7ebe5;
+            --login-text: #29332e;
+            --login-muted: #7c8580;
+            --login-border: rgba(63, 76, 68, .12);
+        }
+
+
+        * {
+            box-sizing: border-box;
+        }
+
+
+        html,
+        body {
+            width: 100%;
+            min-height: 100%;
+        }
+
+
+        body {
+            margin: 0;
+
+            min-height: 100vh;
+
+            background:
+                var(--login-bg);
+
+            color:
+                var(--login-text);
+
+            font-family:
+                Inter,
+                -apple-system,
+                BlinkMacSystemFont,
+                "Segoe UI",
+                sans-serif;
+        }
+
+
+        a {
+            color: inherit;
+            text-decoration: none;
+        }
+
+
+        button,
+        input {
+            font: inherit;
+        }
+
+
+        /* =====================================================
+           PAGE
+        ====================================================== */
+
+        .login-page {
+
+            min-height: 100vh;
+
+            display: grid;
+
+            grid-template-columns:
+                1fr 1fr;
+
+        }
+
+
+        /* =====================================================
+           LEFT SIDE
+        ====================================================== */
+
+        .login-intro {
+
+            min-height: 100vh;
+
+            padding:
+                40px 8%;
+
+            display: flex;
+
+            flex-direction: column;
+
+            justify-content: space-between;
+
+            background:
+                #ebece7;
+
+            border-right:
+                1px solid
+                var(--login-border);
+
+        }
+
+
+        .login-brand {
+
+            display: flex;
+
+            align-items: center;
+
+            gap: 11px;
+
+        }
+
+
+        .login-brand-logo {
+
+            width: 43px;
+            height: 43px;
+
+            display: flex;
+
+            align-items: center;
+            justify-content: center;
+
+            border-radius: 13px;
+
+            background:
+                rgba(255,255,255,.7);
+
+            font-size: 21px;
+
+        }
+
+
+        .login-brand-copy strong {
+
+            display: block;
+
+            font-size: 15px;
+
+            line-height: 1.2;
+
+        }
+
+
+        .login-brand-copy span {
+
+            display: block;
+
+            margin-top: 3px;
+
+            color:
+                var(--login-muted);
+
+            font-size: 10px;
+
+        }
+
+
+        .intro-content {
+
+            max-width: 510px;
+
+        }
+
+
+        .intro-kicker {
+
+            color:
+                var(--login-sage);
+
+            font-size: 10px;
+
+            font-weight: 700;
+
+            letter-spacing: .1em;
+
+            text-transform: uppercase;
+
+        }
+
+
+        .intro-content h1 {
+
+            margin:
+                13px 0 0;
+
+            font-size:
+                clamp(36px, 4.5vw, 57px);
+
+            line-height: 1.06;
+
+            letter-spacing:
+                -2px;
+
+        }
+
+
+        .intro-content h1 em {
+
+            font-style: normal;
+
+            color:
+                var(--login-sage);
+
+        }
+
+
+        .intro-content p {
+
+            max-width: 490px;
+
+            margin:
+                18px 0 0;
+
+            color:
+                var(--login-muted);
+
+            font-size: 13px;
+
+            line-height: 1.8;
+
+        }
+
+
+        .intro-principles {
+
+            display: flex;
+
+            flex-wrap: wrap;
+
+            gap: 8px;
+
+            margin-top: 23px;
+
+        }
+
+
+        .intro-pill {
+
+            padding:
+                7px 10px;
+
+            border:
+                1px solid
+                var(--login-border);
+
+            border-radius: 20px;
+
+            background:
+                rgba(255,255,255,.45);
+
+            color:
+                #68736c;
+
+            font-size: 9px;
+
+        }
+
+
+        .intro-bottom {
+
+            color:
+                #969d99;
+
+            font-size: 9px;
+
+            line-height: 1.6;
+
+        }
+
+
+        /* =====================================================
+           BOOK VISUAL
+        ====================================================== */
+
+        .login-books {
+
+            width: 185px;
+            height: 155px;
+
+            position: relative;
+
+            margin-top: 35px;
+
+        }
+
+
+        .login-book {
+
+            position: absolute;
+
+            left: 8px;
+
+            width: 165px;
+            height: 39px;
+
+            border-radius:
+                6px 9px 9px 6px;
+
+            border:
+                1px solid
+                rgba(70,80,74,.12);
+
+            box-shadow:
+                0 8px 15px
+                rgba(40,50,45,.07);
+
+        }
+
+
+        .login-book:nth-child(1) {
+
+            bottom: 8px;
+
+            transform:
+                rotate(-5deg);
+
+            background:
+                #d9ddd4;
+
+        }
+
+
+        .login-book:nth-child(2) {
+
+            bottom: 42px;
+
+            transform:
+                rotate(4deg);
+
+            background:
+                #ede9dd;
+
+        }
+
+
+        .login-book:nth-child(3) {
+
+            bottom: 76px;
+
+            transform:
+                rotate(-2deg);
+
+            background:
+                #cfd8cf;
+
+        }
+
+
+        .login-book:nth-child(4) {
+
+            bottom: 110px;
+
+            transform:
+                rotate(5deg);
+
+            background:
+                #f1eee7;
+
+        }
+
+
+        /* =====================================================
+           RIGHT SIDE
+        ====================================================== */
+
+        .login-area {
+
+            min-height: 100vh;
+
+            padding:
+                35px 7%;
+
+            display: flex;
+
+            align-items: center;
+
+            justify-content: center;
+
+            position: relative;
+
+        }
+
+
+        .back-home {
+
+            position: absolute;
+
+            top: 28px;
+
+            left: 35px;
+
+            display: inline-flex;
+
+            align-items: center;
+
+            gap: 6px;
+
+            color:
+                var(--login-muted);
+
+            font-size: 10px;
+
+            transition:
+                color .2s ease;
+
+        }
+
+
+        .back-home:hover {
+
+            color:
+                var(--login-sage-dark);
+
+        }
+
+
+        /* =====================================================
+           LOGIN CARD
+        ====================================================== */
+
+        .login-card {
+
+            width:
+                min(410px, 100%);
+
+            padding:
+                31px;
+
+            border:
+                1px solid
+                rgba(255,255,255,.8);
+
+            border-radius:
+                23px;
+
+            background:
+                rgba(255,255,255,.76);
+
+            box-shadow:
+                0 25px 70px
+                rgba(45,55,49,.08);
+
+            backdrop-filter:
+                blur(18px);
+
+            -webkit-backdrop-filter:
+                blur(18px);
+
+        }
+
+
+        .login-heading {
+
+            margin-bottom: 25px;
+
+        }
+
+
+        .login-heading .small {
+
+            color:
+                var(--login-sage);
+
+            font-size: 9px;
+
+            font-weight: 700;
+
+            letter-spacing: .1em;
+
+            text-transform: uppercase;
+
+        }
+
+
+        .login-heading h2 {
+
+            margin:
+                9px 0 0;
+
+            font-size: 25px;
+
+            letter-spacing:
+                -.6px;
+
+        }
+
+
+        .login-heading p {
+
+            margin:
+                7px 0 0;
+
+            color:
+                var(--login-muted);
+
+            font-size: 10px;
+
+            line-height: 1.6;
+
+        }
+
+
+        /* =====================================================
+           FORM
+        ====================================================== */
+
+        .form-group {
+
+            margin-top: 16px;
+
+        }
+
+
+        .form-group label {
+
+            display: block;
+
+            margin-bottom: 6px;
+
+            color:
+                #66716a;
+
+            font-size: 9px;
+
+            font-weight: 600;
+
+        }
+
+
+        .input-wrapper {
+
+            position: relative;
+
+        }
+
+
+        .input-icon {
+
+            position: absolute;
+
+            left: 12px;
+
+            top: 50%;
+
+            transform:
+                translateY(-50%);
+
+            color:
+                #9aa19d;
+
+            font-size: 12px;
+
+            pointer-events: none;
+
+        }
+
+
+        .form-group input {
+
+            width: 100%;
+
+            height: 42px;
+
+            padding:
+                0 12px 0 34px;
+
+            border:
+                1px solid
+                var(--login-border);
+
+            border-radius: 10px;
+
+            outline: none;
+
+            background:
+                rgba(250,250,247,.85);
+
+            color:
+                var(--login-text);
+
+            font-size: 11px;
+
+            transition:
+                border-color .2s ease,
+                box-shadow .2s ease;
+
+        }
+
+
+        .form-group input:focus {
+
+            border-color:
+                rgba(111,129,117,.45);
+
+            box-shadow:
+                0 0 0 3px
+                rgba(111,129,117,.07);
+
+        }
+
+
+        .form-group input::placeholder {
+
+            color:
+                #a3a9a5;
+
+        }
+
+
+        /* =====================================================
+           PASSWORD
+        ====================================================== */
+
+        .password-toggle {
+
+            position: absolute;
+
+            right: 9px;
+
+            top: 50%;
+
+            transform:
+                translateY(-50%);
+
+            border: 0;
+
+            background: transparent;
+
+            color:
+                #929a95;
+
+            cursor: pointer;
+
+            font-size: 11px;
+
+            padding: 5px;
+
+        }
+
+
+        /* =====================================================
+           OPTIONS
+        ====================================================== */
+
+        .form-options {
+
+            display: flex;
+
+            align-items: center;
+
+            justify-content: space-between;
+
+            margin-top: 12px;
+
+        }
+
+
+        .remember {
+
+            display: flex;
+
+            align-items: center;
+
+            gap: 6px;
+
+            color:
+                var(--login-muted);
+
+            font-size: 9px;
+
+        }
+
+
+        .remember input {
+
+            width: 12px;
+            height: 12px;
+
+            accent-color:
+                var(--login-sage);
+
+        }
+
+
+        .forgot {
+
+            color:
+                var(--login-sage-dark);
+
+            font-size: 9px;
+
+        }
+
+
+        /* =====================================================
+           ERROR
+        ====================================================== */
+
+        .login-message {
+
+            display: none;
+
+            margin-top: 13px;
+
+            padding:
+                9px 10px;
+
+            border-radius: 9px;
+
+            background:
+                #f3e9e5;
+
+            color:
+                #8a6256;
+
+            font-size: 9px;
+
+            line-height: 1.5;
+
+        }
+
+
+        .login-message.show {
+
+            display: block;
+
+        }
+
+
+        /* =====================================================
+           BUTTON
+        ====================================================== */
+
+        .login-submit {
+
+            width: 100%;
+
+            height: 43px;
+
+            margin-top: 19px;
+
+            border: 0;
+
+            border-radius: 10px;
+
+            background:
+                var(--login-sage);
+
+            color:
+                #fff;
+
+            font-size: 11px;
+
+            font-weight: 600;
+
+            cursor: pointer;
+
+            transition:
+                background .2s ease,
+                transform .2s ease;
+
+        }
+
+
+        .login-submit:hover {
+
+            background:
+                var(--login-sage-dark);
+
+            transform:
+                translateY(-1px);
+
+        }
+
+
+        .login-submit:disabled {
+
+            opacity: .6;
+
+            cursor: wait;
+
+            transform: none;
+
+        }
+
+
+        /* =====================================================
+           DIVIDER
+        ====================================================== */
+
+        .divider {
+
+            display: flex;
+
+            align-items: center;
+
+            gap: 10px;
+
+            margin:
+                22px 0;
+
+            color:
+                #a0a6a2;
+
+            font-size: 8px;
+
+        }
+
+
+        .divider::before,
+        .divider::after {
+
+            content: "";
+
+            flex: 1;
+
+            height: 1px;
+
+            background:
+                var(--login-border);
+
+        }
+
+
+        /* =====================================================
+           REGISTER
+        ====================================================== */
+
+        .register-text {
+
+            text-align: center;
+
+            color:
+                var(--login-muted);
+
+            font-size: 9px;
+
+        }
+
+
+        .register-text a {
+
+            color:
+                var(--login-sage-dark);
+
+            font-weight: 700;
+
+        }
+
+
+        .login-note {
+
+            margin-top: 20px;
+
+            padding-top: 16px;
+
+            border-top:
+                1px solid
+                var(--login-border);
+
+            color:
+                #9a9f9b;
+
+            font-size: 8px;
+
+            line-height: 1.6;
+
+            text-align: center;
+
+        }
+
+
+        /* =====================================================
+           MOBILE
+        ====================================================== */
+
+        @media (max-width: 800px) {
+
+            .login-page {
+
+                grid-template-columns: 1fr;
+
+            }
+
+
+            .login-intro {
+
+                min-height: auto;
+
+                padding:
+                    24px 22px 35px;
+
+                border-right: 0;
+
+                border-bottom:
+                    1px solid
+                    var(--login-border);
+
+            }
+
+
+            .intro-content {
+
+                margin-top: 55px;
+
+            }
+
+
+            .intro-content h1 {
+
+                font-size: 38px;
+
+            }
+
+
+            .login-books {
+
+                display: none;
+
+            }
+
+
+            .intro-bottom {
+
+                margin-top: 40px;
+
+            }
+
+
+            .login-area {
+
+                min-height: auto;
+
+                padding:
+                    45px 18px;
+
+            }
+
+
+            .back-home {
+
+                top: 17px;
+
+                left: 18px;
+
+            }
+
+        }
+
+
+        @media (max-width: 450px) {
+
+            .login-card {
+
+                padding: 24px 19px;
+
+                border-radius: 18px;
+
+            }
+
+        }
+
+    </style>
+
+</head>
+
+
+<body>
+
+
+<div class="login-page">
+
+
+    <!-- =====================================================
+         INTRO
+    ====================================================== -->
+
+    <section class="login-intro">
+
+
+        <a
+            href="../index.html"
+            class="login-brand"
+        >
+
+            <div class="login-brand-logo">
+                📚
+            </div>
+
+            <div class="login-brand-copy">
+
+                <strong>
+                    FJIS Academy
+                </strong>
+
+                <span>
+                    Student Learner
+                </span>
+
+            </div>
+
+        </a>
+
+
+        <div class="intro-content">
+
+            <div class="intro-kicker">
+                Student Learner
+            </div>
+
+
+            <h1>
+                Selamat datang
+                kembali di
+                <em>ruang belajar.</em>
+            </h1>
+
+
+            <p>
+                Masuk untuk melanjutkan perjalananmu
+                di FJIS Academy — memahami materi,
+                berlatih, bertumbuh, dan mempersiapkan
+                langkah berikutnya.
+            </p>
+
+
+            <div class="intro-principles">
+
+                <span class="intro-pill">
+                    Belajar
+                </span>
+
+                <span class="intro-pill">
+                    Bertumbuh
+                </span>
+
+                <span class="intro-pill">
+                    Berbagi
+                </span>
+
+                <span class="intro-pill">
+                    Persiapan
+                </span>
+
+            </div>
+
+
+            <div class="login-books">
+
+                <div class="login-book"></div>
+                <div class="login-book"></div>
+                <div class="login-book"></div>
+                <div class="login-book"></div>
+
+            </div>
+
+        </div>
+
+
+        <div class="intro-bottom">
+
+            FJIS Academy · Student Learner
+
+        </div>
+
+    </section>
+
+
+
+    <!-- =====================================================
+         LOGIN AREA
+    ====================================================== -->
+
+    <section class="login-area">
+
+
+        <a
+            href="../index.html"
+            class="back-home"
+        >
+            ← Kembali ke beranda
+        </a>
+
+
+        <div class="login-card">
+
+
+            <div class="login-heading">
+
+                <div class="small">
+                    FJIS Academy
+                </div>
+
+                <h2>
+                    Masuk
+                </h2>
+
+                <p>
+                    Masukkan data kamu untuk melanjutkan
+                    ke dashboard.
+                </p>
+
+            </div>
+
+
+            <!-- =================================================
+                 FORM
+            ================================================== -->
+
+            <form
+                id="loginForm"
+                novalidate
+            >
+
+
+                <!-- NAMA -->
+
+                <div class="form-group">
+
+                    <label for="loginName">
+                        Nama
+                    </label>
+
+                    <div class="input-wrapper">
+
+                        <span class="input-icon">
+                            ◯
+                        </span>
+
+                        <input
+                            type="text"
+                            id="loginName"
+                            name="name"
+                            placeholder="Masukkan nama kamu"
+                            autocomplete="name"
+                            maxlength="60"
+                            required
+                        >
+
+                    </div>
+
+                </div>
+
+
+                <!-- EMAIL -->
+
+                <div class="form-group">
+
+                    <label for="loginEmail">
+                        Email
+                    </label>
+
+                    <div class="input-wrapper">
+
+                        <span class="input-icon">
+                            @
+                        </span>
+
+                        <input
+                            type="email"
+                            id="loginEmail"
+                            name="email"
+                            placeholder="nama@email.com"
+                            autocomplete="email"
+                            maxlength="100"
+                            required
+                        >
+
+                    </div>
+
+                </div>
+
+
+                <!-- PASSWORD -->
+
+                <div class="form-group">
+
+                    <label for="loginPassword">
+                        Password
+                    </label>
+
+                    <div class="input-wrapper">
+
+                        <span class="input-icon">
+                            •
+                        </span>
+
+                        <input
+                            type="password"
+                            id="loginPassword"
+                            name="password"
+                            placeholder="Masukkan password"
+                            autocomplete="current-password"
+                            maxlength="100"
+                            required
+                        >
+
+                        <button
+                            type="button"
+                            class="password-toggle"
+                            id="passwordToggle"
+                            aria-label="Tampilkan password"
+                        >
+                            ◉
+                        </button>
+
+                    </div>
+
+                </div>
+
+
+                <!-- OPTIONS -->
+
+                <div class="form-options">
+
+                    <label class="remember">
+
+                        <input
+                            type="checkbox"
+                            id="rememberMe"
+                        >
+
+                        <span>
+                            Ingat saya
+                        </span>
+
+                    </label>
+
+
+                    <a
+                        href="#"
+                        class="forgot"
+                        id="forgotPassword"
+                    >
+                        Lupa password?
+                    </a>
+
+                </div>
+
+
+                <!-- MESSAGE -->
+
+                <div
+                    class="login-message"
+                    id="loginMessage"
+                ></div>
+
+
+                <!-- SUBMIT -->
+
+                <button
+                    type="submit"
+                    class="login-submit"
+                    id="loginSubmit"
+                >
+                    Masuk ke FJIS Academy
+                </button>
+
+
+            </form>
+
+
+            <div class="divider">
+                atau
+            </div>
+
+
+            <div class="register-text">
+
+                Belum punya akun?
+
+                <a
+                    href="#"
+                    id="registerLink"
+                >
+                    Daftar
+                </a>
+
+            </div>
+
+
+            <div class="login-note">
+
+                Sistem akun pada tahap ini menggunakan
+                penyimpanan lokal browser untuk kebutuhan
+                pengembangan FJIS Academy.
+
+            </div>
+
+
+        </div>
+
+    </section>
+
+</div>
+
+
+
+<!-- =========================================================
+     JAVASCRIPT
+========================================================== -->
+
+<script>
+
+    /* =====================================================
+       ELEMENTS
+    ====================================================== */
+
+    const loginForm =
+        document.getElementById(
+            "loginForm"
+        );
+
+
+    const loginName =
+        document.getElementById(
+            "loginName"
+        );
+
+
+    const loginEmail =
+        document.getElementById(
+            "loginEmail"
+        );
+
+
+    const loginPassword =
+        document.getElementById(
+            "loginPassword"
+        );
+
+
+    const rememberMe =
+        document.getElementById(
+            "rememberMe"
+        );
+
+
+    const loginMessage =
+        document.getElementById(
+            "loginMessage"
+        );
+
+
+    const loginSubmit =
+        document.getElementById(
+            "loginSubmit"
+        );
+
+
+    const passwordToggle =
+        document.getElementById(
+            "passwordToggle"
+        );
+
+
+    /* =====================================================
+       MESSAGE
+    ====================================================== */
+
+    function showMessage(message) {
+
+        if (!loginMessage) {
+            return;
+        }
+
+        loginMessage.textContent =
+            message;
+
+        loginMessage.classList.add(
+            "show"
+        );
+
+    }
+
+
+    function hideMessage() {
+
+        if (!loginMessage) {
+            return;
+        }
+
+        loginMessage.textContent =
+            "";
+
+        loginMessage.classList.remove(
+            "show"
+        );
+
+    }
+
+
+    /* =====================================================
+       PASSWORD TOGGLE
+    ====================================================== */
+
+    if (passwordToggle) {
+
+        passwordToggle.addEventListener(
+            "click",
+            () => {
+
+                if (
+                    loginPassword.type ===
+                    "password"
+                ) {
+
+                    loginPassword.type =
+                        "text";
+
+                    passwordToggle.textContent =
+                        "◌";
+
+                    passwordToggle.setAttribute(
+                        "aria-label",
+                        "Sembunyikan password"
+                    );
+
+                } else {
+
+                    loginPassword.type =
+                        "password";
+
+                    passwordToggle.textContent =
+                        "◉";
+
+                    passwordToggle.setAttribute(
+                        "aria-label",
+                        "Tampilkan password"
+                    );
+
+                }
+
+            }
+        );
+
+    }
+
+
+    /* =====================================================
+       LOAD SAVED LOGIN
+    ====================================================== */
+
+    const savedName =
+        localStorage.getItem(
+            "fjis_user_name"
+        );
+
+
+    const savedEmail =
+        localStorage.getItem(
+            "fjis_user_email"
+        );
+
+
+    const rememberStatus =
+        localStorage.getItem(
+            "fjis_remember_me"
+        );
+
+
+    if (savedName) {
+
+        loginName.value =
+            savedName;
+
+    }
+
+
+    if (savedEmail) {
+
+        loginEmail.value =
+            savedEmail;
+
+    }
+
+
+    if (
+        rememberStatus ===
+        "true"
+    ) {
+
+        rememberMe.checked =
+            true;
+
+    }
+
+
+    /* =====================================================
+       LOGIN
+    ====================================================== */
+
+    if (loginForm) {
+
+        loginForm.addEventListener(
+            "submit",
+            event => {
+
+                event.preventDefault();
+
+                hideMessage();
+
+
+                const name =
+                    loginName.value.trim();
+
+
+                const email =
+                    loginEmail.value.trim();
+
+
+                const password =
+                    loginPassword.value;
+
+
+                /* VALIDASI NAMA */
+
+                if (!name) {
+
+                    showMessage(
+                        "Nama belum diisi."
+                    );
+
+                    loginName.focus();
+
+                    return;
+
+                }
+
+
+                if (name.length < 2) {
+
+                    showMessage(
+                        "Nama harus terdiri dari minimal 2 karakter."
+                    );
+
+                    loginName.focus();
+
+                    return;
+
+                }
+
+
+                /* VALIDASI EMAIL */
+
+                if (!email) {
+
+                    showMessage(
+                        "Email belum diisi."
+                    );
+
+                    loginEmail.focus();
+
+                    return;
+
+                }
+
+
+                const emailPattern =
+                    /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+
+
+                if (
+                    !emailPattern.test(
+                        email
+                    )
+                ) {
+
+                    showMessage(
+                        "Format email belum benar."
+                    );
+
+                    loginEmail.focus();
+
+                    return;
+
+                }
+
+
+                /* VALIDASI PASSWORD */
+
+                if (!password) {
+
+                    showMessage(
+                        "Password belum diisi."
+                    );
+
+                    loginPassword.focus();
+
+                    return;
+
+                }
+
+
+                if (password.length < 6) {
+
+                    showMessage(
+                        "Password minimal 6 karakter."
+                    );
+
+                    loginPassword.focus();
+
+                    return;
+
+                }
+
+
+                /* BUTTON STATE */
+
+                loginSubmit.disabled =
+                    true;
+
+                loginSubmit.textContent =
+                    "Memproses...";
+
+
+                /*
+                 * ------------------------------------------------
+                 * ACCOUNT AUTHENTICATION
+                 * ------------------------------------------------
+                 * Ambil akun asli dari fjis_accounts.
+                 * Nama dashboard selalu berasal dari akun yang
+                 * cocok dengan email + password, bukan dari nama
+                 * yang diketik terakhir di form login.
+                 */
+
+                let accounts = [];
+
+                try {
+                    accounts = JSON.parse(
+                        localStorage.getItem("fjis_accounts") || "[]"
+                    );
+                } catch (error) {
+                    accounts = [];
+                }
+
+                const normalizedEmail =
+                    email.toLowerCase();
+
+                const account = accounts.find(item =>
+                    String(item.email || "").trim().toLowerCase() ===
+                        normalizedEmail &&
+                    String(item.password || "") === password
+                );
+
+                if (!account) {
+                    showMessage(
+                        "Email atau password tidak sesuai dengan akun yang terdaftar."
+                    );
+
+                    loginSubmit.disabled = false;
+                    loginSubmit.textContent = "Masuk";
+                    return;
+                }
+
+                const accountName =
+                    String(account.name || name).trim() || "Student";
+
+                const currentUser = {
+                    id: account.id || "",
+                    name: accountName,
+                    email: String(account.email).trim().toLowerCase(),
+                    level: account.level || "Student Learner",
+                    avatar: account.avatar || null,
+                    avatarSvg: account.avatarSvg || localStorage.getItem("fjis_user_avatar_svg") || "",
+                    createdAt: account.createdAt || null,
+                    loginAt: new Date().toISOString()
+                };
+
+                // Satu sumber sesi yang dipakai dashboard + halaman program.
+                localStorage.setItem(
+                    "fjis_current_user",
+                    JSON.stringify(currentUser)
+                );
+
+                // Sinkronkan key lama agar halaman lama tetap kompatibel.
+                localStorage.setItem(
+                    "fjis_user_name",
+                    accountName
+                );
+
+                localStorage.setItem(
+                    "fjis_user_email",
+                    currentUser.email
+                );
+
+                localStorage.setItem(
+                    "fjis_logged_in",
+                    "true"
+                );
+
+                localStorage.setItem(
+                    "fjis_login_time",
+                    currentUser.loginAt
+                );
+
+                if (account.avatar) {
+                    localStorage.setItem(
+                        "fjis_user_avatar",
+                        JSON.stringify(account.avatar)
+                    );
+                }
+
+                localStorage.setItem(
+                    "fjis_user_avatar_svg",
+                    account.avatarSvg || ""
+                );
+
+                if (!localStorage.getItem("fjis_progress")) {
+                    localStorage.setItem("fjis_progress", "0");
+                }
+
+                if (rememberMe.checked) {
+                    localStorage.setItem(
+                        "fjis_remember_me",
+                        "true"
+                    );
+                } else {
+                    localStorage.removeItem(
+                        "fjis_remember_me"
+                    );
+                }
+
+                /*
+                 * Beri sedikit jeda agar perpindahan
+                 * terasa natural.
+                 */
+
+                setTimeout(
+                    () => {
+
+                        const params = new URLSearchParams(window.location.search);
+                        const redirect = params.get("redirect");
+                        const allowed = new Set(["sma", "kedinasan", "kuliah"]);
+                        const stored = sessionStorage.getItem("fjis_requested_program") || localStorage.getItem("fjis_requested_program");
+
+                        if (redirect && allowed.has(redirect)) {
+                            sessionStorage.removeItem("fjis_requested_program");
+                            localStorage.removeItem("fjis_requested_program");
+                            window.location.href =
+                                redirect === "sma" ? "./sma/sma.html" :
+                                redirect === "kedinasan" ? "./kedinasan/kedinasan.html" :
+                                "./kuliah/kuliah.html";
+                            return;
+                        }
+
+                        if (stored && allowed.has(stored)) {
+                            sessionStorage.removeItem("fjis_requested_program");
+                            localStorage.removeItem("fjis_requested_program");
+                            window.location.href =
+                                stored === "sma" ? "./sma/sma.html" :
+                                stored === "kedinasan" ? "./kedinasan/kedinasan.html" :
+                                "./kuliah/kuliah.html";
+                            return;
+                        }
+
+                        window.location.href = "./dashboard.html";
+
+                    },
+                    350
+                );
+
+            }
+        );
+
+    }
+
+
+    /* =====================================================
+       FORGOT PASSWORD
+    ====================================================== */
+
+    const forgotPassword =
+        document.getElementById(
+            "forgotPassword"
+        );
+
+
+    if (forgotPassword) {
+
+        forgotPassword.addEventListener(
+            "click",
+            event => {
+
+                event.preventDefault();
+
+
+                showMessage(
+                    "Fitur pemulihan password akan tersedia setelah sistem akun terhubung ke database."
+                );
+
+            }
+        );
+
+    }
+
+
+    /* =====================================================
+       REGISTER
+    ====================================================== */
+
+    const registerLink =
+        document.getElementById(
+            "registerLink"
+        );
+
+
+    if (registerLink) {
+
+        registerLink.addEventListener(
+            "click",
+            event => {
+
+                event.preventDefault();
+
+
+                showMessage(
+                    "Halaman pendaftaran akan dihubungkan pada tahap sistem akun berikutnya."
+                );
+
+            }
+        );
+
+    }
+
+</script>
+
+
+
+<!-- =========================================================
+     APPLICATION
+========================================================== -->
+
+<script
+    type="module"
+    src="../js/app.js?v=20260913"
+></script>
+
+
+</body>
+</html>

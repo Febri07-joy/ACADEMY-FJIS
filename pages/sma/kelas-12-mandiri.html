@@ -1,0 +1,433 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Info Mandiri — FJIS Academy</title>
+
+    <style>
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: Arial, Helvetica, sans-serif;
+            background: #f7f6f2;
+            color: #202020;
+            line-height: 1.6;
+        }
+
+        a {
+            color: inherit;
+            text-decoration: none;
+        }
+
+        .topbar {
+            width: 100%;
+            padding: 18px 7%;
+            background: rgba(255, 255, 255, 0.88);
+            border-bottom: 1px solid #e8e6df;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            backdrop-filter: blur(12px);
+        }
+
+        .brand {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .brand-icon {
+            width: 42px;
+            height: 42px;
+            border-radius: 10px;
+            background: #fff;
+            border: 1px solid #dedbd2;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 21px;
+        }
+
+        .brand-text {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .brand-name {
+            font-size: 17px;
+            font-weight: 700;
+        }
+
+        .brand-motto {
+            font-size: 11px;
+            color: #777;
+        }
+
+        .back-btn {
+            padding: 9px 15px;
+            border: 1px solid #ddd9d0;
+            border-radius: 9px;
+            background: #fff;
+            font-size: 13px;
+            transition: 0.2s ease;
+        }
+
+        .back-btn:hover {
+            background: #f0eee8;
+        }
+
+        .hero {
+            max-width: 1100px;
+            margin: 0 auto;
+            padding: 70px 7% 35px;
+        }
+
+        .eyebrow {
+            display: inline-block;
+            padding: 6px 11px;
+            border-radius: 20px;
+            background: #eceae4;
+            color: #555;
+            font-size: 12px;
+            font-weight: 600;
+            margin-bottom: 17px;
+        }
+
+        .hero h1 {
+            font-size: clamp(32px, 5vw, 52px);
+            line-height: 1.1;
+            margin-bottom: 17px;
+            letter-spacing: -1.5px;
+        }
+
+        .hero p {
+            max-width: 720px;
+            color: #666;
+            font-size: 16px;
+        }
+
+        .container {
+            max-width: 1100px;
+            margin: 0 auto;
+            padding: 10px 7% 70px;
+        }
+
+        .section-title {
+            margin-bottom: 22px;
+        }
+
+        .section-title h2 {
+            font-size: 23px;
+            margin-bottom: 5px;
+        }
+
+        .section-title p {
+            color: #777;
+            font-size: 14px;
+        }
+
+        .cards {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 18px;
+        }
+
+        .card {
+            background: rgba(255, 255, 255, 0.82);
+            border: 1px solid #e2dfd7;
+            border-radius: 16px;
+            padding: 25px;
+            min-height: 215px;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            transition:
+                transform 0.2s ease,
+                box-shadow 0.2s ease,
+                border-color 0.2s ease;
+        }
+
+        .card:hover {
+            transform: translateY(-3px);
+            border-color: #cbc7bc;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.06);
+        }
+
+        .card-icon {
+            width: 45px;
+            height: 45px;
+            border-radius: 11px;
+            background: #f0eee8;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 21px;
+            margin-bottom: 18px;
+        }
+
+        .card h3 {
+            font-size: 18px;
+            margin-bottom: 8px;
+        }
+
+        .card p {
+            color: #737373;
+            font-size: 13px;
+            line-height: 1.6;
+        }
+
+        .card-link {
+            margin-top: 20px;
+            font-size: 13px;
+            font-weight: 600;
+        }
+
+        .card-link span {
+            margin-left: 5px;
+            transition: 0.2s ease;
+        }
+
+        .card:hover .card-link span {
+            margin-left: 9px;
+        }
+
+        .info-box {
+            margin-top: 30px;
+            padding: 22px 24px;
+            background: #fff;
+            border: 1px solid #e2dfd7;
+            border-radius: 14px;
+        }
+
+        .info-box h3 {
+            font-size: 16px;
+            margin-bottom: 7px;
+        }
+
+        .info-box p {
+            color: #707070;
+            font-size: 13px;
+        }
+
+        footer {
+            border-top: 1px solid #e5e2da;
+            padding: 25px 7%;
+            color: #888;
+            font-size: 12px;
+            text-align: center;
+            background: #fff;
+        }
+
+        @media (max-width: 800px) {
+            .cards {
+                grid-template-columns: 1fr;
+            }
+
+            .hero {
+                padding-top: 50px;
+            }
+
+            .hero h1 {
+                font-size: 38px;
+            }
+        }
+
+        @media (max-width: 500px) {
+            .topbar {
+                padding: 15px 5%;
+            }
+
+            .brand-motto {
+                display: none;
+            }
+
+            .hero,
+            .container {
+                padding-left: 5%;
+                padding-right: 5%;
+            }
+
+            .back-btn {
+                font-size: 12px;
+                padding: 8px 11px;
+            }
+        }
+    </style>
+<style>
+.mandiri-toolbar{display:grid;grid-template-columns:1.2fr .8fr .8fr;gap:12px;margin:0 0 22px}
+.mandiri-control{width:100%;padding:13px 14px;border:1px solid #ddd9d0;border-radius:11px;background:#fff;font:inherit;font-size:13px;outline:none}
+.mandiri-control:focus{border-color:#bcb7aa}
+.ptn-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:16px}
+.ptn-card{background:#fff;border:1px solid #e2dfd7;border-radius:16px;padding:20px;display:flex;flex-direction:column;gap:13px}
+.ptn-head{display:flex;justify-content:space-between;gap:12px;align-items:flex-start}
+.ptn-name{font-size:18px;font-weight:700}.ptn-region{font-size:11px;color:#777;margin-top:3px}
+.ptn-badge{font-size:10px;font-weight:700;padding:5px 8px;border-radius:99px;background:#eeeae4;white-space:nowrap}
+.pathway-list{display:flex;flex-direction:column;gap:9px}
+.pathway{border:1px solid #e8e5de;border-radius:11px;padding:12px;background:#fafaf8}
+.pathway strong{font-size:13px;display:block;margin-bottom:4px}.pathway p{font-size:11px;color:#777;line-height:1.55}
+.pathway-actions{display:flex;gap:7px;flex-wrap:wrap;margin-top:8px}
+.pathway-actions a{font-size:11px;font-weight:700;padding:7px 9px;border-radius:8px;border:1px solid #ddd9d0;background:#fff}
+.pathway-actions a.primary-link{background:#315c4b;color:#fff;border-color:#315c4b}
+.ptn-empty{display:none;padding:22px;border:1px dashed #d5d1c8;border-radius:14px;text-align:center;color:#777;background:#fff}
+.source-note{font-size:11px;color:#777;line-height:1.6;margin-top:7px}
+@media(max-width:800px){.mandiri-toolbar{grid-template-columns:1fr}.ptn-grid{grid-template-columns:1fr}}
+</style></head>
+
+<body>
+
+    <!-- TOPBAR -->
+    <header class="topbar">
+
+        <a href="kelas-12.html" class="brand">
+
+            <div class="brand-icon">
+                📚
+            </div>
+
+            <div class="brand-text">
+                <span class="brand-name">
+                    FJIS Academy
+                </span>
+
+                <span class="brand-motto">
+                    Student Learner
+                </span>
+            </div>
+
+        </a>
+
+        <a href="kelas-12.html" class="back-btn">
+            ← Kelas 12
+        </a>
+
+    </header>
+
+
+    <!-- HERO -->
+    <section class="hero">
+
+        <span class="eyebrow">
+            SMA Kelas 12 · Perguruan Tinggi
+        </span>
+
+        <h1>
+            Info Mandiri
+        </h1>
+
+        <p>
+            Pusat informasi untuk mengenal berbagai jalur seleksi
+            mandiri perguruan tinggi, persyaratan, tahapan seleksi,
+            dan informasi program studi.
+        </p>
+
+    </section>
+
+
+    <!-- CONTENT -->
+<main class="container">
+  <div class="section-title">
+    <h2>Direktori Seleksi Mandiri PTN</h2>
+    <p>Cari perguruan tinggi dan jalur mandiri. Setiap kartu menjelaskan fungsi jalur dan menyediakan tombol menuju laman resmi PTN.</p>
+  </div>
+
+  <div class="info-box" style="margin-top:0;margin-bottom:22px;">
+    <h3>📌 Cara membaca halaman ini</h3>
+    <p>Jalur mandiri berbeda antar-PTN: ada yang berbasis ujian, UTBK, prestasi, undangan, afirmasi, kelas internasional, atau kombinasi. FJIS memberi ringkasan, sedangkan ketentuan akhir selalu mengikuti laman resmi PTN.</p>
+  </div>
+
+  <div class="mandiri-toolbar">
+    <input id="ptnSearch" class="mandiri-control" type="search" placeholder="Cari PTN atau jalur...">
+    <select id="regionFilter" class="mandiri-control">
+      <option value="all">Semua wilayah</option><option value="barat">Indonesia Barat</option>
+      <option value="tengah">Indonesia Tengah</option><option value="timur">Indonesia Timur</option>
+    </select>
+    <select id="pathFilter" class="mandiri-control">
+      <option value="all">Semua jenis jalur</option><option value="ujian">Ujian / CBT</option>
+      <option value="utbk">Berbasis UTBK</option><option value="prestasi">Prestasi / undangan</option>
+      <option value="internasional">Kelas internasional</option><option value="afirmasi">Afirmasi</option>
+    </select>
+  </div>
+
+  <div id="ptnGrid" class="ptn-grid"></div>
+  <div id="ptnEmpty" class="ptn-empty">PTN atau jalur yang dicari belum ditemukan.</div>
+
+  <div class="info-box">
+    <h3>⚠️ Penting</h3>
+    <p>Jadwal, biaya, persyaratan, dan nama jalur dapat berubah tiap tahun. Gunakan tombol resmi pada kartu untuk mengecek ketentuan terbaru sebelum mendaftar.</p>
+  </div>
+</main>
+
+<!-- FOOTER -->
+    <footer>
+        FJIS Academy · Student Learner
+    </footer>
+
+
+    <!-- APP -->
+    <script src="../../js/app.js"></script>
+    <script src="../../js/navigation.js"></script>
+
+
+<script>
+const MANDIRI_DATA=[
+{name:"Universitas Indonesia (UI)",region:"barat",official:"https://simak.ui.ac.id/",paths:[
+{name:"SIMAK UI",type:["ujian"],desc:"Seleksi mandiri tertulis untuk berbagai program.",url:"https://simak.ui.ac.id/simak-ui/"},
+{name:"PPKB S1 Reguler & Vokasi",type:["prestasi"],desc:"Jalur mandiri berbasis prestasi akademik/rapor dan terbatas bagi sekolah yang mendapat undangan.",url:"https://simak.ui.ac.id/ppkb/"},
+{name:"Kelas Khusus Internasional (KKI)",type:["internasional"],desc:"Program S1 internasional dengan jalur Talent Scouting dan SIMAK KKI.",url:"https://simak.ui.ac.id/s1-kelas-khusus-internasional-kki/"},
+{name:"Talent Scouting KKI",type:["internasional","prestasi"],desc:"Seleksi KKI berbasis rapor dan prestasi sesuai ketentuan program.",url:"https://simak.ui.ac.id/talent-scouting/"}]},
+{name:"Institut Teknologi Bandung (ITB)",region:"barat",official:"https://admission.itb.ac.id/",paths:[
+{name:"Seleksi Siswa Unggul (SSU)",type:["prestasi"],desc:"Jalur seleksi mandiri ITB untuk calon mahasiswa sesuai skema SSU.",url:"https://portal.admission.itb.ac.id/ssu/"},
+{name:"Admission ITB",type:["ujian","prestasi"],desc:"Pusat informasi jalur penerimaan ITB.",url:"https://admission.itb.ac.id/"}]},
+{name:"Universitas Gadjah Mada (UGM)",region:"barat",official:"https://admissions.ugm.ac.id/",paths:[
+{name:"UM UGM CBT",type:["ujian","utbk"],desc:"Seleksi menggunakan kombinasi skor UM UGM CBT dan UTBK.",url:"https://admissions.ugm.ac.id/v26/"},
+{name:"Penelusuran Bibit Unggul (PBU)",type:["prestasi"],desc:"Kelompok jalur penelusuran bibit unggul UGM.",url:"https://admissions.ugm.ac.id/v26/pendaftaran-mahasiswa-baru-wni/sarjana-sarjana-terapan/ragam-seleksi-sarjana-sarjana-terapan-2025/"},
+{name:"PBUB",type:["prestasi"],desc:"Jalur untuk siswa berprestasi olahraga, seni, dan IPTEK.",url:"https://admissions.ugm.ac.id/v26/pendaftaran-mahasiswa-baru-wni/sarjana-sarjana-terapan/ragam-seleksi-sarjana-sarjana-terapan-2025/"},
+{name:"Afirmasi Tridharma UGM",type:["afirmasi"],desc:"Jalur afirmasi sesuai wilayah dan ketentuan UGM.",url:"https://admissions.ugm.ac.id/v26/pendaftaran-mahasiswa-baru-wni/sarjana-sarjana-terapan/ragam-seleksi-sarjana-sarjana-terapan-2025/"}]},
+{name:"Universitas Sumatera Utara (USU)",region:"barat",official:"https://penerimaan-terpadu.usu.ac.id/",paths:[
+{name:"Seleksi Mahasiswa Mandiri (SMM)",type:["ujian"],desc:"Seleksi mandiri dengan tahapan pendaftaran, berkas, ujian, dan pengumuman.",url:"https://penerimaan-terpadu.usu.ac.id/id/smm-1-2026"},
+{name:"SMM Tahap II",type:["ujian"],desc:"Periode mandiri lanjutan yang dibuka sesuai ketentuan USU.",url:"https://penerimaan-terpadu.usu.ac.id/id/smm-1-2026-tahapII"}]},
+{name:"Universitas Hasanuddin (UNHAS)",region:"timur",official:"https://regpmb.unhas.ac.id/",paths:[
+{name:"JSM UTBK",type:["utbk"],desc:"Seleksi menggunakan skor UTBK tahun berjalan dan materi ujian UNHAS.",url:"https://dikmawa.unhas.ac.id/jns-utbk-id/"},
+{name:"JSM Non-UTBK",type:["ujian"],desc:"Seleksi dengan ujian UNHAS tanpa memperhitungkan skor UTBK.",url:"https://dikmawa.unhas.ac.id/jns-non-utbk-id/"},
+{name:"Kelas Internasional",type:["internasional","ujian"],desc:"Jalur kelas internasional dengan EPT, TPA, dan wawancara.",url:"https://dikmawa.unhas.ac.id/kelasinternasional-id/"},
+{name:"Ketua OSIS",type:["prestasi"],desc:"Jalur mandiri khusus yang tercantum pada PMB UNHAS.",url:"https://regpmb.unhas.ac.id/"},
+{name:"POSK",type:["prestasi"],desc:"Jalur mandiri berbasis prestasi yang tercantum pada PMB UNHAS.",url:"https://regpmb.unhas.ac.id/"},
+{name:"Afirmasi Disabilitas",type:["afirmasi"],desc:"Jalur afirmasi dengan proses asesmen sesuai ketentuan UNHAS.",url:"https://regpmb.unhas.ac.id/"}]},
+{name:"Universitas Airlangga (UNAIR)",region:"tengah",official:"https://ppmb.unair.ac.id/",paths:[{name:"PPMB UNAIR",type:["ujian","prestasi"],desc:"Pusat resmi informasi penerimaan dan jalur seleksi UNAIR.",url:"https://ppmb.unair.ac.id/"}]},
+{name:"Institut Pertanian Bogor (IPB University)",region:"barat",official:"https://admisi.ipb.ac.id/",paths:[{name:"Portal Admisi IPB",type:["ujian","prestasi"],desc:"Pusat informasi penerimaan mahasiswa baru IPB.",url:"https://admisi.ipb.ac.id/"}]},
+{name:"Institut Teknologi Sepuluh Nopember (ITS)",region:"tengah",official:"https://admission.its.ac.id/",paths:[{name:"Admission ITS",type:["ujian","prestasi"],desc:"Pusat resmi informasi jalur penerimaan ITS.",url:"https://admission.its.ac.id/"}]},
+{name:"Universitas Diponegoro (UNDIP)",region:"barat",official:"https://pmb.undip.ac.id/",paths:[{name:"PMB UNDIP",type:["ujian","prestasi"],desc:"Pusat informasi penerimaan mahasiswa baru UNDIP.",url:"https://pmb.undip.ac.id/"}]},
+{name:"Universitas Brawijaya (UB)",region:"tengah",official:"https://selma.ub.ac.id/",paths:[{name:"SELMA UB",type:["ujian","prestasi"],desc:"Pusat informasi seleksi masuk UB.",url:"https://selma.ub.ac.id/"}]},
+{name:"Universitas Padjadjaran (UNPAD)",region:"barat",official:"https://smup.unpad.ac.id/",paths:[{name:"SMUP UNPAD",type:["ujian","utbk","prestasi"],desc:"Portal seleksi masuk UNPAD untuk berbagai jalur.",url:"https://smup.unpad.ac.id/"}]},
+{name:"Universitas Sebelas Maret (UNS)",region:"barat",official:"https://spmb.uns.ac.id/",paths:[{name:"SPMB UNS",type:["ujian","utbk","prestasi"],desc:"Pusat informasi penerimaan dan jalur seleksi UNS.",url:"https://spmb.uns.ac.id/"}]},
+{name:"Universitas Pendidikan Indonesia (UPI)",region:"barat",official:"https://pmb.upi.edu/",paths:[{name:"PMB UPI",type:["ujian","prestasi"],desc:"Pusat informasi penerimaan mahasiswa baru UPI.",url:"https://pmb.upi.edu/"}]},
+{name:"Universitas Negeri Jakarta (UNJ)",region:"barat",official:"https://penmaba.unj.ac.id/",paths:[{name:"PENMABA UNJ",type:["ujian","prestasi"],desc:"Portal penerimaan mahasiswa baru UNJ.",url:"https://penmaba.unj.ac.id/"}]},
+{name:"Universitas Negeri Yogyakarta (UNY)",region:"barat",official:"https://pmb.uny.ac.id/",paths:[{name:"PMB UNY",type:["ujian","prestasi"],desc:"Pusat informasi penerimaan mahasiswa baru UNY.",url:"https://pmb.uny.ac.id/"}]}
+];
+const RL={barat:"Indonesia Barat",tengah:"Indonesia Tengah",timur:"Indonesia Timur"};
+function esc(v){return String(v).replace(/[&<>"']/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]));}
+function render(){
+ const q=document.getElementById("ptnSearch").value.trim().toLowerCase(),r=document.getElementById("regionFilter").value,t=document.getElementById("pathFilter").value,g=document.getElementById("ptnGrid");
+ let n=0;
+ g.innerHTML=MANDIRI_DATA.map(p=>{
+  const text=(p.name+" "+p.paths.map(x=>x.name+" "+x.desc).join(" ")).toLowerCase();
+  const paths=p.paths.filter(x=>t==="all"||x.type.includes(t));
+  if((r!=="all"&&p.region!==r)||!text.includes(q)||!paths.length)return "";
+  n++;
+  return `<article class="ptn-card"><div class="ptn-head"><div><div class="ptn-name">${esc(p.name)}</div><div class="ptn-region">${RL[p.region]}</div></div><span class="ptn-badge">${paths.length} jalur</span></div><div class="pathway-list">${paths.map(x=>`<div class="pathway"><strong>${esc(x.name)}</strong><p>${esc(x.desc)}</p><div class="pathway-actions"><a class="primary-link" href="${esc(x.url)}" target="_blank" rel="noopener noreferrer">Buka info resmi →</a></div></div>`).join("")}</div><div class="pathway-actions"><a href="${esc(p.official)}" target="_blank" rel="noopener noreferrer">Portal resmi PTN</a></div></article>`;
+ }).join("");
+ document.getElementById("ptnEmpty").style.display=n?"none":"block";
+}
+["ptnSearch","regionFilter","pathFilter"].forEach(id=>{document.getElementById(id).addEventListener("input",render);document.getElementById(id).addEventListener("change",render);});
+render();
+</script></body>
+</html>

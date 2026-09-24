@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>FJIS Academy — Kuliah</title>
+<style>
+body{margin:0;font-family:Arial,sans-serif;background:#f7f4ee;color:#202020}
+.page{max-width:1180px;margin:auto;padding:32px 20px 60px}
+.hero,.card{background:rgba(255,255,255,.8);border:1px solid #e7e2d9;border-radius:20px;box-shadow:0 10px 30px rgba(0,0,0,.06)}
+.hero{padding:28px;margin-bottom:25px}.brand{font-size:13px;font-weight:bold;color:#315c4d}
+h1{margin:8px 0}.hero p,.org{color:#6f6f6f;line-height:1.6}
+.head{display:flex;justify-content:space-between;align-items:center;gap:15px;margin:25px 0 14px}
+.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:16px}
+.card{padding:20px;display:flex;flex-direction:column;min-height:270px}
+.badge{width:max-content;padding:6px 10px;border-radius:20px;background:#e6f1ec;color:#315c4d;font-size:12px;font-weight:bold}
+.card h3{font-size:20px;line-height:1.3;margin-bottom:8px}
+.deadline{background:#f4f1eb;padding:12px;border-radius:12px;font-size:13px;line-height:1.5;margin:15px 0}
+.actions{display:flex;gap:8px;margin-top:auto}
+button,a{border:0;border-radius:10px;padding:11px 14px;font-weight:bold;text-decoration:none;cursor:pointer}
+.detail{background:#eeeae2;color:#222}.apply{background:#315c4d;color:white;flex:1;text-align:center}
+.empty{padding:25px;color:#777}
+.modal{position:fixed;inset:0;background:#0006;display:none;align-items:center;justify-content:center;padding:18px;z-index:999}
+.modal.show{display:flex}
+.box{background:white;border-radius:20px;padding:24px;width:min(760px,100%);max-height:90vh;overflow:auto}
+.top{display:flex;justify-content:space-between;gap:20px}.close{background:#eee;color:#222;height:max-content}
+.box li{line-height:1.7}
+@media(max-width:550px){.actions{flex-direction:column}.apply{flex:none;text-align:center}.head{align-items:flex-start;flex-direction:column}}
+</style>
+</head>
+<body>
+<main class="page">
+<section class="hero">
+<div class="brand">FJIS ACADEMY • STUDENT LEARNER</div>
+<h1>Kuliah</h1>
+<p>Informasi kuliah dan beasiswa yang tersedia untuk student learner. Buka detail untuk melihat penyelenggara, manfaat, persyaratan, periode pendaftaran, dan tombol menuju sumber atau pendaftaran resmi.</p>
+</section>
+<div class="head">
+<h2>🎓 Beasiswa</h2>
+<span id="count">Memuat...</span>
+</div>
+<div class="grid" id="grid"></div>
+<div class="empty" id="empty" hidden>Saat ini belum ada data beasiswa yang dapat ditampilkan.</div>
+</main>
+
+<div class="modal" id="modal">
+<div class="box">
+<div class="top">
+<div>
+<h2 id="title"></h2>
+<div id="org" class="org"></div>
+</div>
+<button type="button" class="close" id="close" aria-label="Tutup">✕</button>
+</div>
+<div id="content"></div>
+</div>
+</div>
+
+<script src="./sources/scholarships-kuliah-aktif.js"></script>
+<script src="./sources/scholarship-engine.js"></script>
+<script src="./kuliah.js"></script>
+</body>
+</html>

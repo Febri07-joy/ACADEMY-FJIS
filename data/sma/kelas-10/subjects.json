@@ -1,0 +1,144 @@
+{
+  "class": 10,
+  "level": "SMA",
+  "semesters": {
+    "1": {
+      "title": "Semester 1",
+      "subjects": [
+        {
+          "code": "MTK",
+          "name": "Matematika",
+          "slug": "matematika",
+          "file": "matematika",
+          "description": "Materi Matematika SMA Kelas 10 Semester 1.",
+          "link": "bab.html?class=10&semester=1&subject=MTK"
+        },
+        {
+          "code": "BIN",
+          "name": "Bahasa Indonesia",
+          "slug": "bahasa-indonesia",
+          "file": "bahasa-indonesia",
+          "description": "Materi Bahasa Indonesia SMA Kelas 10 Semester 1.",
+          "link": "bab.html?class=10&semester=1&subject=BIN"
+        },
+        {
+          "code": "BIG",
+          "name": "Bahasa Inggris",
+          "slug": "bahasa-inggris",
+          "file": "bahasa-inggris",
+          "description": "Materi Bahasa Inggris SMA Kelas 10 Semester 1.",
+          "link": "bab.html?class=10&semester=1&subject=BIG"
+        },
+        {
+          "code": "FIS",
+          "name": "Fisika",
+          "slug": "fisika",
+          "file": "fisika",
+          "description": "Materi Fisika SMA Kelas 10 Semester 1.",
+          "link": "bab.html?class=10&semester=1&subject=FIS"
+        },
+        {
+          "code": "KIM",
+          "name": "Kimia",
+          "slug": "kimia",
+          "file": "kimia",
+          "description": "Materi Kimia SMA Kelas 10 Semester 1.",
+          "link": "bab.html?class=10&semester=1&subject=KIM"
+        },
+        {
+          "code": "BIO",
+          "name": "Biologi",
+          "slug": "biologi",
+          "file": "biologi",
+          "description": "Materi Biologi SMA Kelas 10 Semester 1.",
+          "link": "bab.html?class=10&semester=1&subject=BIO"
+        },
+        {
+          "code": "EKO",
+          "name": "Ekonomi",
+          "slug": "ekonomi",
+          "file": "ekonomi",
+          "description": "Materi Ekonomi SMA Kelas 10 Semester 1.",
+          "link": "bab.html?class=10&semester=1&subject=EKO"
+        },
+        {
+          "code": "SEJ",
+          "name": "Sejarah",
+          "slug": "sejarah",
+          "file": "sejarah",
+          "description": "Materi Sejarah SMA Kelas 10 Semester 1.",
+          "link": "bab.html?class=10&semester=1&subject=SEJ"
+        }
+      ]
+    },
+    "2": {
+      "title": "Semester 2",
+      "subjects": [
+        {
+          "code": "MTK",
+          "name": "Matematika",
+          "slug": "matematika",
+          "file": "matematika",
+          "description": "Materi Matematika SMA Kelas 10 Semester 2.",
+          "link": "bab.html?class=10&semester=2&subject=MTK"
+        },
+        {
+          "code": "BIN",
+          "name": "Bahasa Indonesia",
+          "slug": "bahasa-indonesia",
+          "file": "bahasa-indonesia",
+          "description": "Materi Bahasa Indonesia SMA Kelas 10 Semester 2.",
+          "link": "bab.html?class=10&semester=2&subject=BIN"
+        },
+        {
+          "code": "BIG",
+          "name": "Bahasa Inggris",
+          "slug": "bahasa-inggris",
+          "file": "bahasa-inggris",
+          "description": "Materi Bahasa Inggris SMA Kelas 10 Semester 2.",
+          "link": "bab.html?class=10&semester=2&subject=BIG"
+        },
+        {
+          "code": "FIS",
+          "name": "Fisika",
+          "slug": "fisika",
+          "file": "fisika",
+          "description": "Materi Fisika SMA Kelas 10 Semester 2.",
+          "link": "bab.html?class=10&semester=2&subject=FIS"
+        },
+        {
+          "code": "KIM",
+          "name": "Kimia",
+          "slug": "kimia",
+          "file": "kimia",
+          "description": "Materi Kimia SMA Kelas 10 Semester 2.",
+          "link": "bab.html?class=10&semester=2&subject=KIM"
+        },
+        {
+          "code": "BIO",
+          "name": "Biologi",
+          "slug": "biologi",
+          "file": "biologi",
+          "description": "Materi Biologi SMA Kelas 10 Semester 2.",
+          "link": "bab.html?class=10&semester=2&subject=BIO"
+        },
+        {
+          "code": "EKO",
+          "name": "Ekonomi",
+          "slug": "ekonomi",
+          "file": "ekonomi",
+          "description": "Materi Ekonomi SMA Kelas 10 Semester 2.",
+          "link": "bab.html?class=10&semester=2&subject=EKO"
+        },
+        {
+          "code": "SEJ",
+          "name": "Sejarah",
+          "slug": "sejarah",
+          "file": "sejarah",
+          "description": "Materi Sejarah SMA Kelas 10 Semester 2.",
+          "link": "bab.html?class=10&semester=2&subject=SEJ"
+        }
+      ]
+    }
+  }
+}

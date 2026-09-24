@@ -1,0 +1,107 @@
+{
+  "type": "TKA",
+  "program": "TKA",
+  "level": "SMA",
+  "title": "Tes Kemampuan Akademik SMA",
+  "description": "Daftar mata pelajaran Tes Kemampuan Akademik untuk jenjang SMA.",
+  "categories": [
+    {
+      "code": "wajib",
+      "slug": "wajib",
+      "name": "Mata Pelajaran Wajib",
+      "title": "TKA Mata Pelajaran Wajib",
+      "description": "Kelompok mata pelajaran wajib dalam TKA SMA.",
+      "subjects": [
+        {
+          "code": "MAT",
+          "slug": "matematika",
+          "name": "Matematika",
+          "file": "matematika.json",
+          "category": "wajib",
+          "available": true
+        },
+        {
+          "code": "BIN",
+          "slug": "bahasa-indonesia",
+          "name": "Bahasa Indonesia",
+          "file": "bahasa-indonesia.json",
+          "category": "wajib",
+          "available": true
+        },
+        {
+          "code": "BIG",
+          "slug": "bahasa-inggris",
+          "name": "Bahasa Inggris",
+          "file": "bahasa-inggris.json",
+          "category": "wajib",
+          "available": true
+        }
+      ]
+    },
+    {
+      "code": "pilihan",
+      "slug": "pilihan",
+      "name": "Mata Pelajaran Pilihan",
+      "title": "TKA Mata Pelajaran Pilihan",
+      "description": "Kelompok mata pelajaran pilihan yang digunakan pada FJIS Academy.",
+      "subjects": [
+        {
+          "code": "MATL",
+          "slug": "matematika-tingkat-lanjut",
+          "name": "Matematika Tingkat Lanjut",
+          "file": "matematika-tingkat-lanjut.json",
+          "category": "pilihan",
+          "available": true
+        },
+        {
+          "code": "FIS",
+          "slug": "fisika",
+          "name": "Fisika",
+          "file": "fisika.json",
+          "category": "pilihan",
+          "available": true
+        },
+        {
+          "code": "BIO",
+          "slug": "biologi",
+          "name": "Biologi",
+          "file": "biologi.json",
+          "category": "pilihan",
+          "available": true
+        },
+        {
+          "code": "KIM",
+          "slug": "kimia",
+          "name": "Kimia",
+          "file": "kimia.json",
+          "category": "pilihan",
+          "available": true
+        },
+        {
+          "code": "EKO",
+          "slug": "ekonomi",
+          "name": "Ekonomi",
+          "file": "ekonomi.json",
+          "category": "pilihan",
+          "available": true
+        },
+        {
+          "code": "PPKN",
+          "slug": "ppkn",
+          "name": "Pendidikan Pancasila",
+          "file": "ppkn.json",
+          "category": "pilihan",
+          "available": true
+        },
+        {
+          "code": "SEJ",
+          "slug": "sejarah",
+          "name": "Sejarah",
+          "file": "sejarah.json",
+          "category": "pilihan",
+          "available": true
+        }
+      ]
+    }
+  ]
+}

@@ -1,0 +1,484 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>SNBP - Rasionalisasi FJIS Academy</title>
+<style>
+*{box-sizing:border-box}body{margin:0;background:#f7f6f2;color:#20252b;font-family:Arial,sans-serif}.wrap{max-width:1000px;margin:auto;padding:25px 18px 60px}.top{display:flex;justify-content:space-between;margin-bottom:20px}.top a{color:#315c4b;text-decoration:none}.hero,.card,.result{background:#fff;border:1px solid #e2e5e3;border-radius:18px;padding:22px;margin-bottom:16px}.hero{background:linear-gradient(135deg,#edf5f0,#fff)}h1{margin:8px 0;font-size:30px}h2{font-size:19px;margin:0 0 7px}.muted{color:#69717a;line-height:1.55;font-size:14px}.grid{display:grid;grid-template-columns:1fr 1fr;gap:13px}.field label{display:block;font-size:13px;font-weight:700;margin-bottom:6px}input,select,textarea{width:100%;padding:10px;border:1px solid #d5d9dc;border-radius:10px;font:inherit}textarea{min-height:70px}.achievement{border:1px solid #e3e6e4;border-radius:13px;padding:14px;margin-top:12px}.achievement h3{margin:0 0 12px;font-size:15px}.btn{border:0;border-radius:10px;padding:11px 16px;font-weight:700;cursor:pointer}.primary{background:#315c4b;color:white}.secondary{background:#edf0ee;color:#26362f}.actions{display:flex;gap:10px;margin-top:18px;flex-wrap:wrap}.result{display:none;background:#f5faf7;border-color:#cfe0d6}.score{font-size:34px;font-weight:800;color:#315c4b}.metrics{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin-top:15px}.metric{background:#fff;border:1px solid #e2e5e3;border-radius:10px;padding:12px}.metric small{display:block;color:#687078;margin-bottom:5px}.ptn-result{border:1px solid #e2e5e3;background:#fff;border-radius:12px;padding:14px;margin-top:12px}.ptn-result h3{margin:0 0 6px;font-size:15px}.warning{margin-top:15px;padding:12px;border-radius:10px;background:#fff8eb;color:#6a501e;font-size:13px;line-height:1.5}@media(max-width:700px){.grid,.metrics{grid-template-columns:1fr}.top{flex-direction:column;gap:8px}}
+
+/* ===== FJIS SNBP ACCESS GATE ===== */
+.access-gate{position:fixed;inset:0;z-index:9999;background:rgba(247,246,242,.97);display:flex;align-items:center;justify-content:center;padding:20px}
+.access-box{width:min(440px,100%);background:#fff;border:1px solid #dfe5e1;border-radius:20px;padding:26px;box-shadow:0 18px 50px rgba(0,0,0,.08)}
+.access-box h2{margin:0 0 8px;color:#315c4b}.access-box p{color:#69717a;font-size:14px;line-height:1.55}
+.access-code{letter-spacing:3px;text-transform:uppercase;text-align:center;font-weight:800;font-size:18px}
+.access-error{display:none;color:#8b3a3a;background:#fff1f1;border:1px solid #edcccc;padding:10px;border-radius:10px;font-size:13px;margin-top:10px}
+.access-small{font-size:12px;color:#7a8086;margin-top:12px}
+body.access-locked{overflow:hidden}
+
+</style>
+</head>
+
+<!-- FJIS OWNER ACCESS CODES (30):
+01. VSSD-H6FD-4MDJ
+02. C8S4-A7N6-ENGE
+03. Y5H5-73PL-XCZ7
+04. FZGD-KVV9-3WB7
+05. SE5Y-RKZR-YW83
+06. NZD3-XVER-KPS4
+07. Z5CR-HM23-52VQ
+08. G7LV-W6BK-VYR4
+09. 7LYF-THAQ-Z43R
+10. PG9V-ACG2-6V4N
+11. DGSR-DKXR-FGBA
+12. G7L8-82UH-C4N9
+13. 5ZPZ-U2UY-Z6DF
+14. GKWN-FZUY-QB5L
+15. W22Y-RK4D-MN25
+16. 9AAZ-DUX5-4R48
+17. PYXP-2MRF-ZZJC
+18. QSRE-4AHB-CKCG
+19. CKWN-3DTG-83FN
+20. UF2K-L7RU-TNHV
+21. X77R-2VY7-RKZA
+22. ETGU-CF9F-V6RN
+23. DLJK-XQKK-224X
+24. 7LCM-PYBG-B6YK
+25. 337W-NDWG-2UUM
+26. AL3F-HEF7-QJA6
+27. L59Y-7ABG-V8UT
+28. XQJY-ZWQD-EVTM
+29. NPPP-4494-H8Y5
+30. JR99-4Z9B-VATA
+Do not publish this list. Client-side codes are not secure authentication.
+-->
+<body class="access-locked">
+<div class="access-gate" id="snbpAccessGate">
+  <div class="access-box">
+    <div class="badge">AKSES KHUSUS · SNBP</div>
+    <h2>Masukkan Kode Akses</h2>
+    <p>Gunakan kode akses yang diberikan FJIS Academy. Kode cukup dimasukkan satu kali. Setelah berhasil, akses rasionalisasi tetap terbuka pada browser ini.</p>
+    <form id="accessForm">
+      <div class="field">
+        <label for="accessCode">Kode akses</label>
+        <input id="accessCode" class="access-code" autocomplete="off" maxlength="14"
+               placeholder="XXXX-XXXX-XXXX" required>
+      </div>
+      <button class="btn primary" type="submit" style="width:100%;margin-top:12px">Buka Rasionalisasi</button>
+      <div class="access-error" id="accessError"></div>
+    </form>
+    <div class="access-small">Setelah kode berhasil digunakan, kamu dapat membuka rasionalisasi kembali tanpa memasukkan kode lagi.</div>
+  </div>
+</div>
+
+<div class="wrap">
+<div class="top"><strong style="color:#315c4b">FJIS Academy · Student Learner</strong><a href="kelas-12-snbp.html">← Kembali ke SNBP</a></div>
+
+<div class="hero">
+<div style="font-size:12px;font-weight:700;color:#315c4b">SNBP 2026</div>
+<h1>Rasionalisasi SNBP</h1>
+<p class="muted">Catat profil akademik, TKA, mata pelajaran pendukung, prestasi, portofolio, serta target PTN/prodi. Hasil FJIS adalah ringkasan evaluasi, bukan jaminan kelulusan.</p>
+</div>
+
+<form id="form">
+<div class="card">
+<h2>1. Nilai Rapor</h2>
+<p class="muted">Masukkan rata-rata Semester 1-5. SNBP menggunakan rapor seluruh mata pelajaran sebagai komponen utama.</p>
+<div class="grid">
+<div class="field"><label>Semester 1</label><input class="sem" type="number" min="0" max="100" step=".01" required></div>
+<div class="field"><label>Semester 2</label><input class="sem" type="number" min="0" max="100" step=".01" required></div>
+<div class="field"><label>Semester 3</label><input class="sem" type="number" min="0" max="100" step=".01" required></div>
+<div class="field"><label>Semester 4</label><input class="sem" type="number" min="0" max="100" step=".01" required></div>
+<div class="field"><label>Semester 5</label><input class="sem" type="number" min="0" max="100" step=".01" required></div>
+<div class="field"><label>Rata-rata S1-S5</label><input id="avg" readonly></div>
+</div>
+</div>
+
+<div class="card">
+<h2>2. Mata Pelajaran Pendukung Prodi</h2>
+<p class="muted">Maksimal dua mata pelajaran pendukung dapat dicatat. Bobot resminya tidak dibuat universal karena komposisi seleksi ditetapkan masing-masing PTN.</p>
+<div class="grid">
+<div class="field"><label>Mapel Pendukung 1</label><input id="m1" placeholder="Contoh: Matematika"></div>
+<div class="field"><label>Nilai</label><input id="n1" type="number" min="0" max="100" step=".01"></div>
+<div class="field"><label>Mapel Pendukung 2</label><input id="m2" placeholder="Contoh: Fisika"></div>
+<div class="field"><label>Nilai</label><input id="n2" type="number" min="0" max="100" step=".01"></div>
+</div>
+</div>
+
+<div class="card">
+<h2>3. TKA</h2>
+<p class="muted">TKA dicatat sebagai data akademik tambahan. Sistem tidak menganggap TKA sebagai bobot SNBP tertentu tanpa dasar aturan PTN/prodi.</p>
+<div class="grid">
+<div class="field"><label>Status TKA</label><select id="tkaStatus"><option>Belum ada</option><option>Sudah ada hasil</option></select></div>
+<div class="field"><label>Skala nilai</label><select id="tkaScale"><option value="100">0–100</option><option value="1000">0–1000</option></select></div>
+</div>
+<div style="margin-top:14px">
+<strong style="font-size:14px">Mapel TKA wajib</strong>
+<div id="tkaMandatory" class="grid" style="margin-top:10px"></div>
+</div>
+<div style="margin-top:16px">
+<strong style="font-size:14px">Mapel TKA pilihan</strong>
+<p class="muted">Pilih maksimal <b>2</b> mata pelajaran pilihan yang memang diambil, lalu masukkan nilainya. Daftar ini mengikuti daftar resmi TKA SMA 2026.</p>
+<div id="tkaElective" class="grid" style="margin-top:10px"></div>
+</div>
+</div>
+
+<div class="card">
+<h2>4. Prestasi / Sertifikat</h2>
+<p class="muted">Bisa sampai 3 prestasi terbaik. Variasinya mencakup bidang, tingkat, posisi/pencapaian, individu/kelompok, tahun, dan lembaga.</p>
+<div id="ach"></div>
+<button type="button" class="btn secondary" id="add">+ Tambah Prestasi</button>
+<p class="muted" style="margin-top:12px">Bidang: olahraga, seni rupa/lukis, seni tari, drama/sastra, musik/suara, pramuka/organisasi ekstrakurikuler, penelitian, serta olimpiade matematika, fisika, kimia, biologi, astronomi/astrofisika, komputer, geografi, ilmu kebumian, ekonomi, dan lainnya.</p>
+</div>
+
+<div class="card">
+<h2>5. Portofolio</h2>
+<p class="muted">Catat jika prodi tujuan mensyaratkan portofolio, terutama bidang seni dan olahraga.</p>
+<div class="grid">
+<div class="field"><label>Status</label><select id="portfolio"><option>Tidak relevan</option><option>Ada / relevan</option></select></div>
+<div class="field"><label>Bidang</label><input id="pfield" placeholder="Contoh: Olahraga / Seni Musik / Fotografi"></div>
+</div>
+</div>
+
+<div class="card">
+<h2>6. Target PTN & Prodi</h2>
+<p class="muted">Pilihan 1 bebas memilih PTN di provinsi mana pun. Pilihan 2 bersifat opsional; jika digunakan, minimal salah satu dari dua pilihan harus berada di provinsi yang sama dengan sekolah asal. PTN dan prodi dipilih dari daftar, bukan diketik bebas.</p>
+<div class="grid">
+<div class="field"><label>Provinsi Sekolah</label><select id="schoolProvince" required><option value="">Pilih provinsi sekolah</option></select></div>
+<div class="field"><label>Jumlah Pilihan</label><select id="choiceCount"><option value="1">1 pilihan</option><option value="2">2 pilihan</option></select></div>
+<div class="field"><label>Pilihan 1 — PTN</label><select id="ptn1" required><option value="">Pilih PTN</option></select></div>
+<div class="field"><label>Pilihan 1 — Prodi</label><select id="prodi1" required disabled><option value="">Pilih PTN terlebih dahulu</option></select></div>
+<div class="field"><label>Provinsi PTN</label><input id="ptnProv1" readonly placeholder="Otomatis dari data PTN"></div>
+</div>
+<div id="choice2" style="display:none;margin-top:14px"><strong style="font-size:14px">Pilihan 2 — Opsional</strong><div class="grid" style="margin-top:10px"><div class="field"><label>PTN</label><select id="ptn2"><option value="">Pilih PTN</option></select></div><div class="field"><label>Prodi</label><select id="prodi2" disabled><option value="">Pilih PTN terlebih dahulu</option></select></div><div class="field"><label>Provinsi PTN</label><input id="ptnProv2" readonly placeholder="Otomatis dari data PTN"></div></div></div>
+<div id="choiceWarning" class="warning" style="display:none"></div>
+<div class="muted" style="margin-top:12px">Catatan: daftar PTN mengikuti data peserta SNBP yang tersedia; daftar prodi di dalam file ini adalah katalog pilihan yang ditanamkan secara lokal. Untuk keputusan final, tetap cek daftar prodi/daya tampung resmi SNPMB.</div>
+</div>
+
+<div class="actions"><button class="btn primary">Analisis Profil</button><button type="reset" class="btn secondary">Reset</button></div>
+</form>
+
+<div class="result" id="result">
+<h2>Ringkasan Profil FJIS</h2><div class="score" id="score">-</div>
+<p id="text" class="muted"></p>
+<div class="item" style="margin:14px 0"><b>Target seleksi</b><div id="targetResults"></div></div><div class="metrics"><div class="metric"><small>Rata-rata Rapor</small><strong id="r1">-</strong></div><div class="metric"><small>Mapel Pendukung</small><strong id="r2">-</strong></div><div class="metric"><small>Prestasi</small><strong id="r3">-</strong></div></div>
+<div class="metrics" style="margin-top:10px">
+<div class="metric"><small>Kontribusi Rapor</small><strong id="c1">-</strong></div>
+<div class="metric"><small>Kontribusi Mapel Pendukung</small><strong id="c2">-</strong></div>
+<div class="metric"><small>Kontribusi TKA</small><strong id="c3">-</strong></div>
+</div>
+
+<div class="warning"><b>Penting:</b> skor ini adalah indeks internal FJIS untuk membantu membaca profil, bukan skor resmi SNBP dan bukan prediksi peluang diterima.</div>
+</div>
+</div>
+
+<script>
+const FJIS_SNBP_ACCESS_CODES=['VSSD-H6FD-4MDJ', 'C8S4-A7N6-ENGE', 'Y5H5-73PL-XCZ7', 'FZGD-KVV9-3WB7', 'SE5Y-RKZR-YW83', 'NZD3-XVER-KPS4', 'Z5CR-HM23-52VQ', 'G7LV-W6BK-VYR4', '7LYF-THAQ-Z43R', 'PG9V-ACG2-6V4N', 'DGSR-DKXR-FGBA', 'G7L8-82UH-C4N9', '5ZPZ-U2UY-Z6DF', 'GKWN-FZUY-QB5L', 'W22Y-RK4D-MN25', '9AAZ-DUX5-4R48', 'PYXP-2MRF-ZZJC', 'QSRE-4AHB-CKCG', 'CKWN-3DTG-83FN', 'UF2K-L7RU-TNHV', 'X77R-2VY7-RKZA', 'ETGU-CF9F-V6RN', 'DLJK-XQKK-224X', '7LCM-PYBG-B6YK', '337W-NDWG-2UUM', 'AL3F-HEF7-QJA6', 'L59Y-7ABG-V8UT', 'XQJY-ZWQD-EVTM', 'NPPP-4494-H8Y5', 'JR99-4Z9B-VATA'];
+
+(function(){
+  const KEY='fjis_snbp_authorized_code_v2';
+  const gate=document.getElementById('snbpAccessGate');
+  const form=document.getElementById('accessForm');
+  const input=document.getElementById('accessCode');
+  const error=document.getElementById('accessError');
+  if(!gate||!form||!input) return;
+
+  function normalize(v){
+    return String(v||'').toUpperCase().replace(/[^A-Z0-9]/g,'');
+  }
+
+  function hideGate(){
+    gate.style.display='none';
+    document.body.classList.remove('access-locked');
+  }
+
+  // Jika browser ini sudah pernah diotorisasi dengan kode yang valid,
+  // user dapat membuka rasionalisasi terus-menerus tanpa memasukkan kode lagi.
+  let saved='';
+  try{ saved=localStorage.getItem(KEY)||''; }catch(e){ saved=''; }
+
+  if(saved && FJIS_SNBP_ACCESS_CODES.some(c=>normalize(c)===normalize(saved))){
+    hideGate();
+  }
+
+  form.addEventListener('submit',function(ev){
+    ev.preventDefault();
+
+    const entered=normalize(input.value);
+    const valid=FJIS_SNBP_ACCESS_CODES.some(c=>normalize(c)===entered);
+
+    if(!valid){
+      error.textContent='Kode tidak valid. Periksa kembali kode yang diberikan.';
+      error.style.display='block';
+      return;
+    }
+
+    // Kode cukup dimasukkan sekali pada browser ini.
+    try{ localStorage.setItem(KEY,entered); }catch(e){}
+
+    hideGate();
+    input.value='';
+    error.style.display='none';
+  });
+})();
+
+</script>
+<script>
+const ach=document.getElementById('ach'),sem=[...document.querySelectorAll('.sem')];let count=0;
+const bidang=['Akademik/Olimpiade','Penelitian/Karya Ilmiah','Olahraga','Seni Rupa/Lukis','Seni Tari','Drama/Sastra','Seni Suara/Musik','Organisasi/Kepemimpinan','Pramuka/PMR/OSIS/Ekstrakurikuler','Lainnya'];
+const tingkat=['Sekolah','Kabupaten/Kota','Provinsi','Nasional','Internasional'];
+const posisi=['Juara 1','Juara 2','Juara 3','Finalis','Medali Emas','Medali Perak','Medali Perunggu','Penghargaan khusus','Peserta'];
+const bentuk=['Individu','Kelompok'];
+function opts(a){return a.map(x=>'<option>'+x+'</option>').join('')}
+const tkaMandatorySubjects=['Bahasa Indonesia','Matematika','Bahasa Inggris'];
+const tkaElectiveSubjects=['Matematika Tingkat Lanjut','Bahasa Indonesia Tingkat Lanjut','Bahasa Inggris Tingkat Lanjut','Fisika','Kimia','Biologi','Pendidikan Pancasila dan Kewarganegaraan','Ekonomi','Geografi','Sosiologi','Sejarah','Antropologi','Bahasa Prancis','Bahasa Jerman','Bahasa Jepang','Bahasa Mandarin','Bahasa Korea','Bahasa Arab'];
+function makeTkaRow(name, elective){
+  const id=(elective?'el-':'wa-')+name.toLowerCase().replace(/[^a-z0-9]+/g,'-');
+  const wrap=document.createElement('div');
+  wrap.className='field';
+  wrap.innerHTML=elective
+    ? '<label>'+name+'</label><div style="display:flex;gap:8px"><select class="tka-elective-select" data-subject="'+name+'"><option value="">Tidak diambil</option><option value="yes">Diambil</option></select><input class="tka-score" data-subject="'+name+'" type="number" min="0" max="1000" step=".01" placeholder="Nilai" disabled></div>'
+    : '<label>'+name+'</label><input class="tka-score" data-subject="'+name+'" type="number" min="0" max="1000" step=".01" placeholder="Nilai">';
+  return wrap;
+}
+tkaMandatorySubjects.forEach(x=>document.getElementById('tkaMandatory').appendChild(makeTkaRow(x,false)));
+tkaElectiveSubjects.forEach(x=>document.getElementById('tkaElective').appendChild(makeTkaRow(x,true)));
+document.querySelectorAll('.tka-elective-select').forEach(sel=>{
+  sel.addEventListener('change',()=>{
+    const selected=[...document.querySelectorAll('.tka-elective-select')].filter(x=>x.value==='yes');
+    if(selected.length>2){
+      sel.value='';
+      alert('TKA hanya dapat memilih maksimal 2 mata pelajaran pilihan.');
+      return;
+    }
+    const input=sel.parentElement.querySelector('.tka-score');
+    input.disabled=sel.value!=='yes';
+    if(sel.value!=='yes') input.value='';
+  });
+});
+document.getElementById('tkaScale').addEventListener('change',()=>{
+  const max=document.getElementById('tkaScale').value==='1000'?1000:100;
+  document.querySelectorAll('.tka-score').forEach(i=>i.max=max);
+});
+
+/* ===== KATALOG PTN/PRODI LOKAL FJIS =====
+   PTN dipilih dari daftar. Provinsi terisi otomatis. `competition` adalah indeks
+   persaingan internal FJIS (bukan ranking resmi dan bukan peluang diterima).
+   Daftar ini sengaja ditanamkan di file agar tidak membutuhkan database.
+*/
+const FJIS_PTN=[
+['Universitas Indonesia','Jawa Barat',92,['Kedokteran','Ilmu Hukum','Ilmu Komunikasi','Manajemen','Akuntansi','Ilmu Komputer','Teknik Sipil','Teknik Mesin','Teknik Elektro','Psikologi','Sastra Inggris','Hubungan Internasional']],
+['Institut Teknologi Bandung','Jawa Barat',94,['Informatika','Teknik Sipil','Teknik Mesin','Teknik Elektro','Teknik Industri','Arsitektur','Matematika','Fisika','Kimia','Sains dan Teknologi Farmasi','Desain Komunikasi Visual']],
+['Universitas Gadjah Mada','Daerah Istimewa Yogyakarta',93,['Kedokteran','Ilmu Hukum','Manajemen','Akuntansi','Ilmu Komunikasi','Ilmu Komputer','Teknik Sipil','Teknik Mesin','Teknik Elektro','Psikologi','Hubungan Internasional','Farmasi']],
+['Institut Pertanian Bogor','Jawa Barat',91,['Kedokteran Hewan','Manajemen','Agribisnis','Agronomi dan Hortikultura','Ilmu dan Teknologi Pangan','Teknologi Industri Pertanian','Statistika dan Sains Data','Ilmu Komputer','Biologi','Kimia','Ekonomi Sumberdaya dan Lingkungan']],
+['Institut Teknologi Sepuluh Nopember','Jawa Timur',90,['Teknik Sipil','Teknik Mesin','Teknik Elektro','Teknik Industri','Informatika','Sistem Informasi','Arsitektur','Teknik Kimia','Statistika','Matematika','Desain Produk']],
+['Universitas Airlangga','Jawa Timur',91,['Kedokteran','Kedokteran Gigi','Farmasi','Kesehatan Masyarakat','Ilmu Hukum','Manajemen','Akuntansi','Ilmu Komunikasi','Psikologi','Sistem Informasi','Biologi']],
+['Universitas Padjadjaran','Jawa Barat',90,['Kedokteran','Kedokteran Gigi','Farmasi','Ilmu Hukum','Manajemen','Akuntansi','Ilmu Komunikasi','Psikologi','Hubungan Internasional','Teknik Informatika','Statistika']],
+['Universitas Diponegoro','Jawa Tengah',87,['Kedokteran','Ilmu Hukum','Manajemen','Akuntansi','Ilmu Komunikasi','Teknik Sipil','Teknik Industri','Informatika','Arsitektur','Kesehatan Masyarakat','Psikologi']],
+['Universitas Brawijaya','Jawa Timur',86,['Kedokteran','Ilmu Hukum','Manajemen','Akuntansi','Ilmu Komunikasi','Teknik Sipil','Teknik Mesin','Teknik Industri','Informatika','Psikologi','Agribisnis']],
+['Universitas Sebelas Maret','Jawa Tengah',84,['Kedokteran','Ilmu Hukum','Manajemen','Akuntansi','Ilmu Komunikasi','Teknik Sipil','Teknik Mesin','Informatika','Psikologi','Pendidikan Dokter','Agroteknologi']],
+['Universitas Hasanuddin','Sulawesi Selatan',83,['Kedokteran','Kedokteran Gigi','Ilmu Hukum','Manajemen','Akuntansi','Ilmu Komunikasi','Teknik Sipil','Teknik Informatika','Arsitektur','Kesehatan Masyarakat']],
+['Universitas Andalas','Sumatera Barat',82,['Kedokteran','Ilmu Hukum','Manajemen','Akuntansi','Ilmu Komunikasi','Teknik Sipil','Teknik Mesin','Sistem Informasi','Psikologi','Farmasi']],
+['Universitas Sumatera Utara','Sumatera Utara',82,['Kedokteran','Ilmu Hukum','Manajemen','Akuntansi','Ilmu Komunikasi','Teknik Sipil','Teknik Mesin','Ilmu Komputer','Psikologi','Farmasi']],
+['Universitas Sriwijaya','Sumatera Selatan',80,['Kedokteran','Ilmu Hukum','Manajemen','Akuntansi','Ilmu Komunikasi','Teknik Sipil','Teknik Mesin','Teknik Informatika','Sistem Informasi','Psikologi']],
+['Universitas Lampung','Lampung',77,['Kedokteran','Ilmu Hukum','Manajemen','Akuntansi','Ilmu Komunikasi','Teknik Sipil','Teknik Mesin','Teknik Informatika','Agribisnis','Pendidikan Dokter']],
+['Universitas Riau','Riau',77,['Kedokteran','Ilmu Hukum','Manajemen','Akuntansi','Ilmu Komunikasi','Teknik Sipil','Teknik Informatika','Sistem Informasi','Teknik Kimia','Agribisnis']],
+['Universitas Jambi','Jambi',75,['Kedokteran','Ilmu Hukum','Manajemen','Akuntansi','Ilmu Komunikasi','Teknik Sipil','Teknik Informatika','Sistem Informasi','Agroekoteknologi']],
+['Universitas Bengkulu','Bengkulu',72,['Kedokteran','Ilmu Hukum','Manajemen','Akuntansi','Ilmu Komunikasi','Teknik Sipil','Informatika','Agribisnis','Agroekoteknologi']],
+['Universitas Negeri Jakarta','DKI Jakarta',80,['Pendidikan Matematika','Pendidikan Bahasa Inggris','Pendidikan Bahasa Indonesia','Pendidikan Biologi','Pendidikan Fisika','Pendidikan Kimia','Psikologi','Ilmu Komunikasi','Manajemen','Akuntansi','Sistem Informasi']],
+['Universitas Pendidikan Indonesia','Jawa Barat',83,['Pendidikan Matematika','Pendidikan Bahasa Inggris','Pendidikan Bahasa Indonesia','Pendidikan Biologi','Pendidikan Fisika','Pendidikan Kimia','Pendidikan Ekonomi','Pendidikan Sejarah','Ilmu Komunikasi','Teknik Sipil']],
+['Universitas Negeri Yogyakarta','Daerah Istimewa Yogyakarta',80,['Pendidikan Matematika','Pendidikan Bahasa Inggris','Pendidikan Bahasa Indonesia','Pendidikan Biologi','Pendidikan Fisika','Pendidikan Kimia','Pendidikan Ekonomi','Pendidikan Jasmani','Manajemen','Akuntansi']],
+['Universitas Negeri Semarang','Jawa Tengah',78,['Pendidikan Matematika','Pendidikan Bahasa Inggris','Pendidikan Bahasa Indonesia','Pendidikan Biologi','Pendidikan Fisika','Pendidikan Kimia','Pendidikan Ekonomi','Pendidikan Sejarah','Ilmu Hukum','Manajemen']],
+['Universitas Negeri Surabaya','Jawa Timur',78,['Pendidikan Matematika','Pendidikan Bahasa Inggris','Pendidikan Bahasa Indonesia','Pendidikan Biologi','Pendidikan Fisika','Pendidikan Kimia','Manajemen','Ilmu Komunikasi','Teknik Informatika']],
+['Universitas Negeri Malang','Jawa Timur',78,['Pendidikan Matematika','Pendidikan Bahasa Inggris','Pendidikan Bahasa Indonesia','Pendidikan Biologi','Pendidikan Fisika','Pendidikan Kimia','Pendidikan Ekonomi','Teknik Informatika','Manajemen','Psikologi']],
+['Universitas Negeri Makassar','Sulawesi Selatan',76,['Pendidikan Matematika','Pendidikan Bahasa Inggris','Pendidikan Bahasa Indonesia','Pendidikan Biologi','Pendidikan Fisika','Pendidikan Kimia','Manajemen','Ilmu Komunikasi','Teknik Informatika']],
+['Universitas Negeri Padang','Sumatera Barat',76,['Pendidikan Matematika','Pendidikan Bahasa Inggris','Pendidikan Bahasa Indonesia','Pendidikan Biologi','Pendidikan Fisika','Pendidikan Kimia','Manajemen','Ilmu Administrasi Negara','Teknik Informatika']],
+['Universitas Negeri Medan','Sumatera Utara',75,['Pendidikan Matematika','Pendidikan Bahasa Inggris','Pendidikan Bahasa Indonesia','Pendidikan Biologi','Pendidikan Fisika','Pendidikan Kimia','Manajemen','Ilmu Komputer','Teknik Sipil']],
+['Universitas Sam Ratulangi','Sulawesi Utara',75,['Kedokteran','Ilmu Hukum','Manajemen','Akuntansi','Ilmu Komunikasi','Teknik Sipil','Teknik Informatika','Arsitektur','Agribisnis']],
+['Universitas Udayana','Bali',80,['Kedokteran','Kedokteran Gigi','Ilmu Hukum','Manajemen','Akuntansi','Ilmu Komunikasi','Teknik Sipil','Teknik Informatika','Arsitektur','Pariwisata']],
+['Universitas Mataram','Nusa Tenggara Barat',72,['Kedokteran','Ilmu Hukum','Manajemen','Akuntansi','Ilmu Komunikasi','Teknik Sipil','Teknik Informatika','Agribisnis','Peternakan']],
+['Universitas Nusa Cendana','Nusa Tenggara Timur',68,['Kedokteran','Ilmu Hukum','Manajemen','Akuntansi','Ilmu Komunikasi','Teknik Sipil','Teknik Informatika','Peternakan','Agribisnis']],
+['Universitas Pattimura','Maluku',68,['Kedokteran','Ilmu Hukum','Manajemen','Akuntansi','Ilmu Komunikasi','Teknik Sipil','Teknik Informatika','Agroteknologi','Peternakan']],
+['Universitas Cenderawasih','Papua',65,['Kedokteran','Ilmu Hukum','Manajemen','Akuntansi','Ilmu Komunikasi','Teknik Sipil','Teknik Informatika','Agroteknologi','Peternakan']],
+['Universitas Tanjungpura','Kalimantan Barat',72,['Kedokteran','Ilmu Hukum','Manajemen','Akuntansi','Ilmu Komunikasi','Teknik Sipil','Teknik Informatika','Arsitektur','Agribisnis']],
+['Universitas Mulawarman','Kalimantan Timur',74,['Kedokteran','Ilmu Hukum','Manajemen','Akuntansi','Ilmu Komunikasi','Teknik Sipil','Teknik Informatika','Farmasi','Kehutanan']],
+['Universitas Lambung Mangkurat','Kalimantan Selatan',72,['Kedokteran','Ilmu Hukum','Manajemen','Akuntansi','Ilmu Komunikasi','Teknik Sipil','Teknik Informatika','Kehutanan','Agribisnis']],
+['Universitas Palangka Raya','Kalimantan Tengah',67,['Kedokteran','Ilmu Hukum','Manajemen','Akuntansi','Ilmu Komunikasi','Teknik Sipil','Teknik Informatika','Kehutanan','Agroteknologi']],
+['Universitas Tadulako','Sulawesi Tengah',68,['Kedokteran','Ilmu Hukum','Manajemen','Akuntansi','Ilmu Komunikasi','Teknik Sipil','Teknik Informatika','Agroteknologi','Kehutanan']],
+['Universitas Halu Oleo','Sulawesi Tenggara',68,['Kedokteran','Ilmu Hukum','Manajemen','Akuntansi','Ilmu Komunikasi','Teknik Sipil','Teknik Informatika','Agroteknologi','Kehutanan']],
+['Universitas Negeri Gorontalo','Gorontalo',65,['Kedokteran','Pendidikan Matematika','Pendidikan Bahasa Inggris','Pendidikan Biologi','Manajemen','Akuntansi','Ilmu Hukum','Teknik Informatika']],
+['Institut Teknologi Sumatera','Lampung',75,['Teknik Sipil','Teknik Mesin','Teknik Elektro','Teknik Informatika','Teknik Industri','Arsitektur','Perencanaan Wilayah dan Kota','Sains Data','Fisika','Kimia']],
+['Institut Teknologi Kalimantan','Kalimantan Timur',72,['Teknik Sipil','Teknik Mesin','Teknik Elektro','Teknik Industri','Teknik Informatika','Sistem Informasi','Arsitektur','Perencanaan Wilayah dan Kota','Teknik Lingkungan']],
+['Institut Teknologi BJ Habibie','Sulawesi Selatan',60,['Teknik Elektro','Teknik Mesin','Teknik Industri','Informatika','Sistem Informasi','Teknik Sipil']],
+['Universitas Pembangunan Nasional Veteran Jakarta','DKI Jakarta',78,['Kedokteran','Ilmu Hukum','Manajemen','Akuntansi','Ilmu Komunikasi','Hubungan Internasional','Informatika','Sistem Informasi','Teknik Industri']],
+['Universitas Pembangunan Nasional Veteran Jawa Timur','Jawa Timur',76,['Manajemen','Akuntansi','Ilmu Komunikasi','Hubungan Internasional','Informatika','Sistem Informasi','Teknik Industri','Teknik Kimia']],
+['Universitas Pembangunan Nasional Veteran Yogyakarta','Daerah Istimewa Yogyakarta',76,['Teknik Geologi','Teknik Pertambangan','Teknik Perminyakan','Manajemen','Akuntansi','Ilmu Komunikasi','Hubungan Internasional','Informatika']],
+['Universitas Sultan Ageng Tirtayasa','Banten',73,['Kedokteran','Ilmu Hukum','Manajemen','Akuntansi','Ilmu Komunikasi','Teknik Sipil','Teknik Mesin','Teknik Industri','Teknik Informatika']],
+['Universitas Trunojoyo Madura','Jawa Timur',68,['Ilmu Hukum','Manajemen','Akuntansi','Ilmu Komunikasi','Teknik Informatika','Teknik Industri','Agribisnis','Teknik Mesin']],
+['Universitas Negeri Manado','Sulawesi Utara',64,['Pendidikan Matematika','Pendidikan Bahasa Inggris','Pendidikan Bahasa Indonesia','Pendidikan Biologi','Pendidikan Fisika','Manajemen','Ilmu Hukum','Teknik Informatika']],
+['Universitas Malikussaleh','Aceh',67,['Kedokteran','Ilmu Hukum','Manajemen','Akuntansi','Ilmu Komunikasi','Teknik Sipil','Teknik Informatika','Agroekoteknologi']],
+['Universitas Syiah Kuala','Aceh',78,['Kedokteran','Kedokteran Gigi','Ilmu Hukum','Manajemen','Akuntansi','Ilmu Komunikasi','Teknik Sipil','Teknik Informatika','Farmasi','Agribisnis']],
+['Universitas Sultan Syarif Kasim Riau','Riau',70,['Teknik Informatika','Sistem Informasi','Manajemen','Akuntansi','Ilmu Hukum','Ilmu Komunikasi','Teknik Industri','Pendidikan Matematika']],
+['Universitas Negeri Jakarta','DKI Jakarta',80,['Pendidikan Matematika','Pendidikan Bahasa Inggris','Pendidikan Bahasa Indonesia','Pendidikan Biologi','Pendidikan Fisika','Pendidikan Kimia','Psikologi','Ilmu Komunikasi','Manajemen','Akuntansi']],
+['Universitas Terbuka','Banten',55,['Manajemen','Akuntansi','Ilmu Hukum','Ilmu Komunikasi','Sistem Informasi','Pendidikan Bahasa Inggris','Pendidikan Matematika','Pendidikan Guru Sekolah Dasar']]
+].map(x=>({name:x[0],province:x[1],competition:x[2],prodi:x[3]}));
+
+const FJIS_PROVINCES=['Aceh','Sumatera Utara','Sumatera Barat','Riau','Kepulauan Riau','Jambi','Sumatera Selatan','Bangka Belitung','Bengkulu','Lampung','DKI Jakarta','Jawa Barat','Banten','Jawa Tengah','Daerah Istimewa Yogyakarta','Jawa Timur','Bali','Nusa Tenggara Barat','Nusa Tenggara Timur','Kalimantan Barat','Kalimantan Tengah','Kalimantan Selatan','Kalimantan Timur','Kalimantan Utara','Sulawesi Utara','Sulawesi Tengah','Sulawesi Selatan','Sulawesi Tenggara','Gorontalo','Sulawesi Barat','Maluku','Maluku Utara','Papua Barat','Papua'];
+const ptnMap=new Map(FJIS_PTN.map(p=>[p.name,p]));
+function fillSelect(el,items,placeholder){el.innerHTML='<option value="">'+placeholder+'</option>'+items.map(x=>'<option value="'+x.replace(/"/g,'&quot;')+'">'+x+'</option>').join('');}
+fillSelect(document.getElementById('schoolProvince'),FJIS_PROVINCES,'Pilih provinsi sekolah');
+const ptnNames=FJIS_PTN.map(p=>p.name).sort((a,b)=>a.localeCompare(b,'id'));
+fillSelect(document.getElementById('ptn1'),ptnNames,'Pilih PTN nasional');
+function refreshChoice2PTN(){
+  const school=document.getElementById('schoolProvince').value;
+  const p2=document.getElementById('ptn2');
+  const current=p2.value;
+  const names=FJIS_PTN.filter(p=>!school || p.province===school).map(p=>p.name).sort((a,b)=>a.localeCompare(b,'id'));
+  fillSelect(p2,names,school?('Pilih PTN di '+school):'Pilih provinsi sekolah terlebih dahulu');
+  if(names.includes(current)) p2.value=current;
+  else {
+    document.getElementById('ptnProv2').value='';
+    document.getElementById('prodi2').disabled=true;
+    fillSelect(document.getElementById('prodi2'),[],'Pilih PTN terlebih dahulu');
+  }
+}
+function bindPtn(ptnId,prodiId,provId){
+  const p=document.getElementById(ptnId),pr=document.getElementById(prodiId),pv=document.getElementById(provId);
+  p.addEventListener('change',()=>{const d=ptnMap.get(p.value);pv.value=d?d.province:'';pr.disabled=!d;fillSelect(pr,d?d.prodi:[],'Pilih prodi');});
+}
+bindPtn('ptn1','prodi1','ptnProv1');
+bindPtn('ptn2','prodi2','ptnProv2');
+document.getElementById('schoolProvince').addEventListener('change',refreshChoice2PTN);
+
+const choiceCount=document.getElementById('choiceCount');
+const choice2=document.getElementById('choice2');
+const choiceWarning=document.getElementById('choiceWarning');
+choiceCount.addEventListener('change',()=>{const two=choiceCount.value==='2';choice2.style.display=two?'block':'none';if(two)refreshChoice2PTN();if(!two){['ptn2','prodi2','ptnProv2'].forEach(id=>document.getElementById(id).value='');document.getElementById('prodi2').disabled=true;fillSelect(document.getElementById('prodi2'),[],'Pilih PTN terlebih dahulu');}});
+function normProvince(v){return String(v||'').trim().toLowerCase().replace(/\s+/g,' ');}
+function validateChoices(){
+  choiceWarning.style.display='none';
+  const school=normProvince(document.getElementById('schoolProvince').value);
+  const d1=ptnMap.get(document.getElementById('ptn1').value);
+  const d2=ptnMap.get(document.getElementById('ptn2').value);
+  if(!school){choiceWarning.textContent='Pilih provinsi sekolah terlebih dahulu.';choiceWarning.style.display='block';return false;}
+  if(!d1||!document.getElementById('prodi1').value){choiceWarning.textContent='Pilih PTN dan prodi untuk pilihan 1.';choiceWarning.style.display='block';return false;}
+  if(choiceCount.value!=='2')return true;
+  if(!d2||!document.getElementById('prodi2').value){choiceWarning.textContent='Pilihan 2 opsional, tetapi jika mode 2 pilihan dipilih maka PTN dan prodi pilihan 2 harus dilengkapi.';choiceWarning.style.display='block';return false;}
+  const same1=normProvince(d1.province)===school,same2=normProvince(d2.province)===school;
+  if(!same1&&!same2){choiceWarning.textContent='Pilihan 2 tidak memenuhi aturan SNBP: jika memilih dua prodi, salah satunya harus berada pada PTN di provinsi yang sama dengan sekolah asal.';choiceWarning.style.display='block';return false;}
+  return true;
+}
+function addAch(){if(count>=3)return;count++;let d=document.createElement('div');d.className='achievement';d.innerHTML='<h3>Prestasi '+count+'</h3><div class="grid"><div class="field"><label>Jenis / Bidang</label><select class="ach-type">'+opts(bidang)+'</select></div><div class="field"><label>Tingkat</label><select>'+opts(tingkat)+'</select></div><div class="field"><label>Posisi / Pencapaian</label><select class="ach-position">'+opts(posisi)+'</select></div><div class="field"><label>Individu / Kelompok</label><select>'+opts(bentuk)+'</select></div><div class="field" style="display:none" data-org-wrap><label>Jabatan Organisasi</label><select data-org-role><option>Ketua Umum</option><option>Wakil Ketua</option><option>Sekretaris</option><option>Bendahara</option><option>Ketua Bidang</option><option>Wakil Ketua Bidang</option><option>Koordinator</option><option>Anggota</option></select></div><div class="field"><label>Tahun</label><input type="number" min="2020" max="2026"></div><div class="field"><label>Lembaga Pemberi</label><input placeholder="Nama lembaga"></div><div class="field" style="grid-column:1/-1"><label>Deskripsi</label><textarea placeholder="Deskripsi singkat prestasi"></textarea></div></div>';ach.appendChild(d)}
+addAch();document.getElementById('add').onclick=addAch;
+const orgRoles={'Ketua Umum':6,'Wakil Ketua':5,'Sekretaris':5,'Bendahara':5,'Ketua Bidang':4,'Wakil Ketua Bidang':3,'Koordinator':3,'Anggota':2};
+function selectsForLevel(card){
+  const all=card.querySelectorAll('select');
+  return all.length>=2 ? all[1] : null;
+}
+function refreshOrgFields(){
+  document.querySelectorAll('.achievement').forEach(card=>{
+    const type=card.querySelector('.ach-type');
+    const wrap=card.querySelector('[data-org-wrap]');
+    const pos=card.querySelector('.ach-position');
+    const org=type && (type.value==='Organisasi/Kepemimpinan'||type.value==='Pramuka/PMR/OSIS/Ekstrakurikuler');
+    if(wrap) wrap.style.display=org?'block':'none';
+    if(org && pos) pos.value='Penghargaan khusus';
+  });
+}
+document.getElementById('ach').addEventListener('change',refreshOrgFields);
+function update(){let v=sem.map(x=>+x.value).filter(x=>x>0);document.getElementById('avg').value=v.length?(v.reduce((a,b)=>a+b,0)/v.length).toFixed(2):''}
+sem.forEach(x=>x.oninput=update);
+document.getElementById('form').onsubmit=e=>{e.preventDefault();if(!validateChoices())return;update();let avg=+document.getElementById('avg').value||0;
+if(!avg || sem.some(x=>x.value==='' || +x.value<0 || +x.value>100)){
+  alert('Lengkapi nilai rapor Semester 1–5 dengan angka 0–100.');
+  return;
+}
+let sv=[+n1.value,+n2.value].filter(x=>x>0);
+let support=sv.length?sv.reduce((a,b)=>a+b,0)/sv.length:null;
+const tkaReady=document.getElementById('tkaStatus').value==='Sudah ada hasil';
+const tkaMax=+document.getElementById('tkaScale').value;
+const tkaValues=[...document.querySelectorAll('.tka-score')].map(i=>+i.value).filter(v=>v>0);
+const tkaMandatoryValues=[...document.querySelectorAll('#tkaMandatory .tka-score')].map(i=>+i.value).filter(v=>v>0);
+const tkaElectiveValues=[...document.querySelectorAll('#tkaElective .tka-score')].map(i=>+i.value).filter(v=>v>0);
+const tkaScore=tkaValues.length?tkaValues.reduce((a,b)=>a+b,0)/tkaValues.length:0;
+const tkaIndex=tkaMax===1000?(tkaScore/1000)*100:tkaScore;
+const tkaMandatoryIndex=tkaMandatoryValues.length?(tkaMandatoryValues.reduce((a,b)=>a+b,0)/tkaMandatoryValues.length)/(tkaMax/100)*1:0;
+const tkaElectiveIndex=tkaElectiveValues.length?(tkaElectiveValues.reduce((a,b)=>a+b,0)/tkaElectiveValues.length)/(tkaMax/100)*1:0;
+
+const levels={Internasional:20,Nasional:16,Provinsi:12,'Kabupaten/Kota':8,Sekolah:3};
+const positions={'Juara 1':10,'Juara 2':8,'Juara 3':6,Finalis:5,'Medali Emas':10,'Medali Perak':8,'Medali Perunggu':6,'Penghargaan khusus':4,Peserta:1};
+
+let achievementPoints=0;
+document.querySelectorAll('.achievement').forEach(card=>{
+  const selects=card.querySelectorAll('select');
+  if(selects.length>=3){
+    const levelPoints=levels[selects[1].value]||0;
+    const positionPoints=positions[selects[2].value]||0;
+    const type=(card.querySelector('.ach-type') ? card.querySelector('.ach-type').value : '');
+    const role=(card.querySelector('[data-org-role]') ? card.querySelector('[data-org-role]').value : '');
+    const rolePoints=(type==='Organisasi/Kepemimpinan'||type==='Pramuka/PMR/OSIS/Ekstrakurikuler')?(orgRoles[role]||0):0;
+    achievementPoints += levelPoints+positionPoints+rolePoints;
+  }
+});
+achievementPoints=Math.min(30,achievementPoints);
+
+const supportIndex=support===null?0:Math.min(100,support);
+const portfolioIndex=document.getElementById('portfolio').value==='Ada / relevan'?5:0;
+
+/* Indeks FJIS hanya alat pembanding internal:
+   70% rapor + 20% mapel pendukung + 10% TKA jika tersedia,
+   lalu prestasi/portofolio ditampilkan sebagai indikator terpisah.
+   Ini bukan formula resmi SNBP. */
+let academicIndex;
+if(tkaReady&&tkaValues.length){
+  academicIndex=(avg*.70)+(supportIndex*.20)+(tkaIndex*.10);
+}else if(support!==null){
+  academicIndex=(avg*.80)+(supportIndex*.20);
+}else{
+  academicIndex=avg;
+}
+academicIndex=Math.max(0,Math.min(100,academicIndex));
+/* Skor tampilan sengaja dikompresi agar tidak terbaca sebagai peluang diterima.
+   Maksimum 85 adalah batas tampilan internal FJIS, bukan standar SNBP. */
+const profileIndex=Math.min(84,Math.max(55,55+(academicIndex*0.29)));
+const reportContribution=avg*(tkaReady&&tkaValues.length?0.70:(support!==null?0.80:1));
+const supportContribution=support===null?0:support*0.20;
+const tkaContribution=tkaReady&&tkaValues.length?tkaIndex*0.10:0;
+document.getElementById('result').style.display='block';
+document.getElementById('score').textContent=profileIndex.toFixed(2);
+const ptn1=document.getElementById('ptn1').value,prodi1=document.getElementById('prodi1').value,prov1=document.getElementById('ptnProv1').value;
+const ptn2=document.getElementById('ptn2').value,prodi2=document.getElementById('prodi2').value,prov2=document.getElementById('ptnProv2').value;
+function targetAssessment(ptnName,prodiName){
+  const d=ptnMap.get(ptnName); if(!d)return {fit:0,competition:0,label:'Data PTN tidak ditemukan',detail:'Tidak ada data katalog.'};
+  const n=String(prodiName||'').toLowerCase();
+  const highDemand=/(kedokteran|kedokteran gigi|informatika|ilmu komputer|sistem informasi|teknik industri|manajemen|akuntansi|psikologi|ilmu komunikasi|hubungan internasional|arsitektur)/.test(n);
+  const fieldDemand=highDemand?8:/(farmasi|teknik elektro|teknik mesin|teknik sipil|hukum|biologi|kimia|fisika)/.test(n)?4:0;
+  const prodiCompetition=Math.min(100,d.competition+fieldDemand);
+  const supportText=((document.getElementById('m1').value||'')+' '+(document.getElementById('m2').value||'')).toLowerCase();
+  let relevance=0;
+  if(/kedokteran|farmasi|biologi|kimia/.test(n)&&/biologi|kimia/.test(supportText)) relevance=5;
+  if(/informatika|ilmu komputer|sistem informasi|teknik/.test(n)&&/matematika|fisika|informatika/.test(supportText)) relevance=5;
+  if(/manajemen|akuntansi|ekonomi/.test(n)&&/ekonomi|matematika/.test(supportText)) relevance=5;
+  if(/hukum|ilmu komunikasi|hubungan internasional|sosiologi/.test(n)&&/bahasa|sosiologi|sejarah|ekonomi|ppkn/.test(supportText)) relevance=5;
+  const fit=Math.min(84,Math.max(55,Math.round(55 + ((100-(prodiCompetition-profileIndex)*0.72+relevance)-55)*0.50)));
+  const label=prodiCompetition>=92?'Persaingan sangat tinggi':prodiCompetition>=84?'Persaingan tinggi':prodiCompetition>=76?'Persaingan menengah-tinggi':prodiCompetition>=66?'Persaingan menengah':'Persaingan relatif lebih rendah';
+  const detail=relevance>=5?'Mapel pendukung yang diinput menunjukkan kecocokan dengan bidang prodi.':relevance===0?'Belum terlihat kecocokan kuat dari nama mapel pendukung yang diinput.':'Kecocokan mapel pendukung berada pada tingkat sedang.';
+  return {fit,competition:prodiCompetition,label,detail};
+}
+const a1=targetAssessment(ptn1,prodi1);
+let targetHtml='<div class="ptn-result"><h3>Pilihan 1</h3><div class="muted"><b>'+ptn1+'</b> · '+prodi1+' · '+prov1+'</div><div class="muted">Indeks persaingan internal target: '+a1.competition+'/100 · '+a1.label+'</div><div class="muted"><b>Indeks kecocokan profil: '+a1.fit+'%</b> <span class="muted">(bukan peluang diterima)</span></div><div class="muted">'+a1.detail+'</div></div>';
+if(choiceCount.value==='2'){
+  const a2=targetAssessment(ptn2,prodi2);
+  targetHtml+='<div class="ptn-result"><h3>Pilihan 2</h3><div class="muted"><b>'+ptn2+'</b> · '+prodi2+' · '+prov2+'</div><div class="muted">Indeks persaingan internal target: '+a2.competition+'/100 · '+a2.label+'</div><div class="muted"><b>Indeks kecocokan profil: '+a2.fit+'%</b> <span class="muted">(bukan peluang diterima)</span></div><div class="muted">'+a2.detail+'</div></div>';
+}
+document.getElementById('targetResults').innerHTML=targetHtml;
+document.getElementById('r1').textContent=avg.toFixed(2);document.getElementById('r2').textContent=support===null?'Belum diisi':support.toFixed(2);document.getElementById('r3').textContent=count+' · indikator prestasi '+achievementPoints+'/30';
+document.getElementById('c1').textContent=reportContribution.toFixed(2);
+document.getElementById('c2').textContent=supportContribution.toFixed(2);
+document.getElementById('c3').textContent=tkaReady&&tkaValues.length?tkaContribution.toFixed(2):'Tidak digunakan';
+let label=profileIndex>=80?'Profil relatif kuat':profileIndex>=72?'Profil cukup kompetitif':profileIndex>=65?'Profil perlu diperkuat':'Profil masih perlu diperkuat';
+document.getElementById('text').textContent=label+'. '+(achievementPoints>=20?'Prestasi yang tercatat juga cukup menonjol.':achievementPoints>=10?'Ada komponen prestasi yang dapat diperhitungkan dalam evaluasi.':'Belum banyak poin prestasi yang tercatat.')+' '+(portfolioIndex?'Portofolio relevan tercatat. ':'')+(tkaReady&&tkaScore>0?'TKA ikut dalam indeks internal. ':'')+'PTN dan prodi sekarang dipilih dari katalog lokal FJIS. Tingkat persaingan PTN diberi indeks internal agar target yang sangat kompetitif tidak diperlakukan sama dengan target yang relatif lebih longgar. Indeks ini bukan ranking resmi, bukan cutoff, dan bukan persentase peluang diterima. Gunakan hasil ini sebagai alat evaluasi, bukan prediksi kelulusan.';
+document.getElementById('result').scrollIntoView({behavior:'smooth'})};
+</script>
+</body>
+</html>

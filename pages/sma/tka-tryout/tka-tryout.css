@@ -1,0 +1,2248 @@
+/* =========================================================
+   FJIS ACADEMY
+   TKA TRYOUT — CSS
+   ---------------------------------------------------------
+   File ini berdiri sendiri.
+   Tidak mengubah CSS sistem FJIS yang sudah ada.
+========================================================= */
+
+
+/* =========================================================
+   ROOT
+========================================================= */
+
+:root {
+    --tka-bg: #f7f7f4;
+    --tka-surface: #ffffff;
+    --tka-surface-soft: #fafaf8;
+
+    --tka-text: #171717;
+    --tka-text-soft: #666666;
+    --tka-text-muted: #8b8b8b;
+
+    --tka-border: #e5e5e0;
+    --tka-border-dark: #d8d8d1;
+
+    --tka-primary: #171717;
+    --tka-primary-hover: #303030;
+
+    --tka-success: #26734d;
+    --tka-success-soft: #edf7f1;
+
+    --tka-warning: #9a6817;
+    --tka-warning-soft: #fff7e6;
+
+    --tka-danger: #a43d3d;
+    --tka-danger-soft: #fff0f0;
+
+    --tka-radius-sm: 10px;
+    --tka-radius-md: 15px;
+    --tka-radius-lg: 22px;
+
+    --tka-shadow-soft:
+        0 8px 30px rgba(0, 0, 0, 0.045);
+
+    --tka-shadow-card:
+        0 12px 35px rgba(0, 0, 0, 0.055);
+
+    --tka-container: 1180px;
+}
+
+
+/* =========================================================
+   RESET
+========================================================= */
+
+* {
+    box-sizing: border-box;
+}
+
+html {
+    scroll-behavior: smooth;
+}
+
+body {
+    margin: 0;
+    background: var(--tka-bg);
+    color: var(--tka-text);
+
+    font-family:
+        Inter,
+        ui-sans-serif,
+        system-ui,
+        -apple-system,
+        BlinkMacSystemFont,
+        "Segoe UI",
+        sans-serif;
+
+    line-height: 1.6;
+}
+
+button,
+input {
+    font: inherit;
+}
+
+button {
+    cursor: pointer;
+}
+
+a {
+    color: inherit;
+    text-decoration: none;
+}
+
+
+/* =========================================================
+   APP
+========================================================= */
+
+.tka-app {
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+}
+
+
+/* =========================================================
+   HEADER
+========================================================= */
+
+.tka-header {
+    position: sticky;
+    top: 0;
+    z-index: 50;
+
+    background: rgba(255, 255, 255, 0.94);
+    border-bottom: 1px solid var(--tka-border);
+
+    backdrop-filter: blur(14px);
+    -webkit-backdrop-filter: blur(14px);
+}
+
+.tka-header-inner {
+    width: min(
+        calc(100% - 36px),
+        var(--tka-container)
+    );
+
+    min-height: 76px;
+    margin: 0 auto;
+
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+
+    gap: 20px;
+}
+
+
+/* BRAND */
+
+.tka-brand {
+    display: inline-flex;
+    align-items: center;
+    gap: 11px;
+
+    min-width: 0;
+}
+
+.tka-brand-icon {
+    width: 42px;
+    height: 42px;
+
+    display: grid;
+    place-items: center;
+
+    border: 1px solid var(--tka-border);
+    border-radius: 12px;
+
+    background: var(--tka-surface-soft);
+
+    font-size: 20px;
+}
+
+.tka-brand-text {
+    display: flex;
+    flex-direction: column;
+    line-height: 1.15;
+}
+
+.tka-brand-text strong {
+    font-size: 14px;
+    font-weight: 800;
+    letter-spacing: -0.01em;
+}
+
+.tka-brand-text span {
+    margin-top: 4px;
+
+    color: var(--tka-text-muted);
+
+    font-size: 9px;
+    font-weight: 800;
+
+    letter-spacing: 0.16em;
+}
+
+
+/* HEADER RIGHT */
+
+.tka-header-right {
+    display: flex;
+    align-items: center;
+    gap: 18px;
+}
+
+.tka-user-mini {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+
+    color: var(--tka-text-soft);
+
+    font-size: 12px;
+    font-weight: 700;
+}
+
+.tka-user-avatar {
+    width: 31px;
+    height: 31px;
+
+    display: grid;
+    place-items: center;
+
+    border: 1px solid var(--tka-border);
+    border-radius: 50%;
+
+    background: var(--tka-surface-soft);
+
+    overflow: hidden;
+}
+
+.tka-user-name {
+    max-width: 130px;
+
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+.tka-back-link {
+    color: var(--tka-text-soft);
+
+    font-size: 12px;
+    font-weight: 700;
+
+    transition:
+        color 0.2s ease,
+        transform 0.2s ease;
+}
+
+.tka-back-link:hover {
+    color: var(--tka-text);
+    transform: translateX(-2px);
+}
+
+
+/* =========================================================
+   MAIN
+========================================================= */
+
+.tka-main {
+    width: min(
+        calc(100% - 36px),
+        var(--tka-container)
+    );
+
+    margin: 0 auto;
+    flex: 1;
+}
+
+
+/* =========================================================
+   HERO
+========================================================= */
+
+.tka-hero {
+    padding: 42px 0 32px;
+}
+
+.tka-breadcrumb {
+    display: flex;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 7px;
+
+    margin-bottom: 28px;
+
+    color: var(--tka-text-muted);
+
+    font-size: 11px;
+    font-weight: 600;
+}
+
+.tka-breadcrumb a:hover {
+    color: var(--tka-text);
+}
+
+.tka-breadcrumb strong {
+    color: var(--tka-text);
+}
+
+.tka-hero-content {
+    max-width: 760px;
+}
+
+.tka-hero-label {
+    display: inline-flex;
+
+    margin-bottom: 11px;
+    padding: 6px 10px;
+
+    border: 1px solid var(--tka-border);
+    border-radius: 999px;
+
+    background: var(--tka-surface);
+
+    color: var(--tka-text-muted);
+
+    font-size: 9px;
+    font-weight: 800;
+
+    letter-spacing: 0.13em;
+}
+
+.tka-hero h1 {
+    margin: 0;
+
+    font-size: clamp(
+        34px,
+        5vw,
+        54px
+    );
+
+    line-height: 1.02;
+
+    letter-spacing: -0.045em;
+}
+
+.tka-hero p {
+    max-width: 650px;
+
+    margin: 16px 0 0;
+
+    color: var(--tka-text-soft);
+
+    font-size: 14px;
+    line-height: 1.8;
+}
+
+
+/* =========================================================
+   CONTENT
+========================================================= */
+
+.tka-content {
+    padding-bottom: 70px;
+}
+
+.tka-screen {
+    animation: tkaFadeIn 0.28s ease;
+}
+
+.tka-screen[hidden] {
+    display: none !important;
+}
+
+@keyframes tkaFadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(7px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+
+/* =========================================================
+   CARD
+========================================================= */
+
+.tka-card {
+    width: 100%;
+    max-width: 680px;
+
+    margin: 0 auto;
+    padding: 42px;
+
+    border: 1px solid var(--tka-border);
+    border-radius: var(--tka-radius-lg);
+
+    background: var(--tka-surface);
+
+    box-shadow: var(--tka-shadow-card);
+}
+
+.tka-access-card,
+.tka-confirm-card {
+    text-align: center;
+}
+
+.tka-card-icon {
+    width: 58px;
+    height: 58px;
+
+    display: grid;
+    place-items: center;
+
+    margin: 0 auto 18px;
+
+    border: 1px solid var(--tka-border);
+    border-radius: 17px;
+
+    background: var(--tka-surface-soft);
+
+    font-size: 25px;
+}
+
+.tka-card-label {
+    margin-bottom: 9px;
+
+    color: var(--tka-text-muted);
+
+    font-size: 9px;
+    font-weight: 900;
+
+    letter-spacing: 0.16em;
+}
+
+.tka-card h2 {
+    margin: 0;
+
+    font-size: 27px;
+    line-height: 1.2;
+
+    letter-spacing: -0.025em;
+}
+
+.tka-card-description {
+    max-width: 520px;
+
+    margin: 12px auto 28px;
+
+    color: var(--tka-text-soft);
+
+    font-size: 13px;
+    line-height: 1.75;
+}
+
+
+/* =========================================================
+   FORM
+========================================================= */
+
+.tka-access-form {
+    text-align: left;
+}
+
+.tka-form-label {
+    display: block;
+
+    margin-bottom: 8px;
+
+    color: var(--tka-text);
+
+    font-size: 11px;
+    font-weight: 800;
+}
+
+.tka-input {
+    width: 100%;
+    height: 50px;
+
+    padding: 0 15px;
+
+    border: 1px solid var(--tka-border-dark);
+    border-radius: 12px;
+
+    outline: none;
+
+    background: #fff;
+
+    color: var(--tka-text);
+
+    font-size: 13px;
+
+    transition:
+        border-color 0.2s ease,
+        box-shadow 0.2s ease;
+}
+
+.tka-input::placeholder {
+    color: #aaaaa4;
+}
+
+.tka-input:focus {
+    border-color: #999991;
+
+    box-shadow:
+        0 0 0 4px rgba(0, 0, 0, 0.045);
+}
+
+
+/* =========================================================
+   BUTTON
+========================================================= */
+
+.tka-button {
+    min-height: 46px;
+
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+
+    gap: 9px;
+
+    padding: 0 18px;
+
+    border: 1px solid transparent;
+    border-radius: 11px;
+
+    font-size: 12px;
+    font-weight: 800;
+
+    transition:
+        transform 0.2s ease,
+        background 0.2s ease,
+        border-color 0.2s ease,
+        color 0.2s ease,
+        box-shadow 0.2s ease;
+}
+
+.tka-button:hover {
+    transform: translateY(-1px);
+}
+
+.tka-button:active {
+    transform: translateY(0);
+}
+
+.tka-button-primary {
+    background: var(--tka-primary);
+    color: #ffffff;
+
+    box-shadow:
+        0 7px 18px rgba(0, 0, 0, 0.10);
+}
+
+.tka-button-primary:hover {
+    background: var(--tka-primary-hover);
+}
+
+.tka-button-secondary {
+    border-color: var(--tka-border);
+
+    background: #ffffff;
+    color: var(--tka-text);
+}
+
+.tka-button-secondary:hover {
+    background: var(--tka-surface-soft);
+}
+
+
+/* ACCESS BUTTON */
+
+.tka-access-form .tka-button {
+    width: 100%;
+    margin-top: 14px;
+}
+
+
+/* =========================================================
+   ACCESS NOTE
+========================================================= */
+
+.tka-access-note {
+    display: flex;
+    align-items: flex-start;
+    gap: 10px;
+
+    margin-top: 22px;
+    padding: 13px 14px;
+
+    border: 1px solid var(--tka-border);
+    border-radius: 12px;
+
+    background: var(--tka-surface-soft);
+
+    text-align: left;
+}
+
+.tka-access-note span {
+    font-size: 14px;
+}
+
+.tka-access-note p {
+    margin: 0;
+
+    color: var(--tka-text-muted);
+
+    font-size: 10px;
+    line-height: 1.65;
+}
+
+
+/* =========================================================
+   MESSAGE
+========================================================= */
+
+.tka-message {
+    min-height: 0;
+
+    margin-top: 10px;
+
+    color: var(--tka-danger);
+
+    font-size: 11px;
+    font-weight: 700;
+}
+
+.tka-message:empty {
+    display: none;
+}
+
+.tka-message.success {
+    color: var(--tka-success);
+}
+
+.tka-message.warning {
+    color: var(--tka-warning);
+}
+
+
+/* =========================================================
+   SECTION HEADING
+========================================================= */
+
+.tka-section-heading {
+    margin-bottom: 24px;
+}
+
+.tka-section-label {
+    display: block;
+
+    margin-bottom: 7px;
+
+    color: var(--tka-text-muted);
+
+    font-size: 9px;
+    font-weight: 900;
+
+    letter-spacing: 0.15em;
+}
+
+.tka-section-heading h2 {
+    margin: 0;
+
+    font-size: 29px;
+    line-height: 1.2;
+
+    letter-spacing: -0.025em;
+}
+
+.tka-section-heading p {
+    max-width: 680px;
+
+    margin: 9px 0 0;
+
+    color: var(--tka-text-soft);
+
+    font-size: 12px;
+}
+
+
+/* =========================================================
+   PACKAGE GRID
+========================================================= */
+
+.tka-package-grid {
+    display: grid;
+
+    grid-template-columns:
+        repeat(3, minmax(0, 1fr));
+
+    gap: 12px;
+
+    margin-bottom: 35px;
+}
+
+.tka-info-card {
+    min-height: 150px;
+
+    padding: 20px;
+
+    border: 1px solid var(--tka-border);
+    border-radius: var(--tka-radius-md);
+
+    background: var(--tka-surface);
+
+    box-shadow: var(--tka-shadow-soft);
+}
+
+.tka-info-card-icon {
+    width: 34px;
+    height: 34px;
+
+    display: grid;
+    place-items: center;
+
+    margin-bottom: 15px;
+
+    border: 1px solid var(--tka-border);
+    border-radius: 10px;
+
+    background: var(--tka-surface-soft);
+
+    font-size: 15px;
+}
+
+.tka-info-label {
+    display: block;
+
+    margin-bottom: 4px;
+
+    color: var(--tka-text-muted);
+
+    font-size: 9px;
+    font-weight: 800;
+
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+}
+
+.tka-info-card strong {
+    display: block;
+
+    font-size: 17px;
+    line-height: 1.3;
+}
+
+.tka-info-card p {
+    margin: 5px 0 0;
+
+    color: var(--tka-text-soft);
+
+    font-size: 10px;
+}
+
+
+/* =========================================================
+   SELECTION SECTION
+========================================================= */
+
+.tka-selection-section {
+    margin-top: 18px;
+    padding: 25px;
+
+    border: 1px solid var(--tka-border);
+    border-radius: var(--tka-radius-lg);
+
+    background: var(--tka-surface);
+}
+
+.tka-selection-heading {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+
+    gap: 20px;
+
+    margin-bottom: 18px;
+}
+
+.tka-selection-heading h3 {
+    margin: 0;
+
+    font-size: 18px;
+    line-height: 1.25;
+}
+
+.tka-selection-badge {
+    flex-shrink: 0;
+
+    display: inline-flex;
+    align-items: center;
+
+    min-height: 27px;
+
+    padding: 0 10px;
+
+    border: 1px solid var(--tka-border);
+    border-radius: 999px;
+
+    background: var(--tka-surface-soft);
+
+    color: var(--tka-text-muted);
+
+    font-size: 8px;
+    font-weight: 900;
+
+    letter-spacing: 0.08em;
+}
+
+.tka-selection-help {
+    margin: -6px 0 18px;
+
+    color: var(--tka-text-soft);
+
+    font-size: 11px;
+    line-height: 1.7;
+}
+
+
+/* =========================================================
+   SUBJECT LIST
+========================================================= */
+
+.tka-subject-list {
+    display: grid;
+    gap: 10px;
+}
+
+.tka-subject-item {
+    position: relative;
+
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+
+    gap: 15px;
+
+    min-height: 67px;
+
+    padding: 12px 14px;
+
+    border: 1px solid var(--tka-border);
+    border-radius: 13px;
+
+    background: #ffffff;
+
+    transition:
+        border-color 0.2s ease,
+        background 0.2s ease,
+        transform 0.2s ease;
+}
+
+.tka-subject-item:hover {
+    border-color: var(--tka-border-dark);
+    transform: translateY(-1px);
+}
+
+.tka-subject-item.selected {
+    border-color: #a5a59d;
+    background: #fafaf7;
+}
+
+.tka-subject-main-info {
+    min-width: 0;
+
+    display: flex;
+    align-items: center;
+    gap: 12px;
+}
+
+.tka-subject-number {
+    width: 34px;
+    height: 34px;
+
+    flex-shrink: 0;
+
+    display: grid;
+    place-items: center;
+
+    border: 1px solid var(--tka-border);
+    border-radius: 9px;
+
+    background: var(--tka-surface-soft);
+
+    color: var(--tka-text-muted);
+
+    font-size: 10px;
+    font-weight: 900;
+}
+
+.tka-subject-name {
+    min-width: 0;
+}
+
+.tka-subject-name strong {
+    display: block;
+
+    font-size: 12px;
+    line-height: 1.35;
+}
+
+.tka-subject-name span {
+    display: block;
+
+    margin-top: 3px;
+
+    color: var(--tka-text-muted);
+
+    font-size: 9px;
+}
+
+.tka-subject-action {
+    flex-shrink: 0;
+}
+
+
+/* CHECKBOX STYLE */
+
+.tka-subject-checkbox {
+    position: relative;
+
+    width: 38px;
+    height: 22px;
+}
+
+.tka-subject-checkbox input {
+    position: absolute;
+
+    opacity: 0;
+
+    pointer-events: none;
+}
+
+.tka-subject-checkbox label {
+    position: absolute;
+    inset: 0;
+
+    border: 1px solid var(--tka-border-dark);
+    border-radius: 999px;
+
+    background: #eeeeeb;
+
+    cursor: pointer;
+
+    transition:
+        background 0.2s ease,
+        border-color 0.2s ease;
+}
+
+.tka-subject-checkbox label::after {
+    content: "";
+
+    position: absolute;
+
+    top: 3px;
+    left: 3px;
+
+    width: 14px;
+    height: 14px;
+
+    border-radius: 50%;
+
+    background: #ffffff;
+
+    box-shadow:
+        0 1px 4px rgba(0, 0, 0, 0.16);
+
+    transition:
+        transform 0.2s ease;
+}
+
+.tka-subject-checkbox input:checked + label {
+    background: #171717;
+    border-color: #171717;
+}
+
+.tka-subject-checkbox input:checked + label::after {
+    transform: translateX(16px);
+}
+
+
+/* =========================================================
+   CONFIRM PANEL
+========================================================= */
+
+.tka-confirm-panel,
+.tka-finish-panel {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+
+    gap: 20px;
+
+    margin-top: 20px;
+    padding: 22px 24px;
+
+    border: 1px solid var(--tka-border);
+    border-radius: var(--tka-radius-md);
+
+    background: var(--tka-surface-soft);
+}
+
+.tka-confirm-panel strong,
+.tka-finish-panel strong {
+    display: block;
+
+    font-size: 13px;
+}
+
+.tka-confirm-panel p,
+.tka-finish-panel p {
+    margin: 4px 0 0;
+
+    color: var(--tka-text-soft);
+
+    font-size: 10px;
+    line-height: 1.6;
+}
+
+
+/* =========================================================
+   EXAM ORDER
+========================================================= */
+
+.tka-exam-order {
+    display: grid;
+    gap: 9px;
+
+    margin: 26px 0;
+}
+
+.tka-order-item {
+    display: flex;
+    align-items: center;
+
+    gap: 13px;
+
+    padding: 13px 14px;
+
+    border: 1px solid var(--tka-border);
+    border-radius: 12px;
+
+    background: var(--tka-surface-soft);
+
+    text-align: left;
+}
+
+.tka-order-number {
+    width: 31px;
+    height: 31px;
+
+    flex-shrink: 0;
+
+    display: grid;
+    place-items: center;
+
+    border-radius: 9px;
+
+    background: #171717;
+    color: #ffffff;
+
+    font-size: 10px;
+    font-weight: 900;
+}
+
+.tka-order-info {
+    min-width: 0;
+}
+
+.tka-order-info strong {
+    display: block;
+
+    font-size: 12px;
+}
+
+.tka-order-info span {
+    display: block;
+
+    margin-top: 2px;
+
+    color: var(--tka-text-muted);
+
+    font-size: 9px;
+}
+
+.tka-confirm-actions {
+    display: flex;
+    justify-content: center;
+    gap: 10px;
+
+    margin-top: 20px;
+}
+
+
+/* =========================================================
+   EXAM HEADER
+========================================================= */
+
+.tka-exam-header {
+    display: flex;
+    align-items: flex-end;
+    justify-content: space-between;
+
+    gap: 25px;
+
+    margin-bottom: 20px;
+    padding: 22px;
+
+    border: 1px solid var(--tka-border);
+    border-radius: var(--tka-radius-md);
+
+    background: var(--tka-surface);
+}
+
+.tka-exam-subject h2 {
+    margin: 0;
+
+    font-size: 25px;
+    line-height: 1.2;
+
+    letter-spacing: -0.025em;
+}
+
+.tka-exam-subject p {
+    margin: 6px 0 0;
+
+    color: var(--tka-text-soft);
+
+    font-size: 10px;
+}
+
+.tka-exam-timer {
+    min-width: 125px;
+
+    padding: 11px 15px;
+
+    border: 1px solid var(--tka-border);
+    border-radius: 12px;
+
+    background: var(--tka-surface-soft);
+
+    text-align: center;
+}
+
+.tka-exam-timer span {
+    display: block;
+
+    margin-bottom: 2px;
+
+    color: var(--tka-text-muted);
+
+    font-size: 8px;
+    font-weight: 900;
+
+    letter-spacing: 0.12em;
+}
+
+.tka-exam-timer strong {
+    display: block;
+
+    font-size: 21px;
+    line-height: 1.2;
+
+    font-variant-numeric: tabular-nums;
+}
+
+
+/* TIMER WARNING */
+
+.tka-exam-timer.warning {
+    border-color: #e4c981;
+    background: var(--tka-warning-soft);
+}
+
+.tka-exam-timer.danger {
+    border-color: #e0aaaa;
+    background: var(--tka-danger-soft);
+}
+
+.tka-exam-timer.danger strong {
+    color: var(--tka-danger);
+}
+
+
+/* =========================================================
+   PROGRESS
+========================================================= */
+
+.tka-exam-progress {
+    margin-bottom: 20px;
+}
+
+.tka-progress-top {
+    display: flex;
+    justify-content: space-between;
+
+    gap: 15px;
+
+    margin-bottom: 7px;
+
+    color: var(--tka-text-muted);
+
+    font-size: 9px;
+    font-weight: 800;
+}
+
+.tka-progress-track {
+    width: 100%;
+    height: 5px;
+
+    overflow: hidden;
+
+    border-radius: 999px;
+
+    background: #e9e9e5;
+}
+
+.tka-progress-bar {
+    width: 0;
+    height: 100%;
+
+    border-radius: inherit;
+
+    background: #171717;
+
+    transition: width 0.25s ease;
+}
+
+
+/* =========================================================
+   QUESTION AREA
+========================================================= */
+
+.tka-question-area {
+    min-height: 300px;
+}
+
+.tka-question-card {
+    padding: 27px;
+
+    border: 1px solid var(--tka-border);
+    border-radius: var(--tka-radius-lg);
+
+    background: var(--tka-surface);
+
+    box-shadow: var(--tka-shadow-soft);
+}
+
+.tka-question-meta {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+
+    gap: 12px;
+
+    margin-bottom: 18px;
+}
+
+.tka-question-type {
+    display: inline-flex;
+    align-items: center;
+
+    min-height: 25px;
+
+    padding: 0 9px;
+
+    border: 1px solid var(--tka-border);
+    border-radius: 999px;
+
+    background: var(--tka-surface-soft);
+
+    color: var(--tka-text-muted);
+
+    font-size: 8px;
+    font-weight: 900;
+
+    letter-spacing: 0.08em;
+}
+
+.tka-question-number {
+    color: var(--tka-text-muted);
+
+    font-size: 10px;
+    font-weight: 800;
+}
+
+.tka-question-stimulus {
+    margin-bottom: 20px;
+
+    padding: 17px;
+
+    border-left: 3px solid #d8d8d1;
+    border-radius: 0 11px 11px 0;
+
+    background: var(--tka-surface-soft);
+
+    color: #444444;
+
+    font-family:
+        Georgia,
+        "Times New Roman",
+        serif;
+
+    font-size: 13px;
+    line-height: 1.8;
+}
+
+.tka-question-text {
+    margin: 0 0 22px;
+
+    color: var(--tka-text);
+
+    font-size: 15px;
+    font-weight: 700;
+    line-height: 1.75;
+}
+
+
+/* =========================================================
+   QUESTION OPTIONS
+========================================================= */
+
+.tka-options {
+    display: grid;
+    gap: 9px;
+}
+
+.tka-option {
+    position: relative;
+
+    display: flex;
+    align-items: flex-start;
+
+    gap: 11px;
+
+    padding: 13px 14px;
+
+    border: 1px solid var(--tka-border);
+    border-radius: 12px;
+
+    background: #ffffff;
+
+    cursor: pointer;
+
+    transition:
+        border-color 0.2s ease,
+        background 0.2s ease,
+        transform 0.2s ease;
+}
+
+.tka-option:hover {
+    border-color: #bdbdb6;
+    background: #fcfcfa;
+    transform: translateX(1px);
+}
+
+.tka-option.selected {
+    border-color: #171717;
+    background: #f7f7f3;
+}
+
+.tka-option input {
+    position: absolute;
+
+    opacity: 0;
+
+    pointer-events: none;
+}
+
+.tka-option-marker {
+    width: 28px;
+    height: 28px;
+
+    flex-shrink: 0;
+
+    display: grid;
+    place-items: center;
+
+    border: 1px solid var(--tka-border-dark);
+    border-radius: 8px;
+
+    background: #ffffff;
+
+    color: var(--tka-text-muted);
+
+    font-size: 10px;
+    font-weight: 900;
+}
+
+.tka-option.selected .tka-option-marker {
+    border-color: #171717;
+
+    background: #171717;
+    color: #ffffff;
+}
+
+.tka-option-content {
+    padding-top: 3px;
+
+    color: #333333;
+
+    font-size: 12px;
+    line-height: 1.65;
+}
+
+
+/* =========================================================
+   MULTI SELECT
+========================================================= */
+
+.tka-question-instruction {
+    margin-bottom: 15px;
+
+    padding: 11px 13px;
+
+    border: 1px solid var(--tka-border);
+    border-radius: 10px;
+
+    background: var(--tka-surface-soft);
+
+    color: var(--tka-text-muted);
+
+    font-size: 10px;
+    line-height: 1.6;
+}
+
+
+/* =========================================================
+   CATEGORY / B-S
+========================================================= */
+
+.tka-category-grid {
+    display: grid;
+    gap: 9px;
+}
+
+.tka-category-row {
+    display: grid;
+
+    grid-template-columns:
+        minmax(0, 1fr)
+        auto;
+
+    align-items: center;
+
+    gap: 15px;
+
+    padding: 13px 14px;
+
+    border: 1px solid var(--tka-border);
+    border-radius: 12px;
+
+    background: #ffffff;
+}
+
+.tka-category-statement {
+    color: #333333;
+
+    font-size: 12px;
+    line-height: 1.65;
+}
+
+.tka-category-buttons {
+    display: flex;
+    gap: 6px;
+}
+
+.tka-category-button {
+    min-width: 46px;
+    height: 34px;
+
+    padding: 0 10px;
+
+    border: 1px solid var(--tka-border-dark);
+    border-radius: 8px;
+
+    background: #ffffff;
+
+    color: var(--tka-text-muted);
+
+    font-size: 9px;
+    font-weight: 900;
+
+    cursor: pointer;
+}
+
+.tka-category-button.selected {
+    border-color: #171717;
+
+    background: #171717;
+    color: #ffffff;
+}
+
+
+/* =========================================================
+   QUESTION NAVIGATION
+========================================================= */
+
+.tka-question-navigation {
+    display: flex;
+    justify-content: space-between;
+
+    gap: 12px;
+
+    margin-top: 18px;
+}
+
+
+/* =========================================================
+   QUESTION MAP
+========================================================= */
+
+.tka-question-map-section {
+    margin-top: 22px;
+    padding: 22px;
+
+    border: 1px solid var(--tka-border);
+    border-radius: var(--tka-radius-md);
+
+    background: var(--tka-surface);
+}
+
+.tka-question-map-heading {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+
+    gap: 15px;
+
+    margin-bottom: 15px;
+}
+
+.tka-question-map-heading h3 {
+    margin: 0;
+
+    font-size: 15px;
+}
+
+.tka-question-map {
+    display: grid;
+
+    grid-template-columns:
+        repeat(
+            auto-fill,
+            minmax(42px, 1fr)
+        );
+
+    gap: 7px;
+}
+
+.tka-question-map-button {
+    height: 39px;
+
+    border: 1px solid var(--tka-border);
+    border-radius: 9px;
+
+    background: var(--tka-surface-soft);
+
+    color: var(--tka-text-soft);
+
+    font-size: 10px;
+    font-weight: 800;
+
+    cursor: pointer;
+}
+
+.tka-question-map-button.current {
+    border-color: #171717;
+
+    background: #171717;
+    color: #ffffff;
+}
+
+.tka-question-map-button.answered {
+    border-color: #a9c8b6;
+
+    background: var(--tka-success-soft);
+
+    color: var(--tka-success);
+}
+
+.tka-question-map-button.current.answered {
+    border-color: #171717;
+
+    background: #171717;
+    color: #ffffff;
+}
+
+
+/* =========================================================
+   FINISH PANEL
+========================================================= */
+
+.tka-finish-panel {
+    margin-top: 22px;
+}
+
+
+/* =========================================================
+   RESULT
+========================================================= */
+
+.tka-result-hero {
+    max-width: 720px;
+
+    margin: 0 auto 24px;
+
+    text-align: center;
+}
+
+.tka-result-hero .tka-card-icon {
+    margin-bottom: 15px;
+}
+
+.tka-result-hero h2 {
+    margin: 0;
+
+    font-size: 32px;
+    line-height: 1.15;
+
+    letter-spacing: -0.03em;
+}
+
+.tka-result-hero p {
+    max-width: 580px;
+
+    margin: 9px auto 0;
+
+    color: var(--tka-text-soft);
+
+    font-size: 12px;
+}
+
+
+/* SCORE */
+
+.tka-score-card {
+    max-width: 420px;
+
+    margin: 0 auto 22px;
+    padding: 30px;
+
+    border: 1px solid var(--tka-border);
+    border-radius: var(--tka-radius-lg);
+
+    background: var(--tka-surface);
+
+    text-align: center;
+
+    box-shadow: var(--tka-shadow-card);
+}
+
+.tka-score-label {
+    color: var(--tka-text-muted);
+
+    font-size: 9px;
+    font-weight: 900;
+
+    letter-spacing: 0.15em;
+}
+
+.tka-score-value {
+    margin-top: 7px;
+
+    font-size: 58px;
+    font-weight: 900;
+    line-height: 1;
+
+    letter-spacing: -0.06em;
+}
+
+.tka-score-category {
+    display: inline-flex;
+
+    margin-top: 12px;
+    padding: 7px 12px;
+
+    border: 1px solid var(--tka-border);
+    border-radius: 999px;
+
+    background: var(--tka-surface-soft);
+
+    color: var(--tka-text-soft);
+
+    font-size: 10px;
+    font-weight: 900;
+}
+
+
+/* =========================================================
+   RESULT STATS
+========================================================= */
+
+.tka-result-stats {
+    max-width: 700px;
+
+    margin: 0 auto 20px;
+
+    display: grid;
+
+    grid-template-columns:
+        repeat(3, minmax(0, 1fr));
+
+    gap: 10px;
+}
+
+.tka-result-stats article {
+    padding: 17px;
+
+    border: 1px solid var(--tka-border);
+    border-radius: 13px;
+
+    background: var(--tka-surface);
+
+    text-align: center;
+}
+
+.tka-result-stats span {
+    display: block;
+
+    margin-bottom: 4px;
+
+    color: var(--tka-text-muted);
+
+    font-size: 9px;
+    font-weight: 700;
+}
+
+.tka-result-stats strong {
+    font-size: 21px;
+}
+
+
+/* =========================================================
+   RESULT NOTE
+========================================================= */
+
+.tka-result-note {
+    max-width: 700px;
+
+    margin: 0 auto 20px;
+    padding: 17px;
+
+    border: 1px solid var(--tka-border);
+    border-radius: 13px;
+
+    background: var(--tka-surface-soft);
+}
+
+.tka-result-note strong {
+    display: block;
+
+    margin-bottom: 5px;
+
+    font-size: 11px;
+}
+
+.tka-result-note p {
+    margin: 0;
+
+    color: var(--tka-text-soft);
+
+    font-size: 10px;
+    line-height: 1.7;
+}
+
+#continueAfterSubjectButton {
+    display: flex;
+
+    width: fit-content;
+
+    margin: 0 auto;
+}
+
+
+/* =========================================================
+   FINAL RESULT
+========================================================= */
+
+.tka-score-card-final {
+    margin-bottom: 30px;
+}
+
+.tka-final-results-section {
+    margin-top: 25px;
+}
+
+.tka-final-result-list {
+    display: grid;
+    gap: 9px;
+}
+
+.tka-final-result-item {
+    display: grid;
+
+    grid-template-columns:
+        minmax(0, 1fr)
+        auto
+        auto;
+
+    align-items: center;
+
+    gap: 18px;
+
+    padding: 15px 17px;
+
+    border: 1px solid var(--tka-border);
+    border-radius: 12px;
+
+    background: var(--tka-surface);
+}
+
+.tka-final-result-subject {
+    min-width: 0;
+}
+
+.tka-final-result-subject strong {
+    display: block;
+
+    font-size: 12px;
+}
+
+.tka-final-result-subject span {
+    display: block;
+
+    margin-top: 3px;
+
+    color: var(--tka-text-muted);
+
+    font-size: 9px;
+}
+
+.tka-final-result-score {
+    font-size: 18px;
+    font-weight: 900;
+}
+
+.tka-final-result-category {
+    min-width: 105px;
+
+    padding: 5px 8px;
+
+    border: 1px solid var(--tka-border);
+    border-radius: 999px;
+
+    background: var(--tka-surface-soft);
+
+    color: var(--tka-text-soft);
+
+    font-size: 8px;
+    font-weight: 900;
+
+    text-align: center;
+}
+
+
+/* =========================================================
+   FINAL INFO
+========================================================= */
+
+.tka-final-info {
+    display: grid;
+
+    grid-template-columns:
+        repeat(3, minmax(0, 1fr));
+
+    gap: 10px;
+
+    margin-top: 25px;
+}
+
+.tka-final-info > div {
+    padding: 15px;
+
+    border: 1px solid var(--tka-border);
+    border-radius: 12px;
+
+    background: var(--tka-surface);
+}
+
+.tka-final-info span {
+    display: block;
+
+    margin-bottom: 4px;
+
+    color: var(--tka-text-muted);
+
+    font-size: 8px;
+    font-weight: 900;
+
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+}
+
+.tka-final-info strong {
+    display: block;
+
+    overflow: hidden;
+
+    text-overflow: ellipsis;
+    white-space: nowrap;
+
+    font-size: 11px;
+}
+
+.tka-final-actions {
+    display: flex;
+    justify-content: center;
+
+    gap: 10px;
+
+    margin-top: 25px;
+}
+
+
+/* =========================================================
+   GLOBAL MESSAGE
+========================================================= */
+
+.tka-global-message {
+    position: fixed;
+
+    left: 50%;
+    bottom: 22px;
+
+    z-index: 100;
+
+    width: min(
+        calc(100% - 30px),
+        480px
+    );
+
+    padding: 13px 15px;
+
+    border: 1px solid var(--tka-border);
+    border-radius: 12px;
+
+    background: #ffffff;
+
+    box-shadow:
+        0 15px 40px rgba(0, 0, 0, 0.12);
+
+    color: var(--tka-text);
+
+    font-size: 11px;
+    font-weight: 700;
+
+    text-align: center;
+
+    opacity: 0;
+    visibility: hidden;
+
+    transform:
+        translate(-50%, 15px);
+
+    transition:
+        opacity 0.2s ease,
+        visibility 0.2s ease,
+        transform 0.2s ease;
+}
+
+.tka-global-message.show {
+    opacity: 1;
+    visibility: visible;
+
+    transform:
+        translate(-50%, 0);
+}
+
+.tka-global-message.error {
+    border-color: #e3b3b3;
+    background: var(--tka-danger-soft);
+    color: var(--tka-danger);
+}
+
+.tka-global-message.success {
+    border-color: #b5d7c2;
+    background: var(--tka-success-soft);
+    color: var(--tka-success);
+}
+
+
+/* =========================================================
+   FOOTER
+========================================================= */
+
+.tka-footer {
+    margin-top: auto;
+
+    border-top: 1px solid var(--tka-border);
+
+    background: #ffffff;
+}
+
+.tka-footer-inner {
+    width: min(
+        calc(100% - 36px),
+        var(--tka-container)
+    );
+
+    margin: 0 auto;
+
+    padding: 25px 0;
+
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+
+    gap: 25px;
+}
+
+.tka-footer-inner > div {
+    display: flex;
+    flex-direction: column;
+}
+
+.tka-footer-inner strong {
+    font-size: 12px;
+}
+
+.tka-footer-inner span {
+    margin-top: 2px;
+
+    color: var(--tka-text-muted);
+
+    font-size: 8px;
+    font-weight: 800;
+
+    letter-spacing: 0.13em;
+}
+
+.tka-footer-inner p {
+    max-width: 380px;
+
+    margin: 0;
+
+    color: var(--tka-text-muted);
+
+    font-size: 9px;
+    line-height: 1.6;
+
+    text-align: right;
+}
+
+
+/* =========================================================
+   RESPONSIVE
+========================================================= */
+
+@media (max-width: 850px) {
+
+    .tka-package-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .tka-final-info {
+        grid-template-columns: 1fr;
+    }
+
+    .tka-footer-inner {
+        align-items: flex-start;
+        flex-direction: column;
+    }
+
+    .tka-footer-inner p {
+        text-align: left;
+    }
+}
+
+
+@media (max-width: 700px) {
+
+    .tka-header-inner,
+    .tka-main,
+    .tka-footer-inner {
+        width: min(
+            calc(100% - 24px),
+            var(--tka-container)
+        );
+    }
+
+    .tka-header-inner {
+        min-height: 68px;
+    }
+
+    .tka-header-right {
+        gap: 9px;
+    }
+
+    .tka-user-mini {
+        display: none;
+    }
+
+    .tka-back-link {
+        font-size: 10px;
+    }
+
+    .tka-hero {
+        padding-top: 28px;
+    }
+
+    .tka-hero h1 {
+        font-size: 38px;
+    }
+
+    .tka-card {
+        padding: 25px 19px;
+        border-radius: 17px;
+    }
+
+    .tka-selection-section {
+        padding: 18px;
+        border-radius: 17px;
+    }
+
+    .tka-selection-heading {
+        align-items: flex-start;
+    }
+
+    .tka-confirm-panel,
+    .tka-finish-panel {
+        align-items: stretch;
+        flex-direction: column;
+    }
+
+    .tka-confirm-panel .tka-button,
+    .tka-finish-panel .tka-button {
+        width: 100%;
+    }
+
+    .tka-exam-header {
+        align-items: stretch;
+        flex-direction: column;
+    }
+
+    .tka-exam-timer {
+        width: 100%;
+    }
+
+    .tka-question-card {
+        padding: 19px;
+        border-radius: 17px;
+    }
+
+    .tka-question-text {
+        font-size: 14px;
+    }
+
+    .tka-question-navigation {
+        flex-direction: column;
+    }
+
+    .tka-question-navigation .tka-button {
+        width: 100%;
+    }
+
+    .tka-result-stats {
+        grid-template-columns: 1fr;
+    }
+
+    .tka-final-result-item {
+        grid-template-columns:
+            minmax(0, 1fr)
+            auto;
+    }
+
+    .tka-final-result-category {
+        grid-column: 1 / -1;
+
+        width: fit-content;
+    }
+
+    .tka-final-actions {
+        flex-direction: column;
+    }
+
+    .tka-final-actions .tka-button {
+        width: 100%;
+    }
+
+    .tka-confirm-actions {
+        flex-direction: column;
+    }
+
+    .tka-confirm-actions .tka-button {
+        width: 100%;
+    }
+}
+
+
+@media (max-width: 480px) {
+
+    .tka-hero h1 {
+        font-size: 33px;
+    }
+
+    .tka-hero p {
+        font-size: 12px;
+    }
+
+    .tka-card h2 {
+        font-size: 23px;
+    }
+
+    .tka-subject-item {
+        align-items: flex-start;
+    }
+
+    .tka-subject-main-info {
+        align-items: flex-start;
+    }
+
+    .tka-subject-name strong {
+        font-size: 11px;
+    }
+
+    .tka-question-map {
+        grid-template-columns:
+            repeat(
+                5,
+                minmax(0, 1fr)
+            );
+    }
+
+    .tka-score-value {
+        font-size: 48px;
+    }
+
+    .tka-category-row {
+        grid-template-columns: 1fr;
+    }
+
+    .tka-category-buttons {
+        width: 100%;
+    }
+
+    .tka-category-button {
+        flex: 1;
+    }
+}
+
+
+/* =========================================================
+   REDUCED MOTION
+========================================================= */
+
+@media (prefers-reduced-motion: reduce) {
+
+    html {
+        scroll-behavior: auto;
+    }
+
+    *,
+    *::before,
+    *::after {
+        animation-duration: 0.01ms !important;
+        animation-iteration-count: 1 !important;
+        transition-duration: 0.01ms !important;
+    }
+}

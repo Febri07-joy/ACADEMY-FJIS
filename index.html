@@ -1,0 +1,3566 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0"
+    >
+
+    <meta
+        name="description"
+        content="FJIS Academy — Student Learner. Ruang belajar untuk siswa SMA, persiapan kedinasan, kuliah, dan beasiswa."
+    >
+
+    <meta
+        name="theme-color"
+        content="#f4f2ec"
+    >
+
+    <title>FJIS Academy — Student Learner</title>
+
+    <!-- =====================================================
+         CSS
+    ====================================================== -->
+
+    <link rel="stylesheet" href="./css/style.css">
+    <link rel="stylesheet" href="./css/components.css">
+    <link rel="stylesheet" href="./css/landing.css">
+    <link rel="stylesheet" href="./css/responsive.css">
+
+    <style>
+        /*
+         * Fallback style.
+         * Struktur utama tetap menggunakan stylesheet project.
+         */
+
+        :root {
+            --fjis-bg: #f5f3ed;
+            --fjis-paper: #ffffff;
+            --fjis-cream: #ebe7dc;
+            --fjis-sage: #718176;
+            --fjis-sage-dark: #526158;
+            --fjis-text: #29332e;
+            --fjis-muted: #7d8580;
+            --fjis-line: rgba(55, 68, 61, 0.12);
+        }
+
+        * {
+            box-sizing: border-box;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            margin: 0;
+            background: var(--fjis-bg);
+            color: var(--fjis-text);
+            font-family:
+                Inter,
+                -apple-system,
+                BlinkMacSystemFont,
+                "Segoe UI",
+                sans-serif;
+        }
+
+        a {
+            color: inherit;
+            text-decoration: none;
+        }
+
+        button,
+        input,
+        textarea {
+            font: inherit;
+        }
+
+        img {
+            max-width: 100%;
+            display: block;
+        }
+
+        .page-loader {
+            position: fixed;
+            inset: 0;
+            z-index: 9999;
+
+            display: flex;
+            align-items: center;
+            justify-content: center;
+
+            background: var(--fjis-bg);
+
+            transition:
+                opacity .35s ease,
+                visibility .35s ease;
+        }
+
+        .page-loader.hidden {
+            opacity: 0;
+            visibility: hidden;
+        }
+
+        .loader-inner {
+            text-align: center;
+        }
+
+        .loader-book {
+            width: 54px;
+            height: 54px;
+
+            display: flex;
+            align-items: center;
+            justify-content: center;
+
+            margin: auto;
+
+            border-radius: 15px;
+
+            background: #e5e9e3;
+
+            font-size: 25px;
+        }
+
+        .loader-inner p {
+            margin: 12px 0 0;
+
+            color: var(--fjis-muted);
+
+            font-size: 12px;
+        }
+
+        .site-header {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+
+            z-index: 1000;
+
+            background:
+                rgba(245, 243, 237, .88);
+
+            border-bottom:
+                1px solid var(--fjis-line);
+
+            backdrop-filter: blur(15px);
+            -webkit-backdrop-filter: blur(15px);
+        }
+
+        .header-inner {
+            width: min(1180px, calc(100% - 40px));
+
+            min-height: 72px;
+
+            margin: auto;
+
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 25px;
+        }
+
+        .brand {
+            display: flex;
+            align-items: center;
+            gap: 11px;
+        }
+
+        .brand-logo {
+            width: 42px;
+            height: 42px;
+
+            display: flex;
+            align-items: center;
+            justify-content: center;
+
+            border-radius: 12px;
+
+            background: #e5e9e3;
+
+            font-size: 20px;
+        }
+
+        .brand-copy strong {
+            display: block;
+
+            font-size: 15px;
+            line-height: 1.2;
+        }
+
+        .brand-copy span {
+            display: block;
+
+            margin-top: 3px;
+
+            color: var(--fjis-muted);
+
+            font-size: 10px;
+        }
+
+        .main-nav {
+            display: flex;
+            align-items: center;
+            gap: 4px;
+        }
+
+        .main-nav a {
+            padding: 8px 11px;
+
+            border-radius: 9px;
+
+            color: #69736d;
+
+            font-size: 12px;
+
+            transition:
+                background .2s ease,
+                color .2s ease;
+        }
+
+        .main-nav a:hover {
+            background: #e9ece7;
+            color: var(--fjis-sage-dark);
+        }
+
+        .header-actions {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .btn {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 7px;
+
+            min-height: 38px;
+
+            padding: 0 15px;
+
+            border-radius: 10px;
+
+            border: 1px solid var(--fjis-line);
+
+            font-size: 12px;
+            font-weight: 600;
+
+            cursor: pointer;
+
+            transition:
+                transform .2s ease,
+                background .2s ease,
+                border-color .2s ease;
+        }
+
+        .btn:hover {
+            transform: translateY(-1px);
+        }
+
+        .btn-outline {
+            background: rgba(255,255,255,.55);
+            color: var(--fjis-sage-dark);
+        }
+
+        .btn-primary {
+            background: var(--fjis-sage);
+            color: #fff;
+            border-color: var(--fjis-sage);
+        }
+
+        .mobile-menu-btn {
+            display: none;
+
+            width: 38px;
+            height: 38px;
+
+            border: 1px solid var(--fjis-line);
+            border-radius: 10px;
+
+            background: rgba(255,255,255,.6);
+
+            cursor: pointer;
+        }
+
+        .hero {
+            min-height: 720px;
+
+            padding:
+                145px
+                20px
+                90px;
+
+            display: flex;
+            align-items: center;
+        }
+
+        .hero-inner {
+            width: min(1180px, 100%);
+            margin: auto;
+
+            display: grid;
+            grid-template-columns: 1.08fr .92fr;
+
+            align-items: center;
+
+            gap: 70px;
+        }
+
+        .hero-label {
+            display: inline-flex;
+            align-items: center;
+            gap: 7px;
+
+            padding: 7px 10px;
+
+            border: 1px solid var(--fjis-line);
+            border-radius: 30px;
+
+            background: rgba(255,255,255,.5);
+
+            color: var(--fjis-sage-dark);
+
+            font-size: 10px;
+            font-weight: 700;
+
+            letter-spacing: .08em;
+            text-transform: uppercase;
+        }
+
+        .hero h1 {
+            margin: 19px 0 0;
+
+            max-width: 680px;
+
+            font-size:
+                clamp(40px, 5vw, 67px);
+
+            line-height: 1.02;
+
+            letter-spacing: -2.8px;
+
+            font-weight: 700;
+        }
+
+        .hero h1 em {
+            font-style: normal;
+            color: var(--fjis-sage);
+        }
+
+        .hero-description {
+            max-width: 610px;
+
+            margin: 22px 0 0;
+
+            color: var(--fjis-muted);
+
+            font-size: 15px;
+            line-height: 1.8;
+        }
+
+        .hero-actions {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+
+            margin-top: 27px;
+        }
+
+        .hero-note {
+            display: flex;
+            align-items: center;
+            gap: 9px;
+
+            margin-top: 22px;
+
+            color: #929994;
+
+            font-size: 10px;
+        }
+
+        .hero-note span {
+            width: 7px;
+            height: 7px;
+
+            border-radius: 50%;
+
+            background: var(--fjis-sage);
+        }
+
+        .hero-visual {
+            min-height: 420px;
+
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .book-scene {
+            width: min(390px, 100%);
+
+            position: relative;
+
+            padding: 40px;
+
+            border:
+                1px solid
+                rgba(70, 82, 74, .12);
+
+            border-radius: 30px;
+
+            background:
+                rgba(255,255,255,.57);
+
+            box-shadow:
+                0 25px 70px
+                rgba(50,60,53,.08);
+
+            transform: rotate(1deg);
+        }
+
+        .book-stack {
+            position: relative;
+
+            width: 220px;
+            height: 230px;
+
+            margin: auto;
+        }
+
+        .book {
+            position: absolute;
+
+            width: 190px;
+            height: 48px;
+
+            left: 15px;
+
+            border-radius: 7px 10px 10px 7px;
+
+            border:
+                1px solid
+                rgba(70,80,74,.13);
+
+            box-shadow:
+                0 8px 14px
+                rgba(40,50,45,.08);
+        }
+
+        .book:nth-child(1) {
+            bottom: 25px;
+            transform: rotate(-5deg);
+            background: #d9ddd4;
+        }
+
+        .book:nth-child(2) {
+            bottom: 66px;
+            transform: rotate(4deg);
+            background: #ece9dd;
+        }
+
+        .book:nth-child(3) {
+            bottom: 107px;
+            transform: rotate(-2deg);
+            background: #cfd8cf;
+        }
+
+        .book:nth-child(4) {
+            bottom: 148px;
+            transform: rotate(5deg);
+            background: #f0eee7;
+        }
+
+        .book-title {
+            position: absolute;
+
+            left: 15px;
+            top: 15px;
+
+            font-size: 9px;
+
+            color: #69736c;
+
+            letter-spacing: .06em;
+            text-transform: uppercase;
+        }
+
+        .scene-caption {
+            margin-top: 24px;
+
+            text-align: center;
+        }
+
+        .scene-caption strong {
+            display: block;
+
+            font-size: 13px;
+        }
+
+        .scene-caption span {
+            display: block;
+
+            margin-top: 5px;
+
+            color: var(--fjis-muted);
+
+            font-size: 10px;
+        }
+
+        section {
+            scroll-margin-top: 90px;
+        }
+
+        .section {
+            padding: 90px 20px;
+        }
+
+        .section-inner {
+            width: min(1180px, 100%);
+            margin: auto;
+        }
+
+        .section-heading {
+            max-width: 700px;
+
+            margin-bottom: 38px;
+        }
+
+        .section-kicker {
+            color: var(--fjis-sage);
+
+            font-size: 10px;
+            font-weight: 700;
+
+            text-transform: uppercase;
+            letter-spacing: .1em;
+        }
+
+        .section-heading h2 {
+            margin: 9px 0 0;
+
+            font-size:
+                clamp(28px, 4vw, 43px);
+
+            line-height: 1.15;
+
+            letter-spacing: -1.2px;
+        }
+
+        .section-heading p {
+            margin: 13px 0 0;
+
+            color: var(--fjis-muted);
+
+            font-size: 13px;
+            line-height: 1.75;
+        }
+
+        .intro-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+
+            gap: 18px;
+        }
+
+        .intro-card {
+            padding: 28px;
+
+            border:
+                1px solid
+                var(--fjis-line);
+
+            border-radius: 20px;
+
+            background:
+                rgba(255,255,255,.62);
+        }
+
+        .intro-card h3 {
+            margin: 0;
+
+            font-size: 16px;
+        }
+
+        .intro-card p {
+            margin: 11px 0 0;
+
+            color: var(--fjis-muted);
+
+            font-size: 12px;
+            line-height: 1.75;
+        }
+
+        .principles {
+            display: grid;
+            grid-template-columns:
+                repeat(3, 1fr);
+
+            gap: 14px;
+        }
+
+        .principle {
+            padding: 23px;
+
+            border:
+                1px solid
+                var(--fjis-line);
+
+            border-radius: 17px;
+
+            background: rgba(255,255,255,.68);
+        }
+
+        .principle-number {
+            color: var(--fjis-sage);
+
+            font-size: 10px;
+            font-weight: 700;
+        }
+
+        .principle h3 {
+            margin: 12px 0 0;
+
+            font-size: 15px;
+        }
+
+        .principle p {
+            margin: 7px 0 0;
+
+            color: var(--fjis-muted);
+
+            font-size: 11px;
+            line-height: 1.65;
+        }
+
+        .programs {
+            display: grid;
+            grid-template-columns:
+                repeat(3, 1fr);
+
+            gap: 16px;
+        }
+
+        .program {
+            min-height: 290px;
+
+            display: flex;
+            flex-direction: column;
+
+            padding: 25px;
+
+            border:
+                1px solid
+                var(--fjis-line);
+
+            border-radius: 20px;
+
+            background: #fff;
+
+            transition:
+                transform .2s ease,
+                box-shadow .2s ease;
+        }
+
+        .program:hover {
+            transform: translateY(-3px);
+
+            box-shadow:
+                0 18px 45px
+                rgba(48,58,52,.07);
+        }
+
+        .program-icon {
+            width: 43px;
+            height: 43px;
+
+            display: flex;
+            align-items: center;
+            justify-content: center;
+
+            border-radius: 13px;
+
+            background: #e7ebe5;
+
+            font-size: 20px;
+        }
+
+        .program h3 {
+            margin: 20px 0 0;
+
+            font-size: 18px;
+        }
+
+        .program p {
+            margin: 9px 0 0;
+
+            color: var(--fjis-muted);
+
+            font-size: 12px;
+            line-height: 1.7;
+        }
+
+        .program-list {
+            margin: 18px 0 0;
+            padding: 0;
+
+            list-style: none;
+        }
+
+        .program-list li {
+            margin-top: 8px;
+
+            color: #6d7771;
+
+            font-size: 11px;
+        }
+
+        .program-list li::before {
+            content: "✓";
+
+            margin-right: 7px;
+
+            color: var(--fjis-sage);
+            font-weight: 700;
+        }
+
+        .program-link {
+            margin-top: auto;
+            padding-top: 22px;
+
+            color: var(--fjis-sage-dark);
+
+            font-size: 11px;
+            font-weight: 700;
+        }
+
+        .feature-grid {
+            display: grid;
+
+            grid-template-columns:
+                repeat(4, 1fr);
+
+            gap: 13px;
+        }
+
+        .feature {
+            padding: 20px;
+
+            border:
+                1px solid
+                var(--fjis-line);
+
+            border-radius: 17px;
+
+            background: rgba(255,255,255,.67);
+        }
+
+        .feature-icon {
+            font-size: 18px;
+        }
+
+        .feature h3 {
+            margin: 15px 0 0;
+
+            font-size: 14px;
+        }
+
+        .feature p {
+            margin: 7px 0 0;
+
+            color: var(--fjis-muted);
+
+            font-size: 11px;
+            line-height: 1.65;
+        }
+
+        .stats {
+            display: grid;
+
+            grid-template-columns:
+                repeat(3, 1fr);
+
+            gap: 14px;
+        }
+
+        .stat {
+            padding: 25px;
+
+            border:
+                1px solid
+                var(--fjis-line);
+
+            border-radius: 18px;
+
+            background: rgba(255,255,255,.7);
+        }
+
+        .stat-value {
+            font-size: 29px;
+            font-weight: 700;
+
+            letter-spacing: -1px;
+        }
+
+        .stat-label {
+            margin-top: 5px;
+
+            color: var(--fjis-muted);
+
+            font-size: 11px;
+        }
+
+        .experience {
+            display: grid;
+
+            grid-template-columns:
+                .8fr 1.2fr;
+
+            gap: 35px;
+
+            align-items: center;
+        }
+
+        .experience-copy h2 {
+            margin: 10px 0 0;
+
+            font-size: 35px;
+            line-height: 1.2;
+
+            letter-spacing: -1px;
+        }
+
+        .experience-copy p {
+            margin: 14px 0 0;
+
+            color: var(--fjis-muted);
+
+            font-size: 13px;
+            line-height: 1.8;
+        }
+
+        .experience-box {
+            padding: 23px;
+
+            border:
+                1px solid
+                var(--fjis-line);
+
+            border-radius: 21px;
+
+            background: #fff;
+        }
+
+        .experience-header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+
+        .experience-header strong {
+            font-size: 13px;
+        }
+
+        .experience-header span {
+            color: var(--fjis-muted);
+
+            font-size: 10px;
+        }
+
+        .experience-list {
+            margin-top: 17px;
+
+            display: grid;
+            gap: 9px;
+        }
+
+        .experience-item {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+
+            padding: 12px;
+
+            border-radius: 11px;
+
+            background: #f7f7f3;
+        }
+
+        .experience-user {
+            display: flex;
+            align-items: center;
+            gap: 9px;
+        }
+
+        .experience-avatar {
+            width: 29px;
+            height: 29px;
+
+            display: flex;
+            align-items: center;
+            justify-content: center;
+
+            border-radius: 50%;
+
+            background: #e1e6e0;
+
+            color: #657169;
+
+            font-size: 9px;
+            font-weight: 700;
+        }
+
+        .experience-user strong {
+            display: block;
+
+            font-size: 10px;
+        }
+
+        .experience-user span {
+            display: block;
+
+            margin-top: 2px;
+
+            color: var(--fjis-muted);
+
+            font-size: 9px;
+        }
+
+        .experience-status {
+            color: var(--fjis-sage-dark);
+
+            font-size: 9px;
+            font-weight: 700;
+        }
+
+        .motivation {
+            padding-top: 60px;
+            padding-bottom: 60px;
+        }
+
+        .motivation-box {
+            padding: 42px;
+
+            text-align: center;
+
+            border:
+                1px solid
+                var(--fjis-line);
+
+            border-radius: 24px;
+
+            background: #ebece7;
+        }
+
+        .motivation-box .quote-mark {
+            font-size: 32px;
+
+            color: var(--fjis-sage);
+        }
+
+        .motivation-box h2 {
+            max-width: 700px;
+
+            margin: 8px auto 0;
+
+            font-size:
+                clamp(24px, 3vw, 34px);
+
+            line-height: 1.3;
+        }
+
+        .motivation-box p {
+            margin: 13px 0 0;
+
+            color: var(--fjis-muted);
+
+            font-size: 11px;
+        }
+
+        .cta {
+            padding: 80px 20px;
+        }
+
+        .cta-box {
+            width: min(1000px, 100%);
+
+            margin: auto;
+
+            padding: 45px;
+
+            text-align: center;
+
+            border:
+                1px solid
+                var(--fjis-line);
+
+            border-radius: 25px;
+
+            background: #fff;
+        }
+
+        .cta-box h2 {
+            margin: 0;
+
+            font-size: 32px;
+            letter-spacing: -1px;
+        }
+
+        .cta-box p {
+            max-width: 570px;
+
+            margin: 12px auto 0;
+
+            color: var(--fjis-muted);
+
+            font-size: 12px;
+            line-height: 1.7;
+        }
+
+        .cta-actions {
+            display: flex;
+            justify-content: center;
+            flex-wrap: wrap;
+            gap: 9px;
+
+            margin-top: 22px;
+        }
+
+        .site-footer {
+            padding: 45px 20px 25px;
+
+            border-top:
+                1px solid
+                var(--fjis-line);
+        }
+
+        .footer-inner {
+            width: min(1180px, 100%);
+
+            margin: auto;
+
+            display: grid;
+
+            grid-template-columns:
+                1.4fr
+                repeat(3, 1fr);
+
+            gap: 35px;
+        }
+
+        .footer-brand p {
+            max-width: 280px;
+
+            margin-top: 10px;
+
+            color: var(--fjis-muted);
+
+            font-size: 11px;
+            line-height: 1.7;
+        }
+
+        .footer-column h4 {
+            margin: 0;
+
+            font-size: 11px;
+        }
+
+        .footer-column a {
+            display: block;
+
+            margin-top: 9px;
+
+            color: var(--fjis-muted);
+
+            font-size: 10px;
+        }
+
+        .footer-bottom {
+            width: min(1180px, 100%);
+
+            margin: 35px auto 0;
+            padding-top: 17px;
+
+            border-top:
+                1px solid
+                var(--fjis-line);
+
+            display: flex;
+            justify-content: space-between;
+            gap: 20px;
+
+            color: #9a9f9b;
+
+            font-size: 9px;
+        }
+
+        .experience-modal {
+            position: fixed;
+            inset: 0;
+
+            z-index: 5000;
+
+            display: none;
+            align-items: center;
+            justify-content: center;
+
+            padding: 20px;
+
+            background:
+                rgba(35,43,39,.35);
+
+            backdrop-filter: blur(8px);
+        }
+
+        .experience-modal.active {
+            display: flex;
+        }
+
+        .modal-card {
+            width: min(520px, 100%);
+
+            padding: 27px;
+
+            border:
+                1px solid
+                rgba(255,255,255,.65);
+
+            border-radius: 21px;
+
+            background:
+                rgba(255,255,255,.94);
+
+            box-shadow:
+                0 30px 90px
+                rgba(25,35,29,.16);
+        }
+
+        .modal-head {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+        }
+
+        .modal-head h3 {
+            margin: 0;
+
+            font-size: 18px;
+        }
+
+        .modal-head p {
+            margin: 5px 0 0;
+
+            color: var(--fjis-muted);
+
+            font-size: 10px;
+        }
+
+        .modal-close {
+            width: 32px;
+            height: 32px;
+
+            border: 1px solid var(--fjis-line);
+            border-radius: 9px;
+
+            background: #f7f7f4;
+
+            cursor: pointer;
+        }
+
+        .form-group {
+            margin-top: 17px;
+        }
+
+        .form-group label {
+            display: block;
+
+            margin-bottom: 6px;
+
+            color: #68736c;
+
+            font-size: 10px;
+            font-weight: 600;
+        }
+
+        .form-group input,
+        .form-group textarea {
+            width: 100%;
+
+            border:
+                1px solid
+                var(--fjis-line);
+
+            border-radius: 10px;
+
+            padding: 11px 12px;
+
+            outline: none;
+
+            background: #fafaf7;
+
+            color: var(--fjis-text);
+
+            font-size: 11px;
+        }
+
+        .form-group textarea {
+            min-height: 105px;
+            resize: vertical;
+        }
+
+        .form-group input:focus,
+        .form-group textarea:focus {
+            border-color: rgba(111,129,117,.45);
+        }
+
+        .modal-actions {
+            margin-top: 18px;
+
+            display: flex;
+            justify-content: flex-end;
+            gap: 8px;
+        }
+
+        @media (max-width: 900px) {
+
+            .main-nav {
+                display: none;
+            }
+
+            .mobile-menu-btn {
+                display: block;
+            }
+
+            .hero-inner,
+            .experience {
+                grid-template-columns: 1fr;
+            }
+
+            .hero {
+                padding-top: 120px;
+            }
+
+            .hero-visual {
+                min-height: 300px;
+            }
+
+            .feature-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+
+            .programs {
+                grid-template-columns: 1fr;
+            }
+
+            .footer-inner {
+                grid-template-columns: 1fr 1fr;
+            }
+        }
+
+        @media (max-width: 620px) {
+
+            .header-inner {
+                width: min(100% - 24px, 1180px);
+            }
+
+            .header-actions .btn-outline {
+                display: none;
+            }
+
+            .hero {
+                padding-left: 14px;
+                padding-right: 14px;
+            }
+
+            .hero h1 {
+                letter-spacing: -1.7px;
+            }
+
+            .intro-grid,
+            .principles,
+            .feature-grid,
+            .stats {
+                grid-template-columns: 1fr;
+            }
+
+            .section {
+                padding: 65px 14px;
+            }
+
+            .motivation-box,
+            .cta-box {
+                padding: 30px 20px;
+            }
+
+            .footer-inner {
+                grid-template-columns: 1fr;
+            }
+
+            .footer-bottom {
+                flex-direction: column;
+            }
+        }
+    
+/* =========================================================
+   FJIS HOMEPAGE V3 — VISUAL REFINEMENT
+   ========================================================= */
+
+.site-header{
+    background:rgba(248,247,242,.94);
+    box-shadow:0 1px 0 rgba(55,68,61,.055);
+    backdrop-filter:blur(14px);
+    -webkit-backdrop-filter:blur(14px);
+}
+
+.header-inner{
+    min-height:76px;
+}
+
+.hero{
+    min-height:760px;
+    padding-top:128px;
+    padding-bottom:86px;
+}
+
+.hero-inner{
+    grid-template-columns:minmax(0,1.05fr) minmax(360px,.95fr);
+    gap:58px;
+    align-items:center;
+}
+
+.hero-copy{
+    max-width:650px;
+}
+
+.hero-label{
+    background:#fff;
+    box-shadow:0 10px 28px rgba(45,58,50,.045);
+}
+
+.hero h1{
+    font-size:clamp(46px,6vw,74px);
+    line-height:1.04;
+    max-width:650px;
+    letter-spacing:-.045em;
+}
+
+.hero-description{
+    max-width:590px;
+    font-size:15px;
+    line-height:1.8;
+}
+
+.hero-actions .btn{
+    min-height:46px;
+    padding:0 19px;
+}
+
+.hero-visual{
+    min-height:450px;
+}
+
+.book-scene{
+    width:min(440px,100%);
+    padding:50px 44px;
+    border-radius:30px;
+    box-shadow:0 28px 70px rgba(44,55,49,.07);
+}
+
+.section{
+    padding:96px 20px;
+}
+
+.section-heading{
+    margin-bottom:36px;
+}
+
+.section-heading h2{
+    max-width:790px;
+}
+
+#about{
+    background:#fff;
+}
+
+#about .section-heading p{
+    max-width:720px;
+}
+
+.intro-grid{
+    grid-template-columns:repeat(3,minmax(0,1fr));
+    gap:18px;
+}
+
+.intro-card{
+    min-height:275px;
+    padding:28px;
+    border-radius:22px;
+    background:#f8f7f2;
+    border:1px solid rgba(55,68,61,.07);
+    box-shadow:0 12px 34px rgba(55,68,61,.035);
+}
+
+.intro-card h3{
+    margin-bottom:15px;
+}
+
+.intro-card p + p{
+    margin-top:13px;
+}
+
+#program{
+    background:linear-gradient(180deg,#f1eee6 0%,#f7f6f1 100%);
+}
+
+.programs{
+    grid-template-columns:repeat(3,minmax(0,1fr));
+    gap:20px;
+    align-items:stretch;
+}
+
+.program{
+    min-height:370px;
+    padding:29px;
+    position:relative;
+    overflow:hidden;
+    border-radius:24px;
+    box-shadow:0 14px 38px rgba(55,68,61,.04);
+}
+
+.program::after{
+    content:"";
+    position:absolute;
+    right:-55px;
+    top:-58px;
+    width:155px;
+    height:155px;
+    border-radius:50%;
+    background:#f4f5f0;
+    pointer-events:none;
+}
+
+.program-icon{
+    position:relative;
+    z-index:1;
+    width:52px;
+    height:52px;
+}
+
+.program h3{
+    font-size:21px;
+    margin-top:23px;
+}
+
+.program p{
+    font-size:12.5px;
+    max-width:320px;
+    line-height:1.7;
+}
+
+.program-list{
+    margin-top:20px;
+}
+
+.program-list li{
+    font-size:11.5px;
+}
+
+.program-link{
+    position:relative;
+    z-index:2;
+    padding-top:24px;
+    font-size:12px;
+}
+
+#features{
+    background:#fff;
+}
+
+.feature-grid{
+    gap:17px;
+}
+
+.feature{
+    min-height:175px;
+    padding:24px;
+    border-radius:21px;
+}
+
+.stats{
+    gap:17px;
+}
+
+.stat{
+    padding:30px;
+    border-radius:22px;
+}
+
+#experience{
+    background:#f6f5ef;
+}
+
+.experience{
+    gap:50px;
+}
+
+.experience-points{
+    display:grid;
+    gap:8px;
+    margin-top:20px;
+    color:#5f6b64;
+    font-size:12px;
+    line-height:1.6;
+}
+
+.experience-points span{
+    display:block;
+}
+
+.experience-box{
+    box-shadow:0 18px 50px rgba(48,58,52,.055);
+    border-radius:24px;
+}
+
+.motivation-box{
+    padding:54px 38px;
+    border-radius:26px;
+}
+
+.cta-box{
+    padding:55px 38px;
+    border-radius:26px;
+}
+
+/* Contact */
+.contact-section{
+    background:#fff;
+}
+
+.contact-grid{
+    display:grid;
+    grid-template-columns:repeat(2,minmax(0,1fr));
+    gap:16px;
+    max-width:900px;
+}
+
+.contact-card{
+    min-height:92px;
+    display:grid;
+    grid-template-columns:48px minmax(0,1fr) 24px;
+    align-items:center;
+    gap:15px;
+    padding:18px 20px;
+    border-radius:20px;
+    background:#f8f7f2;
+    border:1px solid rgba(55,68,61,.07);
+    color:#34413a;
+    text-decoration:none;
+    transition:transform .2s ease, box-shadow .2s ease, background .2s ease;
+}
+
+.contact-card:hover{
+    transform:translateY(-2px);
+    background:#fff;
+    box-shadow:0 12px 32px rgba(55,68,61,.07);
+}
+
+.contact-icon{
+    width:46px;
+    height:46px;
+    display:grid;
+    place-items:center;
+    border-radius:15px;
+    background:#ecebe4;
+    font-size:20px;
+}
+
+.contact-card strong,
+.contact-card small{
+    display:block;
+}
+
+.contact-card strong{
+    font-size:13px;
+    margin-bottom:4px;
+}
+
+.contact-card small{
+    color:#7a827d;
+    font-size:11px;
+    overflow-wrap:anywhere;
+}
+
+.contact-arrow{
+    font-size:17px;
+    color:#7a827d;
+}
+
+/* Footer navigation should feel like a real site */
+.site-footer{
+    background:#303b35;
+}
+
+@media(max-width:900px){
+    .hero{
+        min-height:auto;
+        padding-top:125px;
+    }
+
+    .hero-inner{
+        grid-template-columns:1fr;
+        gap:38px;
+    }
+
+    .hero-copy{
+        max-width:720px;
+    }
+
+    .hero-visual{
+        min-height:360px;
+    }
+
+    .intro-grid{
+        grid-template-columns:1fr;
+    }
+
+    .intro-card{
+        min-height:0;
+    }
+
+    .programs{
+        grid-template-columns:1fr;
+    }
+
+    .program{
+        min-height:0;
+    }
+
+    .contact-grid{
+        grid-template-columns:1fr;
+    }
+}
+
+@media(max-width:620px){
+    .hero{
+        padding-top:108px;
+        padding-bottom:65px;
+    }
+
+    .hero h1{
+        font-size:clamp(40px,12vw,55px);
+    }
+
+    .hero-description{
+        font-size:13px;
+        line-height:1.75;
+    }
+
+    .book-scene{
+        padding:35px 25px;
+    }
+
+    .section{
+        padding:72px 14px;
+    }
+
+    .program{
+        padding:24px;
+    }
+
+    .feature{
+        min-height:0;
+    }
+
+    .contact-card{
+        grid-template-columns:43px minmax(0,1fr) 20px;
+        padding:16px;
+    }
+
+    .contact-icon{
+        width:42px;
+        height:42px;
+    }
+}
+
+
+        .program-dashboard-only {
+            cursor: not-allowed;
+            opacity: .72;
+        }
+
+        .program-dashboard-only:hover {
+            opacity: .82;
+        }
+
+        /* =====================================================
+           LIVE CLOCK + ROTATING MOTIVATION
+           Tambahan visual homepage — tidak mengubah sistem lain.
+        ====================================================== */
+
+        .fjis-live-clock {
+            display: inline-flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 4px;
+            margin-bottom: 18px;
+            padding: 10px 16px;
+            border: 1px solid rgba(70, 82, 74, .12);
+            border-radius: 14px;
+            background: rgba(255,255,255,.52);
+        }
+
+        .fjis-live-time {
+            font-size: 20px;
+            line-height: 1;
+            font-weight: 700;
+            letter-spacing: .08em;
+            color: var(--fjis-sage-dark);
+            font-variant-numeric: tabular-nums;
+        }
+
+        .fjis-live-date {
+            color: var(--fjis-muted);
+            font-size: 10px;
+            line-height: 1.3;
+            letter-spacing: .03em;
+        }
+
+        #motivationText {
+            min-height: 2.25em;
+        }
+
+        /* =====================================================
+           HOMEPAGE LIVE STRIP
+           Posisi motivasi + waktu tepat di bawah navbar.
+           Hanya mengatur tampilan/posisi addon.
+        ====================================================== */
+        .homepage-live-strip {
+            padding: 18px 0 8px;
+        }
+
+        .homepage-live-strip .section-inner {
+            max-width: 1180px;
+        }
+
+        .homepage-live-strip .motivation-box {
+            margin: 0;
+            padding: 22px 24px;
+        }
+
+        .homepage-live-strip #motivationText {
+            margin: 0 auto;
+            max-width: 900px;
+        }
+
+        @media (max-width: 700px) {
+            .homepage-live-strip {
+                padding: 12px 0 4px;
+            }
+
+            .homepage-live-strip .motivation-box {
+                padding: 18px 16px;
+            }
+
+            .fjis-live-time {
+                font-size: 18px;
+            }
+        }
+
+
+/* =========================================================
+   HERO INLINE MOTIVATION — no extra homepage section
+   ========================================================= */
+.hero-book-motivation{
+    display:grid;
+    grid-template-columns:minmax(220px,.9fr) minmax(250px,1.1fr);
+    gap:22px;
+    align-items:center;
+    width:100%;
+}
+.hero-motivation-panel{
+    min-height:300px;
+    display:flex;
+    flex-direction:column;
+    justify-content:center;
+    padding:28px 24px;
+    border:1px solid var(--fjis-line);
+    border-radius:24px;
+    background:#fff;
+    box-shadow:0 16px 38px rgba(48,58,52,.055);
+}
+.hero-motivation-panel .fjis-live-clock{
+    margin-bottom:18px;
+    text-align:left;
+}
+.hero-motivation-panel .fjis-live-time{
+    font-size:22px;
+    font-weight:700;
+    letter-spacing:-.02em;
+    color:var(--fjis-text);
+}
+.hero-motivation-panel .fjis-live-date{
+    margin-top:4px;
+    color:var(--fjis-muted);
+    font-size:10px;
+}
+.hero-motivation-panel .quote-mark{
+    font-size:30px;
+    line-height:1;
+    color:var(--fjis-sage);
+}
+.hero-motivation-panel h2{
+    margin:8px 0 0;
+    font-size:clamp(21px,2.25vw,30px);
+    line-height:1.3;
+    letter-spacing:-.025em;
+    transition:opacity .22s ease;
+}
+.hero-motivation-panel p{
+    margin:14px 0 0;
+    color:var(--fjis-muted);
+    font-size:10px;
+}
+@media (max-width:900px){
+    .hero-book-motivation{
+        grid-template-columns:1fr;
+        gap:18px;
+    }
+    .hero-motivation-panel{
+        min-height:auto;
+    }
+}
+@media (max-width:600px){
+    .hero-book-motivation{
+        grid-template-columns:minmax(0,1fr);
+    }
+    .hero-motivation-panel{
+        padding:22px 20px;
+        border-radius:20px;
+    }
+}
+</style>
+</head>
+
+<body>
+
+    <!-- =====================================================
+         LOADER
+    ====================================================== -->
+
+    <div
+        class="page-loader"
+        id="pageLoader"
+        aria-hidden="true"
+    >
+        <div class="loader-inner">
+
+            <div class="loader-book">
+                📚
+            </div>
+
+            <p>
+                FJIS Academy · Student Learner
+            </p>
+
+        </div>
+    </div>
+
+
+    <!-- =====================================================
+         HEADER
+    ====================================================== -->
+
+    <header class="site-header">
+
+        <div class="header-inner">
+
+            <a
+                href="./index.html"
+                class="brand"
+                aria-label="FJIS Academy"
+            >
+
+                <div class="brand-logo">
+                    📚
+                </div>
+
+                <div class="brand-copy">
+
+                    <strong>
+                        FJIS Academy
+                    </strong>
+
+                    <span>
+                        Student Learner
+                    </span>
+
+                </div>
+
+            </a>
+
+
+            <nav
+                class="main-nav"
+                id="mainNav"
+            >
+
+                <a href="#home">
+                    Beranda
+                </a>
+
+                <a href="#about">
+                    Tentang
+                </a>
+
+                <a href="#program">
+                    Program
+                </a>
+
+                <a href="#features">
+                    Fitur
+                </a>
+
+                <a href="#contact">
+                    Kontak
+                </a>
+
+            </nav>
+
+
+            <div class="header-actions">
+
+                <a
+                    href="./pages/login.html"
+                    class="btn btn-outline"
+                >
+                    Masuk
+                </a>
+
+                <a
+                    href="./pages/register.html"
+                    class="btn btn-primary"
+                >
+                    Register
+                </a>
+
+                <button
+                    type="button"
+                    class="mobile-menu-btn"
+                    id="mobileMenuBtn"
+                    aria-label="Buka menu"
+                >
+                    ☰
+                </button>
+
+            </div>
+
+        </div>
+
+    </header>
+
+
+    <!-- =====================================================
+         MAIN
+    ====================================================== -->
+
+    <main id="home">
+
+
+        <!-- =================================================
+             HERO
+        ================================================== -->
+
+        <section class="hero">
+
+            <div class="hero-inner">
+
+                <div class="hero-copy">
+
+                    <div class="hero-label">
+                        FJIS Academy
+                        <span>·</span>
+                        Student Learner
+                    </div>
+
+                    <h1>
+                        Belajar untuk
+                        <em>bertumbuh.</em>
+                    </h1>
+
+                    <p class="hero-description">
+                        FJIS Academy adalah ruang belajar yang
+                        membantu siswa memahami materi,
+                        berlatih, mengevaluasi kemampuan,
+                        dan mempersiapkan langkah pendidikan
+                        berikutnya.
+                    </p>
+
+                    <div class="hero-actions">
+
+                        <a
+                            href="./pages/login.html"
+                            class="btn btn-primary"
+                        >
+                            Mulai Belajar →
+                        </a>
+
+                        <a
+                            href="#program"
+                            class="btn btn-outline"
+                        >
+                            Lihat Program
+                        </a>
+
+                    </div>
+
+                    <div class="hero-note">
+
+                        <span></span>
+
+                        Belajar tidak harus sekaligus.
+                        Sedikit demi sedikit juga tetap maju.
+
+                    </div>
+
+                </div>
+
+
+                <div class="hero-visual">
+
+                    <div class="hero-book-motivation">
+
+                        <div class="book-scene">
+
+                        <div class="book-stack">
+
+                            <div class="book">
+                                <span class="book-title">
+                                    Student Learner
+                                </span>
+                            </div>
+
+                            <div class="book">
+                                <span class="book-title">
+                                    Practice
+                                </span>
+                            </div>
+
+                            <div class="book">
+                                <span class="book-title">
+                                    Growth
+                                </span>
+                            </div>
+
+                            <div class="book">
+                                <span class="book-title">
+                                    FJIS
+                                </span>
+                            </div>
+
+                        </div>
+
+                        <div class="scene-caption">
+
+                            <strong>
+                                Student Learner
+                            </strong>
+
+                            <span>
+                                Siswa yang terus belajar,
+                                mencoba, dan berkembang.
+                            </span>
+
+                        </div>
+
+                    </div>
+
+                    <div class="hero-motivation-panel">
+
+                        <div class="fjis-live-clock" aria-live="polite">
+                            <div class="fjis-live-time" id="fjisLiveTime">00:00:00</div>
+                            <div class="fjis-live-date" id="fjisLiveDate">Memuat tanggal...</div>
+                        </div>
+
+                        <div class="quote-mark">“</div>
+
+                        <h2 id="motivationText">
+                            Kamu adalah apa yang kamu lakukan hari ini.
+                        </h2>
+
+                        <p>FJIS Academy · Student Learner</p>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+        </section>
+
+
+        <!-- =================================================
+             ABOUT
+        ================================================== -->
+
+        <section
+            class="section"
+            id="about"
+        >
+
+            <div class="section-inner">
+
+                <div class="section-heading">
+
+                    <div class="section-kicker">
+                        Tentang FJIS Academy
+                    </div>
+
+                    <h2>
+                        Bukan cuma tempat
+                        mengerjakan soal.
+                    </h2>
+
+                    <p>
+                        FJIS Academy dirancang sebagai ruang
+                        pembelajaran yang menghubungkan materi,
+                        latihan, refleksi, dan persiapan.
+                    </p>
+
+                </div>
+
+
+                <div class="intro-grid">
+
+                    <article class="intro-card">
+
+                        <h3>
+                            Tempat untuk belajar dan bertumbuh
+                        </h3>
+
+                        <p>
+                            FJIS Academy hadir bukan hanya sebagai
+                            tempat untuk membuka materi atau
+                            mengerjakan soal. Kami ingin membangun
+                            sebuah ruang yang membuat proses belajar
+                            terasa lebih terarah, lebih manusiawi,
+                            dan bisa terus berkembang bersama
+                            penggunanya.
+                        </p>
+
+                        <p>
+                            Di sini, seorang pelajar dapat datang
+                            untuk memahami sesuatu yang belum
+                            dipahami, berlatih ketika masih ragu,
+                            mengevaluasi perkembangan, lalu kembali
+                            mencoba dengan cara yang lebih baik.
+                            Setiap proses memiliki nilainya sendiri.
+                        </p>
+
+                    </article>
+
+
+                    <article class="intro-card">
+
+                        <h3>
+                            Pendidikan tidak dibatasi keadaan
+                        </h3>
+
+                        <p>
+                            Kami percaya bahwa kesempatan untuk
+                            belajar tidak seharusnya berhenti hanya
+                            karena keadaan, keterbatasan akses,
+                            perbedaan lingkungan, atau perjalanan
+                            setiap orang yang tidak sama. Pendidikan
+                            dapat membuka jalan yang jauh lebih luas
+                            daripada apa yang terlihat hari ini.
+                        </p>
+
+                        <p>
+                            Karena itu, FJIS Academy dibangun sebagai
+                            ruang untuk saling berbagi, belajar dari
+                            pengalaman, dan memberikan sesuatu yang
+                            bermanfaat kepada satu sama lain.
+                            Kita tidak harus berjalan dengan cara
+                            yang sama untuk bisa tumbuh bersama.
+                        </p>
+
+                    </article>
+
+
+                    <article class="intro-card">
+
+                        <h3>
+                            Belajar bersama, bukan berjalan sendiri
+                        </h3>
+
+                        <p>
+                            Perjalanan pendidikan setiap orang
+                            berbeda. Ada yang sedang mengejar target,
+                            mencari arah, mempersiapkan seleksi,
+                            mengejar ketertinggalan, atau sekadar
+                            ingin memahami satu hal yang selama ini
+                            terasa sulit.
+                        </p>
+
+                        <p>
+                            FJIS Academy ingin menjadi bagian dari
+                            perjalanan itu: menyediakan ruang untuk
+                            belajar, bertanya, berlatih, merefleksikan
+                            proses, dan berbagi pengalaman sehingga
+                            satu langkah kecil hari ini dapat menjadi
+                            bagian dari perjalanan yang lebih besar.
+                        </p>
+
+                    </article>
+
+                </div>
+
+            </div>
+
+        </section>
+
+
+        <!-- =================================================
+             PRINCIPLES
+        ================================================== -->
+
+        <section class="section">
+
+            <div class="section-inner">
+
+                <div class="section-heading">
+
+                    <div class="section-kicker">
+                        Prinsip
+                    </div>
+
+                    <h2>
+                        Empat hal yang menjadi
+                        dasar pengalaman belajar.
+                    </h2>
+
+                </div>
+
+
+                <div class="principles">
+
+                    <article class="principle">
+
+                        <div class="principle-number">
+                            01
+                        </div>
+
+                        <h3>
+                            Belajar
+                        </h3>
+
+                        <p>
+                            Pahami materi dari konsep dasar
+                            sampai kemampuan analisis.
+                        </p>
+
+                    </article>
+
+
+                    <article class="principle">
+
+                        <div class="principle-number">
+                            02
+                        </div>
+
+                        <h3>
+                            Bertumbuh
+                        </h3>
+
+                        <p>
+                            Gunakan latihan dan progress
+                            untuk melihat perkembangan.
+                        </p>
+
+                    </article>
+
+
+                    <article class="principle">
+
+                        <div class="principle-number">
+                            03
+                        </div>
+
+                        <h3>
+                            Berbagi
+                        </h3>
+
+                        <p>
+                            Pengalaman belajar siswa dapat
+                            menjadi bagian dari komunitas.
+                        </p>
+
+                    </article>
+
+                </div>
+
+            </div>
+
+        </section>
+
+
+        <!-- =================================================
+             PROGRAM
+        ================================================== -->
+
+        <section
+            class="section"
+            id="program"
+        >
+
+            <div class="section-inner">
+
+                <div class="section-heading">
+
+                    <div class="section-kicker">
+                        Program
+                    </div>
+
+                    <h2>
+                        Satu ruang,
+                        beberapa jalur belajar.
+                    </h2>
+
+                    <p>
+                        Pilih jalur yang sesuai dengan kebutuhan
+                        pendidikanmu.
+                    </p>
+
+                </div>
+
+
+                <div class="programs">
+
+
+                    <!-- SMA -->
+
+                    <article class="program">
+
+                        <div class="program-icon">
+                            📚
+                        </div>
+
+                        <h3>
+                            SMA
+                        </h3>
+
+                        <p>
+                            Ruang pembelajaran SMA dengan
+                            struktur berdasarkan kelas,
+                            mata pelajaran, materi, latihan,
+                            dan persiapan seleksi.
+                        </p>
+
+                        <ul class="program-list">
+
+                            <li>
+                                Kelas 10
+                            </li>
+
+                            <li>
+                                Kelas 11
+                            </li>
+
+                            <li>
+                                Kelas 12
+                            </li>
+
+                            <li>
+                                TKA · SNBT · SNBP
+                            </li>
+
+                        </ul>
+
+                        <a
+                            href="#"
+                            class="program-link program-dashboard-only"
+                            data-program-dashboard-only="sma"
+                        >
+                            Masuk ke SMA →
+                        </a>
+
+                    </article>
+
+
+                    <!-- KEDINASAN -->
+
+                    <article class="program">
+
+                        <div class="program-icon">
+                            🏛️
+                        </div>
+
+                        <h3>
+                            Kedinasan
+                        </h3>
+
+                        <p>
+                            Ruang persiapan untuk berbagai
+                            jalur pendidikan kedinasan dan
+                            latihan seleksi.
+                        </p>
+
+                        <ul class="program-list">
+
+                            <li>
+                                Informasi sekolah kedinasan
+                            </li>
+
+                            <li>
+                                Materi persiapan
+                            </li>
+
+                            <li>
+                                Latihan dan tryout
+                            </li>
+
+                            <li>
+                                Persiapan seleksi
+                            </li>
+
+                        </ul>
+
+                        <a
+                            href="#"
+                            class="program-link program-dashboard-only"
+                            data-program-dashboard-only="kedinasan"
+                        >
+                            Masuk ke Kedinasan →
+                        </a>
+
+                    </article>
+
+
+                    <!-- KULIAH -->
+
+                    <article class="program">
+
+                        <div class="program-icon">
+                            🎓
+                        </div>
+
+                        <h3>
+                            Kuliah
+                        </h3>
+
+                        <p>
+                            Eksplorasi pendidikan tinggi dari
+                            kampus, fakultas, program studi,
+                            sampai materi per semester.
+                        </p>
+
+                        <ul class="program-list">
+
+                            <li>
+                                Kampus
+                            </li>
+
+                            <li>
+                                Fakultas & prodi
+                            </li>
+
+                            <li>
+                                Semester 1–8
+                            </li>
+
+                            <li>
+                                Mata kuliah
+                            </li>
+
+                        </ul>
+
+                        <a
+                            href="#"
+                            class="program-link program-dashboard-only"
+                            data-program-dashboard-only="kuliah"
+                        >
+                            Masuk ke Kuliah →
+                        </a>
+
+                    </article>
+
+                </div>
+
+            </div>
+
+        </section>
+
+
+        <!-- =================================================
+             FEATURES
+        ================================================== -->
+
+        <section
+            class="section"
+            id="features"
+        >
+
+            <div class="section-inner">
+
+                <div class="section-heading">
+
+                    <div class="section-kicker">
+                        Fitur
+                    </div>
+
+                    <h2>
+                        Dibangun untuk proses,
+                        bukan sekadar halaman.
+                    </h2>
+
+                </div>
+
+
+                <div class="feature-grid">
+
+
+                    <article class="feature">
+
+                        <div class="feature-icon">
+                            📖
+                        </div>
+
+                        <h3>
+                            Materi Terstruktur
+                        </h3>
+
+                        <p>
+                            Materi disusun berdasarkan
+                            jenjang, kelas, mata pelajaran,
+                            bab, dan subbab.
+                        </p>
+
+                    </article>
+
+
+                    <article class="feature">
+
+                        <div class="feature-icon">
+                            ✎
+                        </div>
+
+                        <h3>
+                            Latihan
+                        </h3>
+
+                        <p>
+                            Latihan dengan tingkat kesulitan
+                            dan kemampuan yang dapat disesuaikan.
+                        </p>
+
+                    </article>
+
+
+                    <article class="feature">
+
+                        <div class="feature-icon">
+                            📊
+                        </div>
+
+                        <h3>
+                            Progress
+                        </h3>
+
+                        <p>
+                            Perkembangan belajar dapat
+                            dicatat dan digunakan untuk refleksi.
+                        </p>
+
+                    </article>
+
+
+                    <article class="feature">
+
+                        <div class="feature-icon">
+                            🎯
+                        </div>
+
+                        <h3>
+                            Persiapan Tes
+                        </h3>
+
+                        <p>
+                            TKA, SNBT, SNBP, dan berbagai
+                            kebutuhan persiapan pendidikan.
+                        </p>
+
+                    </article>
+
+
+                </div>
+
+            </div>
+
+        </section>
+
+
+        <!-- =================================================
+             STATISTICS
+        ================================================== -->
+
+        <section class="section">
+
+            <div class="section-inner">
+
+                <div class="section-heading">
+
+                    <div class="section-kicker">
+                        FJIS Activity
+                    </div>
+
+                    <h2>
+                        Belajar terus bergerak.
+                    </h2>
+
+                    <p>
+                        Angka aktivitas di bawah merupakan
+                        bagian dari pengalaman komunitas FJIS.
+                    </p>
+
+                </div>
+
+
+                <div class="stats">
+
+                    <article class="stat">
+
+                        <div
+                            class="stat-value"
+                            id="activityCounter"
+                        >
+                            38.543
+                        </div>
+
+                        <div class="stat-label">
+                            Aktivitas pembelajaran
+                        </div>
+
+                    </article>
+
+
+                    <article class="stat">
+
+                        <div
+                            class="stat-value"
+                            id="exerciseCounter"
+                        >
+                            3.820
+                        </div>
+
+                        <div class="stat-label">
+                            Latihan dikerjakan
+                        </div>
+
+                    </article>
+
+
+                    <article class="stat">
+
+                        <div
+                            class="stat-value"
+                            id="studentCounter"
+                        >
+                            1
+                        </div>
+
+                        <div class="stat-label">
+                            Progress sesi kamu
+                        </div>
+
+                    </article>
+
+                </div>
+
+            </div>
+
+        </section>
+
+
+        <!-- =================================================
+             CTA
+        ================================================== -->
+
+        <section class="cta">
+
+            <div class="cta-box">
+
+                <h2>
+                    Mulai dari satu langkah.
+                </h2>
+
+                <p>
+                    Pilih materi, kerjakan latihan,
+                    lihat perkembanganmu, lalu lanjutkan
+                    lagi besok.
+                </p>
+
+                <div class="cta-actions">
+
+                    <a
+                        href="./pages/login.html"
+                        class="btn btn-primary"
+                    >
+                        Masuk ke FJIS Academy →
+                    </a>
+
+                    <a
+                        href="#program"
+                        class="btn btn-outline"
+                    >
+                        Lihat program
+                    </a>
+
+                </div>
+
+            </div>
+
+        </section>
+
+    </main>
+
+
+    <!-- =====================================================
+         FOOTER
+    ====================================================== -->
+
+
+        <!-- =================================================
+             CONTACT
+        ================================================== -->
+
+        <section
+            class="section contact-section"
+            id="contact"
+        >
+
+            <div class="section-inner">
+
+                <div class="section-heading">
+
+                    <div class="section-kicker">
+                        Kontak
+                    </div>
+
+                    <h2>
+                        Kalau ingin terhubung,
+                        kami ada di sini.
+                    </h2>
+
+                    <p>
+                        Punya pertanyaan, masukan, ingin berbagi
+                        sesuatu, atau sekadar ingin mengenal
+                        FJIS Academy lebih dekat? Hubungi kami
+                        melalui kanal yang paling nyaman buatmu.
+                    </p>
+
+                </div>
+
+
+                <div class="contact-grid">
+
+                    <a
+                        class="contact-card"
+                        href="https://wa.me/621377465931"
+                        target="_blank"
+                        rel="noopener noreferrer"
+                    >
+                        <span class="contact-icon">💬</span>
+                        <span>
+                            <strong>WhatsApp</strong>
+                            <small>+62 137 746 5931</small>
+                        </span>
+                        <span class="contact-arrow">↗</span>
+                    </a>
+
+
+                    <a
+                        class="contact-card"
+                        href="https://www.instagram.com/academy_studentlearner?stkn=MTljc3l4MmJjcHlrZw=="
+                        target="_blank"
+                        rel="noopener noreferrer"
+                    >
+                        <span class="contact-icon">◎</span>
+                        <span>
+                            <strong>Instagram</strong>
+                            <small>@academy_studentlearner</small>
+                        </span>
+                        <span class="contact-arrow">↗</span>
+                    </a>
+
+
+                    <a
+                        class="contact-card"
+                        href="mailto:studentlearneracademics@gmail.com"
+                    >
+                        <span class="contact-icon">✉</span>
+                        <span>
+                            <strong>Email Akademi</strong>
+                            <small>studentlearneracademics@gmail.com</small>
+                        </span>
+                        <span class="contact-arrow">↗</span>
+                    </a>
+
+
+                    <a
+                        class="contact-card"
+                        href="mailto:fjoyimmanuelsilaban@gmail.com"
+                    >
+                        <span class="contact-icon">✉</span>
+                        <span>
+                            <strong>Email Personal</strong>
+                            <small>fjoyimmanuelsilaban@gmail.com</small>
+                        </span>
+                        <span class="contact-arrow">↗</span>
+                    </a>
+
+                </div>
+
+            </div>
+
+        </section>
+
+
+    <footer class="site-footer">
+
+        <div class="footer-inner">
+
+
+            <div class="footer-brand">
+
+                <a
+                    href="./index.html"
+                    class="brand"
+                >
+
+                    <div class="brand-logo">
+                        📚
+                    </div>
+
+                    <div class="brand-copy">
+
+                        <strong>
+                            FJIS Academy
+                        </strong>
+
+                        <span>
+                            Student Learner
+                        </span>
+
+                    </div>
+
+                </a>
+
+                <p>
+                    Ruang belajar untuk memahami,
+                    berlatih, bertumbuh, dan mempersiapkan
+                    langkah berikutnya.
+                </p>
+
+            </div>
+
+
+            <div class="footer-column">
+
+                <h4>
+                    Belajar
+                </h4>
+
+                <a
+                    href="#"
+                    data-program-dashboard-only="sma"
+                >
+                    SMA
+                </a>
+
+                <a
+                    href="#"
+                    data-program-dashboard-only="kedinasan"
+                >
+                    Kedinasan
+                </a>
+
+                <a
+                    href="#"
+                    data-program-dashboard-only="kuliah"
+                >
+                    Kuliah
+                </a>
+
+            </div>
+
+
+            <div class="footer-column">
+
+                <h4>
+                    Persiapan
+                </h4>
+
+                <a href="./pages/sma/kelas-12-tka.html">
+                    TKA
+                </a>
+
+                <a href="./pages/sma/kelas-12-snbt.html">
+                    SNBT
+                </a>
+
+                <a href="./pages/sma/kelas-12-snbp.html">
+                    SNBP
+                </a>
+
+            </div>
+
+
+            <div class="footer-column">
+
+                <h4>
+                    FJIS
+                </h4>
+
+                <a href="#about">
+                    Tentang
+                </a>
+
+                <a href="#contact">
+                    Kontak
+                </a>
+
+                <a href="./pages/login.html">
+                    Masuk
+                </a>
+
+                <a href="./pages/register.html">
+                    Register
+                </a>
+
+            </div>
+
+        </div>
+
+
+        <div class="footer-bottom">
+
+            <span>
+                © 2026 FJIS Academy
+            </span>
+
+            <span>
+                Student Learner
+            </span>
+
+        </div>
+
+    </footer>
+
+
+    <!-- =====================================================
+         JAVASCRIPT
+    ====================================================== -->
+
+    <script>
+
+        /*
+         * =====================================================
+         * PAGE LOADER
+         * =====================================================
+         */
+
+        window.addEventListener("load", () => {
+
+            const loader =
+                document.getElementById("pageLoader");
+
+            if (loader) {
+                setTimeout(() => {
+                    loader.classList.add("hidden");
+                }, 250);
+            }
+
+        });
+
+
+        /*
+         * =====================================================
+         * MOBILE MENU
+         * =====================================================
+         */
+
+        const mobileMenuBtn =
+            document.getElementById("mobileMenuBtn");
+
+        const mainNav =
+            document.getElementById("mainNav");
+
+        if (mobileMenuBtn && mainNav) {
+
+            mobileMenuBtn.addEventListener(
+                "click",
+                () => {
+
+                    const current =
+                        mainNav.style.display;
+
+                    mainNav.style.display =
+                        current === "flex"
+                            ? ""
+                            : "flex";
+
+                    if (mainNav.style.display === "flex") {
+
+                        mainNav.style.position =
+                            "absolute";
+
+                        mainNav.style.top =
+                            "72px";
+
+                        mainNav.style.left =
+                            "12px";
+
+                        mainNav.style.right =
+                            "12px";
+
+                        mainNav.style.padding =
+                            "10px";
+
+                        mainNav.style.flexDirection =
+                            "column";
+
+                        mainNav.style.alignItems =
+                            "stretch";
+
+                        mainNav.style.background =
+                            "#ffffff";
+
+                        mainNav.style.border =
+                            "1px solid rgba(55,68,61,.12)";
+
+                        mainNav.style.borderRadius =
+                            "14px";
+
+                        mainNav.style.boxShadow =
+                            "0 15px 40px rgba(40,50,45,.08)";
+                    }
+
+                }
+            );
+
+        }
+
+
+
+        /* =====================================================
+         * PROGRAM ACCESS — DASHBOARD ONLY
+         * ===================================================== */
+
+        document
+            .querySelectorAll("[data-program-dashboard-only]")
+            .forEach(link => {
+                link.addEventListener("click", event => {
+                    event.preventDefault();
+                    event.stopPropagation();
+                    alert("Program SMA, Kedinasan, dan Kuliah hanya dapat diakses melalui Dashboard.");
+                });
+            });
+
+        /* Masuk dan Register tetap tersedia di beranda. */
+
+        /* =====================================================
+         * HOMEPAGE MOTIVATION + CLOCK POSITION
+         * Pindahkan addon yang sudah ada ke tepat di bawah navbar.
+         * Tidak mengubah sistem akses, login/register, atau program.
+         * =====================================================
+         */
+        const siteHeader = document.querySelector(".site-header");
+        const motivationSection = document.querySelector("section.motivation");
+
+        if (siteHeader && motivationSection) {
+            motivationSection.classList.add("homepage-live-strip");
+            siteHeader.insertAdjacentElement("afterend", motivationSection);
+        }
+
+
+        /*
+         * =====================================================
+         * COMING SOON
+         * =====================================================
+         */
+
+        document
+            .querySelectorAll("[data-coming-soon]")
+            .forEach(link => {
+
+                link.addEventListener(
+                    "click",
+                    event => {
+
+                        event.preventDefault();
+
+                        const name =
+                            link.dataset.comingSoon;
+
+                        alert(
+                            `${name} sedang dipersiapkan di FJIS Academy.`
+                        );
+
+                    }
+                );
+
+            });
+
+
+        /*
+         * =====================================================
+         * COUNTERS
+         *
+         * Nilai awal mengikuti tampilan project sebelumnya.
+         * Counter aktivitas dan latihan bergerak secara
+         * perlahan sebagai visual activity indicator.
+         * =====================================================
+         */
+
+        let activity =
+            38543;
+
+        let exercises =
+            3820;
+
+        const activityElement =
+            document.getElementById(
+                "activityCounter"
+            );
+
+        const exerciseElement =
+            document.getElementById(
+                "exerciseCounter"
+            );
+
+        function formatNumber(value) {
+
+            return value
+                .toLocaleString("id-ID");
+
+        }
+
+        function updateCounters() {
+
+            if (activityElement) {
+                activityElement.textContent =
+                    formatNumber(activity);
+            }
+
+            if (exerciseElement) {
+                exerciseElement.textContent =
+                    formatNumber(exercises);
+            }
+
+        }
+
+        updateCounters();
+
+        setInterval(() => {
+
+            const activityIncrease =
+                Math.floor(
+                    Math.random() * 3
+                ) + 3;
+
+            const exerciseIncrease =
+                Math.floor(
+                    Math.random() * 4
+                ) + 2;
+
+            activity +=
+                activityIncrease;
+
+            exercises +=
+                exerciseIncrease;
+
+            updateCounters();
+
+        }, 2000);
+
+
+        /*
+         * =====================================================
+         * SAFE HTML
+         * =====================================================
+         */
+
+        function escapeHtml(value) {
+
+            return String(value)
+                .replaceAll("&", "&amp;")
+                .replaceAll("<", "&lt;")
+                .replaceAll(">", "&gt;")
+                .replaceAll('"', "&quot;")
+                .replaceAll("'", "&#039;");
+
+        }
+
+
+        /*
+         * =====================================================
+         * MOTIVATION
+         *
+         * Jika motivation.js tersedia, file tersebut dapat
+         * mengambil alih bagian motivasi.
+         * =====================================================
+         */
+
+        const motivations = [
+
+            "Kamu adalah apa yang kamu lakukan hari ini.",
+
+            "Perjalanan seribu mil selalu dimulai dari satu langkah.",
+
+            "Tidak ada yang instan. Semua butuh proses, kerja keras, keringat, dan kesabaran.",
+
+            "Hasil adalah bonus, tetapi proses dan perjuangan menunjukkan siapa dirimu sebenarnya.",
+
+            "Small steps every day can lead to meaningful changes over time.",
+
+            "You do not have to be perfect. You just have to keep moving forward.",
+
+            "Success is built through consistency, patience, and the courage to keep trying.",
+
+            "Your future is shaped by what you choose to do with today.",
+
+            "Jangan takut berjalan pelan. Takutlah jika kamu berhenti melangkah.",
+
+            "Apa yang sulit hari ini bisa menjadi kemampuan yang kamu banggakan nanti.",
+
+            "Discipline keeps you moving when motivation is no longer enough.",
+
+            "Every lesson you learn today becomes part of the person you are becoming.",
+
+            "Tidak semua kemajuan harus terlihat besar. Satu langkah tetap sebuah kemajuan.",
+
+            "Keep learning, keep growing, and let the process shape you.",
+
+            "Kamu tidak harus tahu seluruh jalan. Cukup berani mengambil langkah berikutnya."
+
+        ];
+
+        const motivationText =
+            document.getElementById(
+                "motivationText"
+            );
+
+        let motivationIndex =
+            0;
+
+        function rotateMotivation() {
+
+            if (!motivationText) {
+                return;
+            }
+
+            motivationIndex =
+                (motivationIndex + 1)
+                % motivations.length;
+
+            motivationText.style.opacity =
+                "0";
+
+            setTimeout(() => {
+
+                motivationText.textContent =
+                    motivations[motivationIndex];
+
+                motivationText.style.opacity =
+                    "1";
+
+            }, 220);
+
+        }
+
+        if (motivationText) {
+
+            motivationText.style.transition =
+                "opacity .22s ease";
+
+            setInterval(
+                rotateMotivation,
+                3000
+            );
+
+        }
+
+
+        /*
+         * =====================================================
+         * REAL-TIME CLOCK
+         * =====================================================
+         */
+
+        const liveTime =
+            document.getElementById("fjisLiveTime");
+
+        const liveDate =
+            document.getElementById("fjisLiveDate");
+
+        function updateFJISClock() {
+
+            const now = new Date();
+
+            if (liveTime) {
+                liveTime.textContent =
+                    now.toLocaleTimeString("id-ID", {
+                        hour: "2-digit",
+                        minute: "2-digit",
+                        second: "2-digit",
+                        hour12: false
+                    });
+            }
+
+            if (liveDate) {
+                liveDate.textContent =
+                    now.toLocaleDateString("id-ID", {
+                        weekday: "long",
+                        day: "2-digit",
+                        month: "long",
+                        year: "numeric"
+                    });
+            }
+        }
+
+        updateFJISClock();
+        setInterval(updateFJISClock, 1000);
+
+
+        /*
+         * =====================================================
+         * LOCAL USER
+         * =====================================================
+         *
+         * Jika user sudah login dan menyimpan nama,
+         * informasi tersebut dapat dipakai oleh halaman
+         * berikutnya.
+         * =====================================================
+         */
+
+        const savedUser =
+            localStorage.getItem(
+                "fjis_user_name"
+            );
+
+        if (savedUser) {
+
+            const cleanedName =
+                savedUser.trim();
+
+            if (cleanedName) {
+
+                document
+                    .querySelectorAll(
+                        "[data-user-name]"
+                    )
+                    .forEach(element => {
+
+                        element.textContent =
+                            cleanedName;
+
+                    });
+
+            }
+
+        }
+
+
+        /*
+         * =====================================================
+         * MAIN APP MODULE
+         * =====================================================
+         *
+         * app.js menjadi engine utama project FJIS.
+         * Versi diberi query string agar browser tidak
+         * menggunakan cache JS lama saat development.
+         * =====================================================
+         */
+
+    </script>
+
+
+    <script
+        type="module"
+        src="./js/app.js?v=20260913"
+    ></script>
+
+</body>
+</html>
+<style>
+/* =========================================================
+   HERO POLISH — hanya merapikan ukuran/posisi visual
+   Tidak mengubah struktur atau sistem halaman.
+   ========================================================= */
+@media (min-width: 901px){
+    .hero-inner{
+        width:min(1280px, calc(100% - 40px));
+        grid-template-columns:minmax(0, 1fr) minmax(600px, 1.05fr);
+        gap:48px;
+    }
+
+    .hero-copy{
+        max-width:680px;
+    }
+
+    .hero-visual{
+        width:100%;
+        min-width:0;
+        min-height:500px;
+    }
+
+    .book-scene{
+        width:100%;
+        max-width:720px;
+        padding:42px;
+    }
+
+    .hero-book-motivation{
+        grid-template-columns:minmax(250px, .95fr) minmax(285px, 1.05fr);
+        gap:28px;
+        align-items:center;
+    }
+
+    .hero-motivation-panel{
+        min-width:0;
+        min-height:320px;
+        transform:translateY(-22px);
+    }
+}
+
+@media (min-width: 901px) and (max-width: 1250px){
+    .hero-inner{
+        width:min(1160px, calc(100% - 32px));
+        grid-template-columns:minmax(0, 1fr) minmax(540px, .95fr);
+        gap:34px;
+    }
+
+    .book-scene{
+        max-width:650px;
+        padding:34px;
+    }
+
+    .hero-book-motivation{
+        grid-template-columns:minmax(220px,.9fr) minmax(270px,1.1fr);
+        gap:20px;
+    }
+}
+
+@media (max-width: 900px){
+    .hero-visual{
+        width:100%;
+        overflow:visible;
+    }
+
+    .book-scene{
+        width:100%;
+        max-width:720px;
+        margin:0 auto;
+    }
+
+    .hero-motivation-panel{
+        transform:translateY(-8px);
+    }
+}
+</style>
+
+<style>
+/* HERO LAYOUT FIX — buku dan motivasi benar-benar sejajar horizontal.
+   Hanya mengatur layout visual hero; sistem lain tidak disentuh. */
+@media (min-width:901px){
+    .hero-inner{
+        width:min(1280px, calc(100% - 48px));
+        grid-template-columns:minmax(0, 1fr) minmax(620px, 1.08fr);
+        gap:42px;
+        align-items:center;
+    }
+
+    .hero-visual{
+        width:100%;
+        min-width:0;
+        min-height:0;
+        overflow:visible;
+    }
+
+    .hero-book-motivation{
+        width:100%;
+        display:grid;
+        grid-template-columns:minmax(0, 1.08fr) minmax(280px, .92fr);
+        gap:22px;
+        align-items:center;
+    }
+
+    .hero-book-motivation .book-scene{
+        width:100%;
+        max-width:none;
+        min-width:0;
+        padding:40px 30px;
+        box-sizing:border-box;
+    }
+
+    .hero-motivation-panel{
+        width:100%;
+        min-width:0;
+        min-height:330px;
+        box-sizing:border-box;
+        padding:30px 26px;
+        transform:translateY(-18px);
+        overflow:hidden;
+    }
+
+    .hero-motivation-panel h2{
+        max-width:100%;
+        overflow-wrap:anywhere;
+    }
+}
+
+@media (min-width:901px) and (max-width:1250px){
+    .hero-inner{
+        width:min(1160px, calc(100% - 32px));
+        grid-template-columns:minmax(0, 1fr) minmax(560px, 1fr);
+        gap:28px;
+    }
+
+    .hero-book-motivation{
+        grid-template-columns:minmax(0, 1fr) minmax(250px, .9fr);
+        gap:16px;
+    }
+
+    .hero-book-motivation .book-scene{
+        padding:32px 24px;
+    }
+
+    .hero-motivation-panel{
+        min-height:310px;
+        padding:26px 21px;
+    }
+}
+
+@media (max-width:900px){
+    .hero-book-motivation{
+        grid-template-columns:1fr;
+        gap:18px;
+    }
+
+    .hero-book-motivation .book-scene{
+        width:100%;
+        max-width:720px;
+        margin:0 auto;
+    }
+
+    .hero-motivation-panel{
+        width:100%;
+        min-height:280px;
+        transform:none;
+        box-sizing:border-box;
+    }
+}
+</style>

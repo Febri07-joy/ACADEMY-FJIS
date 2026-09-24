@@ -1,0 +1,2792 @@
+/* ============================================================
+   FJIS ACADEMY
+   VISUAL REFRESH — COMPLETE VERSION
+   ------------------------------------------------------------
+   Arah visual:
+   - Warm academic
+   - Student / library / journal
+   - Ivory + coffee brown
+   - Muted pastel accents
+   - Tidak terlalu hijau
+   - Tidak terlalu "AI / futuristic"
+   - Compact spacing
+   - Responsive
+   ============================================================ */
+
+
+/* ============================================================
+   01. COLOR SYSTEM
+   ============================================================ */
+
+:root {
+
+  /* ---------- Main ---------- */
+
+  --fjs-ivory: #f7f3ea;
+  --fjs-paper: #fffdf8;
+  --fjs-paper-soft: #f1eadf;
+
+  --fjs-ink: #30261f;
+  --fjs-ink-soft: #655950;
+  --fjs-muted: #83766c;
+
+  /* ---------- Coffee ---------- */
+
+  --fjs-coffee: #65483a;
+  --fjs-coffee-dark: #443229;
+  --fjs-coffee-soft: #8a6b58;
+
+  /* ---------- Sage ---------- */
+
+  --fjs-sage: #dfe9df;
+  --fjs-sage-dark: #526b58;
+
+  /* ---------- Blue ---------- */
+
+  --fjs-blue: #dbe9ee;
+  --fjs-blue-dark: #426979;
+
+  /* ---------- Gold ---------- */
+
+  --fjs-gold: #f1e4bc;
+  --fjs-gold-dark: #80642d;
+
+  /* ---------- Lavender ---------- */
+
+  --fjs-lavender: #e8e1ed;
+  --fjs-lavender-dark: #675b78;
+
+  /* ---------- Rose ---------- */
+
+  --fjs-rose: #eedbd7;
+  --fjs-rose-dark: #815b55;
+
+  /* ---------- Orange ---------- */
+
+  --fjs-orange: #f0dfc7;
+  --fjs-orange-dark: #865e35;
+
+  /* ---------- Border ---------- */
+
+  --fjs-border: rgba(76, 55, 43, .14);
+  --fjs-border-soft: rgba(76, 55, 43, .08);
+
+  /* ---------- Shadows ---------- */
+
+  --fjs-shadow-small:
+    0 7px 20px rgba(67, 50, 38, .05);
+
+  --fjs-shadow:
+    0 15px 40px rgba(67, 50, 38, .08);
+
+  --fjs-shadow-large:
+    0 25px 70px rgba(67, 50, 38, .13);
+}
+
+
+/* ============================================================
+   02. GLOBAL DASHBOARD BACKGROUND
+   ============================================================ */
+
+.fjis-dashboard-page {
+
+  background:
+    radial-gradient(
+      circle at 8% 12%,
+      rgba(219, 233, 238, .40),
+      transparent 27rem
+    ),
+
+    radial-gradient(
+      circle at 91% 42%,
+      rgba(241, 228, 188, .30),
+      transparent 30rem
+    ),
+
+    var(--fjs-ivory);
+
+  color: var(--fjs-ink);
+
+  min-height: 100vh;
+}
+
+
+/* ============================================================
+   03. HEADER
+   ============================================================ */
+
+.fjis-dashboard-header {
+
+  background:
+    rgba(255, 253, 248, .94) !important;
+
+  border-bottom:
+    1px solid var(--fjs-border-soft) !important;
+
+  box-shadow:
+    0 5px 20px rgba(67, 50, 38, .025);
+
+  z-index: 1000;
+}
+
+
+/* ============================================================
+   04. FJIS BOOK LOGO
+   ============================================================ */
+
+.fjis-brand {
+
+  display: flex !important;
+
+  align-items: center;
+
+  gap: 13px;
+
+  text-decoration: none;
+}
+
+
+/* ---------- Logo container ---------- */
+
+.fjis-logo-book {
+
+  position: relative;
+
+  display: block;
+
+  width: 52px;
+
+  height: 52px;
+
+  flex: 0 0 52px;
+}
+
+
+/* ---------- Individual books ---------- */
+
+.fjis-logo-book .book {
+
+  position: absolute;
+
+  left: 8px;
+
+  width: 36px;
+
+  border-radius:
+    3px 5px 5px 3px;
+
+  box-shadow:
+    0 2px 2px rgba(60, 43, 33, .08);
+}
+
+
+/* Back book */
+
+.fjis-logo-book .book-back {
+
+  top: 13px;
+
+  height: 8px;
+
+  background: #d7b99e;
+
+  transform:
+    rotate(-5deg);
+}
+
+
+/* Middle book */
+
+.fjis-logo-book .book-middle {
+
+  top: 21px;
+
+  left: 6px;
+
+  height: 8px;
+
+  background: #9eb8c1;
+
+  transform:
+    rotate(3deg);
+}
+
+
+/* Front book */
+
+.fjis-logo-book .book-front {
+
+  top: 29px;
+
+  height: 11px;
+
+  background: #b99d87;
+
+  transform:
+    rotate(-2deg);
+}
+
+
+/* Page line */
+
+.fjis-logo-book .book-page {
+
+  position: absolute;
+
+  left: 5px;
+
+  right: 4px;
+
+  top: 3px;
+
+  height: 5px;
+
+  border-top:
+    1px solid rgba(255,255,255,.72);
+}
+
+
+/* ---------- Brand typography ---------- */
+
+.fjis-brand .brand-name {
+
+  color:
+    var(--fjs-coffee-dark) !important;
+
+  font-family:
+    var(--font-display, Georgia, serif);
+
+  font-weight:
+    600;
+}
+
+
+.fjis-brand .brand-tagline {
+
+  color:
+    #887b70 !important;
+
+  letter-spacing:
+    .12em;
+}
+
+
+/* ============================================================
+   05. USER AREA
+   ============================================================ */
+
+.fjis-user-area {
+
+  display: flex;
+
+  align-items: center;
+
+  gap: 12px;
+}
+
+
+.fjis-user-copy {
+
+  display: flex;
+
+  flex-direction: column;
+
+  align-items: flex-end;
+
+  gap: 2px;
+}
+
+
+.fjis-user-copy strong {
+
+  color:
+    var(--fjs-coffee-dark) !important;
+
+  font-size:
+    .92rem;
+}
+
+
+.fjis-user-copy span {
+
+  color:
+    #887c72 !important;
+
+  font-size:
+    .76rem;
+}
+
+
+.fjis-avatar {
+
+  width: 50px;
+
+  height: 50px;
+
+  display: grid;
+
+  place-items: center;
+
+  border-radius: 50%;
+
+  background:
+    #e5ddd1 !important;
+
+  color:
+    var(--fjs-coffee-dark) !important;
+
+  font-weight:
+    700;
+}
+
+
+.fjis-logout {
+
+  color:
+    var(--fjs-coffee) !important;
+
+  border-color:
+    rgba(101,72,58,.18) !important;
+
+  background:
+    transparent !important;
+}
+
+
+.fjis-logout:hover {
+
+  background:
+    #f1eadf !important;
+
+  border-color:
+    rgba(101,72,58,.28) !important;
+}
+
+
+/* ============================================================
+   06. MAIN OFFSET
+   ------------------------------------------------------------
+   Header menggunakan posisi fixed pada style utama.
+   Ini mencegah hero masuk ke bawah header.
+   ============================================================ */
+
+.fjis-dashboard-page main {
+
+  padding-top:
+    96px;
+}
+
+
+/* ============================================================
+   07. DASHBOARD HERO
+   ============================================================ */
+
+.fjis-dashboard-hero {
+
+  padding:
+    25px 0 30px;
+}
+
+
+.fjis-dashboard-hero-inner {
+
+  position: relative;
+
+  display: grid;
+
+  grid-template-columns:
+    minmax(0, 1.45fr)
+    minmax(340px, .75fr);
+
+  align-items: center;
+
+  gap: 42px;
+
+  min-height:
+    300px;
+
+  padding:
+    40px 48px;
+
+  box-sizing:
+    border-box;
+
+  overflow:
+    hidden;
+
+  border-radius:
+    30px;
+
+  background:
+    linear-gradient(
+      120deg,
+      #65483a 0%,
+      #554034 52%,
+      #49362d 100%
+    );
+
+  box-shadow:
+    var(--fjs-shadow);
+}
+
+
+/* Decorative circle */
+
+.fjis-dashboard-hero-inner::after {
+
+  content: "";
+
+  position: absolute;
+
+  width: 360px;
+
+  height: 360px;
+
+  right: -105px;
+
+  top: -170px;
+
+  border:
+    1px solid rgba(255,255,255,.10);
+
+  border-radius:
+    50%;
+
+  box-shadow:
+
+    0 0 0 45px
+    rgba(255,255,255,.025),
+
+    0 0 0 90px
+    rgba(255,255,255,.018);
+}
+
+
+/* Hero content */
+
+.fjis-hero-copy,
+.fjis-quote-card {
+
+  position:
+    relative;
+
+  z-index:
+    2;
+}
+
+
+/* ============================================================
+   08. HERO TYPOGRAPHY
+   ============================================================ */
+
+.fjis-eyebrow {
+
+  margin-bottom:
+    17px;
+
+  color:
+    #f1d68d;
+
+  font-size:
+    .72rem;
+
+  font-weight:
+    800;
+
+  letter-spacing:
+    .14em;
+}
+
+
+.fjis-eyebrow span {
+
+  margin-right:
+    7px;
+}
+
+
+.fjis-hero-copy h1 {
+
+  margin:
+    0 0 10px;
+
+  color:
+    #fffdf8;
+
+  font-family:
+    var(--font-display, Georgia, serif);
+
+  font-size:
+    clamp(3rem, 5vw, 4.6rem);
+
+  font-weight:
+    600;
+
+  line-height:
+    .95;
+}
+
+
+.fjis-hero-copy h1 span {
+
+  color:
+    #f0d287;
+}
+
+
+.fjis-hero-copy p {
+
+  max-width:
+    720px;
+
+  margin:
+    0;
+
+  color:
+    rgba(255,253,248,.82);
+
+  font-size:
+    1rem;
+
+  line-height:
+    1.6;
+}
+
+
+/* ============================================================
+   09. MOTIVATION CARD
+   ============================================================ */
+
+.fjis-quote-card {
+
+  min-height:
+    165px;
+
+  box-sizing:
+    border-box;
+
+  padding:
+    25px 28px;
+
+  display:
+    flex;
+
+  align-items:
+    flex-start;
+
+  gap:
+    11px;
+
+  overflow:
+    visible;
+
+  border:
+    1px solid rgba(255,255,255,.14);
+
+  border-radius:
+    20px;
+
+  background:
+    rgba(255,255,255,.075);
+}
+
+
+/* Big quotation mark */
+
+.fjis-quote-mark {
+
+  flex:
+    0 0 auto;
+
+  color:
+    #f0d287;
+
+  font-family:
+    Georgia, serif;
+
+  font-size:
+    3rem;
+
+  line-height:
+    .7;
+}
+
+
+/* Motivation container */
+
+.fjis-motivation {
+
+  flex:
+    1;
+
+  min-width:
+    0;
+
+  min-height:
+    110px;
+
+  opacity:
+    0;
+
+  transform:
+    translateY(5px);
+
+  transition:
+    opacity .18s ease,
+    transform .18s ease;
+}
+
+
+.fjis-motivation.is-visible {
+
+  opacity:
+    1;
+
+  transform:
+    translateY(0);
+}
+
+
+.fjis-motivation.is-changing {
+
+  opacity:
+    0;
+
+  transform:
+    translateY(-5px);
+}
+
+
+/* Hide decorative icon inside quote */
+
+.fjis-motivation-icon {
+
+  display:
+    none;
+}
+
+
+/* Quote content */
+
+.fjis-motivation-content {
+
+  display:
+    flex;
+
+  flex-direction:
+    column;
+
+  gap:
+    7px;
+}
+
+
+/* Quote ID */
+
+.fjis-motivation-id {
+
+  display:
+    block;
+
+  color:
+    #f0d287;
+
+  font-size:
+    .64rem;
+
+  font-weight:
+    800;
+
+  letter-spacing:
+    .12em;
+}
+
+
+/* Indonesian quote */
+
+.fjis-motivation-indonesia {
+
+  display:
+    block;
+
+  color:
+    #fffdf8;
+
+  font-family:
+    var(--font-display, Georgia, serif);
+
+  font-size:
+    1.04rem;
+
+  line-height:
+    1.48;
+}
+
+
+/* English quote */
+
+.fjis-motivation-english {
+
+  display:
+    block;
+
+  color:
+    rgba(255,253,248,.62);
+
+  font-size:
+    .74rem;
+
+  line-height:
+    1.45;
+}
+
+
+/* ============================================================
+   10. GENERAL SECTION
+   ============================================================ */
+
+.fjis-main-section,
+.fjis-program-section,
+.fjis-progress-section,
+.fjis-sharing-section {
+
+  padding-top:
+    20px;
+
+  padding-bottom:
+    20px;
+}
+
+
+.fjis-section-heading {
+
+  margin-bottom:
+    19px;
+}
+
+
+.fjis-section-heading.compact {
+
+  margin-bottom:
+    15px;
+}
+
+
+.fjis-section-label {
+
+  display:
+    block;
+
+  margin-bottom:
+    7px;
+
+  color:
+    #8b7769;
+
+  font-size:
+    .71rem;
+
+  font-weight:
+    800;
+
+  letter-spacing:
+    .14em;
+}
+
+
+.fjis-section-heading h2 {
+
+  margin:
+    0;
+
+  color:
+    var(--fjs-coffee-dark);
+
+  font-family:
+    var(--font-display, Georgia, serif);
+
+  font-size:
+    clamp(2rem, 3vw, 2.8rem);
+
+  font-weight:
+    600;
+
+  line-height:
+    1.05;
+}
+
+
+.fjis-section-heading p {
+
+  margin:
+    7px 0 0;
+
+  color:
+    #81766c;
+
+  line-height:
+    1.5;
+}
+
+
+/* ============================================================
+   11. MAIN DASHBOARD ACTION CARDS
+   ============================================================ */
+
+.fjis-dashboard-actions {
+
+  display:
+    grid;
+
+  grid-template-columns:
+    repeat(4, 1fr);
+
+  gap:
+    16px;
+}
+
+
+.fjis-dashboard-action {
+
+  position:
+    relative;
+
+  min-height:
+    176px;
+
+  box-sizing:
+    border-box;
+
+  padding:
+    23px;
+
+  display:
+    flex;
+
+  flex-direction:
+    column;
+
+  justify-content:
+    space-between;
+
+  gap:
+    13px;
+
+  border:
+    1px solid var(--fjs-border);
+
+  border-radius:
+    20px;
+
+  color:
+    inherit;
+
+  text-decoration:
+    none;
+
+  box-shadow:
+    var(--fjs-shadow-small);
+
+  transition:
+    transform .2s ease,
+    box-shadow .2s ease,
+    border-color .2s ease;
+}
+
+
+.fjis-dashboard-action:hover {
+
+  transform:
+    translateY(-4px);
+
+  box-shadow:
+    var(--fjs-shadow);
+
+  border-color:
+    rgba(76,55,43,.23);
+}
+
+
+/* ---------- Card colors ---------- */
+
+.action-sage {
+
+  background:
+    var(--fjs-sage);
+}
+
+
+.action-blue {
+
+  background:
+    var(--fjs-blue);
+}
+
+
+.action-gold {
+
+  background:
+    var(--fjs-gold);
+}
+
+
+.action-lavender {
+
+  background:
+    var(--fjs-lavender);
+}
+
+
+/* ---------- Action icon ---------- */
+
+.action-icon {
+
+  width:
+    43px;
+
+  height:
+    43px;
+
+  display:
+    grid;
+
+  place-items:
+    center;
+
+  border-radius:
+    12px;
+
+  background:
+    rgba(255,255,255,.70);
+
+  font-size:
+    1.3rem;
+}
+
+
+/* ---------- Action title ---------- */
+
+.fjis-dashboard-action strong {
+
+  display:
+    block;
+
+  margin-bottom:
+    6px;
+
+  color:
+    var(--fjs-coffee-dark);
+
+  font-family:
+    var(--font-display, Georgia, serif);
+
+  font-size:
+    1.35rem;
+
+  line-height:
+    1.15;
+}
+
+
+/* ---------- Action description ---------- */
+
+.fjis-dashboard-action small {
+
+  display:
+    block;
+
+  max-width:
+    235px;
+
+  color:
+    #756b63;
+
+  font-size:
+    .81rem;
+
+  line-height:
+    1.45;
+}
+
+
+/* ---------- Arrow ---------- */
+
+.action-arrow {
+
+  align-self:
+    flex-end;
+
+  color:
+    #6c5a4e;
+
+  font-size:
+    1.15rem;
+}
+
+
+/* ============================================================
+   12. PROGRAM SECTION
+   ============================================================ */
+
+.fjis-program-grid {
+
+  display:
+    grid;
+
+  grid-template-columns:
+    repeat(3, 1fr);
+
+  gap:
+    16px;
+}
+
+
+.fjis-program-card {
+
+  position:
+    relative;
+
+  min-height:
+    170px;
+
+  box-sizing:
+    border-box;
+
+  padding:
+    24px;
+
+  display:
+    flex;
+
+  align-items:
+    flex-start;
+
+  gap:
+    17px;
+
+  border:
+    1px solid var(--fjs-border);
+
+  border-radius:
+    20px;
+
+  color:
+    inherit;
+
+  text-decoration:
+    none;
+
+  transition:
+    transform .2s ease,
+    box-shadow .2s ease;
+}
+
+
+.fjis-program-card:hover {
+
+  transform:
+    translateY(-3px);
+
+  box-shadow:
+    var(--fjs-shadow);
+}
+
+
+/* Program colors */
+
+.program-sma {
+
+  background:
+    #e9e0d3;
+}
+
+
+.program-kuliah {
+
+  background:
+    #e0e9ec;
+}
+
+
+.program-kedinasan {
+
+  background:
+    #e9e3d0;
+}
+
+
+/* Program icon */
+
+.fjis-program-icon {
+
+  width:
+    45px;
+
+  height:
+    45px;
+
+  flex:
+    0 0 45px;
+
+  display:
+    grid;
+
+  place-items:
+    center;
+
+  border-radius:
+    12px;
+
+  background:
+    rgba(255,255,255,.72);
+
+  font-size:
+    1.25rem;
+}
+
+
+/* Program number */
+
+.fjis-program-label {
+
+  display:
+    block;
+
+  margin-bottom:
+    4px;
+
+  color:
+    #947e70;
+
+  font-size:
+    .63rem;
+
+  font-weight:
+    800;
+
+  letter-spacing:
+    .12em;
+}
+
+
+/* Program title */
+
+.fjis-program-card h3 {
+
+  margin:
+    0;
+
+  color:
+    var(--fjs-coffee-dark);
+
+  font-family:
+    var(--font-display, Georgia, serif);
+
+  font-size:
+    1.55rem;
+
+  line-height:
+    1.1;
+}
+
+
+/* Program description */
+
+.fjis-program-card p {
+
+  max-width:
+    280px;
+
+  margin:
+    7px 0 0;
+
+  color:
+    #776c63;
+
+  font-size:
+    .81rem;
+
+  line-height:
+    1.45;
+}
+
+
+/* Program arrow */
+
+.fjis-card-arrow {
+
+  position:
+    absolute;
+
+  right:
+    22px;
+
+  bottom:
+    18px;
+
+  color:
+    #766457;
+}
+
+
+/* ============================================================
+   13. PROGRESS
+   ============================================================ */
+
+.fjis-progress-card {
+
+  min-height:
+    125px;
+
+  box-sizing:
+    border-box;
+
+  padding:
+    27px 30px;
+
+  display:
+    flex;
+
+  align-items:
+    center;
+
+  justify-content:
+    space-between;
+
+  gap:
+    30px;
+
+  border:
+    1px solid var(--fjs-border);
+
+  border-radius:
+    22px;
+
+  background:
+    var(--fjs-paper);
+
+  box-shadow:
+    var(--fjs-shadow-small);
+}
+
+
+.fjis-progress-card h2 {
+
+  margin:
+    0;
+
+  color:
+    var(--fjs-coffee-dark);
+
+  font-family:
+    var(--font-display, Georgia, serif);
+
+  font-size:
+    1.65rem;
+
+  line-height:
+    1.15;
+}
+
+
+.fjis-progress-card p {
+
+  margin:
+    6px 0 0;
+
+  color:
+    #7d7269;
+
+  line-height:
+    1.5;
+}
+
+
+/* Progress number */
+
+.fjis-progress-number {
+
+  min-width:
+    100px;
+
+  padding:
+    14px 20px;
+
+  box-sizing:
+    border-box;
+
+  text-align:
+    center;
+
+  border-radius:
+    16px;
+
+  background:
+    var(--fjs-blue);
+}
+
+
+.fjis-progress-number strong {
+
+  display:
+    block;
+
+  color:
+    var(--fjs-blue-dark);
+
+  font-size:
+    1.8rem;
+}
+
+
+.fjis-progress-number span {
+
+  color:
+    #6f8187;
+
+  font-size:
+    .7rem;
+}
+
+
+/* ============================================================
+   14. SHARING
+   ============================================================ */
+
+.fjis-sharing-card {
+
+  position:
+    relative;
+
+  min-height:
+    130px;
+
+  box-sizing:
+    border-box;
+
+  padding:
+    27px 30px;
+
+  display:
+    flex;
+
+  align-items:
+    center;
+
+  gap:
+    20px;
+
+  border:
+    1px solid var(--fjs-border);
+
+  border-radius:
+    22px;
+
+  background:
+    #f0e5dc;
+
+  box-shadow:
+    var(--fjs-shadow-small);
+
+  transition:
+    transform .2s ease,
+    box-shadow .2s ease;
+}
+
+
+.fjis-sharing-card:hover {
+
+  transform:
+    translateY(-3px);
+
+  box-shadow:
+    var(--fjs-shadow);
+}
+
+
+/* Sharing icon */
+
+.sharing-icon {
+
+  width:
+    50px;
+
+  height:
+    50px;
+
+  flex:
+    0 0 50px;
+
+  display:
+    grid;
+
+  place-items:
+    center;
+
+  border-radius:
+    14px;
+
+  background:
+    rgba(255,255,255,.68);
+
+  font-size:
+    1.35rem;
+}
+
+
+/* ============================================================
+   15. SHARING BUTTON
+   ============================================================ */
+
+.fjis-sharing-action {
+
+  margin-left:
+    auto;
+
+  flex:
+    0 0 auto;
+}
+
+
+.fjis-sharing-button {
+
+  border:
+    0;
+
+  padding:
+    12px 18px;
+
+  border-radius:
+    12px;
+
+  background:
+    var(--fjs-coffee);
+
+  color:
+    #fffdf8;
+
+  font-family:
+    inherit;
+
+  font-size:
+    .82rem;
+
+  font-weight:
+    700;
+
+  cursor:
+    pointer;
+
+  transition:
+    background .2s ease,
+    transform .2s ease;
+}
+
+
+.fjis-sharing-button:hover {
+
+  background:
+    var(--fjs-coffee-dark);
+
+  transform:
+    translateY(-1px);
+}
+
+
+/* ============================================================
+   16. EXPERIENCE LIST
+   ============================================================ */
+
+.fjis-experience-list {
+
+  display:
+    grid;
+
+  gap:
+    10px;
+
+  margin-top:
+    18px;
+}
+
+
+.fjis-experience-item {
+
+  padding:
+    16px 18px;
+
+  border:
+    1px solid var(--fjs-border-soft);
+
+  border-radius:
+    16px;
+
+  background:
+    #f5eee4;
+}
+
+
+.fjis-experience-item strong {
+
+  display:
+    block;
+
+  color:
+    var(--fjs-coffee-dark);
+
+  font-family:
+    var(--font-display, Georgia, serif);
+
+  font-size:
+    1.05rem;
+}
+
+
+.fjis-experience-item span {
+
+  display:
+    block;
+
+  margin-top:
+    4px;
+
+  color:
+    #8a796c;
+
+  font-size:
+    .7rem;
+}
+
+
+.fjis-experience-item p {
+
+  margin:
+    9px 0 0;
+
+  color:
+    #6f655e;
+
+  font-size:
+    .82rem;
+
+  line-height:
+    1.5;
+}
+
+
+/* ============================================================
+   17. EXPERIENCE MODAL
+   ============================================================ */
+
+.fjis-experience-modal {
+
+  position:
+    fixed;
+
+  inset:
+    0;
+
+  z-index:
+    9999;
+
+  display:
+    none;
+
+  align-items:
+    center;
+
+  justify-content:
+    center;
+
+  padding:
+    24px;
+
+  box-sizing:
+    border-box;
+
+  background:
+    rgba(48,38,31,.48);
+
+  backdrop-filter:
+    blur(5px);
+}
+
+
+.fjis-experience-modal.is-open {
+
+  display:
+    flex;
+}
+
+
+/* Modal box */
+
+.fjis-experience-box {
+
+  width:
+    min(620px, 100%);
+
+  max-height:
+    90vh;
+
+  overflow-y:
+    auto;
+
+  padding:
+    30px;
+
+  box-sizing:
+    border-box;
+
+  border:
+    1px solid var(--fjs-border);
+
+  border-radius:
+    24px;
+
+  background:
+    var(--fjs-paper);
+
+  box-shadow:
+    var(--fjs-shadow-large);
+}
+
+
+/* Modal heading */
+
+.fjis-experience-head {
+
+  display:
+    flex;
+
+  align-items:
+    flex-start;
+
+  justify-content:
+    space-between;
+
+  gap:
+    20px;
+
+  margin-bottom:
+    22px;
+}
+
+
+.fjis-experience-head h2 {
+
+  margin:
+    0;
+
+  color:
+    var(--fjs-coffee-dark);
+
+  font-family:
+    var(--font-display, Georgia, serif);
+
+  font-size:
+    1.8rem;
+}
+
+
+.fjis-experience-head p {
+
+  margin:
+    7px 0 0;
+
+  color:
+    #81766c;
+
+  font-size:
+    .86rem;
+
+  line-height:
+    1.5;
+}
+
+
+/* Close */
+
+.fjis-modal-close {
+
+  width:
+    36px;
+
+  height:
+    36px;
+
+  flex:
+    0 0 36px;
+
+  display:
+    grid;
+
+  place-items:
+    center;
+
+  border:
+    1px solid var(--fjs-border);
+
+  border-radius:
+    50%;
+
+  background:
+    var(--fjs-paper-soft);
+
+  color:
+    var(--fjs-coffee);
+
+  font-size:
+    1.1rem;
+
+  cursor:
+    pointer;
+}
+
+
+/* ============================================================
+   18. EXPERIENCE FORM
+   ============================================================ */
+
+.fjis-experience-form {
+
+  display:
+    flex;
+
+  flex-direction:
+    column;
+
+  gap:
+    15px;
+}
+
+
+.fjis-form-group {
+
+  display:
+    flex;
+
+  flex-direction:
+    column;
+
+  gap:
+    7px;
+}
+
+
+.fjis-form-group label {
+
+  color:
+    #59483d;
+
+  font-size:
+    .78rem;
+
+  font-weight:
+    800;
+
+  letter-spacing:
+    .04em;
+}
+
+
+.fjis-form-group input,
+.fjis-form-group select,
+.fjis-form-group textarea {
+
+  width:
+    100%;
+
+  box-sizing:
+    border-box;
+
+  padding:
+    12px 14px;
+
+  border:
+    1px solid var(--fjs-border);
+
+  border-radius:
+    12px;
+
+  outline:
+    none;
+
+  background:
+    #faf6ee;
+
+  color:
+    var(--fjs-ink);
+
+  font-family:
+    inherit;
+
+  font-size:
+    .9rem;
+}
+
+
+.fjis-form-group textarea {
+
+  min-height:
+    145px;
+
+  resize:
+    vertical;
+
+  line-height:
+    1.5;
+}
+
+
+.fjis-form-group input:focus,
+.fjis-form-group select:focus,
+.fjis-form-group textarea:focus {
+
+  border-color:
+    var(--fjs-coffee-soft);
+
+  box-shadow:
+    0 0 0 3px
+    rgba(138,106,88,.10);
+}
+
+
+/* Checkbox */
+
+.fjis-checkbox {
+
+  display:
+    flex;
+
+  align-items:
+    flex-start;
+
+  gap:
+    9px;
+
+  color:
+    #756b63;
+
+  font-size:
+    .78rem;
+
+  line-height:
+    1.45;
+}
+
+
+.fjis-checkbox input {
+
+  margin-top:
+    3px;
+
+  accent-color:
+    var(--fjs-coffee);
+}
+
+
+/* Form actions */
+
+.fjis-form-actions {
+
+  display:
+    flex;
+
+  justify-content:
+    flex-end;
+
+  gap:
+    10px;
+
+  margin-top:
+    5px;
+}
+
+
+.fjis-form-cancel,
+.fjis-form-submit {
+
+  border:
+    0;
+
+  border-radius:
+    12px;
+
+  padding:
+    12px 18px;
+
+  font-family:
+    inherit;
+
+  font-weight:
+    700;
+
+  cursor:
+    pointer;
+}
+
+
+.fjis-form-cancel {
+
+  background:
+    #eee7dc;
+
+  color:
+    var(--fjs-coffee);
+}
+
+
+.fjis-form-submit {
+
+  background:
+    var(--fjs-coffee);
+
+  color:
+    #fffdf8;
+}
+
+
+.fjis-form-submit:hover {
+
+  background:
+    var(--fjs-coffee-dark);
+}
+
+
+/* ============================================================
+   19. FOOTER
+   ============================================================ */
+
+.fjis-dashboard-footer {
+
+  margin-top:
+    24px;
+
+  padding:
+    25px 0;
+
+  border-top:
+    1px solid var(--fjs-border);
+
+  background:
+    #eee7dc;
+}
+
+
+.fjis-dashboard-footer .container {
+
+  display:
+    flex;
+
+  justify-content:
+    space-between;
+
+  align-items:
+    center;
+
+  gap:
+    20px;
+
+  color:
+    #776c63;
+
+  font-size:
+    .78rem;
+}
+
+
+.fjis-dashboard-footer strong {
+
+  color:
+    var(--fjs-coffee-dark);
+}
+
+
+/* ============================================================
+   20. BUTTON SYSTEM
+   ------------------------------------------------------------
+   Dashboard tidak lagi menggunakan hijau sebagai warna
+   utama button.
+   ============================================================ */
+
+.fjis-dashboard-page .button-primary,
+.fjis-dashboard-page .btn-primary {
+
+  background:
+    var(--fjs-coffee) !important;
+
+  border-color:
+    var(--fjs-coffee) !important;
+
+  color:
+    #fffdf8 !important;
+}
+
+
+.fjis-dashboard-page .button-primary:hover,
+.fjis-dashboard-page .btn-primary:hover {
+
+  background:
+    var(--fjs-coffee-dark) !important;
+
+  border-color:
+    var(--fjs-coffee-dark) !important;
+}
+
+
+/* ============================================================
+   21. EXTRA COLOR BUTTONS
+   ============================================================ */
+
+.fjis-btn-sage {
+
+  background:
+    var(--fjs-sage);
+
+  color:
+    var(--fjs-sage-dark);
+
+  border:
+    1px solid rgba(82,107,88,.16);
+}
+
+
+.fjis-btn-blue {
+
+  background:
+    var(--fjs-blue);
+
+  color:
+    var(--fjs-blue-dark);
+
+  border:
+    1px solid rgba(66,105,121,.16);
+}
+
+
+.fjis-btn-gold {
+
+  background:
+    var(--fjs-gold);
+
+  color:
+    var(--fjs-gold-dark);
+
+  border:
+    1px solid rgba(128,100,45,.16);
+}
+
+
+.fjis-btn-rose {
+
+  background:
+    var(--fjs-rose);
+
+  color:
+    var(--fjs-rose-dark);
+
+  border:
+    1px solid rgba(129,91,85,.16);
+}
+
+
+.fjis-btn-lavender {
+
+  background:
+    var(--fjs-lavender);
+
+  color:
+    var(--fjs-lavender-dark);
+
+  border:
+    1px solid rgba(103,91,120,.16);
+}
+
+
+.fjis-btn-orange {
+
+  background:
+    var(--fjs-orange);
+
+  color:
+    var(--fjs-orange-dark);
+
+  border:
+    1px solid rgba(134,94,53,.16);
+}
+
+
+/* ============================================================
+   22. GENERIC COLOR CARDS
+   ------------------------------------------------------------
+   Bisa dipakai nanti di SMA / Kuliah / Kedinasan.
+   ============================================================ */
+
+.fjis-card-sage {
+
+  background:
+    var(--fjs-sage);
+}
+
+
+.fjis-card-blue {
+
+  background:
+    var(--fjs-blue);
+}
+
+
+.fjis-card-gold {
+
+  background:
+    var(--fjs-gold);
+}
+
+
+.fjis-card-rose {
+
+  background:
+    var(--fjs-rose);
+}
+
+
+.fjis-card-lavender {
+
+  background:
+    var(--fjs-lavender);
+}
+
+
+.fjis-card-orange {
+
+  background:
+    var(--fjs-orange);
+}
+
+
+/* ============================================================
+   23. GENERIC STUDY CARDS
+   ============================================================ */
+
+.class-card,
+.subject-card,
+.chapter-card,
+.subchapter-card,
+.semester-card {
+
+  transition:
+    transform .2s ease,
+    box-shadow .2s ease,
+    border-color .2s ease;
+}
+
+
+.class-card:hover,
+.subject-card:hover,
+.chapter-card:hover,
+.subchapter-card:hover,
+.semester-card:hover {
+
+  transform:
+    translateY(-3px);
+
+  box-shadow:
+    var(--fjs-shadow);
+
+  border-color:
+    rgba(76,55,43,.20);
+}
+
+
+/* ============================================================
+   24. CHAPTER COLOR VARIATION
+   ============================================================ */
+
+.chapter-card:nth-child(6n + 1) {
+
+  background:
+    var(--fjs-sage);
+}
+
+
+.chapter-card:nth-child(6n + 2) {
+
+  background:
+    var(--fjs-blue);
+}
+
+
+.chapter-card:nth-child(6n + 3) {
+
+  background:
+    var(--fjs-gold);
+}
+
+
+.chapter-card:nth-child(6n + 4) {
+
+  background:
+    var(--fjs-lavender);
+}
+
+
+.chapter-card:nth-child(6n + 5) {
+
+  background:
+    var(--fjs-rose);
+}
+
+
+.chapter-card:nth-child(6n + 6) {
+
+  background:
+    var(--fjs-orange);
+}
+
+
+/* ============================================================
+   25. ICON BOX VARIANTS
+   ============================================================ */
+
+.fjis-icon-sage {
+
+  background:
+    var(--fjs-sage);
+
+  color:
+    var(--fjs-sage-dark);
+}
+
+
+.fjis-icon-blue {
+
+  background:
+    var(--fjs-blue);
+
+  color:
+    var(--fjs-blue-dark);
+}
+
+
+.fjis-icon-gold {
+
+  background:
+    var(--fjs-gold);
+
+  color:
+    var(--fjs-gold-dark);
+}
+
+
+.fjis-icon-rose {
+
+  background:
+    var(--fjs-rose);
+
+  color:
+    var(--fjs-rose-dark);
+}
+
+
+.fjis-icon-lavender {
+
+  background:
+    var(--fjs-lavender);
+
+  color:
+    var(--fjs-lavender-dark);
+}
+
+
+.fjis-icon-orange {
+
+  background:
+    var(--fjs-orange);
+
+  color:
+    var(--fjs-orange-dark);
+}
+
+
+/* ============================================================
+   26. MOTIVATION FOR BAB / SUBBAB
+   ============================================================ */
+
+.fjis-motivation:not(.fjis-quote-card .fjis-motivation) {
+
+  width:
+    100%;
+
+  box-sizing:
+    border-box;
+
+  padding:
+    15px 18px;
+
+  margin:
+    0 0 20px;
+
+  border:
+    1px solid rgba(101,72,58,.12);
+
+  border-radius:
+    15px;
+
+  background:
+    #f1e8dc;
+}
+
+
+.fjis-motivation:not(.fjis-quote-card .fjis-motivation)
+.fjis-motivation-content {
+
+  gap:
+    4px;
+}
+
+
+.fjis-motivation:not(.fjis-quote-card .fjis-motivation)
+.fjis-motivation-id {
+
+  color:
+    var(--fjs-coffee-soft);
+
+  font-size:
+    .61rem;
+}
+
+
+.fjis-motivation:not(.fjis-quote-card .fjis-motivation)
+.fjis-motivation-indonesia {
+
+  color:
+    var(--fjs-coffee-dark);
+
+  font-family:
+    var(--font-display, Georgia, serif);
+
+  font-size:
+    .92rem;
+
+  line-height:
+    1.45;
+}
+
+
+.fjis-motivation:not(.fjis-quote-card .fjis-motivation)
+.fjis-motivation-english {
+
+  color:
+    #897c72;
+
+  font-size:
+    .69rem;
+}
+
+
+/* ============================================================
+   27. SEARCH / INPUT REFRESH
+   ============================================================ */
+
+.fjis-dashboard-page input[type="text"],
+.fjis-dashboard-page input[type="search"],
+.fjis-dashboard-page input[type="email"],
+.fjis-dashboard-page input[type="password"],
+.fjis-dashboard-page select,
+.fjis-dashboard-page textarea {
+
+  border-color:
+    var(--fjs-border);
+}
+
+
+.fjis-dashboard-page input:focus,
+.fjis-dashboard-page select:focus,
+.fjis-dashboard-page textarea:focus {
+
+  border-color:
+    var(--fjs-coffee-soft);
+
+  box-shadow:
+    0 0 0 3px
+    rgba(138,106,88,.08);
+
+  outline:
+    none;
+}
+
+
+/* ============================================================
+   28. TAGS
+   ============================================================ */
+
+.fjis-tag-sage {
+
+  background:
+    var(--fjs-sage);
+
+  color:
+    var(--fjs-sage-dark);
+}
+
+
+.fjis-tag-blue {
+
+  background:
+    var(--fjs-blue);
+
+  color:
+    var(--fjs-blue-dark);
+}
+
+
+.fjis-tag-gold {
+
+  background:
+    var(--fjs-gold);
+
+  color:
+    var(--fjs-gold-dark);
+}
+
+
+.fjis-tag-lavender {
+
+  background:
+    var(--fjs-lavender);
+
+  color:
+    var(--fjs-lavender-dark);
+}
+
+
+.fjis-tag-rose {
+
+  background:
+    var(--fjs-rose);
+
+  color:
+    var(--fjs-rose-dark);
+}
+
+
+/* ============================================================
+   29. REDUCE EXCESSIVE SECTION SPACING
+   ============================================================ */
+
+.fjis-dashboard-page section {
+
+  scroll-margin-top:
+    100px;
+}
+
+
+/* ============================================================
+   30. TABLET
+   ============================================================ */
+
+@media (max-width: 1100px) {
+
+  .fjis-dashboard-hero-inner {
+
+    grid-template-columns:
+      1fr 1fr;
+
+    gap:
+      25px;
+
+    padding:
+      35px;
+  }
+
+
+  .fjis-dashboard-actions {
+
+    grid-template-columns:
+      repeat(2, 1fr);
+  }
+
+
+  .fjis-program-grid {
+
+    grid-template-columns:
+      repeat(2, 1fr);
+  }
+}
+
+
+/* ============================================================
+   31. TABLET / SMALL LAPTOP
+   ============================================================ */
+
+@media (max-width: 900px) {
+
+  .fjis-dashboard-page main {
+
+    padding-top:
+      85px;
+  }
+
+
+  .fjis-dashboard-hero-inner {
+
+    grid-template-columns:
+      1fr;
+
+    min-height:
+      auto;
+
+    gap:
+      25px;
+  }
+
+
+  .fjis-quote-card {
+
+    min-height:
+      145px;
+  }
+}
+
+
+/* ============================================================
+   32. MOBILE
+   ============================================================ */
+
+@media (max-width: 700px) {
+
+  .fjis-dashboard-page main {
+
+    padding-top:
+      78px;
+  }
+
+
+  .fjis-dashboard-hero {
+
+    padding:
+      18px 0 24px;
+  }
+
+
+  .fjis-dashboard-hero-inner {
+
+    padding:
+      30px 24px;
+
+    border-radius:
+      22px;
+  }
+
+
+  .fjis-hero-copy h1 {
+
+    font-size:
+      clamp(2.6rem, 12vw, 3.5rem);
+  }
+
+
+  .fjis-hero-copy p {
+
+    font-size:
+      .88rem;
+  }
+
+
+  .fjis-quote-card {
+
+    min-height:
+      0;
+
+    padding:
+      20px;
+  }
+
+
+  .fjis-motivation {
+
+    min-height:
+      0;
+  }
+
+
+  .fjis-motivation-indonesia {
+
+    font-size:
+      .94rem;
+  }
+
+
+  .fjis-motivation-english {
+
+    font-size:
+      .68rem;
+  }
+
+
+  .fjis-dashboard-actions {
+
+    grid-template-columns:
+      1fr;
+  }
+
+
+  .fjis-program-grid {
+
+    grid-template-columns:
+      1fr;
+  }
+
+
+  .fjis-progress-card {
+
+    flex-direction:
+      column;
+
+    align-items:
+      flex-start;
+  }
+
+
+  .fjis-progress-number {
+
+    width:
+      100%;
+  }
+
+
+  .fjis-sharing-card {
+
+    flex-direction:
+      column;
+
+    align-items:
+      flex-start;
+  }
+
+
+  .fjis-sharing-action {
+
+    margin-left:
+      0;
+  }
+
+
+  .fjis-experience-box {
+
+    padding:
+      22px;
+
+    border-radius:
+      20px;
+  }
+
+
+  .fjis-form-actions {
+
+    flex-direction:
+      column-reverse;
+  }
+
+
+  .fjis-form-cancel,
+  .fjis-form-submit {
+
+    width:
+      100%;
+  }
+
+
+  .fjis-dashboard-footer .container {
+
+    flex-direction:
+      column;
+
+    align-items:
+      flex-start;
+  }
+
+
+  .fjis-user-copy {
+
+    display:
+      none;
+  }
+}
+
+
+/* ============================================================
+   33. VERY SMALL MOBILE
+   ============================================================ */
+
+@media (max-width: 520px) {
+
+  .fjis-dashboard-hero-inner {
+
+    padding:
+      26px 20px;
+  }
+
+
+  .fjis-dashboard-action {
+
+    min-height:
+      155px;
+
+    padding:
+      20px;
+  }
+
+
+  .fjis-program-card {
+
+    padding:
+      20px;
+  }
+
+
+  .fjis-section-heading h2 {
+
+    font-size:
+      2rem;
+  }
+
+
+  .fjis-progress-card,
+  .fjis-sharing-card {
+
+    padding:
+      22px;
+  }
+
+
+  .fjis-logo-book {
+
+    width:
+      46px;
+
+    height:
+      46px;
+
+    flex-basis:
+      46px;
+  }
+}
+
+
+/* ============================================================
+   34. REDUCED MOTION
+   ============================================================ */
+
+@media (prefers-reduced-motion: reduce) {
+
+  .fjis-dashboard-action,
+  .fjis-program-card,
+  .fjis-sharing-card,
+  .fjis-motivation {
+
+    transition:
+      none !important;
+  }
+}

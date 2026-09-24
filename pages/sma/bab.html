@@ -1,0 +1,3125 @@
+<!DOCTYPE html>
+<html lang="id">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0"
+    >
+
+    <meta
+        name="description"
+        content="FJIS Academy — Materi Pembelajaran SMA"
+    >
+
+    <title>Materi Pembelajaran — FJIS Academy</title>
+
+
+    <!-- =====================================================
+         CSS
+    ====================================================== -->
+
+    <link
+        rel="stylesheet"
+        href="../../css/style.css"
+    >
+
+    <link
+        rel="stylesheet"
+        href="../../css/components.css"
+    >
+
+    <link
+        rel="stylesheet"
+        href="../../css/landing.css"
+    >
+
+    <link
+        rel="stylesheet"
+        href="../../css/responsive.css"
+    >
+
+
+    <!-- =====================================================
+         PAGE STYLE
+    ====================================================== -->
+
+    <style>
+
+        :root {
+
+            --bg-main: #f6f1e8;
+
+            --bg-card:
+                rgba(255, 255, 255, 0.78);
+
+            --text-main: #25231f;
+
+            --text-soft: #716d65;
+
+            --border:
+                rgba(40, 35, 28, 0.12);
+
+            --accent: #174d43;
+
+            --accent-soft:
+                #e8f0ec;
+
+            --shadow:
+                0 18px 50px
+                rgba(48, 40, 28, 0.08);
+
+        }
+
+
+        * {
+            box-sizing: border-box;
+        }
+
+
+        body {
+
+            margin: 0;
+
+            min-height: 100vh;
+
+            background:
+
+                radial-gradient(
+                    circle at 10% 10%,
+                    rgba(255,255,255,.9),
+                    transparent 32%
+                ),
+
+                linear-gradient(
+                    135deg,
+                    #f8f3eb,
+                    #eee8dc
+                );
+
+            color:
+                var(--text-main);
+
+            font-family:
+                Inter,
+                system-ui,
+                -apple-system,
+                BlinkMacSystemFont,
+                "Segoe UI",
+                sans-serif;
+
+        }
+
+
+        a {
+            color: inherit;
+            text-decoration: none;
+        }
+
+
+        .page-wrapper {
+
+            width:
+                min(
+                    1180px,
+                    calc(100% - 32px)
+                );
+
+            margin:
+                0 auto;
+
+        }
+
+
+        /* =====================================================
+           HEADER
+        ====================================================== */
+
+        .site-header {
+
+            padding:
+                22px 0 0;
+
+        }
+
+
+        .header-inner {
+
+            min-height:
+                72px;
+
+            display:
+                flex;
+
+            align-items:
+                center;
+
+            justify-content:
+                space-between;
+
+            gap:
+                24px;
+
+            padding:
+                14px 24px;
+
+            background:
+                rgba(255,255,255,.72);
+
+            border:
+                1px solid
+                rgba(255,255,255,.85);
+
+            border-radius:
+                28px;
+
+            box-shadow:
+                0 12px 40px
+                rgba(40,35,28,.06);
+
+            backdrop-filter:
+                blur(18px);
+
+            -webkit-backdrop-filter:
+                blur(18px);
+
+        }
+
+
+        .brand {
+
+            display:
+                flex;
+
+            align-items:
+                center;
+
+            gap:
+                12px;
+
+            font-size:
+                20px;
+
+            font-weight:
+                700;
+
+            letter-spacing:
+                -.02em;
+
+            white-space:
+                nowrap;
+
+        }
+
+
+        .brand-mark {
+
+            width:
+                40px;
+
+            height:
+                40px;
+
+            display:
+                grid;
+
+            place-items:
+                center;
+
+            border-radius:
+                12px;
+
+            background:
+                var(--accent);
+
+            color:
+                white;
+
+            font-size:
+                18px;
+
+            font-weight:
+                800;
+
+        }
+
+
+        .main-navigation {
+
+            display:
+                flex;
+
+            align-items:
+                center;
+
+            gap:
+                6px;
+
+        }
+
+
+        .main-navigation a {
+
+            padding:
+                10px 13px;
+
+            border-radius:
+                12px;
+
+            color:
+                #45413b;
+
+            font-size:
+                14px;
+
+            transition:
+                .2s ease;
+
+        }
+
+
+        .main-navigation a:hover {
+
+            background:
+                rgba(23,77,67,.08);
+
+            color:
+                var(--accent);
+
+        }
+
+
+        .mobile-menu-button {
+
+            display:
+                none;
+
+            border:
+                0;
+
+            background:
+                transparent;
+
+            font-size:
+                25px;
+
+            cursor:
+                pointer;
+
+        }
+
+
+        /* =====================================================
+           MAIN
+        ====================================================== */
+
+        main {
+
+            padding:
+                58px 0 90px;
+
+        }
+
+
+        .hero {
+
+            max-width:
+                850px;
+
+            margin-bottom:
+                32px;
+
+        }
+
+
+        .eyebrow {
+
+            margin:
+                0 0 14px;
+
+            color:
+                var(--accent);
+
+            font-size:
+                14px;
+
+            font-weight:
+                800;
+
+            letter-spacing:
+                .18em;
+
+            text-transform:
+                uppercase;
+
+        }
+
+
+        .hero h1 {
+
+            margin:
+                0;
+
+            font-family:
+                Georgia,
+                "Times New Roman",
+                serif;
+
+            font-size:
+                clamp(
+                    42px,
+                    7vw,
+                    72px
+                );
+
+            line-height:
+                .98;
+
+            letter-spacing:
+                -.045em;
+
+        }
+
+
+        .hero p {
+
+            max-width:
+                720px;
+
+            margin:
+                20px 0 0;
+
+            color:
+                var(--text-soft);
+
+            font-size:
+                18px;
+
+            line-height:
+                1.65;
+
+        }
+
+
+        /* =====================================================
+           BREADCRUMB
+        ====================================================== */
+
+        .breadcrumb {
+
+            display:
+                flex;
+
+            flex-wrap:
+                wrap;
+
+            align-items:
+                center;
+
+            gap:
+                8px;
+
+            margin-bottom:
+                24px;
+
+            color:
+                var(--text-soft);
+
+            font-size:
+                14px;
+
+        }
+
+
+        .breadcrumb a {
+
+            color:
+                var(--accent);
+
+            font-weight:
+                700;
+
+        }
+
+
+        .breadcrumb-separator {
+
+            opacity:
+                .45;
+
+        }
+
+
+        /* =====================================================
+           BACK BUTTON
+        ====================================================== */
+
+        .back-button {
+
+            display:
+                inline-flex;
+
+            align-items:
+                center;
+
+            gap:
+                8px;
+
+            margin-bottom:
+                34px;
+
+            padding:
+                12px 18px;
+
+            background:
+                rgba(255,255,255,.7);
+
+            border:
+                1px solid
+                var(--border);
+
+            border-radius:
+                999px;
+
+            font-weight:
+                700;
+
+            transition:
+                .2s ease;
+
+        }
+
+
+        .back-button:hover {
+
+            transform:
+                translateY(-1px);
+
+            background:
+                white;
+
+            box-shadow:
+                0 8px 25px
+                rgba(30,25,20,.07);
+
+        }
+
+
+        /* =====================================================
+           CONTENT CARD
+        ====================================================== */
+
+        .content-card {
+
+            position:
+                relative;
+
+            overflow:
+                hidden;
+
+            padding:
+                34px;
+
+            background:
+                var(--bg-card);
+
+            border:
+                1px solid
+                rgba(255,255,255,.9);
+
+            border-radius:
+                30px;
+
+            box-shadow:
+                var(--shadow);
+
+            backdrop-filter:
+                blur(18px);
+
+            -webkit-backdrop-filter:
+                blur(18px);
+
+        }
+
+
+        .content-card::before {
+
+            content:
+                "";
+
+            position:
+                absolute;
+
+            top:
+                0;
+
+            left:
+                0;
+
+            right:
+                0;
+
+            height:
+                5px;
+
+            background:
+                linear-gradient(
+                    90deg,
+                    #6d9a83,
+                    #d6c68e
+                );
+
+        }
+
+
+        .section-heading {
+
+            margin-bottom:
+                26px;
+
+        }
+
+
+        .section-heading h2 {
+
+            margin:
+                0 0 8px;
+
+            color:
+                #174d43;
+
+            font-size:
+                27px;
+
+            letter-spacing:
+                -.02em;
+
+        }
+
+
+        .section-heading p {
+
+            margin:
+                0;
+
+            color:
+                var(--text-soft);
+
+            line-height:
+                1.6;
+
+        }
+
+
+        /* =====================================================
+           ITEMS GRID
+        ====================================================== */
+
+        .items-grid {
+
+            display:
+                grid;
+
+            grid-template-columns:
+                repeat(
+                    2,
+                    minmax(0, 1fr)
+                );
+
+            gap:
+                16px;
+
+        }
+
+
+        .item-card {
+
+            position:
+                relative;
+
+            display:
+                block;
+
+            padding:
+                22px;
+
+            background:
+                rgba(255,255,255,.72);
+
+            border:
+                1px solid
+                var(--border);
+
+            border-radius:
+                22px;
+
+            transition:
+                transform .2s ease,
+                box-shadow .2s ease,
+                border-color .2s ease;
+
+        }
+
+
+        .item-card:hover {
+
+            transform:
+                translateY(-3px);
+
+            border-color:
+                rgba(23,77,67,.22);
+
+            box-shadow:
+                0 14px 30px
+                rgba(35,30,24,.08);
+
+        }
+
+
+        .item-number {
+
+            display:
+                inline-flex;
+
+            align-items:
+                center;
+
+            justify-content:
+                center;
+
+            min-width:
+                38px;
+
+            height:
+                30px;
+
+            padding:
+                0 10px;
+
+            margin-bottom:
+                15px;
+
+            border-radius:
+                999px;
+
+            background:
+                var(--accent-soft);
+
+            color:
+                var(--accent);
+
+            font-size:
+                12px;
+
+            font-weight:
+                800;
+
+        }
+
+
+        .item-card h3 {
+
+            margin:
+                0 0 8px;
+
+            padding-right:
+                25px;
+
+            font-size:
+                19px;
+
+            line-height:
+                1.35;
+
+        }
+
+
+        .item-card p {
+
+            margin:
+                0;
+
+            padding-right:
+                20px;
+
+            color:
+                var(--text-soft);
+
+            font-size:
+                14px;
+
+            line-height:
+                1.6;
+
+        }
+
+
+        .item-arrow {
+
+            position:
+                absolute;
+
+            right:
+                20px;
+
+            bottom:
+                20px;
+
+            color:
+                var(--accent);
+
+            font-size:
+                20px;
+
+            font-weight:
+                700;
+
+        }
+
+
+        /* =====================================================
+           STATE
+        ====================================================== */
+
+        .state-box {
+
+            padding:
+                38px 28px;
+
+            border-radius:
+                24px;
+
+            background:
+                linear-gradient(
+                    135deg,
+                    rgba(238,246,241,.9),
+                    rgba(255,255,255,.72)
+                );
+
+            border:
+                1px solid
+                rgba(23,77,67,.08);
+
+        }
+
+
+        .state-box h2 {
+
+            margin:
+                0 0 10px;
+
+            color:
+                var(--accent);
+
+            font-size:
+                25px;
+
+        }
+
+
+        .state-box p {
+
+            margin:
+                0;
+
+            color:
+                var(--text-soft);
+
+            line-height:
+                1.7;
+
+        }
+
+
+        .state-box.error {
+
+            background:
+                linear-gradient(
+                    135deg,
+                    rgba(250,240,235,.95),
+                    rgba(255,255,255,.75)
+                );
+
+        }
+
+
+        .state-box.error h2 {
+
+            color:
+                #7d3f32;
+
+        }
+
+
+        .debug-info {
+
+            margin-top:
+                18px;
+
+            padding:
+                14px 16px;
+
+            background:
+                rgba(0,0,0,.035);
+
+            border-radius:
+                14px;
+
+            font-family:
+                Consolas,
+                Monaco,
+                monospace;
+
+            font-size:
+                12px;
+
+            line-height:
+                1.6;
+
+            color:
+                #625e57;
+
+            overflow-x:
+                auto;
+
+        }
+
+
+        /* =====================================================
+           FOOTER
+        ====================================================== */
+
+        .site-footer {
+
+            padding:
+                30px 0 50px;
+
+            color:
+                var(--text-soft);
+
+            text-align:
+                center;
+
+            font-size:
+                13px;
+
+        }
+
+
+        /* =====================================================
+           RESPONSIVE
+        ====================================================== */
+
+        @media (max-width: 900px) {
+
+            .main-navigation {
+
+                display:
+                    none;
+
+            }
+
+
+            .mobile-menu-button {
+
+                display:
+                    block;
+
+            }
+
+
+            .items-grid {
+
+                grid-template-columns:
+                    1fr;
+
+            }
+
+        }
+
+
+        @media (max-width: 600px) {
+
+            .page-wrapper {
+
+                width:
+                    min(
+                        calc(100% - 22px),
+                        1180px
+                    );
+
+            }
+
+
+            .site-header {
+
+                padding-top:
+                    11px;
+
+            }
+
+
+            .header-inner {
+
+                padding:
+                    12px 16px;
+
+                border-radius:
+                    21px;
+
+            }
+
+
+            .brand {
+
+                font-size:
+                    17px;
+
+            }
+
+
+            .brand-mark {
+
+                width:
+                    36px;
+
+                height:
+                    36px;
+
+            }
+
+
+            main {
+
+                padding-top:
+                    42px;
+
+            }
+
+
+            .hero h1 {
+
+                font-size:
+                    43px;
+
+            }
+
+
+            .hero p {
+
+                font-size:
+                    16px;
+
+            }
+
+
+            .content-card {
+
+                padding:
+                    22px 17px;
+
+                border-radius:
+                    23px;
+
+            }
+
+
+            .item-card {
+
+                padding:
+                    19px;
+
+            }
+
+        }
+
+    </style>
+
+</head>
+
+
+<body>
+
+
+    <!-- =====================================================
+         HEADER
+    ====================================================== -->
+
+    <header class="site-header">
+
+        <div class="page-wrapper">
+
+            <div class="header-inner">
+
+
+                <a
+                    href="../../index.html"
+                    class="brand"
+                    aria-label="FJIS Academy"
+                >
+
+                    <span class="brand-mark">
+                        F
+                    </span>
+
+                    <span>
+                        FJIS Academy
+                    </span>
+
+                </a>
+
+
+                <button
+                    type="button"
+                    class="mobile-menu-button"
+                    aria-label="Buka menu"
+                    aria-expanded="false"
+                >
+                    ☰
+                </button>
+
+
+                <nav
+                    class="main-navigation"
+                    aria-label="Navigasi utama"
+                >
+
+                    <a href="../../index.html">
+                        Beranda
+                    </a>
+
+                    <a href="kelas-10.html">
+                        Kelas 10
+                    </a>
+
+                    <a href="kelas-11.html">
+                        Kelas 11
+                    </a>
+
+                    <a href="kelas-12.html">
+                        Kelas 12
+                    </a>
+
+                </nav>
+
+            </div>
+
+        </div>
+
+    </header>
+
+
+    <!-- =====================================================
+         MAIN
+    ====================================================== -->
+
+    <main>
+
+        <div class="page-wrapper">
+
+
+            <!-- BREADCRUMB -->
+
+            <div
+                id="breadcrumb"
+                class="breadcrumb"
+            ></div>
+
+
+            <!-- HERO -->
+
+            <section class="hero">
+
+                <p
+                    class="eyebrow"
+                    id="page-eyebrow"
+                >
+                    SMA • KELAS
+                </p>
+
+
+                <h1 id="page-title">
+                    Materi Pembelajaran
+                </h1>
+
+
+                <p id="page-description">
+                    Pilih bagian pembelajaran yang ingin kamu pelajari.
+                </p>
+
+            </section>
+
+
+            <!-- BACK -->
+
+            <a
+                href="#"
+                id="back-button"
+                class="back-button"
+            >
+                ← Kembali
+            </a>
+
+
+            <!-- CONTENT -->
+
+            <section class="content-card">
+
+
+                <div class="section-heading">
+
+                    <h2 id="section-title">
+                        Materi Pembelajaran
+                    </h2>
+
+
+                    <p id="section-description">
+                        Pilih materi untuk melanjutkan pembelajaran.
+                    </p>
+
+                </div>
+
+
+                <div id="content">
+
+                    <div class="state-box">
+
+                        <h2>
+                            Memuat materi...
+                        </h2>
+
+
+                        <p>
+                            Tunggu sebentar, FJIS Academy sedang
+                            membaca struktur pembelajaran.
+                        </p>
+
+                    </div>
+
+                </div>
+
+
+            </section>
+
+        </div>
+
+    </main>
+
+
+    <!-- =====================================================
+         FOOTER
+    ====================================================== -->
+
+    <footer class="site-footer">
+
+        <div class="page-wrapper">
+
+            <p>
+                FJIS Academy • Student Learner
+            </p>
+
+        </div>
+
+    </footer>
+
+
+    <!-- =====================================================
+         JAVASCRIPT
+    ====================================================== -->
+
+    <script src="../../js/app.js"></script>
+
+    <script src="../../js/navigation.js"></script>
+
+    <script src="../../js/content-engine.js"></script>
+
+
+    <!-- =====================================================
+         BAB CONTROLLER
+    ====================================================== -->
+
+    <script>
+
+        document.addEventListener(
+            "DOMContentLoaded",
+            async function () {
+
+
+                /* =================================================
+                   URL PARAMETERS
+                ================================================= */
+
+                const params =
+                    new URLSearchParams(
+                        window.location.search
+                    );
+
+
+                const classNumber =
+                    String(
+                        params.get("class") || "10"
+                    ).trim();
+
+
+                const semesterParam =
+                    String(
+                        params.get("semester") || ""
+                    ).trim();
+
+
+                const subjectParam =
+                    String(
+                        params.get("subject") || ""
+                    ).trim();
+
+
+                const chapterParam =
+                    String(
+                        params.get("chapter") || ""
+                    ).trim();
+
+
+                /* =================================================
+                   ELEMENTS
+                ================================================= */
+
+                const content =
+                    document.getElementById(
+                        "content"
+                    );
+
+
+                const eyebrow =
+                    document.getElementById(
+                        "page-eyebrow"
+                    );
+
+
+                const title =
+                    document.getElementById(
+                        "page-title"
+                    );
+
+
+                const description =
+                    document.getElementById(
+                        "page-description"
+                    );
+
+
+                const sectionTitle =
+                    document.getElementById(
+                        "section-title"
+                    );
+
+
+                const sectionDescription =
+                    document.getElementById(
+                        "section-description"
+                    );
+
+
+                const breadcrumb =
+                    document.getElementById(
+                        "breadcrumb"
+                    );
+
+
+                const backButton =
+                    document.getElementById(
+                        "back-button"
+                    );
+
+
+                /* =================================================
+                   HELPERS
+                ================================================= */
+
+                function escapeHTML(value) {
+
+                    if (
+                        window.FJISContent &&
+                        typeof FJISContent.escapeHTML ===
+                            "function"
+                    ) {
+
+                        return FJISContent.escapeHTML(
+                            value
+                        );
+
+                    }
+
+
+                    return String(
+                        value ?? ""
+                    )
+                        .replace(
+                            /&/g,
+                            "&amp;"
+                        )
+                        .replace(
+                            /</g,
+                            "&lt;"
+                        )
+                        .replace(
+                            />/g,
+                            "&gt;"
+                        )
+                        .replace(
+                            /"/g,
+                            "&quot;"
+                        )
+                        .replace(
+                            /'/g,
+                            "&#039;"
+                        );
+
+                }
+
+
+                function normalize(value) {
+
+                    return String(
+                        value ?? ""
+                    )
+                        .toLowerCase()
+                        .trim();
+
+                }
+
+
+                /*
+                 * =================================================
+                 * SEMESTER HELPER
+                 *
+                 * Sengaja dibuat sebagai function supaya kita
+                 * tidak mencampur ?? dengan || lagi.
+                 * =================================================
+                 */
+
+                function getChapterSemester(
+                    chapter,
+                    fallbackSemester
+                ) {
+
+                    if (
+                        chapter &&
+                        chapter.semester !==
+                            undefined &&
+                        chapter.semester !==
+                            null &&
+                        String(
+                            chapter.semester
+                        ).trim() !== ""
+                    ) {
+
+                        return String(
+                            chapter.semester
+                        ).trim();
+
+                    }
+
+
+                    if (
+                        chapter &&
+                        chapter.semesterNumber !==
+                            undefined &&
+                        chapter.semesterNumber !==
+                            null &&
+                        String(
+                            chapter.semesterNumber
+                        ).trim() !== ""
+                    ) {
+
+                        return String(
+                            chapter.semesterNumber
+                        ).trim();
+
+                    }
+
+
+                    if (
+                        chapter &&
+                        chapter.term !==
+                            undefined &&
+                        chapter.term !==
+                            null &&
+                        String(
+                            chapter.term
+                        ).trim() !== ""
+                    ) {
+
+                        return String(
+                            chapter.term
+                        ).trim();
+
+                    }
+
+
+                    if (
+                        fallbackSemester &&
+                        String(
+                            fallbackSemester
+                        ).trim() !== ""
+                    ) {
+
+                        return String(
+                            fallbackSemester
+                        ).trim();
+
+                    }
+
+
+                    return "1";
+
+                }
+
+
+                /*
+                 * =================================================
+                 * SUBJECT IDENTIFIER
+                 *
+                 * PENTING:
+                 * loadSubject() menerima STRING.
+                 * Bukan object subject.
+                 * =================================================
+                 */
+
+                function getSubjectIdentifier(
+                    subject
+                ) {
+
+                    if (
+                        !subject ||
+                        typeof subject !==
+                            "object"
+                    ) {
+
+                        return "";
+
+                    }
+
+
+                    const identifier =
+                        subject.folder ||
+                        subject.code ||
+                        subject.slug ||
+                        subject.file ||
+                        subject.name ||
+                        subject.id ||
+                        "";
+
+
+                    return String(
+                        identifier
+                    )
+                        .trim()
+                        .replace(
+                            /\.json$/i,
+                            ""
+                        );
+
+                }
+
+
+                function getSubjectName(
+                    subject
+                ) {
+
+                    if (
+                        !subject ||
+                        typeof subject !==
+                            "object"
+                    ) {
+
+                        return "Mata Pelajaran";
+
+                    }
+
+
+                    return (
+                        subject.name ||
+                        subject.title ||
+                        subject.label ||
+                        subject.code ||
+                        subject.folder ||
+                        "Mata Pelajaran"
+                    );
+
+                }
+
+
+                function getSubjectDescription(
+                    subject
+                ) {
+
+                    if (
+                        !subject ||
+                        typeof subject !==
+                            "object"
+                    ) {
+
+                        return "";
+
+                    }
+
+
+                    return (
+                        subject.description ||
+                        `Materi ${getSubjectName(subject)} Kelas ${classNumber}.`
+                    );
+
+                }
+
+
+                /* =================================================
+                   URL BUILDER
+                ================================================= */
+
+                function buildURL(
+                    page,
+                    values
+                ) {
+
+                    const query =
+                        new URLSearchParams();
+
+
+                    if (
+                        values &&
+                        typeof values ===
+                            "object"
+                    ) {
+
+                        Object.keys(values)
+                            .forEach(
+                                key => {
+
+                                    const value =
+                                        values[key];
+
+
+                                    if (
+                                        value !==
+                                            undefined &&
+                                        value !==
+                                            null &&
+                                        String(
+                                            value
+                                        ).trim() !==
+                                            ""
+                                    ) {
+
+                                        query.set(
+                                            key,
+                                            String(
+                                                value
+                                            )
+                                        );
+
+                                    }
+
+                                }
+                            );
+
+                    }
+
+
+                    const queryString =
+                        query.toString();
+
+
+                    if (
+                        queryString
+                    ) {
+
+                        return (
+                            page +
+                            "?" +
+                            queryString
+                        );
+
+                    }
+
+
+                    return page;
+
+                }
+
+
+                /* =================================================
+                   ERROR
+                ================================================= */
+
+                function renderError(
+                    message,
+                    debugMessage
+                ) {
+
+                    content.innerHTML = `
+
+                        <div class="state-box error">
+
+                            <h2>
+                                Materi belum ditemukan
+                            </h2>
+
+                            <p>
+                                ${escapeHTML(
+                                    message
+                                )}
+                            </p>
+
+                            ${
+                                debugMessage
+                                    ? `
+                                        <div class="debug-info">
+                                            ${escapeHTML(
+                                                debugMessage
+                                            )}
+                                        </div>
+                                      `
+                                    : ""
+                            }
+
+                        </div>
+
+                    `;
+
+                }
+
+
+                /* =================================================
+                   BREADCRUMB
+                ================================================= */
+
+                function setBreadcrumb(
+                    items
+                ) {
+
+                    breadcrumb.innerHTML =
+                        items
+                            .map(
+                                (
+                                    item,
+                                    index
+                                ) => {
+
+                                    const last =
+                                        index ===
+                                        items.length - 1;
+
+
+                                    if (
+                                        last
+                                    ) {
+
+                                        return `
+
+                                            <span>
+                                                ${escapeHTML(
+                                                    item.label
+                                                )}
+                                            </span>
+
+                                        `;
+
+                                    }
+
+
+                                    return `
+
+                                        <a
+                                            href="${escapeHTML(
+                                                item.href
+                                            )}"
+                                        >
+                                            ${escapeHTML(
+                                                item.label
+                                            )}
+                                        </a>
+
+                                        <span
+                                            class="breadcrumb-separator"
+                                        >
+                                            /
+                                        </span>
+
+                                    `;
+
+                                }
+                            )
+                            .join("");
+
+                }
+
+
+                /* =================================================
+                   RENDER SUBJECTS
+                ================================================= */
+
+                function renderSubjects(
+                    subjects
+                ) {
+
+                    if (
+                        !Array.isArray(subjects) ||
+                        subjects.length === 0
+                    ) {
+
+                        renderError(
+                            `Daftar mata pelajaran Kelas ${classNumber} belum tersedia.`
+                        );
+
+                        return;
+
+                    }
+
+
+                    title.textContent =
+                        "Materi Pembelajaran";
+
+
+                    description.textContent =
+                        `Pilih mata pelajaran Kelas ${classNumber} yang ingin kamu pelajari.`;
+
+
+                    sectionTitle.textContent =
+                        "Mata Pelajaran";
+
+
+                    sectionDescription.textContent =
+                        "Pilih salah satu mata pelajaran untuk melihat bab dan subbab.";
+
+
+                    backButton.href =
+                        buildURL(
+                            `kelas-${classNumber}.html`
+                        );
+
+
+                    setBreadcrumb([
+
+                        {
+                            label:
+                                "SMA",
+
+                            href:
+                                "sma.html"
+                        },
+
+                        {
+                            label:
+                                `Kelas ${classNumber}`,
+
+                            href:
+                                `kelas-${classNumber}.html`
+                        },
+
+                        {
+                            label:
+                                "Materi Pembelajaran",
+
+                            href:
+                                buildURL(
+                                    "kelas-12-materi.html"
+                                )
+                        }
+
+                    ]);
+
+
+                    content.innerHTML = `
+
+                        <div class="items-grid">
+
+                            ${subjects
+                                .map(
+                                    (
+                                        subject,
+                                        index
+                                    ) => {
+
+                                        if (
+                                            !subject ||
+                                            typeof subject !==
+                                                "object"
+                                        ) {
+
+                                            return "";
+
+                                        }
+
+
+                                        const identifier =
+                                            getSubjectIdentifier(
+                                                subject
+                                            );
+
+
+                                        const name =
+                                            getSubjectName(
+                                                subject
+                                            );
+
+
+                                        const desc =
+                                            getSubjectDescription(
+                                                subject
+                                            );
+
+
+                                        const href =
+                                            buildURL(
+                                                "bab.html",
+                                                {
+                                                    class:
+                                                        classNumber,
+
+                                                    subject:
+                                                        identifier
+                                                }
+                                            );
+
+
+                                        return `
+
+                                            <a
+                                                class="item-card"
+                                                href="${escapeHTML(
+                                                    href
+                                                )}"
+                                            >
+
+                                                <span
+                                                    class="item-number"
+                                                >
+                                                    ${String(
+                                                        index + 1
+                                                    ).padStart(
+                                                        2,
+                                                        "0"
+                                                    )}
+                                                </span>
+
+
+                                                <h3>
+                                                    ${escapeHTML(
+                                                        name
+                                                    )}
+                                                </h3>
+
+
+                                                <p>
+                                                    ${escapeHTML(
+                                                        desc
+                                                    )}
+                                                </p>
+
+
+                                                <span
+                                                    class="item-arrow"
+                                                >
+                                                    →
+                                                </span>
+
+                                            </a>
+
+                                        `;
+
+                                    }
+                                )
+                                .join("")}
+
+                        </div>
+
+                    `;
+
+                }
+
+
+                /* =================================================
+                   RENDER CHAPTERS
+                ================================================= */
+
+                function renderChapters(
+                    chapters,
+                    selectedSubject
+                ) {
+
+                    if (
+                        !Array.isArray(chapters) ||
+                        chapters.length === 0
+                    ) {
+
+                        renderError(
+                            `Bab untuk ${getSubjectName(selectedSubject)} belum tersedia.`
+                        );
+
+                        return;
+
+                    }
+
+
+                    const subjectName =
+                        getSubjectName(
+                            selectedSubject
+                        );
+
+
+                    title.textContent =
+                        subjectName;
+
+
+                    description.textContent =
+                        `Pilih bab pembelajaran ${subjectName} untuk Kelas ${classNumber}.`;
+
+
+                    sectionTitle.textContent =
+                        "Daftar Bab";
+
+
+                    sectionDescription.textContent =
+                        "Setiap bab berisi subbab dan materi pembelajaran.";
+
+
+                    backButton.href =
+                        buildURL(
+                            "kelas-12-materi.html"
+                        );
+
+
+                    setBreadcrumb([
+
+                        {
+                            label:
+                                "SMA",
+
+                            href:
+                                "sma.html"
+                        },
+
+                        {
+                            label:
+                                `Kelas ${classNumber}`,
+
+                            href:
+                                `kelas-${classNumber}.html`
+                        },
+
+                        {
+                            label:
+                                "Materi Pembelajaran",
+
+                            href:
+                                "kelas-12-materi.html"
+                        },
+
+                        {
+                            label:
+                                subjectName,
+
+                            href:
+                                buildURL(
+                                    "bab.html",
+                                    {
+                                        class:
+                                            classNumber,
+
+                                        subject:
+                                            getSubjectIdentifier(
+                                                selectedSubject
+                                            )
+                                    }
+                                )
+                        }
+
+                    ]);
+
+
+                    content.innerHTML = `
+
+                        <div class="items-grid">
+
+                            ${chapters
+                                .map(
+                                    (
+                                        chapter,
+                                        index
+                                    ) => {
+
+                                        if (
+                                            !chapter ||
+                                            typeof chapter !==
+                                                "object"
+                                        ) {
+
+                                            return "";
+
+                                        }
+
+
+                                        const chapterNumber =
+                                            chapter.number !==
+                                                undefined &&
+                                            chapter.number !==
+                                                null
+                                                ? chapter.number
+                                                : index + 1;
+
+
+                                        const chapterTitle =
+                                            chapter.title ||
+                                            chapter.name ||
+                                            `Bab ${chapterNumber}`;
+
+
+                                        const chapterDescription =
+                                            chapter.description ||
+                                            chapter.overview ||
+                                            "Pelajari materi pada bab ini.";
+
+
+                                        const chapterSemester =
+                                            getChapterSemester(
+                                                chapter,
+                                                semesterParam
+                                            );
+
+
+                                        const chapterIdentifier =
+                                            chapter.id ||
+                                            chapter.number ||
+                                            chapter.title ||
+                                            chapter.name ||
+                                            chapterNumber;
+
+
+                                        const href =
+                                            buildURL(
+                                                "bab.html",
+                                                {
+                                                    class:
+                                                        classNumber,
+
+                                                    semester:
+                                                        chapterSemester,
+
+                                                    subject:
+                                                        getSubjectIdentifier(
+                                                            selectedSubject
+                                                        ),
+
+                                                    chapter:
+                                                        chapterIdentifier
+                                                }
+                                            );
+
+
+                                        return `
+
+                                            <a
+                                                class="item-card"
+                                                href="${escapeHTML(
+                                                    href
+                                                )}"
+                                            >
+
+                                                <span
+                                                    class="item-number"
+                                                >
+                                                    Bab ${escapeHTML(
+                                                        chapterNumber
+                                                    )}
+                                                </span>
+
+
+                                                <h3>
+                                                    ${escapeHTML(
+                                                        chapterTitle
+                                                    )}
+                                                </h3>
+
+
+                                                <p>
+                                                    ${escapeHTML(
+                                                        chapterDescription
+                                                    )}
+                                                </p>
+
+
+                                                <span
+                                                    class="item-arrow"
+                                                >
+                                                    →
+                                                </span>
+
+                                            </a>
+
+                                        `;
+
+                                    }
+                                )
+                                .join("")}
+
+                        </div>
+
+                    `;
+
+                }
+
+
+                /* =================================================
+                   RENDER SUBCHAPTERS
+                ================================================= */
+
+                function renderSubchapters(
+                    chapter,
+                    selectedSubject
+                ) {
+
+                    const subchapters =
+                        Array.isArray(
+                            chapter.subchapters
+                        )
+                            ? chapter.subchapters
+                            : [];
+
+
+                    const subjectName =
+                        getSubjectName(
+                            selectedSubject
+                        );
+
+
+                    const chapterTitle =
+                        chapter.title ||
+                        chapter.name ||
+                        "Bab";
+
+
+                    const chapterSemester =
+                        getChapterSemester(
+                            chapter,
+                            semesterParam
+                        );
+
+
+                    title.textContent =
+                        chapterTitle;
+
+
+                    description.textContent =
+                        `Pilih subbab ${chapterTitle} untuk mulai belajar.`;
+
+
+                    sectionTitle.textContent =
+                        "Subbab";
+
+
+                    sectionDescription.textContent =
+                        "Materi pembelajaran disusun berdasarkan subbab agar lebih terarah.";
+
+
+                    backButton.href =
+                        buildURL(
+                            "bab.html",
+                            {
+                                class:
+                                    classNumber,
+
+                                semester:
+                                    chapterSemester,
+
+                                subject:
+                                    getSubjectIdentifier(
+                                        selectedSubject
+                                    )
+                            }
+                        );
+
+
+                    setBreadcrumb([
+
+                        {
+                            label:
+                                "SMA",
+
+                            href:
+                                "sma.html"
+                        },
+
+                        {
+                            label:
+                                `Kelas ${classNumber}`,
+
+                            href:
+                                `kelas-${classNumber}.html`
+                        },
+
+                        {
+                            label:
+                                subjectName,
+
+                            href:
+                                buildURL(
+                                    "bab.html",
+                                    {
+                                        class:
+                                            classNumber,
+
+                                        subject:
+                                            getSubjectIdentifier(
+                                                selectedSubject
+                                            )
+                                    }
+                                )
+                        },
+
+                        {
+                            label:
+                                chapterTitle,
+
+                            href:
+                                buildURL(
+                                    "bab.html",
+                                    {
+                                        class:
+                                            classNumber,
+
+                                        semester:
+                                            chapterSemester,
+
+                                        subject:
+                                            getSubjectIdentifier(
+                                                selectedSubject
+                                            ),
+
+                                        chapter:
+                                            chapter.id ||
+                                            chapter.number ||
+                                            chapter.title ||
+                                            chapter.name
+                                    }
+                                )
+                        }
+
+                    ]);
+
+
+                    if (
+                        subchapters.length === 0
+                    ) {
+
+                        renderError(
+                            `Subbab untuk ${chapterTitle} belum tersedia.`
+                        );
+
+                        return;
+
+                    }
+
+
+                    content.innerHTML = `
+
+                        <div class="items-grid">
+
+                            ${subchapters
+                                .map(
+                                    (
+                                        subchapter,
+                                        index
+                                    ) => {
+
+                                        if (
+                                            !subchapter ||
+                                            typeof subchapter !==
+                                                "object"
+                                        ) {
+
+                                            return "";
+
+                                        }
+
+
+                                        const number =
+                                            subchapter.number !==
+                                                undefined &&
+                                            subchapter.number !==
+                                                null
+                                                ? subchapter.number
+                                                : index + 1;
+
+
+                                        const subchapterTitle =
+                                            subchapter.title ||
+                                            subchapter.name ||
+                                            `Subbab ${number}`;
+
+
+                                        const subchapterDescription =
+                                            subchapter.description ||
+                                            "Buka materi pembelajaran subbab ini.";
+
+
+                                        const subchapterIdentifier =
+                                            subchapter.id ||
+                                            subchapter.number ||
+                                            subchapter.title ||
+                                            subchapter.name ||
+                                            number;
+
+
+                                        const chapterIdentifier =
+                                            chapter.id ||
+                                            chapter.number ||
+                                            chapter.title ||
+                                            chapter.name;
+
+
+                                        const href =
+                                            buildURL(
+                                                "materi-belajar.html",
+                                                {
+                                                    class:
+                                                        classNumber,
+
+                                                    semester:
+                                                        chapterSemester,
+
+                                                    subject:
+                                                        getSubjectIdentifier(
+                                                            selectedSubject
+                                                        ),
+
+                                                    chapter:
+                                                        chapterIdentifier,
+
+                                                    subchapter:
+                                                        subchapterIdentifier
+                                                }
+                                            );
+
+
+                                        return `
+
+                                            <a
+                                                class="item-card"
+                                                href="${escapeHTML(
+                                                    href
+                                                )}"
+                                            >
+
+                                                <span
+                                                    class="item-number"
+                                                >
+                                                    ${escapeHTML(
+                                                        number
+                                                    )}
+                                                </span>
+
+
+                                                <h3>
+                                                    ${escapeHTML(
+                                                        subchapterTitle
+                                                    )}
+                                                </h3>
+
+
+                                                <p>
+                                                    ${escapeHTML(
+                                                        subchapterDescription
+                                                    )}
+                                                </p>
+
+
+                                                <span
+                                                    class="item-arrow"
+                                                >
+                                                    →
+                                                </span>
+
+                                            </a>
+
+                                        `;
+
+                                    }
+                                )
+                                .join("")}
+
+                        </div>
+
+                    `;
+
+                }
+
+
+                /* =================================================
+                   ENGINE CHECK
+                ================================================= */
+
+                if (
+                    !window.FJISContent
+                ) {
+
+                    renderError(
+                        "Content Engine belum berhasil dimuat.",
+                        "window.FJISContent tidak ditemukan."
+                    );
+
+                    return;
+
+                }
+
+
+                if (
+                    typeof FJISContent.loadClass !==
+                    "function"
+                ) {
+
+                    renderError(
+                        "Content Engine tidak lengkap.",
+                        "FJISContent.loadClass() tidak tersedia."
+                    );
+
+                    return;
+
+                }
+
+
+                /* =================================================
+                   LOAD CLASS
+                ================================================= */
+
+                let classData = null;
+
+
+                try {
+
+                    classData =
+                        await FJISContent.loadClass(
+                            classNumber
+                        );
+
+                } catch (error) {
+
+                    console.error(
+                        "FJIS bab.html loadClass error:",
+                        error
+                    );
+
+
+                    renderError(
+                        `Data Kelas ${classNumber} tidak dapat dimuat.`,
+                        error.message
+                    );
+
+                    return;
+
+                }
+
+
+                if (
+                    !classData
+                ) {
+
+                    renderError(
+                        `Data Kelas ${classNumber} belum ditemukan.`,
+                        `Path: ../../data/sma/kelas-${classNumber}/subjects.json`
+                    );
+
+                    return;
+
+                }
+
+
+                /* =================================================
+                   DETECT STRUCTURE
+                ================================================= */
+
+                const isNewStructure =
+                    Array.isArray(
+                        classData.subjects
+                    );
+
+
+                console.log(
+                    "FJIS bab.html:"
+                );
+
+                console.log(
+                    "Class:",
+                    classNumber
+                );
+
+                console.log(
+                    "Structure:",
+                    isNewStructure
+                        ? "NEW"
+                        : "OLD"
+                );
+
+                console.log(
+                    "Subject URL:",
+                    subjectParam
+                );
+
+                console.log(
+                    "Chapter URL:",
+                    chapterParam
+                );
+
+
+                /* =================================================
+                   NO SUBJECT
+                ================================================= */
+
+                if (
+                    !subjectParam
+                ) {
+
+
+                    /*
+                     * STRUKTUR BARU
+                     *
+                     * Kelas 11 / 12
+                     *
+                     * subjects langsung berada
+                     * di root.
+                     */
+
+                    if (
+                        isNewStructure
+                    ) {
+
+                        renderSubjects(
+                            classData.subjects
+                        );
+
+                        return;
+
+                    }
+
+
+                    /*
+                     * STRUKTUR LAMA
+                     *
+                     * Kelas 10
+                     *
+                     * subjects berada dalam semester.
+                     */
+
+                    const oldSemester =
+                        semesterParam ||
+                        "1";
+
+
+                    const semesterData =
+                        typeof FJISContent.getSemester ===
+                            "function"
+
+                            ? FJISContent.getSemester(
+                                classData,
+                                oldSemester
+                            )
+
+                            : null;
+
+
+                    if (
+                        semesterData &&
+                        Array.isArray(
+                            semesterData.subjects
+                        )
+                    ) {
+
+                        renderSubjects(
+                            semesterData.subjects
+                        );
+
+                        return;
+
+                    }
+
+
+                    renderError(
+                        `Mata pelajaran Kelas ${classNumber} belum ditemukan.`,
+                        "Struktur semester/subjects tidak ditemukan."
+                    );
+
+                    return;
+
+                }
+
+
+                /* =================================================
+                   FIND SUBJECT
+                ================================================= */
+
+                let selectedSubject = null;
+
+
+                if (
+                    typeof FJISContent.findSubject ===
+                    "function"
+                ) {
+
+
+                    /*
+                     * STRUKTUR BARU
+                     */
+
+                    if (
+                        isNewStructure
+                    ) {
+
+                        selectedSubject =
+                            FJISContent.findSubject(
+                                classData,
+                                subjectParam
+                            );
+
+                    }
+
+
+                    /*
+                     * STRUKTUR LAMA
+                     */
+
+                    else {
+
+                        const oldSemester =
+                            semesterParam ||
+                            "1";
+
+
+                        const semesterData =
+                            FJISContent.getSemester(
+                                classData,
+                                oldSemester
+                            );
+
+
+                        if (
+                            semesterData
+                        ) {
+
+                            selectedSubject =
+                                FJISContent.findSubject(
+                                    semesterData,
+                                    subjectParam
+                                );
+
+                        }
+
+                    }
+
+                }
+
+
+                /* =================================================
+                   SUBJECT FALLBACK
+                ================================================= */
+
+                if (
+                    !selectedSubject &&
+                    isNewStructure &&
+                    Array.isArray(
+                        classData.subjects
+                    )
+                ) {
+
+                    const target =
+                        normalize(
+                            subjectParam
+                        );
+
+
+                    selectedSubject =
+                        classData.subjects.find(
+                            subject => {
+
+                                if (
+                                    !subject ||
+                                    typeof subject !==
+                                        "object"
+                                ) {
+
+                                    return false;
+
+                                }
+
+
+                                const values = [
+
+                                    subject.code,
+
+                                    subject.name,
+
+                                    subject.slug,
+
+                                    subject.file,
+
+                                    subject.folder,
+
+                                    subject.id
+
+                                ];
+
+
+                                return values.some(
+                                    value =>
+                                        normalize(
+                                            value
+                                        ) ===
+                                        target
+                                );
+
+                            }
+                        ) || null;
+
+                }
+
+
+                /* =================================================
+                   SUBJECT CHECK
+                ================================================= */
+
+                if (
+                    !selectedSubject
+                ) {
+
+                    renderError(
+                        `Mata pelajaran "${subjectParam}" tidak ditemukan pada Kelas ${classNumber}.`,
+                        `Identifier: ${subjectParam}`
+                    );
+
+                    return;
+
+                }
+
+
+                /* =================================================
+                   SUBJECT IDENTIFIER
+                ================================================= */
+
+                const subjectIdentifier =
+                    getSubjectIdentifier(
+                        selectedSubject
+                    );
+
+
+                if (
+                    !subjectIdentifier
+                ) {
+
+                    renderError(
+                        `File materi untuk ${getSubjectName(selectedSubject)} tidak dapat ditentukan.`,
+                        "Subject ditemukan tetapi tidak mempunyai folder, code, slug, file, name, atau id."
+                    );
+
+                    return;
+
+                }
+
+
+                console.log(
+                    "FJIS bab.html: subject metadata →",
+                    selectedSubject
+                );
+
+
+                console.log(
+                    "FJIS bab.html: subject identifier →",
+                    subjectIdentifier
+                );
+
+
+                /* =================================================
+                   LOAD SUBJECT
+                ================================================= */
+
+                let subjectData = null;
+
+
+                try {
+
+                    /*
+                     * PENTING:
+                     *
+                     * Yang dikirim ke loadSubject adalah
+                     * subjectIdentifier STRING.
+                     *
+                     * BUKAN selectedSubject OBJECT.
+                     */
+
+                    subjectData =
+                        await FJISContent.loadSubject(
+                            classNumber,
+                            semesterParam ||
+                                "1",
+                            subjectIdentifier
+                        );
+
+                } catch (error) {
+
+                    console.error(
+                        "FJIS bab.html loadSubject error:",
+                        error
+                    );
+
+
+                    renderError(
+                        `File materi untuk ${getSubjectName(selectedSubject)} belum ditemukan.`,
+                        error.message
+                    );
+
+                    return;
+
+                }
+
+
+                if (
+                    !subjectData
+                ) {
+
+                    renderError(
+                        `File materi untuk ${getSubjectName(selectedSubject)} belum ditemukan.`,
+                        `Identifier subject: ${subjectIdentifier}`
+                    );
+
+                    return;
+
+                }
+
+
+                console.log(
+                    "FJIS bab.html: subject berhasil dimuat →",
+                    subjectData
+                );
+
+
+                /* =================================================
+                   GET CHAPTERS
+                ================================================= */
+
+                let chapters = [];
+
+
+                if (
+                    typeof FJISContent.getSubjectChapters ===
+                    "function"
+                ) {
+
+
+                    /*
+                     * STRUKTUR BARU:
+                     *
+                     * Jangan memaksa semester tertentu.
+                     * Chapter akan membawa informasi semester
+                     * jika tersedia.
+                     */
+
+                    if (
+                        isNewStructure
+                    ) {
+
+                        chapters =
+                            FJISContent.getSubjectChapters(
+                                subjectData,
+                                ""
+                            );
+
+                    }
+
+
+                    /*
+                     * STRUKTUR LAMA:
+                     *
+                     * Gunakan semester dari URL,
+                     * atau semester 1 sebagai default.
+                     */
+
+                    else {
+
+                        chapters =
+                            FJISContent.getSubjectChapters(
+                                subjectData,
+                                semesterParam ||
+                                    "1"
+                            );
+
+                    }
+
+                }
+
+
+                /*
+                 * Pastikan selalu array.
+                 */
+
+                if (
+                    !Array.isArray(
+                        chapters
+                    )
+                ) {
+
+                    chapters = [];
+
+                }
+
+
+                /* =================================================
+                   NO CHAPTER
+                ================================================= */
+
+                if (
+                    !chapterParam
+                ) {
+
+                    renderChapters(
+                        chapters,
+                        selectedSubject
+                    );
+
+                    return;
+
+                }
+
+
+                /* =================================================
+                   FIND CHAPTER
+                ================================================= */
+
+                let selectedChapter = null;
+
+
+                if (
+                    typeof FJISContent.getChapterByIdentifier ===
+                    "function"
+                ) {
+
+                    selectedChapter =
+                        FJISContent.getChapterByIdentifier(
+                            chapters,
+                            chapterParam
+                        );
+
+                }
+
+
+                /*
+                 * FALLBACK CHAPTER SEARCH
+                 */
+
+                if (
+                    !selectedChapter
+                ) {
+
+                    const target =
+                        normalize(
+                            chapterParam
+                        );
+
+
+                    selectedChapter =
+                        chapters.find(
+                            (
+                                chapter,
+                                index
+                            ) => {
+
+                                if (
+                                    !chapter ||
+                                    typeof chapter !==
+                                        "object"
+                                ) {
+
+                                    return false;
+
+                                }
+
+
+                                const id =
+                                    normalize(
+                                        chapter.id
+                                    );
+
+
+                                const number =
+                                    normalize(
+                                        chapter.number !==
+                                            undefined &&
+                                        chapter.number !==
+                                            null
+
+                                            ? chapter.number
+
+                                            : index + 1
+                                    );
+
+
+                                const chapterTitle =
+                                    normalize(
+                                        chapter.title ||
+                                        chapter.name
+                                    );
+
+
+                                return (
+                                    id === target ||
+                                    number === target ||
+                                    chapterTitle === target
+                                );
+
+                            }
+                        ) || null;
+
+                }
+
+
+                /* =================================================
+                   CHAPTER CHECK
+                ================================================= */
+
+                if (
+                    !selectedChapter
+                ) {
+
+                    renderError(
+                        `Bab "${chapterParam}" tidak ditemukan pada ${getSubjectName(selectedSubject)}.`,
+                        `Identifier bab: ${chapterParam}`
+                    );
+
+                    return;
+
+                }
+
+
+                console.log(
+                    "FJIS bab.html: chapter →",
+                    selectedChapter
+                );
+
+
+                /* =================================================
+                   RENDER SUBCHAPTERS
+                ================================================= */
+
+                renderSubchapters(
+                    selectedChapter,
+                    selectedSubject
+                );
+
+
+            }
+        );
+
+    </script>
+
+</body>
+
+</html>

@@ -1,0 +1,5118 @@
+<!DOCTYPE html>
+<html lang="id">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0"
+    >
+
+    <meta
+        name="description"
+        content="Materi TKA SMA — FJIS Academy"
+    >
+
+    <title>
+        TKA — FJIS Academy
+    </title>
+
+
+    <!-- =========================================
+         GLOBAL CSS
+         ========================================= -->
+
+    <link
+        rel="stylesheet"
+        href="../../css/style.css"
+    >
+
+    <link
+        rel="stylesheet"
+        href="../../css/components.css"
+    >
+
+    <link
+        rel="stylesheet"
+        href="../../css/landing.css"
+    >
+
+    <link
+        rel="stylesheet"
+        href="../../css/responsive.css"
+    >
+
+
+    <!-- =========================================
+         PAGE STYLE
+         ========================================= -->
+
+    <style>
+
+        /* =========================================
+           FJIS TKA UI V8 — CALM, REUSABLE THEME
+           Satu palet warna untuk seluruh mata pelajaran.
+           ========================================= */
+        :root {
+            --tka-accent: #5f746b;
+            --tka-accent-dark: #43584f;
+            --tka-accent-soft: #eef3f0;
+            --tka-accent-soft-2: #f6f8f7;
+            --tka-line: #e2e7e4;
+            --tka-ink: #1d2421;
+            --tka-muted: #6e7773;
+        }
+
+        .tka-subject-page { background: #fbfcfb; color: var(--tka-ink); }
+        .tka-subject-category, .tka-material-type, .tka-section-link.is-active,
+        .tka-chapter-index a:hover {
+            background: var(--tka-accent-soft) !important;
+            color: var(--tka-accent-dark) !important;
+            border-color: #d9e2dd !important;
+        }
+        .tka-section-link.is-active .tka-section-link-index { color: var(--tka-accent); }
+        .tka-overview-card {
+            background: #fff !important;
+            border-color: var(--tka-line) !important;
+        }
+        .tka-overview-card::before { background: var(--tka-accent) !important; }
+        .tka-material-card { background: #fff; border-color: var(--tka-line) !important; }
+        .tka-material-card:hover, .tka-material-card.is-open {
+            border-color: #cbd7d1 !important;
+            box-shadow: 0 10px 28px rgba(67,88,79,.07) !important;
+        }
+        .tka-material-number, .tka-submaterial-index {
+            background: var(--tka-accent-soft) !important;
+            color: var(--tka-accent-dark) !important;
+        }
+        .tka-question-option-label:has(input:checked) {
+            border-color: #a9bbb3 !important;
+            background: var(--tka-accent-soft-2) !important;
+        }
+        .tka-question-submit { background: var(--tka-accent-dark) !important; }
+        .tka-question-submit:hover { background: #344840 !important; }
+        .tka-state { background: #fff !important; border-color: var(--tka-line) !important; }
+        .tka-content-kicker, .tka-kicker { color: var(--tka-accent) !important; }
+        .tka-subject-back:hover { background: var(--tka-accent-soft) !important; }
+
+        /* About TKA cards */
+        .tka-overview-grid { align-items: stretch; }
+        .tka-overview-card h3 { color: var(--tka-ink); }
+        .tka-overview-card p, .tka-overview-card li { color: var(--tka-muted); }
+        .tka-overview-card .tka-overview-note {
+            margin-top: 12px; padding-top: 10px; border-top: 1px solid var(--tka-line);
+            font-size: 11px; color: #7c8782;
+        }
+        .tka-framework-group {
+            display: grid; gap: 10px; margin-top: 10px;
+        }
+        .tka-framework-level {
+            padding: 11px 12px; border: 1px solid var(--tka-line); border-radius: 11px; background: var(--tka-accent-soft-2);
+        }
+        .tka-framework-level strong { display:block; font-size:12px; margin-bottom:4px; }
+        .tka-framework-level span { font-size:11px; color:var(--tka-muted); line-height:1.55; }
+
+        /* Subject list can be reused by every future TKA mapel. */
+        .tka-subject-card-calm {
+            background: #eef2ef !important; color: var(--tka-ink) !important;
+            border: 1px solid #dce5e0 !important;
+            box-shadow: 0 8px 24px rgba(67,88,79,.045) !important;
+        }
+        .tka-subject-card-calm .tka-subject-code {
+            background: #fff !important; color: var(--tka-accent-dark) !important;
+            border-color: #d4dfda !important;
+        }
+        .tka-subject-card-calm .tka-status {
+            background: #fff !important; color: var(--tka-accent-dark) !important;
+            border: 1px solid #d7e1dc;
+        }
+        .tka-subject-card-calm p { color: #65706b !important; }
+        .tka-subject-card-calm .tka-open { color: var(--tka-accent-dark) !important; }
+        .tka-subject-card-calm:hover { border-color:#bdccc5 !important; box-shadow:0 13px 30px rgba(67,88,79,.08) !important; }
+
+
+        /* =========================================
+           BASE
+           ========================================= */
+
+        .tka-subject-page {
+            min-height: 100vh;
+            background: #ffffff;
+        }
+
+
+        /* =========================================
+           TOPBAR
+           ========================================= */
+
+        .tka-subject-topbar {
+
+            position: sticky;
+            top: 0;
+
+            z-index: 100;
+
+            width: 100%;
+
+            border-bottom:
+                1px solid
+                rgba(0, 0, 0, 0.07);
+
+            background:
+                rgba(255, 255, 255, 0.94);
+
+            backdrop-filter:
+                blur(14px);
+
+        }
+
+
+        .tka-subject-topbar-inner {
+
+            max-width: 1180px;
+
+            margin: 0 auto;
+
+            padding:
+                14px 24px;
+
+            display: flex;
+
+            align-items: center;
+
+            justify-content: space-between;
+
+            gap: 20px;
+
+        }
+
+
+        .tka-subject-brand {
+
+            display: flex;
+
+            align-items: center;
+
+            gap: 11px;
+
+            text-decoration: none;
+
+            color: inherit;
+
+        }
+
+
+        .tka-subject-brand-icon {
+
+            width: 40px;
+            height: 40px;
+
+            border-radius: 11px;
+
+            display: flex;
+
+            align-items: center;
+
+            justify-content: center;
+
+            background:
+                rgba(0, 0, 0, 0.045);
+
+            font-size: 20px;
+
+        }
+
+
+        .tka-subject-brand-info {
+
+            display: flex;
+
+            flex-direction: column;
+
+            gap: 2px;
+
+        }
+
+
+        .tka-subject-brand-name {
+
+            font-size: 15px;
+
+            font-weight: 800;
+
+            line-height: 1.2;
+
+        }
+
+
+        .tka-subject-brand-motto {
+
+            font-size: 10px;
+
+            opacity: 0.55;
+
+        }
+
+
+        .tka-subject-back {
+
+            display: inline-flex;
+
+            align-items: center;
+
+            gap: 7px;
+
+            padding:
+                8px 13px;
+
+            border-radius: 9px;
+
+            background:
+                rgba(0, 0, 0, 0.04);
+
+            color: inherit;
+
+            text-decoration: none;
+
+            font-size: 12px;
+
+            font-weight: 700;
+
+            transition:
+                background 0.2s ease,
+                transform 0.2s ease;
+
+        }
+
+
+        .tka-subject-back:hover {
+
+            background:
+                rgba(0, 0, 0, 0.08);
+
+            transform:
+                translateX(-2px);
+
+        }
+
+
+        /* =========================================
+           HERO
+           ========================================= */
+
+        .tka-subject-hero {
+
+            max-width: 1180px;
+
+            margin: 0 auto;
+
+            padding:
+                55px 24px
+                42px;
+
+        }
+
+
+        .tka-subject-breadcrumb {
+
+            display: flex;
+
+            align-items: center;
+
+            flex-wrap: wrap;
+
+            gap: 7px;
+
+            margin-bottom: 20px;
+
+            font-size: 12px;
+
+            color:
+                rgba(0, 0, 0, 0.48);
+
+        }
+
+
+        .tka-subject-breadcrumb a {
+
+            color: inherit;
+
+            text-decoration: none;
+
+        }
+
+
+        .tka-subject-breadcrumb a:hover {
+
+            text-decoration: underline;
+
+        }
+
+
+        .tka-subject-category {
+
+            display: inline-flex;
+
+            align-items: center;
+
+            padding:
+                7px 11px;
+
+            border-radius: 999px;
+
+            background:
+                rgba(0, 0, 0, 0.045);
+
+            font-size: 10px;
+
+            font-weight: 800;
+
+            letter-spacing:
+                0.09em;
+
+            text-transform:
+                uppercase;
+
+            margin-bottom: 15px;
+
+        }
+
+
+        .tka-subject-hero h1 {
+
+            margin: 0;
+
+            max-width: 900px;
+
+            font-size:
+                clamp(
+                    32px,
+                    5vw,
+                    52px
+                );
+
+            line-height: 1.06;
+
+            letter-spacing:
+                -0.04em;
+
+        }
+
+
+        .tka-subject-description {
+
+            max-width: 760px;
+
+            margin:
+                17px 0 0;
+
+            font-size: 15px;
+
+            line-height: 1.75;
+
+            color:
+                rgba(0, 0, 0, 0.61);
+
+        }
+
+
+        /* =========================================
+           MAIN
+           ========================================= */
+
+        .tka-subject-main {
+
+            max-width: 1180px;
+
+            margin: 0 auto;
+
+            padding:
+                0 24px
+                80px;
+
+        }
+
+
+        /* =========================================
+           SECTION
+           ========================================= */
+
+        .tka-content-section {
+
+            margin-bottom: 52px;
+
+        }
+
+
+        .tka-content-heading {
+
+            margin-bottom: 20px;
+
+        }
+
+
+        .tka-content-kicker {
+
+            margin-bottom: 7px;
+
+            font-size: 10px;
+
+            font-weight: 800;
+
+            letter-spacing:
+                0.1em;
+
+            text-transform:
+                uppercase;
+
+            color:
+                rgba(0, 0, 0, 0.43);
+
+        }
+
+
+        .tka-content-title {
+
+            margin: 0;
+
+            font-size: 26px;
+
+            line-height: 1.2;
+
+            letter-spacing:
+                -0.025em;
+
+        }
+
+
+        .tka-content-description {
+
+            max-width: 760px;
+
+            margin:
+                8px 0 0;
+
+            font-size: 14px;
+
+            line-height: 1.7;
+
+            color:
+                rgba(0, 0, 0, 0.57);
+
+        }
+
+
+        /* =========================================
+           OVERVIEW
+           ========================================= */
+
+        .tka-overview-grid {
+
+            display: grid;
+
+            grid-template-columns:
+                repeat(
+                    2,
+                    minmax(0, 1fr)
+                );
+
+            gap: 15px;
+
+        }
+
+
+        .tka-overview-card {
+
+            padding: 21px;
+
+            border:
+                1px solid
+                rgba(0, 0, 0, 0.07);
+
+            border-radius: 15px;
+
+            background:
+                rgba(0, 0, 0, 0.025);
+
+        }
+
+
+        .tka-overview-card h3 {
+
+            margin:
+                0 0 9px;
+
+            font-size: 15px;
+
+        }
+
+
+        .tka-overview-card p {
+
+            margin: 0;
+
+            font-size: 13px;
+
+            line-height: 1.7;
+
+            color:
+                rgba(0, 0, 0, 0.58);
+
+        }
+
+
+        .tka-overview-list {
+
+            margin: 0;
+
+            padding-left: 18px;
+
+            font-size: 13px;
+
+            line-height: 1.8;
+
+            color:
+                rgba(0, 0, 0, 0.60);
+
+        }
+
+
+        /* =========================================
+           MATERIAL LIST
+           ========================================= */
+
+        .tka-material-list {
+
+            display: flex;
+
+            flex-direction: column;
+
+            gap: 13px;
+
+        }
+
+
+        .tka-material-card {
+
+            border:
+                1px solid
+                rgba(0, 0, 0, 0.08);
+
+            border-radius: 15px;
+
+            background:
+                #ffffff;
+
+            overflow: hidden;
+
+            box-shadow:
+                0 5px 20px
+                rgba(0, 0, 0, 0.035);
+
+        }
+
+
+        .tka-material-header {
+
+            display: flex;
+
+            align-items: center;
+
+            gap: 16px;
+
+            padding:
+                20px;
+
+        }
+
+
+        .tka-material-number {
+
+            flex:
+                0 0 auto;
+
+            width: 42px;
+            height: 42px;
+
+            border-radius: 12px;
+
+            display: flex;
+
+            align-items: center;
+
+            justify-content: center;
+
+            background:
+                rgba(0, 0, 0, 0.045);
+
+            font-size: 13px;
+
+            font-weight: 800;
+
+        }
+
+
+        .tka-material-info {
+
+            flex: 1;
+
+            min-width: 0;
+
+        }
+
+
+        .tka-material-title {
+
+            margin: 0;
+
+            font-size: 17px;
+
+            line-height: 1.3;
+
+        }
+
+
+        .tka-material-question-summary {
+            margin: 6px 0 0;
+            font-size: 11px;
+            font-weight: 700;
+            color: rgba(0,0,0,.5);
+        }
+
+        .tka-material-description {
+
+            margin:
+                5px 0 0;
+
+            font-size: 12px;
+
+            line-height: 1.6;
+
+            color:
+                rgba(0, 0, 0, 0.55);
+
+        }
+
+
+        .tka-material-toggle {
+
+            flex:
+                0 0 auto;
+
+            width: 34px;
+            height: 34px;
+
+            border: 0;
+
+            border-radius: 9px;
+
+            background:
+                rgba(0, 0, 0, 0.045);
+
+            cursor: pointer;
+
+            font-size: 15px;
+
+            transition:
+                transform 0.2s ease,
+                background 0.2s ease;
+
+        }
+
+
+        .tka-material-toggle:hover {
+
+            background:
+                rgba(0, 0, 0, 0.08);
+
+        }
+
+
+        .tka-material-card.is-open
+        .tka-material-toggle {
+
+            transform:
+                rotate(180deg);
+
+        }
+
+
+        .tka-material-body {
+
+            display: none;
+
+            border-top:
+                1px solid
+                rgba(0, 0, 0, 0.06);
+
+            padding:
+                20px;
+
+        }
+
+
+        .tka-material-card.is-open
+        .tka-material-body {
+
+            display: block;
+
+        }
+
+
+        /* =========================================
+           SUBMATERIAL
+           ========================================= */
+
+        .tka-submaterial-list {
+
+            display: flex;
+
+            flex-direction: column;
+
+            gap: 10px;
+
+        }
+
+
+        .tka-submaterial {
+
+            padding:
+                17px;
+
+            border-radius: 12px;
+
+            background:
+                rgba(0, 0, 0, 0.025);
+
+        }
+
+
+        .tka-submaterial-title {
+
+            margin:
+                0 0 7px;
+
+            font-size: 14px;
+
+            font-weight: 800;
+
+        }
+
+
+        .tka-submaterial-description {
+
+            margin:
+                0 0 13px;
+
+            font-size: 12px;
+
+            line-height: 1.65;
+
+            color:
+                rgba(0, 0, 0, 0.57);
+
+        }
+
+
+        /* =========================================
+           SUBMATERIAL ACTIONS
+           ========================================= */
+
+        .tka-submaterial-actions {
+
+            display: flex;
+
+            flex-wrap: wrap;
+
+            gap: 8px;
+
+        }
+
+
+        .tka-action {
+
+            display: inline-flex;
+
+            align-items: center;
+
+            gap: 6px;
+
+            padding:
+                8px 11px;
+
+            border-radius: 8px;
+
+            background:
+                #ffffff;
+
+            border:
+                1px solid
+                rgba(0, 0, 0, 0.08);
+
+            color: inherit;
+
+            text-decoration: none;
+
+            font-size: 11px;
+
+            font-weight: 700;
+
+            cursor: pointer;
+
+            transition:
+                background 0.2s ease,
+                transform 0.2s ease;
+
+        }
+
+
+        .tka-action:hover {
+
+            background:
+                rgba(0, 0, 0, 0.055);
+
+            transform:
+                translateY(-1px);
+
+        }
+
+
+        /* =========================================
+           MATERIAL DETAIL
+           ========================================= */
+
+        .tka-inline-material {
+
+            margin-top: 14px;
+
+            padding:
+                17px;
+
+            border-radius: 11px;
+
+            background:
+                #ffffff;
+
+            border:
+                1px solid
+                rgba(0, 0, 0, 0.06);
+
+        }
+
+
+        .tka-inline-material h4 {
+
+            margin:
+                0 0 9px;
+
+            font-size: 13px;
+
+        }
+
+
+        .tka-inline-material p {
+
+            margin:
+                0 0 10px;
+
+            font-size: 12px;
+
+            line-height: 1.75;
+
+            color:
+                rgba(0, 0, 0, 0.65);
+
+        }
+
+
+        .tka-inline-material p:last-child {
+
+            margin-bottom: 0;
+
+        }
+
+
+        .tka-formula {
+
+            margin:
+                12px 0;
+
+            padding:
+                12px 14px;
+
+            border-radius: 9px;
+
+            background:
+                rgba(0, 0, 0, 0.035);
+
+            font-family:
+                "Courier New",
+                monospace;
+
+            font-size: 12px;
+
+            overflow-x: auto;
+
+        }
+
+
+        .tka-inline-list {
+
+            margin:
+                8px 0;
+
+            padding-left: 18px;
+
+            font-size: 12px;
+
+            line-height: 1.75;
+
+        }
+
+
+        /* =========================================
+           EXAMPLES
+           ========================================= */
+
+        .tka-examples {
+
+            margin-top: 15px;
+
+        }
+
+
+        .tka-examples-title {
+
+            margin:
+                0 0 10px;
+
+            font-size: 13px;
+
+            font-weight: 800;
+
+        }
+
+
+        .tka-example-card {
+
+            padding:
+                14px;
+
+            margin-bottom: 9px;
+
+            border:
+                1px solid
+                rgba(0, 0, 0, 0.06);
+
+            border-radius: 10px;
+
+            background:
+                #ffffff;
+
+        }
+
+
+        .tka-example-question {
+
+            margin: 0;
+
+            font-size: 12px;
+
+            line-height: 1.7;
+
+        }
+
+
+        .tka-example-answer {
+
+            margin-top: 8px;
+
+            font-size: 11px;
+
+            font-weight: 700;
+
+        }
+
+
+        .tka-example-explanation {
+
+            margin-top: 6px;
+
+            font-size: 11px;
+
+            line-height: 1.65;
+
+            color:
+                rgba(0, 0, 0, 0.57);
+
+        }
+
+
+        .tka-question-options {
+            list-style: none;
+            margin: 14px 0 0;
+            padding: 0;
+            display: grid;
+            gap: 9px;
+        }
+
+        .tka-question-option { margin: 0; }
+
+        .tka-question-option-label {
+            display: flex;
+            align-items: flex-start;
+            gap: 10px;
+            padding: 12px 14px;
+            border: 1px solid rgba(0,0,0,.10);
+            border-radius: 12px;
+            background: #fff;
+            cursor: pointer;
+            transition: .15s ease;
+        }
+
+        .tka-question-option-label:hover { border-color: rgba(0,0,0,.22); }
+        .tka-question-option-label:has(input:checked) {
+            border-color: rgba(0,0,0,.45);
+            background: rgba(0,0,0,.025);
+        }
+        .tka-question-option-input { margin-top: 3px; width: 17px; height: 17px; flex: 0 0 auto; }
+        .tka-question-option-key {
+            display: inline-grid; place-items: center; width: 24px; height: 24px;
+            flex: 0 0 24px; border: 1px solid rgba(0,0,0,.12); border-radius: 50%;
+            font-size: 10px; font-weight: 800;
+        }
+        .tka-question-option-text { line-height: 1.65; font-size: 13px; }
+        .tka-question-submit {
+            margin-top: 12px; padding: 9px 14px; border: 0; border-radius: 9px;
+            background: #202020; color: #fff; font-weight: 800; cursor: pointer;
+        }
+        .tka-question-result {
+            margin-top: 10px; padding: 11px 13px; border-radius: 10px;
+            border: 1px solid rgba(0,0,0,.09); background: rgba(0,0,0,.025); line-height: 1.6;
+        }
+        .tka-question-result.is-correct { border-color: rgba(0,0,0,.20); }
+        .tka-question-result.is-incorrect { border-color: rgba(0,0,0,.14); }
+        .tka-question-category { margin-top: 14px; display: grid; gap: 9px; }
+        .tka-question-category-row {
+            display: grid; grid-template-columns: minmax(0,1fr) 190px; gap: 12px;
+            align-items: center; padding: 12px; border: 1px solid rgba(0,0,0,.10);
+            border-radius: 12px; background: #fff;
+        }
+        .tka-question-category-response { display: flex; gap: 8px; justify-content: flex-end; flex-wrap: wrap; }
+        .tka-question-category-response label {
+            display: inline-flex; align-items: center; gap: 5px; padding: 7px 9px;
+            border: 1px solid rgba(0,0,0,.10); border-radius: 8px; cursor: pointer; font-size: 11px;
+        }
+        .tka-question-category-response input { width: 15px; height: 15px; }
+        .tka-question-solution { margin-top: 12px; border-top: 1px solid rgba(0,0,0,.08); padding-top: 10px; }
+        .tka-question-solution summary { cursor: pointer; font-weight: 800; }
+        .tka-question-solution-content { margin-top: 10px; line-height: 1.7; }
+        .tka-question-solution-content p { margin: 7px 0; }
+        .tka-question-solution-content ol { margin: 8px 0; padding-left: 22px; }
+
+        /* =========================================
+           QUESTION SECTION
+           ========================================= */
+
+        .tka-question-section {
+
+            margin-top: 15px;
+
+        }
+
+
+        .tka-question-section-title {
+
+            margin:
+                0 0 10px;
+
+            font-size: 13px;
+
+            font-weight: 800;
+
+        }
+
+
+        .tka-question-count {
+
+            font-size: 11px;
+
+            color:
+                rgba(0, 0, 0, 0.48);
+
+        }
+
+
+        /* =========================================
+           EMPTY / ERROR
+           ========================================= */
+
+        .tka-state {
+
+            padding:
+                45px 20px;
+
+            text-align: center;
+
+            border:
+                1px solid
+                rgba(0, 0, 0, 0.07);
+
+            border-radius: 15px;
+
+            background:
+                rgba(0, 0, 0, 0.025);
+
+        }
+
+
+        .tka-state-icon {
+
+            margin-bottom: 12px;
+
+            font-size: 30px;
+
+        }
+
+
+        .tka-state h3 {
+
+            margin:
+                0 0 7px;
+
+            font-size: 17px;
+
+        }
+
+
+        .tka-state p {
+
+            max-width: 550px;
+
+            margin:
+                0 auto;
+
+            font-size: 13px;
+
+            line-height: 1.65;
+
+            color:
+                rgba(0, 0, 0, 0.55);
+
+        }
+
+
+        /* =========================================
+           FOOTER
+           ========================================= */
+
+        .tka-subject-footer {
+
+            padding:
+                25px 24px
+                40px;
+
+            text-align: center;
+
+            border-top:
+                1px solid
+                rgba(0, 0, 0, 0.07);
+
+            font-size: 11px;
+
+            color:
+                rgba(0, 0, 0, 0.45);
+
+        }
+
+
+        /* =========================================
+           RESPONSIVE
+           ========================================= */
+
+        @media (
+            max-width: 720px
+        ) {
+
+            .tka-overview-grid {
+
+                grid-template-columns:
+                    1fr;
+
+            }
+
+
+            .tka-subject-hero {
+
+                padding:
+                    42px 17px
+                    32px;
+
+            }
+
+
+            .tka-subject-main {
+
+                padding:
+                    0 17px
+                    60px;
+
+            }
+
+
+            .tka-subject-topbar-inner {
+
+                padding:
+                    12px 17px;
+
+            }
+
+        }
+
+
+        @media (
+            max-width: 480px
+        ) {
+
+            .tka-subject-brand-motto {
+
+                display: none;
+
+            }
+
+
+            .tka-subject-back {
+
+                font-size: 10px;
+
+                padding:
+                    7px 9px;
+
+            }
+
+
+            .tka-material-header {
+
+                padding:
+                    16px;
+
+            }
+
+
+            .tka-material-body {
+
+                padding:
+                    16px;
+
+            }
+
+
+            .tka-material-number {
+
+                width: 37px;
+                height: 37px;
+
+                border-radius: 10px;
+
+                font-size: 11px;
+
+            }
+
+        }
+
+    
+.tka-question-stimulus{
+    margin:16px 0;
+    padding:18px 20px;
+    border:1px solid #dfe4ea;
+    border-left:4px solid #2f5d8c;
+    border-radius:12px;
+    background:#f7f9fb;
+    line-height:1.7;
+}
+.tka-explanation-focus{
+    margin:0 0 14px;
+    padding:10px 12px;
+    border-radius:8px;
+    background:#f4f6f8;
+    font-size:.92rem;
+}
+
+
+.tka-explanation-task{
+    margin:0 0 14px;
+    padding:10px 12px;
+    border-radius:8px;
+    background:#fff;
+    border:1px solid #e3e7eb;
+    font-size:.92rem;
+}
+
+
+        /* =========================================================
+           FJIS TKA UI V6 — STRUCTURED LAYOUT
+           Layer UI only: does not change data, scoring, or engine.
+           ========================================================= */
+        .tka-section-nav {
+            position: sticky;
+            top: 61px;
+            z-index: 80;
+            border-top: 1px solid rgba(0,0,0,.045);
+            border-bottom: 1px solid rgba(0,0,0,.075);
+            background: rgba(255,255,255,.90);
+            backdrop-filter: blur(14px);
+        }
+        .tka-section-nav-inner {
+            max-width: 1180px;
+            margin: 0 auto;
+            padding: 8px 24px;
+            display: flex;
+            gap: 8px;
+            overflow-x: auto;
+            scrollbar-width: none;
+        }
+        .tka-section-nav-inner::-webkit-scrollbar { display:none; }
+        .tka-section-link {
+            flex: 0 0 auto;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            min-height: 34px;
+            padding: 6px 12px;
+            border: 1px solid transparent;
+            border-radius: 10px;
+            color: rgba(0,0,0,.57);
+            text-decoration: none;
+            font-size: 12px;
+            font-weight: 750;
+            transition: .18s ease;
+        }
+        .tka-section-link:hover,
+        .tka-section-link.is-active {
+            color: rgba(0,0,0,.88);
+            background: rgba(0,0,0,.045);
+            border-color: rgba(0,0,0,.07);
+        }
+        .tka-section-link-index {
+            font-size: 10px;
+            font-weight: 850;
+            letter-spacing: .08em;
+            opacity: .55;
+        }
+        .tka-content-section { scroll-margin-top: 125px; }
+        .tka-content-heading {
+            display: grid;
+            grid-template-columns: minmax(0, 1fr);
+            gap: 3px;
+        }
+        .tka-content-kicker {
+            color: rgba(0,0,0,.42);
+        }
+        .tka-overview-card {
+            position: relative;
+            min-height: 110px;
+            background: #f3f6f4;
+        }
+        .tka-overview-card::before {
+            content:"";
+            position:absolute;
+            left:0; top:18px; bottom:18px;
+            width:3px;
+            border-radius: 99px;
+            background: rgba(0,0,0,.12);
+        }
+        .tka-overview-card > * { position:relative; }
+        .tka-material-list { gap: 16px; }
+        .tka-material-card {
+            border-radius: 18px;
+            box-shadow: 0 8px 28px rgba(0,0,0,.045);
+            transition: border-color .18s ease, box-shadow .18s ease, transform .18s ease;
+        }
+        .tka-material-card:hover {
+            border-color: rgba(0,0,0,.13);
+            box-shadow: 0 12px 34px rgba(0,0,0,.065);
+        }
+        .tka-material-card.is-open {
+            border-color: rgba(0,0,0,.14);
+        }
+        .tka-material-header {
+            min-height: 76px;
+            padding: 18px 20px;
+        }
+        .tka-material-title-row {
+            display:flex;
+            align-items:center;
+            flex-wrap:wrap;
+            gap:8px 10px;
+        }
+        .tka-material-type {
+            display:inline-flex;
+            align-items:center;
+            min-height:22px;
+            padding: 3px 7px;
+            border:1px solid rgba(0,0,0,.08);
+            border-radius:7px;
+            background:rgba(0,0,0,.035);
+            color:rgba(0,0,0,.48);
+            font-size:9px;
+            font-weight:850;
+            letter-spacing:.08em;
+        }
+        .tka-material-title { font-size: 18px; }
+        .tka-material-question-summary {
+            display:inline-flex;
+            align-items:center;
+            gap:5px;
+        }
+        .tka-material-body {
+            padding: 22px;
+            background: rgba(0,0,0,.012);
+        }
+        .tka-inline-material {
+            padding: 20px;
+            margin-bottom: 16px;
+            border: 1px solid rgba(0,0,0,.065);
+            border-radius: 14px;
+            background: #fff;
+        }
+        .tka-inline-material h4,
+        .tka-question-section-title {
+            display:flex;
+            align-items:center;
+            gap:8px;
+            margin-top:0;
+        }
+        .tka-submaterial-list { gap: 11px; }
+        .tka-submaterial {
+            padding: 0;
+            overflow: hidden;
+            border: 1px solid rgba(0,0,0,.075);
+            border-radius: 14px;
+            background:#fff;
+        }
+        .tka-submaterial-toggle {
+            width:100%;
+            display:grid;
+            grid-template-columns: 32px minmax(0,1fr) 26px;
+            align-items:center;
+            gap:12px;
+            padding: 15px 16px;
+            border:0;
+            background:transparent;
+            color:inherit;
+            text-align:left;
+            cursor:pointer;
+        }
+        .tka-submaterial-toggle:hover { background:rgba(0,0,0,.022); }
+        .tka-submaterial-index {
+            width:32px; height:32px;
+            display:grid; place-items:center;
+            border-radius:9px;
+            background:rgba(0,0,0,.045);
+            font-size:11px;
+            font-weight:850;
+        }
+        .tka-submaterial-heading { min-width:0; display:flex; flex-direction:column; gap:3px; }
+        .tka-submaterial-title { margin:0; font-size:14px; line-height:1.35; }
+        .tka-submaterial-heading .tka-submaterial-description {
+            display:block;
+            margin:0;
+            color:rgba(0,0,0,.50);
+            font-size:11px;
+            line-height:1.5;
+            font-weight:500;
+        }
+        .tka-submaterial-chevron {
+            display:grid; place-items:center;
+            width:26px; height:26px;
+            border-radius:8px;
+            background:rgba(0,0,0,.04);
+            font-size:15px;
+            transition:transform .18s ease;
+        }
+        .tka-submaterial.is-open .tka-submaterial-chevron { transform:rotate(180deg); }
+        .tka-submaterial-body { display:none; padding: 0 16px 17px 60px; }
+        .tka-submaterial.is-open .tka-submaterial-body { display:block; }
+        .tka-submaterial-body > .tka-inline-material { margin-bottom:12px; }
+        .tka-question-section {
+            margin-top:18px;
+            padding-top:18px;
+            border-top:1px solid rgba(0,0,0,.07);
+        }
+        .tka-question-section-title {
+            margin-bottom:14px;
+            font-size:15px;
+        }
+        .tka-question-count {
+            font-size:11px;
+            font-weight:700;
+            color:rgba(0,0,0,.45);
+        }
+        .tka-question-container { display:grid; gap:14px; }
+        .tka-question-item.structured {
+            position:relative;
+            margin:0;
+            padding:20px;
+            border:1px solid rgba(0,0,0,.085);
+            border-radius:15px;
+            background:#fff;
+            box-shadow:0 4px 16px rgba(0,0,0,.025);
+        }
+        .tka-question-number {
+            display:inline-flex;
+            align-items:center;
+            min-height:26px;
+            padding:4px 9px;
+            margin-bottom:11px;
+            border:1px solid rgba(0,0,0,.07);
+            border-radius:8px;
+            background:rgba(0,0,0,.035);
+            font-size:10px;
+            font-weight:850;
+            letter-spacing:.04em;
+        }
+        .tka-question-stimulus {
+            margin:0 0 15px;
+            padding:15px 16px;
+            border-left:3px solid rgba(0,0,0,.20);
+            border-radius:0 10px 10px 0;
+            background:rgba(0,0,0,.025);
+            color:rgba(0,0,0,.72);
+            font-size:13px;
+            line-height:1.75;
+        }
+        .tka-question-prompt {
+            margin-bottom:15px;
+            font-size:15px;
+            line-height:1.75;
+            font-weight:700;
+        }
+        .tka-question-options { gap:8px !important; margin:0; padding:0; list-style:none; }
+        .tka-question-option {
+            margin:0 !important;
+            border:1px solid rgba(0,0,0,.075);
+            border-radius:11px;
+            background:#fff;
+            transition:background .15s ease, border-color .15s ease;
+        }
+        .tka-question-option:hover { background:rgba(0,0,0,.022); border-color:rgba(0,0,0,.14); }
+        .tka-question-option-label { padding:12px 13px; cursor:pointer; }
+        .tka-question-submit {
+            margin-top:13px;
+            min-height:38px;
+            padding:8px 14px;
+            border:1px solid rgba(0,0,0,.10);
+            border-radius:9px;
+            background:#fff;
+            color:inherit;
+            font-size:12px;
+            font-weight:800;
+            cursor:pointer;
+        }
+        .tka-question-submit:hover { background:rgba(0,0,0,.045); }
+        .tka-question-solution {
+            margin-top:13px;
+            border:1px solid rgba(0,0,0,.065);
+            border-radius:11px;
+            background:rgba(0,0,0,.018);
+            overflow:hidden;
+        }
+        .tka-question-solution summary { padding:12px 14px; cursor:pointer; font-size:12px; font-weight:800; }
+        .tka-question-solution-content { padding:0 14px 14px; font-size:13px; line-height:1.75; }
+        .tka-question-result { margin-top:11px; padding:12px 14px; border-radius:10px; font-size:12px; line-height:1.6; }
+        .tka-question-category { display:grid; gap:9px; }
+        .tka-question-category-row {
+            display:grid;
+            grid-template-columns:minmax(0,1fr) auto;
+            gap:14px;
+            align-items:center;
+            padding:12px;
+            border:1px solid rgba(0,0,0,.075);
+            border-radius:11px;
+        }
+        .tka-question-category-response { display:flex; flex-wrap:wrap; gap:7px; }
+        .tka-question-category-response label {
+            display:inline-flex; align-items:center; gap:5px;
+            padding:7px 9px;
+            border:1px solid rgba(0,0,0,.07);
+            border-radius:8px;
+            font-size:11px;
+            cursor:pointer;
+        }
+        @media (max-width: 760px) {
+            .tka-section-nav { top:56px; }
+            .tka-section-nav-inner, .tka-subject-main { padding-left:16px; padding-right:16px; }
+            .tka-material-header { padding:15px; }
+            .tka-material-body { padding:14px; }
+            .tka-question-item.structured { padding:15px; }
+            .tka-submaterial-body { padding-left:16px; }
+            .tka-question-category-row { grid-template-columns:1fr; }
+        }
+
+</style>
+
+
+<style id="fjis-tka-readable-override">
+/* =========================================================
+   FJIS TKA — READABILITY OVERRIDE
+   Tidak mengubah isi soal, stimulus, opsi, kunci, atau JSON.
+   Hanya memperbaiki tampilan dan susunan teks di layar.
+   ========================================================= */
+
+.question-card {
+    width: 100%;
+    box-sizing: border-box;
+    overflow: hidden;
+    padding: 24px;
+    margin: 0 0 22px;
+    border: 1px solid rgba(0,0,0,.08);
+    border-radius: 16px;
+    background: #fff;
+}
+
+.question-number {
+    display: inline-flex;
+    align-items: center;
+    min-height: 30px;
+    margin-bottom: 10px;
+    padding: 5px 10px;
+    border-radius: 8px;
+    background: rgba(0,0,0,.045);
+    font-size: 12px;
+    font-weight: 800;
+    line-height: 1.2;
+}
+
+.question-difficulty {
+    margin: 0 0 14px !important;
+    line-height: 1.5 !important;
+}
+
+.question-text,
+.question-card h3 {
+    display: block;
+    width: 100%;
+    max-width: 100%;
+    box-sizing: border-box;
+    margin: 0 0 18px;
+    color: #252525;
+    font-size: 16px;
+    line-height: 1.75;
+    font-weight: 700;
+    overflow-wrap: anywhere;
+}
+
+/* Opsi: checkbox/radio + huruf + teks berada dalam satu baris yang rapi. */
+.question-options {
+    display: flex !important;
+    flex-direction: column !important;
+    gap: 10px !important;
+    width: 100%;
+    box-sizing: border-box;
+}
+
+.question-option {
+    display: grid !important;
+    grid-template-columns: 22px 34px minmax(0,1fr) !important;
+    align-items: center !important;
+    column-gap: 10px !important;
+    width: 100%;
+    min-width: 0;
+    box-sizing: border-box;
+    margin: 0 !important;
+    padding: 13px 15px !important;
+    border: 1px solid #e2ded7;
+    border-radius: 10px;
+    background: #fff;
+    color: #514d48;
+    font-size: 14px !important;
+    line-height: 1.65 !important;
+    text-align: left;
+    cursor: pointer;
+    transition: background .18s ease, border-color .18s ease, transform .18s ease;
+}
+
+.question-option:hover {
+    background: #faf9f6;
+    border-color: #cfc9c0;
+    transform: translateY(-1px);
+}
+
+.question-option > input {
+    width: 18px;
+    height: 18px;
+    margin: 0;
+    justify-self: center;
+}
+
+.question-option > .option-letter {
+    display: inline-flex !important;
+    align-items: center;
+    justify-content: center;
+    width: 30px;
+    height: 30px;
+    box-sizing: border-box;
+    border: 1px solid #d7d2ca;
+    border-radius: 50%;
+    background: #fff;
+    color: #5f5952;
+    font-size: 12px !important;
+    font-weight: 800;
+    line-height: 1;
+}
+
+.question-option > span:last-child {
+    display: block !important;
+    width: auto !important;
+    min-width: 0 !important;
+    max-width: none !important;
+    margin: 0 !important;
+    padding: 0 !important;
+    color: inherit;
+    font-size: 14px !important;
+    line-height: 1.65 !important;
+    white-space: normal !important;
+    overflow-wrap: anywhere !important;
+    word-break: normal !important;
+    text-align: left !important;
+}
+
+/* Stimulus dibuat seperti blok bacaan agar paragraf lebih jelas. */
+.question-stimulus,
+.question-passage,
+.question-context {
+    width: 100%;
+    box-sizing: border-box;
+    margin: 0 0 18px;
+    padding: 17px 19px;
+    border-left: 3px solid #252525;
+    border-radius: 0 10px 10px 0;
+    background: #f7f6f2;
+    color: #514d48;
+    font-size: 14px;
+    line-height: 1.8;
+    overflow-wrap: anywhere;
+}
+
+.question-stimulus p,
+.question-passage p,
+.question-context p {
+    margin: 0 0 10px;
+}
+
+.question-stimulus p:last-child,
+.question-passage p:last-child,
+.question-context p:last-child {
+    margin-bottom: 0;
+}
+
+/* Jika ada aturan global terhadap span, opsi tetap dipaksa mengikuti grid di atas. */
+.question-option > span,
+.question-option > span:last-child,
+.question-option .option-letter {
+    flex: initial !important;
+}
+
+.question-option.selected {
+    border-color: #315bea;
+    background: #f4f6ff;
+}
+
+.tka-explanation-evidence {
+    margin: 12px 0 16px;
+    padding: 12px 14px;
+    border-radius: 10px;
+    background: #f7f6f2;
+    line-height: 1.7;
+}
+
+
+.question-option.correct-option {
+    border-color: #2d8a5f;
+    background: #f1faf5;
+}
+
+.question-option.wrong-option {
+    border-color: #b85c5c;
+    background: #fff5f5;
+}
+
+/* PGK kategori */
+.question-category,
+.question-category-list,
+.category-question {
+    width: 100%;
+    box-sizing: border-box;
+}
+
+.question-category-row {
+    display: grid !important;
+    grid-template-columns: minmax(0,1fr) 150px !important;
+    gap: 14px !important;
+    align-items: center !important;
+    padding: 13px 14px !important;
+    border-top: 1px solid #ebe7e1;
+    font-size: 14px !important;
+    line-height: 1.65 !important;
+}
+
+/* Mobile */
+@media (max-width: 620px) {
+    .question-card {
+        padding: 17px;
+        border-radius: 13px;
+    }
+
+    .question-text,
+    .question-card h3 {
+        font-size: 15px;
+        line-height: 1.7;
+    }
+
+    .question-option {
+        grid-template-columns: 22px 32px minmax(0,1fr) !important;
+        column-gap: 8px !important;
+        padding: 11px 12px !important;
+        font-size: 13px !important;
+    }
+
+    .question-option > span:last-child {
+        font-size: 13px !important;
+    }
+
+    .question-category-row {
+        grid-template-columns: 1fr !important;
+        gap: 8px !important;
+    }
+}
+</style>
+
+
+<style id="fjis-tka-ui-v7">
+/* =========================================================
+   FJIS TKA UI V7
+   UI ONLY — tidak mengubah JSON, engine, kunci, atau scoring.
+   ========================================================= */
+:root{
+  --tka-ink:#22201d;
+  --tka-muted:#716c65;
+  --tka-line:#e8e3dc;
+  --tka-soft:#f8f6f2;
+  --tka-white:#fff;
+  --tka-radius:18px;
+}
+
+.tka-subject-main{padding-bottom:72px}
+.tka-content-section{max-width:1180px;margin:0 auto;padding:46px 24px 18px}
+.tka-content-heading{margin-bottom:22px}
+.tka-content-kicker{font-size:10px!important;font-weight:850!important;letter-spacing:.11em;text-transform:uppercase}
+.tka-content-title{margin:5px 0 7px!important;font-size:27px!important;letter-spacing:-.025em}
+.tka-content-description{max-width:760px!important;color:var(--tka-muted)!important;line-height:1.7!important}
+
+/* Chapter index */
+.tka-chapter-index{
+  display:grid;grid-template-columns:repeat(5,minmax(0,1fr));gap:10px;
+  margin:0 0 24px;
+}
+.tka-chapter-index a{
+  min-width:0;text-decoration:none;color:inherit;background:var(--tka-white);
+  border:1px solid var(--tka-line);border-radius:14px;padding:13px 14px;
+  transition:.18s ease;box-shadow:0 3px 14px rgba(0,0,0,.025)
+}
+.tka-chapter-index a:hover{transform:translateY(-2px);border-color:#cfc8be;box-shadow:0 8px 22px rgba(0,0,0,.06)}
+.tka-chapter-index .idx{display:block;font-size:9px;font-weight:850;letter-spacing:.1em;color:#8a837b;margin-bottom:5px}
+.tka-chapter-index .name{display:block;font-size:13px;font-weight:800;line-height:1.35;overflow-wrap:anywhere}
+.tka-chapter-index .count{display:block;margin-top:6px;font-size:10px;color:#8a837b}
+
+/* Bab */
+.tka-material-list{display:flex!important;flex-direction:column!important;gap:14px!important}
+.tka-material-card{border:1px solid var(--tka-line)!important;border-radius:var(--tka-radius)!important;background:#fff!important;overflow:hidden!important}
+.tka-material-card.is-open{box-shadow:0 12px 34px rgba(0,0,0,.055)!important}
+.tka-material-header{display:grid!important;grid-template-columns:48px minmax(0,1fr) 38px!important;gap:15px!important;align-items:center!important;cursor:default}
+.tka-material-number{width:48px!important;height:48px!important;border-radius:14px!important;display:flex!important;align-items:center!important;justify-content:center!important;font-weight:900!important}
+.tka-material-info{min-width:0!important}
+.tka-material-title{overflow-wrap:anywhere}
+.tka-material-description{max-width:850px;line-height:1.65!important}
+.tka-material-toggle{width:36px!important;height:36px!important;border:1px solid var(--tka-line)!important;border-radius:10px!important;background:#fff!important;transition:transform .2s ease,background .2s ease!important}
+.tka-material-card.is-open .tka-material-toggle{transform:rotate(180deg);background:var(--tka-soft)}
+.tka-material-body{border-top:1px solid var(--tka-line)!important}
+
+/* Subbab */
+.tka-submaterial{border:1px solid var(--tka-line)!important;border-radius:14px!important;background:#fff!important;overflow:hidden!important;margin:12px 0!important}
+.tka-submaterial-toggle{width:100%!important;display:grid!important;grid-template-columns:34px minmax(0,1fr) 24px!important;gap:12px!important;align-items:center!important;padding:15px 16px!important;text-align:left!important;background:#fff!important;border:0!important;cursor:pointer!important}
+.tka-submaterial-toggle:hover{background:#faf9f6!important}
+.tka-submaterial-index{width:30px;height:30px;border-radius:9px;background:var(--tka-soft);display:flex!important;align-items:center;justify-content:center;font-size:11px;font-weight:850}
+.tka-submaterial-heading{min-width:0;display:flex;flex-direction:column;gap:3px}
+.tka-submaterial-title{font-size:14px;line-height:1.4;overflow-wrap:anywhere}
+.tka-submaterial-description{font-size:11px!important;color:#817a72!important;line-height:1.5!important}
+.tka-submaterial-chevron{justify-self:end;transition:transform .2s ease}
+.tka-submaterial.is-open .tka-submaterial-chevron{transform:rotate(180deg)}
+.tka-submaterial-body{padding:0 16px 17px!important;border-top:1px solid transparent!important}
+.tka-submaterial:not(.is-open) .tka-submaterial-body{display:none!important}
+
+/* Materi / contoh / latihan blocks */
+.tka-inline-material,.tka-examples,.tka-question-section{margin-top:15px!important;padding:17px!important;border:1px solid var(--tka-line)!important;border-radius:14px!important;background:#fff!important}
+.tka-inline-material h4,.tka-examples-title,.tka-question-section-title{margin:0 0 11px!important;font-size:13px!important;font-weight:850!important}
+.tka-inline-material{background:#fdfcf9!important;line-height:1.8!important}
+.tka-question-section{background:#faf9f6!important}
+.tka-question-count{font-weight:700;color:#8a837b;font-size:11px}
+.tka-submaterial-actions{margin:10px 0 0!important}
+
+/* Soal */
+.tka-question-container{margin-top:14px!important}
+.question-card{margin:0 0 16px!important;padding:20px!important;border:1px solid #ddd8d0!important;border-radius:15px!important;background:#fff!important;box-shadow:0 4px 16px rgba(0,0,0,.025)!important}
+.question-card:last-child{margin-bottom:0!important}
+.question-card .question-number{background:#f2f0eb!important;border:1px solid #e5e0d8!important}
+.question-card .question-text{font-size:15px!important;line-height:1.78!important;font-weight:750!important}
+.question-options{gap:8px!important}
+.question-option{grid-template-columns:22px 32px minmax(0,1fr)!important;border-color:#e1dcd4!important;border-radius:11px!important;padding:12px 13px!important}
+.question-option:hover{transform:none!important}
+.question-option.selected{box-shadow:0 0 0 2px rgba(49,91,234,.08)!important}
+.question-stimulus,.question-passage,.question-context,.tka-question-stimulus{margin:0 0 17px!important;background:#f8f6f1!important;border:1px solid #e7e1d8!important;border-left:4px solid #777067!important;border-radius:0 11px 11px 0!important;padding:16px 18px!important;line-height:1.8!important}
+
+/* Result / explanation */
+.tka-answer-result,.question-result,.answer-result{margin-top:14px!important;padding:13px 15px!important;border:1px solid var(--tka-line)!important;border-radius:11px!important;background:#f8f6f2!important;line-height:1.65!important}
+.tka-explanation,.question-explanation,.explanation{margin-top:12px!important;padding:16px!important;border:1px solid var(--tka-line)!important;border-radius:12px!important;background:#fff!important;line-height:1.8!important}
+.tka-explanation h4,.question-explanation h4,.explanation h4{margin:0 0 9px!important;font-size:13px!important}
+
+@media(max-width:900px){.tka-chapter-index{grid-template-columns:repeat(2,minmax(0,1fr))}.tka-content-section{padding-left:18px;padding-right:18px}}
+@media(max-width:560px){
+ .tka-chapter-index{grid-template-columns:1fr}
+ .tka-content-section{padding-top:34px}
+ .tka-content-title{font-size:23px!important}
+ .tka-material-header{grid-template-columns:40px minmax(0,1fr) 34px!important;padding:15px!important}
+ .tka-material-number{width:40px!important;height:40px!important;border-radius:11px!important}
+ .tka-material-body{padding:15px!important}
+ .tka-submaterial-toggle{grid-template-columns:30px minmax(0,1fr) 20px!important;padding:13px!important}
+ .question-card{padding:16px!important}
+}
+</style>
+
+</head>
+
+
+<body>
+
+
+<div class="tka-subject-page">
+
+
+    <!-- =========================================
+         TOPBAR
+         ========================================= -->
+
+    <header class="tka-subject-topbar">
+
+        <div class="tka-subject-topbar-inner">
+
+
+            <a
+                href="kelas-12-tka.html"
+                class="tka-subject-brand"
+            >
+
+                <div class="tka-subject-brand-icon">
+                    📚
+                </div>
+
+
+                <div class="tka-subject-brand-info">
+
+                    <span class="tka-subject-brand-name">
+                        FJIS Academy
+                    </span>
+
+                    <span class="tka-subject-brand-motto">
+                        Student Learner
+                    </span>
+
+                </div>
+
+            </a>
+
+
+            <a
+                href="kelas-12-tka.html"
+                class="tka-subject-back"
+            >
+
+                ←
+                <span>
+                    Semua TKA
+                </span>
+
+            </a>
+
+        </div>
+
+    </header>
+
+
+    <!-- =========================================
+         HERO
+         ========================================= -->
+
+    <section class="tka-subject-hero">
+
+
+        <div
+            class="tka-subject-breadcrumb"
+            id="breadcrumb"
+        >
+
+            <a href="../../index.html">
+                FJIS Academy
+            </a>
+
+            <span>›</span>
+
+            <a href="kelas-12.html">
+                SMA Kelas XII
+            </a>
+
+            <span>›</span>
+
+            <a href="kelas-12-tka.html">
+                TKA
+            </a>
+
+            <span>›</span>
+
+            <span id="breadcrumbSubject">
+                Mata Pelajaran
+            </span>
+
+        </div>
+
+
+        <div
+            class="tka-subject-category"
+            id="categoryLabel"
+        >
+            TKA
+        </div>
+
+
+        <h1 id="subjectTitle">
+            Memuat...
+        </h1>
+
+
+        <p
+            class="tka-subject-description"
+            id="subjectDescription"
+        >
+            Memuat informasi mata pelajaran...
+        </p>
+
+    </section>
+
+
+    <!-- =========================================
+         SECTION NAVIGATION — UI V6
+         Tidak mengubah data atau alur Content Engine.
+         ========================================= -->
+    <nav class="tka-section-nav" aria-label="Navigasi bagian TKA">
+        <div class="tka-section-nav-inner">
+            <a href="#overviewSection" class="tka-section-link is-active">
+                <span class="tka-section-link-index">01</span>
+                <span>Tentang TKA</span>
+            </a>
+            <a href="#materialSection" class="tka-section-link">
+                <span class="tka-section-link-index">02</span>
+                <span>Materi &amp; Latihan</span>
+            </a>
+        </div>
+    </nav>
+
+    <!-- =========================================
+         MAIN
+         ========================================= -->
+
+    <main class="tka-subject-main">
+
+
+        <!-- =====================================
+             LOADING / ERROR
+             ===================================== -->
+
+        <div
+            id="stateContainer"
+            class="tka-state"
+        >
+
+            <div class="tka-state-icon">
+                ⏳
+            </div>
+
+            <h3>
+                Memuat materi...
+            </h3>
+
+            <p>
+                Sedang mengambil data TKA.
+            </p>
+
+        </div>
+
+
+        <!-- =====================================
+             CONTENT
+             ===================================== -->
+
+        <div
+            id="contentContainer"
+            style="display:none;"
+        >
+
+
+            <!-- =================================
+                 OVERVIEW
+                 ================================= -->
+
+            <section
+                class="tka-content-section"
+                id="overviewSection"
+            >
+
+                <div class="tka-content-heading">
+
+                    <div class="tka-content-kicker">
+                        Bagian 01
+                    </div>
+
+                    <h2 class="tka-content-title">
+                        Tentang TKA
+                    </h2>
+
+                    <p class="tka-content-description">
+                        Informasi dasar mengenai asesmen,
+                        kompetensi, karakteristik, dan
+                        ketentuan yang berkaitan dengan
+                        mata pelajaran ini.
+                    </p>
+
+                </div>
+
+
+                <div
+                    class="tka-overview-grid"
+                    id="overviewGrid"
+                >
+                </div>
+
+            </section>
+
+
+            <!-- =================================
+                 MATERIAL
+                 ================================= -->
+
+            <section
+                class="tka-content-section"
+                id="materialSection"
+            >
+
+                <div class="tka-content-heading">
+
+                    <div class="tka-content-kicker">
+                        Bagian 02
+                    </div>
+
+                    <h2 class="tka-content-title">
+                        Materi Pembelajaran
+                    </h2>
+
+                    <p class="tka-content-description">
+                        Pelajari materi berdasarkan bab
+                        dan submateri. Setiap bagian dapat
+                        dilengkapi penjelasan konsep,
+                        contoh, dan latihan.
+                    </p>
+
+                </div>
+
+
+                <div id="tkaChapterIndex" class="tka-chapter-index" aria-label="Daftar bab"></div>
+
+                <div
+                    class="tka-material-list"
+                    id="materialList"
+                >
+                </div>
+
+            </section>
+
+
+        </div>
+
+
+    </main>
+
+
+    <!-- =========================================
+         FOOTER
+         ========================================= -->
+
+    <footer class="tka-subject-footer">
+
+        FJIS Academy · Student Learner
+
+    </footer>
+
+
+</div>
+
+
+<!-- =========================================
+     JAVASCRIPT
+     ========================================= -->
+
+<script src="../../js/app.js"></script>
+
+<script src="../../js/navigation.js"></script>
+
+<script src="../../js/content-engine.js"></script>
+
+
+<script>
+
+document.addEventListener(
+    "DOMContentLoaded",
+    initTKASubjectPage
+);
+
+
+/* =====================================================
+   PAGE INITIALIZER
+   ===================================================== */
+
+async function initTKASubjectPage() {
+
+    const params =
+        new URLSearchParams(
+            window.location.search
+        );
+
+
+    const category =
+        params.get("category") ||
+        "wajib";
+
+
+    const subject =
+        params.get("subject") ||
+        "";
+
+
+    const stateContainer =
+        document.getElementById(
+            "stateContainer"
+        );
+
+
+    const contentContainer =
+        document.getElementById(
+            "contentContainer"
+        );
+
+
+    if (!subject) {
+
+        showTKAState(
+            "Mata pelajaran tidak ditemukan",
+            "Silakan kembali ke halaman TKA dan pilih mata pelajaran yang tersedia."
+        );
+
+        return;
+
+    }
+
+
+    const subjectName =
+        getSubjectDisplayName(
+            subject
+        );
+
+
+    /*
+     * Update title sementara
+     */
+
+    document.title =
+        `${subjectName} — TKA FJIS Academy`;
+
+
+    document.getElementById(
+        "subjectTitle"
+    ).textContent =
+        subjectName;
+
+
+    document.getElementById(
+        "breadcrumbSubject"
+    ).textContent =
+        subjectName;
+
+
+    document.getElementById(
+        "categoryLabel"
+    ).textContent =
+        category === "pilihan"
+            ? "TKA · Mata Pelajaran Pilihan"
+            : "TKA · Mata Pelajaran Wajib";
+
+
+    /*
+     * Pastikan engine tersedia
+     */
+
+    if (
+        !window.FJISContent ||
+        typeof window.FJISContent.loadTKA !==
+            "function"
+    ) {
+
+        showTKAState(
+            "Content Engine belum siap",
+            "FJIS Content Engine tidak menemukan fungsi TKA."
+        );
+
+        return;
+
+    }
+
+
+    /*
+     * Load JSON mapel
+     *
+     * Struktur:
+     *
+     * data/tka/sma/
+     *   wajib/
+     *   pilihan/
+     *
+     * Engine nanti akan menangani
+     * path berdasarkan category + subject.
+     */
+
+    const data =
+        await loadTKASubject(
+            category,
+            subject
+        );
+
+
+    if (!data) {
+
+        showTKAState(
+            "Materi belum tersedia",
+            `Data TKA untuk ${subjectName} belum ditemukan. Pastikan file JSON mata pelajaran sudah dibuat di folder TKA.`
+        );
+
+        return;
+
+    }
+
+
+    /*
+     * Normalize data
+     */
+
+    const normalized =
+        normalizeSubjectData(
+            data,
+            subjectName
+        );
+
+    /*
+     * DEBUG TERUKUR:
+     * memastikan kedua mapel benar-benar melewati
+     * jalur normalisasi yang sama.
+     */
+    console.log(
+        "TKA DATA CONNECTED:",
+        {
+            subject: subjectName,
+            topics: Array.isArray(normalized?.materials)
+                ? normalized.materials.length
+                : Array.isArray(normalized?.topics)
+                    ? normalized.topics.length
+                    : 0,
+            questionBank: Array.isArray(normalized?.question_bank)
+                ? normalized.question_bank.length
+                : 0,
+            firstTopicQuestions:
+                Array.isArray(normalized?.materials?.[0]?.questions)
+                    ? normalized.materials[0].questions.length
+                    : 0,
+            firstTopicSubtopics:
+                Array.isArray(normalized?.materials?.[0]?.subtopics)
+                    ? normalized.materials[0].subtopics.length
+                    : 0
+        }
+    );
+
+
+    /*
+     * Render hero
+     */
+
+    renderHero(
+        normalized,
+        subjectName
+    );
+
+
+    /*
+     * Render overview
+     */
+
+    renderOverview(
+        normalized
+    );
+
+
+    /*
+     * Render material
+     */
+
+    renderMaterials(
+        normalized
+    );
+
+    /* Kompatibilitas hash lama, khusus MTL. */
+    resolveMTLHashNavigation();
+
+
+    /*
+     * Hide loading
+     */
+
+    stateContainer.style.display =
+        "none";
+
+    contentContainer.style.display =
+        "block";
+
+}
+
+
+/* =====================================================
+   LOAD TKA SUBJECT
+   ===================================================== */
+
+async function loadTKASubject(
+    category,
+    subject
+) {
+
+    const slug =
+        slugify(
+            subject
+        );
+
+
+    /*
+     * Kita prioritaskan struktur baru:
+     *
+     * data/tka/sma/wajib/xxx.json
+     * data/tka/sma/pilihan/xxx.json
+     */
+
+    const path =
+        `../../data/tka/sma/${category}/${slug}.json`;
+
+
+    try {
+
+        const response =
+            await fetch(
+                `${path}?fjis_cache=${Date.now()}`,
+                {
+                    cache: "no-store"
+                }
+            );
+
+
+        if (
+            response.ok
+        ) {
+
+            const data =
+                await response.json();
+
+            /*
+             * PENTING:
+             * Jangan kirim raw JSON langsung ke renderer.
+             * TKA punya beberapa struktur bank:
+             * materials[].lesson, topics[].subtopics,
+             * dan root question_bank.
+             *
+             * Content Engine menjadi satu pintu normalisasi.
+             */
+            if (
+                window.FJISContent &&
+                typeof window.FJISContent.normalizeTKAData === "function"
+            ) {
+                return window.FJISContent.normalizeTKAData(
+                    data,
+                    category,
+                    slug
+                );
+            }
+
+            return data;
+
+        }
+
+    } catch (error) {
+
+        console.warn(
+            "TKA direct loader gagal:",
+            error
+        );
+
+    }
+
+
+    /*
+     * Fallback ke Content Engine
+     */
+
+    try {
+
+        const data =
+            await window.FJISContent.loadTKA(
+                category,
+                slug
+            );
+
+        return data;
+
+    } catch (error) {
+
+        console.error(
+            "TKA engine loader gagal:",
+            error
+        );
+
+    }
+
+
+    return null;
+
+}
+
+
+/* =====================================================
+   NORMALIZE SUBJECT DATA
+   ===================================================== */
+
+function normalizeSubjectData(
+    data,
+    subjectName
+) {
+
+    if (!data) {
+        return null;
+    }
+
+    /*
+     * =========================================================
+     * MTL ADAPTER — ISOLATED FROM OTHER TKA MAPEL
+     * =========================================================
+     *
+     * JSON MTL FJIS menggunakan satu record per microtopic:
+     *
+     *   materials[36]
+     *   question_bank[288]
+     *   stimuli[...]
+     *
+     * Sementara renderer halaman ini bekerja dengan:
+     *
+     *   BAB -> subtopics -> questions
+     *
+     * Jangan ubah data mapel lain. Adapter ini hanya aktif untuk
+     * subjectSlug Matematika Tingkat Lanjut.
+     */
+    const subjectSlug = slugify(
+        data.subjectSlug ||
+        data.subject_slug ||
+        subjectName
+    );
+
+    if (subjectSlug === "matematika-tingkat-lanjut") {
+        return normalizeAdvancedMathTKA(data, subjectName);
+    }
+
+    /*
+     * =========================================================
+     * JALUR LAMA — TIDAK DIUBAH UNTUK MAPEL LAIN
+     * =========================================================
+     */
+    if (
+        window.FJISContent &&
+        typeof window.FJISContent.normalizeTKAData === "function"
+    ) {
+        const normalized =
+            window.FJISContent.normalizeTKAData(
+                data,
+                data.category || "",
+                subjectSlug
+            );
+
+        if (normalized) {
+            const fallbackMaterials =
+                Array.isArray(normalized.materials) && normalized.materials.length
+                    ? normalized.materials
+                    : Array.isArray(normalized.topics)
+                        ? normalized.topics
+                        : [];
+
+            return {
+                ...normalized,
+                materials: fallbackMaterials,
+                topics: Array.isArray(normalized.topics)
+                    ? normalized.topics
+                    : fallbackMaterials
+            };
+        }
+    }
+
+    const overview = data.overview || {};
+
+    let materials =
+        data.materials ||
+        data.topics ||
+        data.chapters ||
+        data.bab ||
+        [];
+
+    if (!Array.isArray(materials)) {
+        materials = [];
+    }
+
+    return {
+        ...data,
+        subject:
+            data.subject ||
+            {
+                name: subjectName
+            },
+        overview,
+        materials
+    };
+}
+
+
+/* =========================================================
+   MTL — STRUCTURED ADAPTER
+   ========================================================= */
+function normalizeAdvancedMathTKA(data, subjectName) {
+
+    const sourceMaterials =
+        Array.isArray(data.materials)
+            ? data.materials
+            : Array.isArray(data.topics)
+                ? data.topics
+                : [];
+
+    const sourceQuestions =
+        Array.isArray(data.question_bank)
+            ? data.question_bank
+            : Array.isArray(data.questionBank)
+                ? data.questionBank
+                : Array.isArray(data.questions)
+                    ? data.questions
+                    : [];
+
+    const sourceStimuli =
+        Array.isArray(data.stimuli)
+            ? data.stimuli
+            : [];
+
+    const stimulusMap = new Map(
+        sourceStimuli
+            .filter(item => item && item.id)
+            .map(item => [String(item.id), item])
+    );
+
+    /* Urutan BAB mengikuti tiga elemen resmi TKA dan struktur MTL. */
+    const chapterDefinitions = [
+        {
+            id: "matriks",
+            title: "Matriks",
+            element: "Aljabar",
+            subelement: "Matriks"
+        },
+        {
+            id: "polinomial",
+            title: "Polinomial",
+            element: "Aljabar",
+            subelement: "Polinomial"
+        },
+        {
+            id: "fungsi",
+            title: "Fungsi",
+            element: "Aljabar",
+            subelement: "Fungsi"
+        },
+        {
+            id: "vektor",
+            title: "Vektor",
+            element: "Geometri dan Pengukuran",
+            subelement: "Vektor"
+        },
+        {
+            id: "lingkaran",
+            title: "Lingkaran",
+            element: "Geometri dan Pengukuran",
+            subelement: "Lingkaran"
+        },
+        {
+            id: "transformasi-geometri",
+            title: "Transformasi Geometri",
+            element: "Geometri dan Pengukuran",
+            subelement: "Transformasi Geometri"
+        },
+        {
+            id: "limit",
+            title: "Limit",
+            element: "Kalkulus",
+            subelement: "Limit"
+        }
+    ];
+
+    const normalizeKey = value =>
+        String(value || "")
+            .trim()
+            .toLowerCase();
+
+    const questionByMicrotopic = new Map();
+
+    sourceQuestions.forEach(question => {
+        if (!question || typeof question !== "object") return;
+
+        const microtopic = normalizeKey(
+            question.microtopic ||
+            question.micro_topic ||
+            question.topic ||
+            question.subtopic
+        );
+
+        if (!microtopic) return;
+
+        if (!questionByMicrotopic.has(microtopic)) {
+            questionByMicrotopic.set(microtopic, []);
+        }
+
+        const hydrated = {
+            ...question
+        };
+
+        /* Jika bank hanya menyimpan stimulus_id, ambil stimulus asli. */
+        if (!hydrated.stimulus && hydrated.stimulus_id) {
+            hydrated.stimulus =
+                stimulusMap.get(String(hydrated.stimulus_id)) || null;
+        }
+
+        questionByMicrotopic
+            .get(microtopic)
+            .push(hydrated);
+    });
+
+    const materialByMicrotopic = new Map(
+        sourceMaterials
+            .filter(item => item && typeof item === "object")
+            .map(item => [
+                normalizeKey(item.title || item.id || item.microtopic),
+                item
+            ])
+    );
+
+    const findMaterial = (microtopicTitle) => {
+        const exact = materialByMicrotopic.get(normalizeKey(microtopicTitle));
+        if (exact) return exact;
+
+        const target = normalizeKey(microtopicTitle);
+        return sourceMaterials.find(item => {
+            const candidates = [
+                item?.title,
+                item?.id,
+                item?.microtopic,
+                item?.subtopic
+            ].map(normalizeKey);
+            return candidates.includes(target);
+        }) || null;
+    };
+
+    const findChapter = item => {
+        const subelement = normalizeKey(item?.subelement);
+        const title = normalizeKey(item?.title || item?.id);
+
+        return chapterDefinitions.find(chapter =>
+            normalizeKey(chapter.subelement) === subelement ||
+            normalizeKey(chapter.title) === title
+        );
+    };
+
+    const toDescription = item => {
+        const scope = Array.isArray(item?.scope)
+            ? item.scope
+            : [];
+
+        const objective = Array.isArray(item?.learning_objectives)
+            ? item.learning_objectives[0]
+            : "";
+
+        return scope.length
+            ? scope.join(" · ")
+            : objective ||
+              item?.description ||
+              item?.summary ||
+              "";
+    };
+
+    const toSubmaterial = (item, fallbackTitle) => {
+        const title =
+            item?.title ||
+            item?.name ||
+            item?.microtopic ||
+            fallbackTitle;
+
+        const questions =
+            questionByMicrotopic.get(normalizeKey(title)) ||
+            questionByMicrotopic.get(normalizeKey(item?.id)) ||
+            [];
+
+        /*
+         * Semua bagian pembelajaran penting dipertahankan.
+         * Renderer lama hanya mengenal field `material`, `examples`,
+         * dan `questions`, sehingga kita membentuk adapter tanpa
+         * menghapus data sumber.
+         */
+        const material = {
+            content: item?.learning_objectives || item?.scope || [],
+            definitions: item?.definitions || [],
+            formula: item?.core_formulas_or_properties || "",
+            representation: item?.representation_examples || [],
+            misconceptions: item?.common_misconceptions || []
+        };
+
+        const examples = [];
+        if (item?.worked_examples) {
+            examples.push({
+                question: "Contoh pembelajaran",
+                explanation: item.worked_examples
+            });
+        }
+
+        return {
+            ...item,
+            title,
+            description: toDescription(item),
+            material,
+            examples,
+            questions
+        };
+    };
+
+    const chapters = chapterDefinitions.map((definition, chapterIndex) => {
+        const chapterMaterials = sourceMaterials.filter(item => {
+            const chapter = findChapter(item);
+            return chapter?.id === definition.id;
+        });
+
+        const subtopics = chapterMaterials.map((item, index) =>
+            toSubmaterial(item, `Subbab ${index + 1}`)
+        );
+
+        const scope = Array.from(new Set(
+            chapterMaterials.flatMap(item =>
+                Array.isArray(item?.scope) ? item.scope : []
+            )
+        ));
+
+        return {
+            id: definition.id,
+            title: definition.title,
+            number: chapterIndex + 1,
+            element: definition.element,
+            subelement: definition.subelement,
+            description: scope.length
+                ? scope.join(" · ")
+                : `Materi ${definition.title} dalam Matematika Tingkat Lanjut.`,
+            material: {
+                content: [
+                    `Elemen: ${definition.element}`,
+                    `Sub-elemen: ${definition.subelement}`,
+                    `Subbab tersedia: ${subtopics.length}`
+                ]
+            },
+            subtopics,
+            questions: []
+        };
+    });
+
+    /*
+     * Jika ada material yang tidak cocok dengan mapping, jangan dibuang.
+     * Masukkan ke BAB "Materi Tambahan" hanya untuk menjaga data tetap utuh.
+     * Dengan JSON MTL saat ini seharusnya tidak ada item yang masuk ke sini.
+     */
+    const assignedIds = new Set(
+        chapters.flatMap(chapter =>
+            chapter.subtopics.map(item => item.id)
+        )
+    );
+
+    const unassigned = sourceMaterials.filter(item => !assignedIds.has(item.id));
+
+    if (unassigned.length) {
+        chapters.push({
+            id: "materi-tambahan",
+            title: "Materi Tambahan",
+            number: chapters.length + 1,
+            element: "",
+            subelement: "",
+            description: "Materi yang belum memiliki pemetaan BAB pada adapter.",
+            material: {
+                content: "Data dipertahankan agar tidak hilang. Pemetaan perlu ditinjau."
+            },
+            subtopics: unassigned.map((item, index) =>
+                toSubmaterial(item, `Materi ${index + 1}`)
+            ),
+            questions: []
+        });
+    }
+
+    return {
+        ...data,
+        subject: typeof data.subject === "object"
+            ? data.subject
+            : { name: data.subject || subjectName },
+        materials: chapters,
+        topics: chapters,
+        question_bank: sourceQuestions,
+        stimuli: sourceStimuli,
+        _fjis_mtl_adapter: {
+            enabled: true,
+            version: "5.0",
+            source_microtopics: sourceMaterials.length,
+            rendered_chapters: chapters.length,
+            mapped_questions: chapters.reduce(
+                (sum, chapter) =>
+                    sum + chapter.subtopics.reduce(
+                        (n, subtopic) => n + subtopic.questions.length,
+                        0
+                    ),
+                0
+            )
+        }
+    };
+}
+
+
+/* =====================================================
+   HERO
+   =====================================================
+
+
+   ===================================================== */
+
+function renderHero(
+    data,
+    fallbackName
+) {
+
+    const subject =
+        data.subject ||
+        {};
+
+
+    const name =
+        subject.name ||
+        subject.title ||
+        fallbackName;
+
+
+    const description =
+        data.description ||
+        data.deskripsi ||
+        data.overview?.description ||
+        data.overview?.deskripsi ||
+        `Materi TKA ${name} untuk SMA.`;
+
+
+    document.getElementById(
+        "subjectTitle"
+    ).textContent =
+        name;
+
+
+    document.getElementById(
+        "breadcrumbSubject"
+    ).textContent =
+        name;
+
+
+    document.getElementById(
+        "subjectDescription"
+    ).textContent =
+        description;
+
+}
+
+
+/* =====================================================
+   OVERVIEW
+   ===================================================== */
+
+function renderOverview(data) {
+    const grid = document.getElementById("overviewGrid");
+    if (!grid) return;
+
+    const overview = data.overview || {};
+    const framework = data.assessment_framework || data.assessmentFramework || {};
+    const cards = [];
+
+    const definition = overview.definition || overview.purpose || overview.tujuan || overview.description;
+    if (definition) cards.push(createOverviewCard("Apa yang diukur", definition));
+
+    const elements = overview.elements || overview.elemen || overview.scope || overview.cakupan;
+    if (Array.isArray(elements) && elements.length) cards.push(createOverviewCard("Cakupan TKA", elements));
+
+    const contexts = overview.contexts || overview.konteks;
+    if (Array.isArray(contexts) && contexts.length) cards.push(createOverviewCard("Konteks soal", contexts));
+
+    const formats = overview.questionTypes || overview.bentukSoal || overview.question_types || framework.recommended_question_formats;
+    if (Array.isArray(formats) && formats.length) cards.push(createOverviewCard("Bentuk soal", formats));
+
+    /* Struktur asesmen Bahasa Indonesia / mapel lain yang memakai assessment_matrix. */
+    const matrixList = Array.isArray(data.assessment_matrix) ? data.assessment_matrix : [];
+    if (matrixList.length) {
+        cards.push(createMatrixCard("Kompetensi & subkompetensi", matrixList));
+    }
+
+    const contract = data.question_format_contract || data.questionFormatContract;
+    if (contract && typeof contract === "object") {
+        const labels = Object.entries(contract).map(([key, value]) => `${key}: ${value}`);
+        cards.push(createOverviewCard("Kontrak bentuk soal", labels));
+    }
+
+    const levels = framework.cognitive_levels || framework.cognitiveLevels || [];
+    if (Array.isArray(levels) && levels.length) {
+        cards.push(createFrameworkCard("Proses berpikir yang diukur", levels));
+    }
+
+    const matrix = data.official_matrix || overview.official_matrix;
+    if (matrix && typeof matrix === "object") {
+        const items = matrix.subelements || matrix.subelement || matrix.scope;
+        if (items) cards.push(createOverviewCard("Ruang lingkup kompetensi", items));
+    }
+
+    /*
+     * Future-proof fallback:
+     * Jangan pernah menampilkan "sedang menunggu JSON".
+     * Kalau data asesmen belum lengkap, gunakan deskripsi mapel
+     * dan daftar bab yang memang sudah tersedia.
+     */
+    if (!cards.length) {
+        const description = data.description || `Informasi pembelajaran TKA ${data.subject?.name || data.subject || "mata pelajaran ini"}.`;
+        cards.push(createOverviewCard("Tentang mata pelajaran", description));
+
+        const materials = Array.isArray(data.materials) ? data.materials : (Array.isArray(data.topics) ? data.topics : []);
+        if (materials.length) {
+            cards.push(createOverviewCard(
+                "Struktur materi",
+                materials.map((item, i) => item.title || item.name || item.judul || `Bab ${i + 1}`)
+            ));
+        }
+    }
+
+    grid.innerHTML = cards.join("");
+}
+
+function createMatrixCard(title, matrix) {
+    return `
+        <article class="tka-overview-card">
+            <h3>${escapeHTML(title)}</h3>
+            <div class="tka-framework-group">
+                ${matrix.map((item, i) => `
+                    <div class="tka-framework-level">
+                        <strong>${escapeHTML(item.code || `T${i + 1}`)} · ${escapeHTML(item.competency || "Kompetensi")}</strong>
+                        <span>${escapeHTML(item.subcompetency || item.description || "")}${item.questions ? ` · ${escapeHTML(item.questions)} latihan` : ""}</span>
+                    </div>
+                `).join("")}
+            </div>
+        </article>
+    `;
+}
+
+
+function createFrameworkCard(title, levels) {
+    return `
+        <article class="tka-overview-card">
+            <h3>${escapeHTML(title)}</h3>
+            <div class="tka-framework-group">
+                ${levels.map(level => {
+                    const name = level.name || level.title || `Level ${level.level || ""}`;
+                    const processes = Array.isArray(level.processes) ? level.processes.map(p => p.name || p.title || p).join(" · ") : "";
+                    return `<div class="tka-framework-level">
+                        <strong>${escapeHTML(name)}</strong>
+                        ${processes ? `<span>${escapeHTML(processes)}</span>` : ""}
+                    </div>`;
+                }).join("")}
+            </div>
+        </article>
+    `;
+}
+
+
+/* =====================================================
+   OVERVIEW CARD
+   ===================================================== */
+
+function createOverviewCard(title, value) {
+    if (Array.isArray(value)) {
+        const list = value.map(item => {
+            if (typeof item === "object" && item !== null) {
+                const name = item.name || item.title || item.subelement || item.code;
+                const scope = Array.isArray(item.scope) ? ` — ${item.scope.join("; ")}` : "";
+                return `${name || getValueText(item)}${scope}`;
+            }
+            return getValueText(item);
+        });
+        return `
+            <article class="tka-overview-card">
+                <h3>${escapeHTML(title)}</h3>
+                <ul class="tka-overview-list">
+                    ${list.map(item => `<li>${escapeHTML(item)}</li>`).join("")}
+                </ul>
+            </article>
+        `;
+    }
+    return `
+        <article class="tka-overview-card">
+            <h3>${escapeHTML(title)}</h3>
+            <p>${formatText(value)}</p>
+        </article>
+    `;
+}
+
+
+/* =====================================================
+   MATERIALS
+   ===================================================== */
+
+function renderMaterials(
+    data
+) {
+
+    const container =
+        document.getElementById(
+            "materialList"
+        );
+
+
+    const materials =
+        Array.isArray(
+            data.materials
+        )
+            ? data.materials
+            : [];
+
+
+    if (!materials.length) {
+
+        container.innerHTML = `
+            <div class="tka-state">
+
+                <div class="tka-state-icon">
+                    📚
+                </div>
+
+                <h3>
+                    Materi belum tersedia
+                </h3>
+
+                <p>
+                    Bab dan submateri untuk mata pelajaran
+                    ini belum dimasukkan ke dalam JSON.
+                </p>
+
+            </div>
+        `;
+
+        return;
+
+    }
+
+
+    container.innerHTML =
+        materials
+            .map(
+                (material, index) =>
+                    createMaterialCard(
+                        material,
+                        index
+                    )
+            )
+            .join("");
+
+    renderChapterIndex(materials);
+
+
+    /*
+     * Accordion
+     */
+
+    container
+        .querySelectorAll(
+            ".tka-material-toggle"
+        )
+        .forEach(
+            button => {
+
+                button.addEventListener(
+                    "click",
+                    () => {
+
+                        const card =
+                            button.closest(
+                                ".tka-material-card"
+                            );
+
+
+                        if (!card) {
+                            return;
+                        }
+
+
+                        const open = card.classList.toggle(
+                            "is-open"
+                        );
+                        button.setAttribute("aria-expanded", open ? "true" : "false");
+
+                    }
+                );
+
+            }
+        );
+
+    /* Subbab accordion — hanya UI, tidak mengubah data. */
+    container
+        .querySelectorAll(".tka-submaterial-toggle")
+        .forEach(button => {
+            button.addEventListener("click", () => {
+                const item = button.closest(".tka-submaterial");
+                if (!item) return;
+                const open = item.classList.toggle("is-open");
+                button.setAttribute("aria-expanded", open ? "true" : "false");
+            });
+        });
+
+}
+
+
+/* =========================================================
+   MTL HASH COMPATIBILITY
+   =========================================================
+   Link lama seperti #tka-bab-invers-matriks tetap diarahkan
+   ke BAB Matriks lalu membuka subbab Invers Matriks.
+   Jalur ini aman untuk mapel lain karena hanya aktif pada
+   halaman MTL yang sudah memakai adapter.
+   ========================================================= */
+function resolveMTLHashNavigation() {
+    if (slugify(new URLSearchParams(window.location.search).get("subject") || "") !== "matematika-tingkat-lanjut") {
+        return;
+    }
+
+    const rawHash = window.location.hash.replace(/^#/, "");
+    if (!rawHash) return;
+
+    const target = document.getElementById(rawHash);
+    if (target) {
+        requestAnimationFrame(() => {
+            target.scrollIntoView({ behavior: "smooth", block: "start" });
+        });
+        return;
+    }
+
+    const prefix = "tka-bab-";
+    if (!rawHash.startsWith(prefix)) return;
+
+    const requested = rawHash.slice(prefix.length);
+    const submaterials = Array.from(document.querySelectorAll(".tka-submaterial"));
+    const sub = submaterials.find(item => {
+        const title = item.querySelector(".tka-submaterial-title")?.textContent || "";
+        return slugify(title) === requested;
+    });
+
+    if (!sub) return;
+
+    const chapter = sub.closest(".tka-material-card");
+    if (chapter) {
+        chapter.classList.add("is-open");
+        chapter.querySelector(".tka-material-toggle")?.setAttribute("aria-expanded", "true");
+    }
+
+    sub.classList.add("is-open");
+    sub.querySelector(".tka-submaterial-toggle")?.setAttribute("aria-expanded", "true");
+
+    requestAnimationFrame(() => {
+        sub.scrollIntoView({ behavior: "smooth", block: "start" });
+    });
+}
+
+
+/* =====================================================
+   CHAPTER INDEX — UI ONLY
+   ===================================================== */
+function renderChapterIndex(materials) {
+    const index = document.getElementById("tkaChapterIndex");
+    if (!index) return;
+
+    index.innerHTML = materials.map((material, i) => {
+        const title = material.title || material.name || material.judul || material.bab || `Bab ${i + 1}`;
+        const number = material.number || i + 1;
+        const subs = material.submaterials || material.subbab || material.subchapters || material.subtopics || [];
+        const questionCount = getQuestionsForMaterial(material).length + subs.reduce((n, item) => n + getQuestionsForMaterial(item).length, 0);
+        const id = `tka-bab-${slugify(String(title))}`;
+        return `<a href="#${escapeHTML(id)}">
+            <span class="idx">BAB ${escapeHTML(number)}</span>
+            <span class="name">${escapeHTML(title)}</span>
+            ${questionCount ? `<span class="count">${questionCount} latihan</span>` : `<span class="count">Materi pembelajaran</span>`}
+        </a>`;
+    }).join("");
+}
+
+
+/* =====================================================
+   MATERIAL CARD
+   ===================================================== */
+
+function getQuestionsForMaterial(item) {
+    if (!item || typeof item !== "object") {
+        return [];
+    }
+
+    return Array.isArray(item.questions)
+        ? item.questions
+        : Array.isArray(item.soal)
+            ? item.soal
+            : Array.isArray(item.practice)
+                ? item.practice
+                : Array.isArray(item.latihan)
+                    ? item.latihan
+                    : [];
+}
+
+
+function createMaterialCard(
+    material,
+    index
+) {
+
+    const title =
+        material.title ||
+        material.name ||
+        material.judul ||
+        material.bab ||
+        `Bab ${index + 1}`;
+
+
+    const description =
+        material.description ||
+        material.deskripsi ||
+        material.summary ||
+        material.ringkasan ||
+        "";
+
+
+    const number =
+        material.number ||
+        index + 1;
+
+
+    const submaterials =
+        material.submaterials ||
+        material.subbab ||
+        material.subchapters ||
+        material.subtopics ||
+        [];
+
+
+    return `
+        <article
+            class="tka-material-card${index === 0 ? " is-open" : ""}"
+            id="tka-bab-${escapeHTML(slugify(String(title)))}"
+            data-bab-index="${escapeHTML(number)}"
+        >
+
+            <div
+                class="tka-material-header"
+            >
+
+                <div
+                    class="tka-material-number"
+                >
+                    ${escapeHTML(number)}
+                </div>
+
+
+                <div
+                    class="tka-material-info"
+                >
+
+                    <div class="tka-material-title-row">
+                        <span class="tka-material-type">BAB ${escapeHTML(number)}</span>
+                        <h3 class="tka-material-title">
+                            ${escapeHTML(title)}
+                        </h3>
+                    </div>
+
+                    ${
+                        (
+                            getQuestionsForMaterial(material).length ||
+                            submaterials.reduce(
+                                (total, item) =>
+                                    total +
+                                    getQuestionsForMaterial(item).length,
+                                0
+                            )
+                        )
+                            ? `
+                                <p class="tka-material-question-summary">
+                                    ${
+                                        getQuestionsForMaterial(material).length +
+                                        submaterials.reduce(
+                                            (total, item) =>
+                                                total +
+                                                getQuestionsForMaterial(item).length,
+                                            0
+                                        )
+                                    } latihan tersedia
+                                </p>
+                            `
+                            : ""
+                    }
+
+                    ${
+                        description
+                            ? `
+                                <p
+                                    class="tka-material-description"
+                                >
+                                    ${escapeHTML(
+                                        description
+                                    )}
+                                </p>
+                            `
+                            : ""
+                    }
+
+                </div>
+
+
+                <button
+                    type="button"
+                    class="tka-material-toggle"
+                    aria-label="Buka materi"
+                    aria-expanded="${index === 0 ? "true" : "false"}"
+                >
+                    ↓
+                </button>
+
+            </div>
+
+
+            <div
+                class="tka-material-body"
+            >
+
+                ${
+                    createMaterialBody(
+                        material,
+                        submaterials
+                    )
+                }
+
+            </div>
+
+        </article>
+    `;
+
+}
+
+
+/* =====================================================
+   MATERIAL BODY
+   ===================================================== */
+
+function createMaterialBody(
+    material,
+    submaterials
+) {
+
+    let html = "";
+
+
+    /*
+     * Materi utama bab
+     */
+
+    const mainMaterial =
+        material.material ||
+        material.materi ||
+        material.content ||
+        material.konten ||
+        material.lesson ||
+        material.learning_content ||
+        material.learningContent;
+
+    /*
+     * Bank soal yang sudah dinormalisasi ke level BAB.
+     * Bahasa Indonesia menggunakan pola ini:
+     * materials[T1..T11] + root question_bank.
+     */
+    const topicQuestions =
+        Array.isArray(material.questions)
+            ? material.questions
+            : Array.isArray(material.soal)
+                ? material.soal
+                : Array.isArray(material.practice)
+                    ? material.practice
+                    : Array.isArray(material.latihan)
+                        ? material.latihan
+                        : [];
+
+
+    if (mainMaterial) {
+
+        html += `
+            <div
+                class="tka-inline-material"
+            >
+
+                <h4>
+                    Materi
+                </h4>
+
+                ${formatContent(
+                    mainMaterial
+                )}
+
+            </div>
+        `;
+
+    }
+
+
+    /*
+     * Submaterial
+     */
+
+    if (
+        Array.isArray(
+            submaterials
+        ) &&
+        submaterials.length
+    ) {
+
+        html += `
+            <div
+                class="tka-submaterial-list"
+            >
+
+                ${
+                    submaterials
+                        .map(
+                            (
+                                submaterial,
+                                index
+                            ) =>
+                                createSubmaterial(
+                                    submaterial,
+                                    index
+                                )
+                        )
+                        .join("")
+                }
+
+            </div>
+        `;
+
+    }
+
+
+    /*
+     * Latihan level BAB.
+     * Dipakai ketika bank soal tidak berada di submaterial.
+     */
+    if (
+        Array.isArray(topicQuestions) &&
+        topicQuestions.length
+    ) {
+        html += `
+            <div class="tka-question-section">
+                <h4 class="tka-question-section-title">
+                    Latihan Soal
+                    <span class="tka-question-count">
+                        · ${topicQuestions.length} soal
+                    </span>
+                </h4>
+
+                <div class="tka-question-container">
+                    ${
+                        topicQuestions
+                            .map(
+                                (question, index) =>
+                                    renderQuestion(
+                                        question,
+                                        index
+                                    )
+                            )
+                            .join("")
+                    }
+                </div>
+            </div>
+        `;
+    }
+
+
+    /*
+     * Kalau tidak ada isi
+     */
+
+    if (!html) {
+
+        html = `
+            <div class="tka-state">
+
+                <div class="tka-state-icon">
+                    📖
+                </div>
+
+                <h3>
+                    Materi belum diisi
+                </h3>
+
+                <p>
+                    Bab ini sudah tersedia,
+                    tetapi isi materi belum dimasukkan
+                    ke JSON.
+                </p>
+
+            </div>
+        `;
+
+    }
+
+
+    return html;
+
+}
+
+
+/* =====================================================
+   SUBMATERIAL
+   ===================================================== */
+
+function createSubmaterial(
+    submaterial,
+    index
+) {
+
+    const title =
+        submaterial.title ||
+        submaterial.name ||
+        submaterial.judul ||
+        submaterial.subbab ||
+        submaterial.subtopic ||
+        `Submateri ${index + 1}`;
+
+
+    const description =
+        submaterial.description ||
+        submaterial.deskripsi ||
+        submaterial.summary ||
+        submaterial.ringkasan ||
+        "";
+
+
+    const material =
+        submaterial.material ||
+        submaterial.materi ||
+        submaterial.content ||
+        submaterial.konten;
+
+
+    const examples =
+        submaterial.examples ||
+        submaterial.contoh ||
+        submaterial.exampleQuestions ||
+        [];
+
+
+    const questions =
+        submaterial.questions ||
+        submaterial.soal ||
+        submaterial.practice ||
+        submaterial.latihan ||
+        [];
+
+
+    let html = `
+        <article
+            class="tka-submaterial"
+        >
+            <button type="button" class="tka-submaterial-toggle" aria-expanded="false">
+                <span class="tka-submaterial-index">${escapeHTML(index + 1)}</span>
+                <span class="tka-submaterial-heading">
+                    <strong class="tka-submaterial-title">${escapeHTML(title)}</strong>
+                    ${description ? `<span class="tka-submaterial-description">${escapeHTML(description)}</span>` : ""}
+                </span>
+                <span class="tka-submaterial-chevron">⌄</span>
+            </button>
+            <div class="tka-submaterial-body">
+    `;
+
+
+
+
+
+    /*
+     * Materi subbab
+     */
+
+    if (material) {
+
+        html += `
+            <div
+                class="tka-inline-material"
+            >
+
+                <h4>
+                    Materi
+                </h4>
+
+                ${formatContent(
+                    material
+                )}
+
+            </div>
+        `;
+
+    }
+
+
+    /*
+     * Contoh soal
+     */
+
+    if (
+        Array.isArray(
+            examples
+        ) &&
+        examples.length
+    ) {
+
+        html += `
+            <div
+                class="tka-examples"
+            >
+
+                <h4
+                    class="tka-examples-title"
+                >
+                    Contoh Soal
+                </h4>
+
+                ${
+                    examples
+                        .map(
+                            (
+                                example,
+                                exampleIndex
+                            ) =>
+                                createExample(
+                                    example,
+                                    exampleIndex
+                                )
+                        )
+                        .join("")
+                }
+
+            </div>
+        `;
+
+    }
+
+
+    /*
+     * Latihan
+     */
+
+    if (
+        Array.isArray(
+            questions
+        ) &&
+        questions.length
+    ) {
+
+        html += `
+            <div
+                class="tka-question-section"
+            >
+
+                <h4
+                    class="tka-question-section-title"
+                >
+                    Latihan Soal
+
+                    <span
+                        class="tka-question-count"
+                    >
+                        · ${questions.length} soal
+                    </span>
+
+                </h4>
+
+                <div
+                    class="tka-submaterial-actions"
+                >
+
+                    <button
+                        type="button"
+                        class="tka-action"
+                        onclick="showQuestions(this)"
+                    >
+                        📝 Lihat latihan
+                    </button>
+
+                </div>
+
+                <div
+                    class="tka-question-container"
+                    style="display:none;"
+                >
+                </div>
+
+            </div>
+        `;
+
+    }
+
+
+    /*
+     * Jika kosong
+     */
+
+    if (
+        !material &&
+        !examples.length &&
+        !questions.length
+    ) {
+
+        html += `
+            <p
+                class="tka-submaterial-description"
+            >
+                Materi untuk subbab ini belum
+                dimasukkan ke JSON.
+            </p>
+        `;
+
+    }
+
+
+    html += `
+            </div>
+        </article>
+    `;
+
+
+    /*
+     * Simpan data soal di registry
+     */
+
+    if (
+        Array.isArray(
+            questions
+        ) &&
+        questions.length
+    ) {
+
+        registerQuestionSet(
+            questions
+        );
+
+    }
+
+
+    return html;
+
+}
+
+
+/* =====================================================
+   QUESTION REGISTRY
+   ===================================================== */
+
+const TKAQuestionRegistry =
+    [];
+
+
+function registerQuestionSet(
+    questions
+) {
+
+    const id =
+        TKAQuestionRegistry.length;
+
+
+    TKAQuestionRegistry.push({
+        id,
+        questions
+    });
+
+
+    return id;
+
+}
+
+
+/* =====================================================
+   SHOW QUESTIONS
+   ===================================================== */
+
+function showQuestions(
+    button
+) {
+
+    const section =
+        button.closest(
+            ".tka-question-section"
+        );
+
+
+    if (!section) {
+        return;
+    }
+
+
+    const container =
+        section.querySelector(
+            ".tka-question-container"
+        );
+
+
+    if (!container) {
+        return;
+    }
+
+
+    const submaterial =
+        button.closest(
+            ".tka-submaterial"
+        );
+
+
+    if (!submaterial) {
+        return;
+    }
+
+
+    /*
+     * Ambil pertanyaan langsung
+     * dari object tidak tersedia lagi
+     * di DOM, sehingga kita ambil
+     * dari registry berdasarkan urutan.
+     */
+
+    const questionIndex =
+        getQuestionRegistryIndex(
+            submaterial
+        );
+
+
+    if (
+        questionIndex < 0
+    ) {
+
+        container.innerHTML = `
+            <p>
+                Soal tidak ditemukan.
+            </p>
+        `;
+
+        container.style.display =
+            "block";
+
+        return;
+
+    }
+
+
+    const questions =
+        TKAQuestionRegistry[
+            questionIndex
+        ]?.questions ||
+        [];
+
+
+    if (!questions.length) {
+
+        container.innerHTML = `
+            <p>
+                Belum ada soal.
+            </p>
+        `;
+
+        container.style.display =
+            "block";
+
+        return;
+
+    }
+
+
+    /*
+     * Gunakan engine apabila tersedia
+     */
+
+    if (
+        window.FJISContent &&
+        typeof window.FJISContent.renderQuestions ===
+            "function"
+    ) {
+
+        window.FJISContent.renderQuestions(
+            container,
+            questions
+        );
+
+    } else {
+
+        container.innerHTML =
+            questions
+                .map(
+                    (
+                        question,
+                        index
+                    ) =>
+                        `
+                            <div
+                                class="tka-example-card"
+                            >
+
+                                <p
+                                    class="tka-example-question"
+                                >
+                                    ${index + 1}.
+                                    ${escapeHTML(
+                                        question.question ||
+                                        question.soal ||
+                                        question.text ||
+                                        ""
+                                    )}
+                                </p>
+
+                            </div>
+                        `
+                )
+                .join("");
+
+    }
+
+
+    container.style.display =
+        "block";
+
+
+    button.textContent =
+        "Sembunyikan latihan";
+
+
+    button.onclick =
+        () => {
+
+            const visible =
+                container.style.display !==
+                "none";
+
+
+            container.style.display =
+                visible
+                    ? "none"
+                    : "block";
+
+
+            button.textContent =
+                visible
+                    ? "📝 Lihat latihan"
+                    : "Sembunyikan latihan";
+
+        };
+
+}
+
+
+/*
+ * Karena setiap submaterial mendaftarkan
+ * questions secara berurutan, kita mencari
+ * posisi berdasarkan urutan elemen.
+ */
+
+function getQuestionRegistryIndex(
+    submaterial
+) {
+
+    const all =
+        document.querySelectorAll(
+            ".tka-submaterial"
+        );
+
+
+    return Array
+        .from(all)
+        .indexOf(
+            submaterial
+        );
+
+}
+
+
+function renderRichContent(value) {
+    if (value === null || value === undefined || value === "") {
+        return "";
+    }
+
+    if (Array.isArray(value)) {
+        return value
+            .map(item => renderRichContent(item))
+            .join("");
+    }
+
+    if (typeof value === "string" ||
+        typeof value === "number" ||
+        typeof value === "boolean") {
+        return formatText(value);
+    }
+
+    if (typeof value === "object") {
+        /*
+         * Support stimulus/material objects without depending
+         * on a page-specific helper that may not exist.
+         */
+        const title =
+            value.title ||
+            value.heading ||
+            value.name ||
+            "";
+
+        const content =
+            value.content ||
+            value.text ||
+            value.description ||
+            value.body ||
+            value.konten ||
+            value.materi ||
+            "";
+
+        const paragraphs = [];
+
+        if (title) {
+            paragraphs.push(
+                `<h5>${escapeHTML(title)}</h5>`
+            );
+        }
+
+        if (content) {
+            paragraphs.push(
+                formatText(content)
+            );
+        }
+
+        for (const key of [
+            "data",
+            "table",
+            "items",
+            "points",
+            "key_points",
+            "keyPoints"
+        ]) {
+            if (value[key] !== undefined) {
+                paragraphs.push(
+                    formatContent(value[key])
+                );
+            }
+        }
+
+        if (paragraphs.length) {
+            return paragraphs.join("");
+        }
+
+        return escapeHTML(
+            getValueText(value)
+        );
+    }
+
+    return escapeHTML(String(value));
+}
+
+
+const TKAInteractiveQuestions = window.TKAInteractiveQuestions || {};
+
+function registerInteractiveQuestion(question) {
+    const id = `tka-q-${Object.keys(TKAInteractiveQuestions).length}-${Date.now()}-${Math.random().toString(36).slice(2, 7)}`;
+    TKAInteractiveQuestions[id] = question;
+    return id;
+}
+
+function renderExplanationContent(value) {
+    if (value === null || value === undefined || value === "") return "";
+    if (typeof value === "string" || typeof value === "number" || typeof value === "boolean") {
+        return formatText(value);
+    }
+    if (Array.isArray(value)) {
+        return `<ol>${value.map(item => `<li>${renderExplanationContent(item)}</li>`).join("")}</ol>`;
+    }
+    if (typeof value === "object") {
+        let html = "";
+        const strategy = value.strategy || value.method;
+        if (strategy && !/^Fokus analisis:/i.test(String(strategy))) {
+            html += `<p><strong>Metode:</strong> ${escapeHTML(String(strategy))}</p>`;
+        }
+        if (value.evidence) {
+            html += `<div class="tka-explanation-evidence"><strong>Bukti yang digunakan:</strong><div>${renderExplanationContent(value.evidence)}</div></div>`;
+        }
+        if (Array.isArray(value.steps) && value.steps.length) {
+            html += `<ol>${value.steps.map(step => `<li>${renderExplanationContent(step)}</li>`).join("")}</ol>`;
+        }
+        const explanation = value.explanation || value.content || value.text || value.body;
+        if (explanation) html += `<div>${renderExplanationContent(explanation)}</div>`;
+        const conclusion = value.conclusion;
+        if (conclusion) html += `<p><strong>Kesimpulan:</strong> ${renderExplanationContent(conclusion)}</p>`;
+        if (value.formula) html += `<div class="tka-formula">${escapeHTML(String(value.formula))}</div>`;
+        if (value.answer_key) html += `<p><strong>Kunci:</strong> ${escapeHTML(String(value.answer_key))}</p>`;
+        return html || `<pre>${escapeHTML(JSON.stringify(value, null, 2))}</pre>`;
+    }
+    return escapeHTML(String(value));
+}
+
+function renderQuestion(question, index) {
+    if (!question || typeof question !== "object") return "";
+
+    const format = question.format || "PG";
+    const questionId = registerInteractiveQuestion(question);
+    const options = Array.isArray(question.options) ? question.options : [];
+    const answer = question.answer ?? "";
+    const explanation = question.explanation || "";
+    const solution = question.solution && typeof question.solution === "object" ? question.solution : null;
+    // Semua mata pelajaran, termasuk Matematika, boleh memiliki stimulus.
+    // Stimulus Matematika v5 sengaja ditampilkan karena menjadi bagian dari
+    // informasi yang harus dianalisis sebelum menjawab.
+    const stimulus = question.stimulus;
+    const inputType = format === "PGK_MCMA" ? "checkbox" : "radio";
+
+    let optionsHTML = "";
+    if (format === "PGK_KATEGORI") {
+        const statements = Array.isArray(question.statements) ? question.statements : [];
+        const categories = Array.isArray(question.categories) && question.categories.length ? question.categories : ["Tepat", "Tidak Tepat"];
+        optionsHTML = `
+            <div class="tka-question-category">
+                ${statements.map((statement, statementIndex) => {
+                    const sid = statement.id || String.fromCharCode(65 + statementIndex);
+                    return `
+                        <div class="tka-question-category-row">
+                            <div class="tka-question-option-text"><strong>${escapeHTML(String(sid))}.</strong> ${escapeHTML(getValueText(statement))}</div>
+                            <div class="tka-question-category-response">
+                                ${categories.map(category => `
+                                    <label>
+                                        <input type="radio" name="${questionId}-${escapeHTML(String(sid))}" value="${escapeHTML(String(category))}" class="tka-question-option-input">
+                                        <span>${escapeHTML(String(category))}</span>
+                                    </label>
+                                `).join("")}
+                            </div>
+                        </div>`;
+                }).join("")}
+            </div>
+        `;
+    } else if (options.length) {
+        optionsHTML = `
+            <ol class="tka-question-options">
+                ${options.map((option, optionIndex) => {
+                    const key = option?.id || String.fromCharCode(65 + optionIndex);
+                    const text = getValueText(option);
+                    return `
+                        <li class="tka-question-option">
+                            <label class="tka-question-option-label">
+                                <input type="${inputType}" name="${questionId}" value="${escapeHTML(String(key))}" class="tka-question-option-input">
+                                <span class="tka-question-option-key">${escapeHTML(String(key))}</span>
+                                <span class="tka-question-option-text">${escapeHTML(text)}</span>
+                            </label>
+                        </li>`;
+                }).join("")}
+            </ol>
+        `;
+    }
+
+    const solutionHTML = solution || explanation ? `
+        <details class="tka-question-solution">
+            <summary>Lihat pembahasan</summary>
+            <div class="tka-question-solution-content">
+                ${question.analysis_focus ? `<div class="tka-explanation-focus"><strong>Fokus kemampuan:</strong> ${escapeHTML(String(question.analysis_focus))}</div>` : ""}
+                ${question.analysis_task ? `<div class="tka-explanation-task"><strong>Cara membaca stimulus:</strong> ${escapeHTML(String(question.analysis_task))}</div>` : ""}
+                ${renderExplanationContent(solution || explanation)}
+                ${solution && explanation && solution.explanation !== explanation ? `<div><strong>Pembahasan:</strong> ${renderExplanationContent(explanation)}</div>` : ""}
+            </div>
+        </details>` : "";
+
+    return `
+        <article class="tka-question-item structured" data-question-id="${questionId}" data-question-format="${escapeHTML(format)}">
+            <div class="tka-question-number">Soal ${index + 1}</div>
+            ${stimulus ? `<div class="tka-question-stimulus">${renderRichContent(stimulus)}</div>` : ""}
+            <div class="tka-question-prompt">${escapeHTML(question.question || question.soal || question.text || "")}</div>
+            ${optionsHTML}
+            ${optionsHTML ? `<button type="button" class="tka-question-submit" onclick="checkTKAQuestion(this)">Periksa Jawaban</button>` : ""}
+            <div class="tka-question-result" hidden></div>
+            ${solutionHTML}
+        </article>
+    `;
+}
+
+function normalizeAnswerValue(value) {
+    if (Array.isArray(value)) {
+        return value
+            .map(item => String(item).trim().toUpperCase())
+            .sort();
+    }
+
+    if (value === null || value === undefined) {
+        return [];
+    }
+
+    return [String(value).trim().toUpperCase()];
+}
+
+function checkTKAQuestion(button) {
+    const article = button.closest(".tka-question-item");
+    if (!article) return;
+    const id = article.dataset.questionId;
+    const question = TKAInteractiveQuestions[id];
+    const result = article.querySelector(".tka-question-result");
+    if (!question || !result) return;
+
+    const format = question.format || "PG";
+    let correct = false;
+    let selectedText = "";
+
+    if (format === "PGK_KATEGORI") {
+        const statements = Array.isArray(question.statements) ? question.statements : [];
+        const userAnswer = {};
+        let complete = true;
+        statements.forEach((statement, i) => {
+            const sid = statement.id || String.fromCharCode(65 + i);
+            const picked = article.querySelector(`input[name="${id}-${CSS.escape(String(sid))}"]:checked`);
+            if (!picked) complete = false;
+            else userAnswer[sid] = picked.value;
+        });
+        if (!complete) {
+            result.hidden = false;
+            result.className = "tka-question-result is-incorrect";
+            result.textContent = "Lengkapi semua pilihan terlebih dahulu.";
+            return;
+        }
+        const expected = question.answer && typeof question.answer === "object" ? question.answer : {};
+        const keys = Object.keys(expected);
+        correct = keys.length === Object.keys(userAnswer).length && keys.every(key => String(expected[key]).toLowerCase() === String(userAnswer[key]).toLowerCase());
+        selectedText = Object.entries(userAnswer).map(([k,v]) => `${k}: ${v}`).join(", ");
+    } else {
+        const checked = Array.from(article.querySelectorAll(`input[name="${id}"]:checked`)).map(input => input.value).sort();
+        if (!checked.length) {
+            result.hidden = false;
+            result.className = "tka-question-result is-incorrect";
+            result.textContent = "Pilih jawaban terlebih dahulu.";
+            return;
+        }
+        const expected = normalizeAnswerValue(question.answer);
+        correct = JSON.stringify(checked) === JSON.stringify(expected);
+        selectedText = checked.join(", ");
+    }
+
+    const keyText = typeof question.answer === "object" ? JSON.stringify(question.answer) : Array.isArray(question.answer) ? question.answer.join(", ") : String(question.answer);
+    result.hidden = false;
+    result.className = `tka-question-result ${correct ? "is-correct" : "is-incorrect"}`;
+    result.innerHTML = `<strong>${correct ? "Benar" : "Belum tepat"}</strong><br>Jawaban kamu: ${escapeHTML(selectedText)}<br>Kunci: ${escapeHTML(keyText)}`;
+    const details = article.querySelector(".tka-question-solution");
+    if (details) details.open = true;
+}
+
+
+/* =====================================================
+   EXAMPLE
+   ===================================================== */
+
+
+function createExample(
+    example,
+    index
+) {
+
+    if (
+        typeof example === "string"
+    ) {
+
+        return `
+            <article
+                class="tka-example-card"
+            >
+
+                <p
+                    class="tka-example-question"
+                >
+                    ${escapeHTML(
+                        example
+                    )}
+                </p>
+
+            </article>
+        `;
+
+    }
+
+
+    const question =
+        example.question ||
+        example.soal ||
+        example.text ||
+        "";
+
+
+    const answer =
+        example.answer ||
+        example.jawaban ||
+        example.correctAnswer ||
+        "";
+
+
+    const explanation =
+        example.explanation ||
+        example.pembahasan ||
+        example.solution ||
+        "";
+
+
+    return `
+        <article
+            class="tka-example-card"
+        >
+
+            <p
+                class="tka-example-question"
+            >
+                ${escapeHTML(
+                    question
+                )}
+            </p>
+
+
+            ${
+                answer
+                    ? `
+                        <div
+                            class="tka-example-answer"
+                        >
+                            Jawaban:
+                            ${escapeHTML(
+                                getValueText(
+                                    answer
+                                )
+                            )}
+                        </div>
+                    `
+                    : ""
+            }
+
+
+            ${
+                explanation
+                    ? `
+                        <div
+                            class="tka-example-explanation"
+                        >
+                            ${formatText(
+                                explanation
+                            )}
+                        </div>
+                    `
+                    : ""
+            }
+
+        </article>
+    `;
+
+}
+
+
+/* =====================================================
+   VALUE HELPERS
+   ===================================================== */
+
+function getValueText(
+    value
+) {
+
+    if (
+        value === null ||
+        value === undefined
+    ) {
+
+        return "";
+
+    }
+
+
+    if (
+        typeof value === "string" ||
+        typeof value === "number" ||
+        typeof value === "boolean"
+    ) {
+
+        return String(value);
+
+    }
+
+
+    if (
+        typeof value === "object"
+    ) {
+
+        return (
+            value.text ||
+            value.label ||
+            value.name ||
+            value.title ||
+            value.value ||
+            JSON.stringify(value)
+        );
+
+    }
+
+
+    return String(value);
+
+}
+
+
+/* =====================================================
+   FORMAT TEXT
+   ===================================================== */
+
+function formatText(
+    value
+) {
+
+    if (
+        value === null ||
+        value === undefined
+    ) {
+
+        return "";
+
+    }
+
+
+    if (
+        Array.isArray(value)
+    ) {
+
+        return `
+            <ul class="tka-inline-list">
+                ${
+                    value
+                        .map(
+                            item =>
+                                `<li>${escapeHTML(
+                                    getValueText(
+                                        item
+                                    )
+                                )}</li>`
+                        )
+                        .join("")
+                }
+            </ul>
+        `;
+
+    }
+
+
+    if (
+        typeof value === "object"
+    ) {
+
+        return formatContent(
+            value
+        );
+
+    }
+
+
+    const text =
+        String(value);
+
+
+    if (
+        /<([a-z][\s\S]*?)>/i.test(
+            text
+        )
+    ) {
+
+        return text;
+
+    }
+
+
+    return escapeHTML(
+        text
+    )
+        .split(/\n{2,}/)
+        .map(
+            paragraph =>
+                `<p>${paragraph}</p>`
+        )
+        .join("");
+
+}
+
+
+/* =====================================================
+   FORMAT CONTENT
+   ===================================================== */
+
+function formatContent(
+    value
+) {
+
+    if (
+        value === null ||
+        value === undefined
+    ) {
+
+        return "";
+
+    }
+
+
+    if (
+        typeof value === "string"
+    ) {
+
+        return formatText(
+            value
+        );
+
+    }
+
+
+    if (
+        typeof value === "number" ||
+        typeof value === "boolean"
+    ) {
+
+        return escapeHTML(
+            value
+        );
+
+    }
+
+
+    if (
+        Array.isArray(value)
+    ) {
+
+        return `
+            <ul class="tka-inline-list">
+
+                ${
+                    value
+                        .map(
+                            item => `
+                                <li>
+                                    ${formatContent(
+                                        item
+                                    )}
+                                </li>
+                            `
+                        )
+                        .join("")
+                }
+
+            </ul>
+        `;
+
+    }
+
+
+    if (
+        typeof value === "object"
+    ) {
+
+        let html = "";
+
+
+        const text =
+            value.text ||
+            value.content ||
+            value.konten ||
+            value.description ||
+            value.deskripsi;
+
+
+        if (text) {
+
+            html += formatText(
+                text
+            );
+
+        }
+
+
+        const formula =
+            value.formula;
+
+
+        if (formula) {
+
+            html += `
+                <div
+                    class="tka-formula"
+                >
+                    ${escapeHTML(
+                        formula
+                    )}
+                </div>
+            `;
+
+        }
+
+
+        const list =
+            value.list ||
+            value.items ||
+            value.points;
+
+
+        if (
+            Array.isArray(list)
+        ) {
+
+            html += `
+                <ul
+                    class="tka-inline-list"
+                >
+
+                    ${
+                        list
+                            .map(
+                                item =>
+                                    `<li>${escapeHTML(
+                                        getValueText(
+                                            item
+                                        )
+                                    )}</li>`
+                            )
+                            .join("")
+                    }
+
+                </ul>
+            `;
+
+        }
+
+
+        if (!html) {
+
+            html =
+                Object.entries(
+                    value
+                )
+                    .map(
+                        (
+                            [key, item]
+                        ) => `
+                            <div>
+                                <strong>
+                                    ${escapeHTML(
+                                        key
+                                    )}
+                                </strong>
+
+                                <div>
+                                    ${formatContent(
+                                        item
+                                    )}
+                                </div>
+                            </div>
+                        `
+                    )
+                    .join("");
+
+        }
+
+
+        return html;
+
+    }
+
+
+    return escapeHTML(
+        String(value)
+    );
+
+}
+
+
+/* =====================================================
+   DISPLAY NAME
+   ===================================================== */
+
+function getSubjectDisplayName(
+    slug
+) {
+
+    const names = {
+
+        "matematika":
+            "Matematika",
+
+        "bahasa-indonesia":
+            "Bahasa Indonesia",
+
+        "bahasa-inggris":
+            "Bahasa Inggris",
+
+        "matematika-tingkat-lanjut":
+            "Matematika Tingkat Lanjut",
+
+        "fisika":
+            "Fisika",
+
+        "kimia":
+            "Kimia",
+
+        "biologi":
+            "Biologi",
+
+        "ekonomi":
+            "Ekonomi",
+
+        "ppkn":
+            "Pendidikan Pancasila dan Kewarganegaraan",
+
+        "sejarah":
+            "Sejarah",
+
+        "sosiologi":
+            "Sosiologi"
+
+    };
+
+
+    return (
+        names[
+            slug
+        ] ||
+        slug
+            .split("-")
+            .map(
+                word =>
+                    word.charAt(0)
+                        .toUpperCase() +
+                    word.slice(1)
+            )
+            .join(" ")
+    );
+
+}
+
+
+/* =====================================================
+   SLUGIFY
+   ===================================================== */
+
+function slugify(
+    value
+) {
+
+    return String(
+        value || ""
+    )
+        .toLowerCase()
+        .normalize("NFD")
+        .replace(
+            /[\u0300-\u036f]/g,
+            ""
+        )
+        .replace(
+            /[^a-z0-9]+/g,
+            "-"
+        )
+        .replace(
+            /^-+|-+$/g,
+            "");
+
+}
+
+
+/* =====================================================
+   ESCAPE HTML
+   ===================================================== */
+
+function escapeHTML(
+    value
+) {
+
+    if (
+        value === null ||
+        value === undefined
+    ) {
+
+        return "";
+
+    }
+
+
+    return String(value)
+        .replace(
+            /&/g,
+            "&amp;"
+        )
+        .replace(
+            /</g,
+            "&lt;"
+        )
+        .replace(
+            />/g,
+            "&gt;"
+        )
+        .replace(
+            /"/g,
+            "&quot;"
+        )
+        .replace(
+            /'/g,
+            "&#039;"
+        );
+
+}
+
+
+/* =====================================================
+   STATE
+   ===================================================== */
+
+function showTKAState(
+    title,
+    message
+) {
+
+    const state =
+        document.getElementById(
+            "stateContainer"
+        );
+
+
+    const content =
+        document.getElementById(
+            "contentContainer"
+        );
+
+
+    if (content) {
+
+        content.style.display =
+            "none";
+
+    }
+
+
+    if (!state) {
+        return;
+    }
+
+
+    state.style.display =
+        "block";
+
+
+    state.innerHTML = `
+
+        <div
+            class="tka-state-icon"
+        >
+            📚
+        </div>
+
+        <h3>
+            ${escapeHTML(
+                title
+            )}
+        </h3>
+
+        <p>
+            ${escapeHTML(
+                message
+            )}
+        </p>
+
+        <div
+            style="margin-top:18px;"
+        >
+
+            <a
+                href="kelas-12-tka.html"
+                class="tka-action"
+            >
+                ← Kembali ke TKA
+            </a>
+
+        </div>
+
+    `;
+
+}
+
+
+
+/* =========================================================
+   UI V6 — section navigation state
+   ========================================================= */
+(function initTKASectionNavigation(){
+    document.addEventListener("DOMContentLoaded", () => {
+        const links = Array.from(document.querySelectorAll(".tka-section-link"));
+        const sections = links
+            .map(link => document.querySelector(link.getAttribute("href")))
+            .filter(Boolean);
+        if (!links.length || !sections.length) return;
+        const activate = (id) => {
+            links.forEach(link => link.classList.toggle("is-active", link.getAttribute("href") === `#${id}`));
+        };
+        const observer = new IntersectionObserver(entries => {
+            const visible = entries.filter(entry => entry.isIntersecting).sort((a,b) => b.intersectionRatio - a.intersectionRatio)[0];
+            if (visible) activate(visible.target.id);
+        }, { rootMargin: "-135px 0px -55% 0px", threshold: [0.1,0.35,0.6] });
+        sections.forEach(section => observer.observe(section));
+    });
+})();
+
+</script>
+
+
+</body>
+
+</html>

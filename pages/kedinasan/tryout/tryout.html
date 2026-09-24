@@ -1,0 +1,409 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Tryout SKD Kedinasan — FJIS Academy</title>
+  <style>
+    *{box-sizing:border-box}
+    body{margin:0;font-family:Arial,Helvetica,sans-serif;background:#f5f3ee;color:#202020}
+    .container{width:min(1100px,94%);margin:0 auto}
+    .topbar{padding:18px 0;border-bottom:1px solid #ddd8ce;background:rgba(255,255,255,.88);position:sticky;top:0;z-index:10;backdrop-filter:blur(10px)}
+    .brand{font-weight:800;letter-spacing:.3px}.brand small{display:block;font-weight:500;color:#777;margin-top:3px}
+    .card{background:rgba(255,255,255,.92);border:1px solid #e1ddd5;border-radius:18px;padding:24px;box-shadow:0 8px 28px rgba(0,0,0,.06)}
+    main{padding:34px 0 50px}h1,h2,h3{margin-top:0}.muted{color:#707070;line-height:1.6}
+    .hidden{display:none!important}.gate{max-width:620px;margin:35px auto}
+    .referral-row{display:flex;gap:10px;margin-top:15px}.referral-row input{flex:1;min-width:0;padding:12px;border:1px solid #ccc;border-radius:10px;font-size:15px}
+    .btn{border:0;border-radius:11px;padding:12px 18px;font-weight:700;cursor:pointer}.btn-primary{background:#202020;color:#fff}.btn-secondary{background:#ece9e2;color:#222}
+    .actions{display:flex;gap:10px;flex-wrap:wrap;margin-top:18px}
+    .package-single{max-width:620px;margin:35px auto}.package{border:1.5px solid #222;border-radius:15px;padding:20px;background:#fff;box-shadow:0 0 0 2px #222 inset}
+    .package-title{font-weight:800;font-size:20px}.package-info{margin-top:8px;color:#666;font-size:14px;line-height:1.6}
+    #referralMessage,#packageMessage{margin-top:10px;font-size:14px}.error{color:#a11}.success{color:#176b35}
+    .tryout-head{display:flex;justify-content:space-between;align-items:center;gap:15px;flex-wrap:wrap;margin-bottom:18px}
+    .timer{font-size:22px;font-weight:800;padding:10px 15px;border-radius:12px;background:#f0ede6}
+    .layout{display:grid;grid-template-columns:1fr 280px;gap:18px;align-items:start}
+    .question-number{font-size:14px;color:#777;margin-bottom:10px}
+    #questionText{font-size:18px;line-height:1.65;white-space:pre-line}
+    #options{display:grid;gap:10px;margin-top:20px}.option{width:100%;text-align:left;padding:14px;border:1px solid #d7d3ca;border-radius:12px;background:#fff;cursor:pointer;line-height:1.5;white-space:pre-wrap}
+    .option:hover{background:#f7f5f0}.option.selected{border-color:#222;box-shadow:0 0 0 1px #222 inset}
+    .nav-buttons{display:flex;justify-content:space-between;gap:10px;margin-top:22px}
+    .navigator{display:grid;grid-template-columns:repeat(5,1fr);gap:7px;margin-top:14px}.nav-q{padding:9px 3px;border:1px solid #d3cec5;border-radius:8px;background:#fff;cursor:pointer;font-size:12px}
+    .nav-q.active{border-color:#222;font-weight:800}.nav-q.answered{background:#e9e6df}
+    .section-label{display:inline-block;padding:6px 9px;border-radius:8px;background:#eeeae2;font-size:12px;font-weight:700;margin-bottom:12px}
+    .result-card{margin-top:18px}.score-big{font-size:34px;font-weight:900}.score-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin-top:15px}
+    .score-box{border:1px solid #ddd8cf;border-radius:12px;padding:14px;background:#faf9f6}.score-box strong{display:block;font-size:21px;margin-top:4px}
+    @media(max-width:800px){.layout{grid-template-columns:1fr}.referral-row{flex-direction:column}.score-grid{grid-template-columns:1fr}}
+  </style>
+</head>
+<body>
+  <header class="topbar">
+    <div class="container">
+      <div class="brand">FJIS Academy<small>Student Learner • Tryout SKD Kedinasan</small></div>
+    </div>
+  </header>
+
+  <main class="container">
+
+    <!-- =====================================================
+         STEP 1 — REFERRAL GATE
+         TIDAK disimpan di sessionStorage/localStorage.
+         Setiap kali masuk halaman tryout, kode diminta lagi.
+         ===================================================== -->
+    <section id="referralGate" class="card gate">
+      <h2>Akses Tryout</h2>
+      <p class="muted">
+        Masukkan kode referral. Setiap kode terhubung langsung ke satu paket soal.
+        Tidak ada pemilihan paket manual.
+      </p>
+
+      <div class="referral-row">
+        <input id="referralInput" type="text" placeholder="Contoh: R8Q2-K7MV" autocomplete="off" spellcheck="false">
+        <button id="referralBtn" class="btn btn-primary">Verifikasi Kode</button>
+      </div>
+
+      <div id="referralMessage"></div>
+    </section>
+
+    <!-- =====================================================
+         STEP 2 — HANYA PAKET YANG TERKAIT KODE
+         ===================================================== -->
+    <section id="packageGate" class="card package-single hidden">
+      <h2 id="packageHeading">Paket Tryout</h2>
+      <p id="packageDescription" class="muted"></p>
+
+      <div class="package">
+        <div id="packageTitle" class="package-title">Paket 1</div>
+        <div class="package-info">
+          30 TWK • 35 TIU • 45 TKP<br>
+          Total 110 soal
+        </div>
+      </div>
+
+      <div class="actions">
+        <button id="startTryoutBtn" class="btn btn-primary">Masuk ke Paket Ini</button>
+        <button id="changeCodeBtn" class="btn btn-secondary">Ganti Kode Referral</button>
+      </div>
+
+      <p id="packageMessage" class="muted"></p>
+      <div id="bankStatus" class="muted" style="margin-top:8px;font-size:13px"></div>
+    </section>
+
+    <!-- =====================================================
+         TRYOUT APP
+         ===================================================== -->
+    <section id="tryoutApp" class="hidden">
+      <div class="tryout-head">
+        <div>
+          <h2 id="tryoutTitle">Tryout SKD Kedinasan</h2>
+          <div id="packageLabel" class="muted"></div>
+        </div>
+        <div id="timer" class="timer">100:00</div>
+      </div>
+
+      <div class="layout">
+        <div>
+          <div class="card">
+            <div id="sectionLabel" class="section-label">TWK</div>
+            <div id="questionNumber" class="question-number">Soal 1 dari 110</div>
+            <div id="questionText"></div>
+            <div id="options"></div>
+
+            <div class="nav-buttons">
+              <button id="prevBtn" class="btn btn-secondary">Sebelumnya</button>
+              <button id="nextBtn" class="btn btn-primary">Berikutnya</button>
+            </div>
+          </div>
+
+          <div id="result" class="card result-card hidden"></div>
+        </div>
+
+        <aside class="card">
+          <h3>Nomor Soal</h3>
+          <div id="navigator" class="navigator"></div>
+          <div class="actions">
+            <button id="finishBtn" class="btn btn-primary">Selesai & Nilai</button>
+          </div>
+        </aside>
+      </div>
+    </section>
+  </main>
+
+  <script>
+    /*
+      SATU KODE = SATU PAKET
+
+      Paket 1:
+      R8Q2-K7MV
+
+      Paket 2:
+      X4N9-T6WP
+
+      Jangan simpan akses di sessionStorage/localStorage.
+      Dengan begitu:
+      Dashboard -> Kedinasan -> Tryout
+      akan selalu kembali ke halaman kode referral.
+
+      Untuk berpindah Paket 1 -> Paket 2:
+      masukkan kode Paket 2.
+    */
+    const PAKET4_REFERRAL_CODE = "K6P4-V8NX";
+
+    const REFERRAL_PACKAGES = Object.freeze({
+      "R8Q2-K7MV": Object.freeze({
+        packageNumber: "1",
+        title: "Paket 1",
+        description: "Paket 1 — bank soal TWK, TIU, dan TKP."
+      }),
+      "X4N9-T6WP": Object.freeze({
+        packageNumber: "2",
+        title: "Paket 2",
+        description: "Paket 2 — bank soal TWK, TIU, dan TKP yang terpisah dari Paket 1."
+      }),
+      "M3K8-P9RX": Object.freeze({
+        packageNumber: "3",
+        title: "Paket 3",
+        description: "Paket 3 — bank soal TWK, TIU, dan TKP yang terpisah dari Paket 1 dan Paket 2."
+      }),
+
+      /*
+        Paket 4:
+        Kode sengaja belum diisi agar tidak membuat/mengarang kode referral.
+        Setelah kode Paket 4 ditentukan, isi nilai di bawah.
+      */
+      ...(PAKET4_REFERRAL_CODE ? {
+        [PAKET4_REFERRAL_CODE]: Object.freeze({
+          packageNumber: "4",
+          title: "Paket 4",
+          description: "Paket 4 — bank soal TWK, TIU, dan TKP yang terpisah dari Paket 1, 2, dan 3."
+        })
+      } : {})
+    });
+
+    const referralGate = document.getElementById("referralGate");
+    const packageGate = document.getElementById("packageGate");
+    const tryoutApp = document.getElementById("tryoutApp");
+
+    const referralInput = document.getElementById("referralInput");
+    const referralBtn = document.getElementById("referralBtn");
+    const referralMessage = document.getElementById("referralMessage");
+
+    const packageHeading = document.getElementById("packageHeading");
+    const packageTitle = document.getElementById("packageTitle");
+    const packageDescription = document.getElementById("packageDescription");
+    const packageMessage = document.getElementById("packageMessage");
+    const startTryoutBtn = document.getElementById("startTryoutBtn");
+    const changeCodeBtn = document.getElementById("changeCodeBtn");
+
+    let activePackage = null;
+    let tryoutStarted = false;
+
+    function normalizeCode(value){
+      return String(value || "").trim().toUpperCase();
+    }
+
+    function showReferralGate(){
+      activePackage = null;
+      tryoutStarted = false;
+
+      referralGate.classList.remove("hidden");
+      packageGate.classList.add("hidden");
+      tryoutApp.classList.add("hidden");
+
+      referralInput.value = "";
+      referralMessage.textContent = "";
+      packageMessage.textContent = "";
+      referralInput.focus();
+    }
+
+    function showPackage(packageData){
+      activePackage = packageData;
+
+      packageTitle.textContent = packageData.title;
+      packageHeading.textContent = "Kode berhasil diverifikasi";
+      packageDescription.textContent =
+        packageData.description +
+        " Paket lain tidak ditampilkan karena kode ini hanya membuka paket tersebut.";
+
+      packageMessage.textContent = "";
+      packageGate.classList.remove("hidden");
+      referralGate.classList.add("hidden");
+    }
+
+    function loadScript(src){
+      return new Promise((resolve, reject) => {
+        const script = document.createElement("script");
+        script.src = src;
+        script.onload = () => resolve();
+        script.onerror = () => reject(new Error("Gagal memuat " + src));
+        document.body.appendChild(script);
+      });
+    }
+
+    async function loadPackage(packageNumber){
+      /*
+        IMPORTANT:
+        Folder tetap ./sources/
+        Bukan ./data/
+      */
+      const files = packageNumber === "1"
+        ? [
+            "./sources/twk.js",
+            "./sources/tiu.js",
+            "./sources/tkp.js"
+          ]
+        : packageNumber === "2"
+          ? [
+              "./sources/twk-paket2.js",
+              "./sources/tiu-paket2.js",
+              "./sources/tkp-paket2.js"
+            ]
+        : packageNumber === "3"
+          ? [
+              "./sources/twk-paket3.js",
+              "./sources/tiu-paket3.js",
+              "./sources/tkp-paket3.js"
+            ]
+        : [
+            "./sources/twk-paket4.js",
+            "./sources/tiu-paket4.js",
+            "./sources/tkp-paket4.js"
+          ];
+
+      try {
+        for (const file of files) {
+          await loadScript(file);
+        }
+
+        if (packageNumber === "2") {
+          window.TWK_QUESTIONS = window.TWK_PAKET2;
+          window.TIU_QUESTIONS = window.TIU_PAKET2;
+          window.TKP_QUESTIONS = window.TKP_PAKET2;
+        } else if (packageNumber === "3") {
+          window.TWK_QUESTIONS = window.TWK_PAKET3;
+          window.TIU_QUESTIONS = window.TIU_PAKET3;
+          window.TKP_QUESTIONS = window.TKP_PAKET3;
+        } else if (packageNumber === "4") {
+          window.TWK_QUESTIONS = window.TWK_PAKET4;
+          window.TIU_QUESTIONS = window.TIU_PAKET4;
+          window.TKP_QUESTIONS = window.TKP_PAKET4;
+        }
+
+        if (!Array.isArray(window.TWK_QUESTIONS) ||
+            !Array.isArray(window.TIU_QUESTIONS) ||
+            !Array.isArray(window.TKP_QUESTIONS)) {
+          throw new Error("Salah satu bank soal tidak menjadi array.");
+        }
+
+        const counts =
+          `TWK=${window.TWK_QUESTIONS.length}, ` +
+          `TIU=${window.TIU_QUESTIONS.length}, ` +
+          `TKP=${window.TKP_QUESTIONS.length}`;
+
+        if (window.TWK_QUESTIONS.length !== 30 ||
+            window.TIU_QUESTIONS.length !== 35 ||
+            window.TKP_QUESTIONS.length !== 45) {
+          throw new Error("Jumlah soal tidak sesuai: " + counts);
+        }
+
+        const bankStatus = document.getElementById("bankStatus");
+        if (bankStatus) {
+          bankStatus.textContent =
+            "Bank soal siap: " + counts + " • Total 110 soal.";
+          bankStatus.className = "success";
+        }
+
+        console.log("[FJIS] Bank " + packageNumber + " siap:", counts);
+        return true;
+      } catch (error) {
+        console.error("[FJIS] Gagal memuat paket:", error);
+        packageMessage.textContent =
+          "Bank soal gagal dimuat: " + error.message;
+        packageMessage.className = "error";
+        return false;
+      }
+    }
+
+    referralBtn.addEventListener("click", async () => {
+      const code = normalizeCode(referralInput.value);
+      referralInput.value = code;
+
+      if (!code) {
+        referralMessage.textContent = "Masukkan kode referral terlebih dahulu.";
+        referralMessage.className = "error";
+        return;
+      }
+
+      const packageData = REFERRAL_PACKAGES[code];
+
+      if (!packageData) {
+        referralMessage.textContent = "Kode referral tidak valid.";
+        referralMessage.className = "error";
+        return;
+      }
+
+      referralMessage.textContent =
+        `Kode valid — ${packageData.title} terbuka.`;
+      referralMessage.className = "success";
+
+      showPackage(packageData);
+    });
+
+    referralInput.addEventListener("keydown", (event) => {
+      if (event.key === "Enter") referralBtn.click();
+    });
+
+    changeCodeBtn.addEventListener("click", () => {
+      if (tryoutStarted) return;
+      showReferralGate();
+    });
+
+    startTryoutBtn.addEventListener("click", async () => {
+      if (!activePackage || tryoutStarted) return;
+
+      startTryoutBtn.disabled = true;
+      changeCodeBtn.disabled = true;
+      packageMessage.textContent = "Memuat bank soal " + activePackage.title + "...";
+      packageMessage.className = "muted";
+
+      const loaded = await loadPackage(activePackage.packageNumber);
+
+      if (!loaded) {
+        startTryoutBtn.disabled = false;
+        changeCodeBtn.disabled = false;
+        return;
+      }
+
+      try {
+        await loadScript("./tryout.js?v=6");
+
+        tryoutStarted = true;
+        packageGate.classList.add("hidden");
+        tryoutApp.classList.remove("hidden");
+
+        const label = document.getElementById("packageLabel");
+        if (label) {
+          label.textContent =
+            activePackage.title + " • 30 TWK • 35 TIU • 45 TKP";
+        }
+      } catch (error) {
+        console.error("[FJIS] tryout.js gagal:", error);
+        packageMessage.textContent =
+          "tryout.js gagal dimuat. Pastikan file berada satu folder dengan tryout.html.";
+        packageMessage.className = "error";
+        startTryoutBtn.disabled = false;
+        changeCodeBtn.disabled = false;
+      }
+    });
+
+    /*
+      PENTING:
+      Tidak ada auto-login paket di sini.
+      Tidak ada sessionStorage.
+      Tidak ada localStorage.
+      Jadi setiap kali halaman tryout dibuka dari dashboard,
+      user harus memasukkan kode lagi.
+    */
+    showReferralGate();
+  </script>
+</body>
+</html>

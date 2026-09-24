@@ -1,0 +1,1086 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0"
+    >
+
+    <meta
+        name="description"
+        content="FJIS Academy - Tryout TKA Kelas XII"
+    >
+
+    <title>
+        Tryout TKA Kelas XII · FJIS Academy
+    </title>
+
+    <!-- =====================================================
+         FJIS TKA TRYOUT
+         FILE 1 : HTML
+         
+         File ini hanya menjadi kerangka halaman.
+         Sistem lama FJIS tidak disentuh.
+         
+         File berikutnya:
+         - tka-tryout.css
+         - tka-data.js
+         - tka-tryout.js
+    ====================================================== -->
+
+    <link
+        rel="stylesheet"
+        href="./tka-tryout.css"
+    >
+</head>
+
+<body>
+
+<div class="tka-app">
+
+    <!-- =================================================
+         HEADER
+    ================================================== -->
+
+    <header class="tka-header">
+
+        <div class="tka-header-inner">
+
+            <!-- BRAND -->
+
+            <a
+                href="../kelas-12-tka-final.html"
+                class="tka-brand"
+            >
+
+                <div class="tka-brand-icon">
+                    📚
+                </div>
+
+                <div class="tka-brand-text">
+
+                    <strong>
+                        FJIS Academy
+                    </strong>
+
+                    <span>
+                        STUDENT LEARNER
+                    </span>
+
+                </div>
+
+            </a>
+
+
+            <!-- HEADER RIGHT -->
+
+            <div class="tka-header-right">
+
+                <div
+                    class="tka-user-mini"
+                    id="userMini"
+                >
+                    <span
+                        class="tka-user-avatar"
+                        id="userAvatar"
+                    >
+                        👤
+                    </span>
+
+                    <span
+                        class="tka-user-name"
+                        id="userName"
+                    >
+                        Student
+                    </span>
+                </div>
+
+                <a
+                    href="../kelas-12-tka-final.html"
+                    class="tka-back-link"
+                >
+                    ← Kembali ke TKA
+                </a>
+
+            </div>
+
+        </div>
+
+    </header>
+
+
+    <!-- =================================================
+         MAIN
+    ================================================== -->
+
+    <main class="tka-main">
+
+        <!-- =================================================
+             HERO
+        ================================================== -->
+
+        <section class="tka-hero">
+
+            <div class="tka-breadcrumb">
+
+                <a href="../../../../index.html">
+                    FJIS Academy
+                </a>
+
+                <span>›</span>
+
+                <a href="../kelas-12.html">
+                    Kelas XII
+                </a>
+
+                <span>›</span>
+
+                <a href="../kelas-12-tka-final.html">
+                    TKA
+                </a>
+
+                <span>›</span>
+
+                <strong>
+                    Tryout
+                </strong>
+
+            </div>
+
+
+            <div class="tka-hero-content">
+
+                <div class="tka-hero-label">
+                    SMA · KELAS XII · TKA
+                </div>
+
+                <h1>
+                    Tryout TKA
+                </h1>
+
+                <p>
+                    Kerjakan simulasi TKA secara terstruktur,
+                    mulai dari mata pelajaran wajib hingga
+                    mata pelajaran pilihan.
+                </p>
+
+            </div>
+
+        </section>
+
+
+        <!-- =================================================
+             APPLICATION CONTAINER
+             
+             Semua tampilan dinamis akan dirender oleh
+             tka-tryout.js ke dalam container ini.
+        ================================================== -->
+
+        <section
+            class="tka-content"
+            id="tkaApp"
+        >
+
+            <!-- =================================================
+                 SCREEN 1
+                 ACCESS CODE
+            ================================================== -->
+
+            <div
+                class="tka-screen"
+                id="screenAccess"
+            >
+
+                <div class="tka-card tka-access-card">
+
+                    <div class="tka-card-icon">
+                        🎯
+                    </div>
+
+                    <div class="tka-card-label">
+                        TRYOUT TKA
+                    </div>
+
+                    <h2>
+                        Masukkan Kode Tryout
+                    </h2>
+
+                    <p class="tka-card-description">
+                        Masukkan kode akses yang diberikan
+                        untuk membuka paket tryout TKA.
+                    </p>
+
+
+                    <form
+                        id="accessForm"
+                        class="tka-access-form"
+                    >
+
+                        <label
+                            for="accessCode"
+                            class="tka-form-label"
+                        >
+                            Kode akses
+                        </label>
+
+                        <input
+                            type="text"
+                            id="accessCode"
+                            name="accessCode"
+                            class="tka-input"
+                            placeholder="Contoh: FJIS-TKA12-001"
+                            autocomplete="off"
+                            spellcheck="false"
+                            maxlength="40"
+                            required
+                        >
+
+                        <div
+                            id="accessMessage"
+                            class="tka-message"
+                            aria-live="polite"
+                        ></div>
+
+                        <button
+                            type="submit"
+                            class="tka-button tka-button-primary"
+                        >
+                            Buka Paket Tryout
+                            <span>→</span>
+                        </button>
+
+                    </form>
+
+
+                    <div class="tka-access-note">
+
+                        <span>
+                            🔒
+                        </span>
+
+                        <p>
+                            Kode digunakan untuk menentukan
+                            paket soal dan mata pelajaran yang
+                            tersedia.
+                        </p>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+
+            <!-- =================================================
+                 SCREEN 2
+                 PACKAGE INFORMATION
+            ================================================== -->
+
+            <div
+                class="tka-screen"
+                id="screenSelection"
+                hidden
+            >
+
+                <div class="tka-section-heading">
+
+                    <div class="tka-section-label">
+                        PAKET TRYOUT
+                    </div>
+
+                    <h2 id="packageTitle">
+                        Paket TKA
+                    </h2>
+
+                    <p id="packageDescription">
+                        Informasi paket tryout.
+                    </p>
+
+                </div>
+
+
+                <div class="tka-package-grid">
+
+                    <!-- PACKAGE INFO -->
+
+                    <article class="tka-info-card">
+
+                        <div class="tka-info-card-icon">
+                            📋
+                        </div>
+
+                        <span class="tka-info-label">
+                            Paket
+                        </span>
+
+                        <strong id="packageCode">
+                            -
+                        </strong>
+
+                        <p id="packageName">
+                            -
+                        </p>
+
+                    </article>
+
+
+                    <!-- REQUIRED -->
+
+                    <article class="tka-info-card">
+
+                        <div class="tka-info-card-icon">
+                            🔐
+                        </div>
+
+                        <span class="tka-info-label">
+                            Mata Pelajaran Wajib
+                        </span>
+
+                        <strong id="requiredCount">
+                            0
+                        </strong>
+
+                        <p>
+                            Semua wajib dikerjakan.
+                        </p>
+
+                    </article>
+
+
+                    <!-- OPTIONAL -->
+
+                    <article class="tka-info-card">
+
+                        <div class="tka-info-card-icon">
+                            ◇
+                        </div>
+
+                        <span class="tka-info-label">
+                            Mata Pelajaran Pilihan
+                        </span>
+
+                        <strong id="optionalCount">
+                            0
+                        </strong>
+
+                        <p>
+                            Pilih tepat 2.
+                        </p>
+
+                    </article>
+
+                </div>
+
+
+                <!-- REQUIRED SUBJECTS -->
+
+                <section class="tka-selection-section">
+
+                    <div class="tka-selection-heading">
+
+                        <div>
+                            <span class="tka-section-label">
+                                BAGIAN 01
+                            </span>
+
+                            <h3>
+                                Mata Pelajaran Wajib
+                            </h3>
+                        </div>
+
+                        <span class="tka-selection-badge">
+                            WAJIB
+                        </span>
+
+                    </div>
+
+
+                    <div
+                        class="tka-subject-list"
+                        id="requiredSubjects"
+                    >
+                        <!-- Diisi JS -->
+                    </div>
+
+                </section>
+
+
+                <!-- OPTIONAL SUBJECTS -->
+
+                <section class="tka-selection-section">
+
+                    <div class="tka-selection-heading">
+
+                        <div>
+                            <span class="tka-section-label">
+                                BAGIAN 02
+                            </span>
+
+                            <h3>
+                                Mata Pelajaran Pilihan
+                            </h3>
+                        </div>
+
+                        <span class="tka-selection-badge">
+                            TEPAT 2
+                        </span>
+
+                    </div>
+
+
+                    <p class="tka-selection-help">
+                        Pilih tepat dua mata pelajaran.
+                        Pilihan yang sudah dipilih akan
+                        menjadi urutan pengerjaan setelah
+                        seluruh mata pelajaran wajib selesai.
+                    </p>
+
+
+                    <div
+                        class="tka-subject-list"
+                        id="optionalSubjects"
+                    >
+                        <!-- Diisi JS -->
+                    </div>
+
+
+                    <div
+                        id="selectionMessage"
+                        class="tka-message"
+                        aria-live="polite"
+                    ></div>
+
+                </section>
+
+
+                <!-- CONFIRM -->
+
+                <div class="tka-confirm-panel">
+
+                    <div>
+
+                        <strong>
+                            Siap memulai?
+                        </strong>
+
+                        <p>
+                            Pastikan pilihan mata pelajaran
+                            sudah benar sebelum memulai.
+                        </p>
+
+                    </div>
+
+                    <button
+                        type="button"
+                        id="confirmPackageButton"
+                        class="tka-button tka-button-primary"
+                    >
+                        Konfirmasi Paket
+                        <span>→</span>
+                    </button>
+
+                </div>
+
+            </div>
+
+
+            <!-- =================================================
+                 SCREEN 3
+                 CONFIRMATION
+            ================================================== -->
+
+            <div
+                class="tka-screen"
+                id="screenConfirmation"
+                hidden
+            >
+
+                <div class="tka-card tka-confirm-card">
+
+                    <div class="tka-card-icon">
+                        ✓
+                    </div>
+
+                    <div class="tka-card-label">
+                        KONFIRMASI
+                    </div>
+
+                    <h2>
+                        Periksa urutan tryout
+                    </h2>
+
+                    <p class="tka-card-description">
+                        Tryout akan dikerjakan sesuai urutan
+                        berikut. Urutan ini tidak dapat
+                        dilewati.
+                    </p>
+
+
+                    <div
+                        class="tka-exam-order"
+                        id="examOrder"
+                    >
+                        <!-- Diisi JS -->
+                    </div>
+
+
+                    <div
+                        id="confirmationMessage"
+                        class="tka-message"
+                        aria-live="polite"
+                    ></div>
+
+
+                    <div class="tka-confirm-actions">
+
+                        <button
+                            type="button"
+                            id="backToPackageButton"
+                            class="tka-button tka-button-secondary"
+                        >
+                            ← Periksa Lagi
+                        </button>
+
+                        <button
+                            type="button"
+                            id="startExamButton"
+                            class="tka-button tka-button-primary"
+                        >
+                            Mulai Tryout
+                            <span>→</span>
+                        </button>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+
+            <!-- =================================================
+                 SCREEN 4
+                 EXAM
+            ================================================== -->
+
+            <div
+                class="tka-screen"
+                id="screenExam"
+                hidden
+            >
+
+                <!-- EXAM HEADER -->
+
+                <div class="tka-exam-header">
+
+                    <div class="tka-exam-subject">
+
+                        <span class="tka-section-label">
+                            SEDANG MENGERJAKAN
+                        </span>
+
+                        <h2 id="examSubjectName">
+                            -
+                        </h2>
+
+                        <p id="examSubjectMeta">
+                            -
+                        </p>
+
+                    </div>
+
+
+                    <div class="tka-exam-timer">
+
+                        <span>
+                            WAKTU
+                        </span>
+
+                        <strong id="examTimer">
+                            00:00
+                        </strong>
+
+                    </div>
+
+                </div>
+
+
+                <!-- PROGRESS -->
+
+                <div class="tka-exam-progress">
+
+                    <div class="tka-progress-top">
+
+                        <span id="examProgressText">
+                            Soal 1 dari 1
+                        </span>
+
+                        <span id="examAnsweredText">
+                            0 terjawab
+                        </span>
+
+                    </div>
+
+                    <div class="tka-progress-track">
+
+                        <div
+                            class="tka-progress-bar"
+                            id="examProgressBar"
+                        ></div>
+
+                    </div>
+
+                </div>
+
+
+                <!-- QUESTION -->
+
+                <div
+                    class="tka-question-area"
+                    id="questionArea"
+                >
+
+                    <!-- Diisi JS -->
+
+                </div>
+
+
+                <!-- QUESTION NAVIGATION -->
+
+                <div
+                    class="tka-question-navigation"
+                    id="questionNavigation"
+                >
+
+                    <button
+                        type="button"
+                        id="previousQuestionButton"
+                        class="tka-button tka-button-secondary"
+                    >
+                        ← Sebelumnya
+                    </button>
+
+
+                    <button
+                        type="button"
+                        id="nextQuestionButton"
+                        class="tka-button tka-button-primary"
+                    >
+                        Berikutnya →
+                    </button>
+
+                </div>
+
+
+                <!-- QUESTION GRID -->
+
+                <section class="tka-question-map-section">
+
+                    <div class="tka-question-map-heading">
+
+                        <div>
+
+                            <span class="tka-section-label">
+                                NAVIGASI SOAL
+                            </span>
+
+                            <h3>
+                                Nomor soal
+                            </h3>
+
+                        </div>
+
+                        <span
+                            id="questionMapStatus"
+                            class="tka-selection-badge"
+                        >
+                            -
+                        </span>
+
+                    </div>
+
+
+                    <div
+                        class="tka-question-map"
+                        id="questionMap"
+                    >
+                        <!-- Diisi JS -->
+                    </div>
+
+                </section>
+
+
+                <!-- FINISH SUBJECT -->
+
+                <div class="tka-finish-panel">
+
+                    <div>
+
+                        <strong>
+                            Sudah selesai dengan mapel ini?
+                        </strong>
+
+                        <p>
+                            Setelah dikumpulkan, kamu akan
+                            melanjutkan ke mata pelajaran
+                            berikutnya sesuai urutan tryout.
+                        </p>
+
+                    </div>
+
+                    <button
+                        type="button"
+                        id="finishSubjectButton"
+                        class="tka-button tka-button-primary"
+                    >
+                        Kumpulkan Mapel
+                        <span>→</span>
+                    </button>
+
+                </div>
+
+            </div>
+
+
+            <!-- =================================================
+                 SCREEN 5
+                 SUBJECT RESULT
+            ================================================== -->
+
+            <div
+                class="tka-screen"
+                id="screenSubjectResult"
+                hidden
+            >
+
+                <div class="tka-result-hero">
+
+                    <div class="tka-card-icon">
+                        ✓
+                    </div>
+
+                    <div class="tka-card-label">
+                        HASIL MAPEL
+                    </div>
+
+                    <h2 id="subjectResultName">
+                        Hasil Tryout
+                    </h2>
+
+                    <p id="subjectCategoryDescription">
+                        Hasil pengerjaan mata pelajaran.
+                    </p>
+
+                </div>
+
+
+                <div class="tka-score-card">
+
+                    <div class="tka-score-label">
+                        NILAI TRYOUT FJIS
+                    </div>
+
+                    <div
+                        class="tka-score-value"
+                        id="subjectScore"
+                    >
+                        0
+                    </div>
+
+                    <div
+                        class="tka-score-category"
+                        id="subjectCategory"
+                    >
+                        -
+                    </div>
+
+                </div>
+
+
+                <div class="tka-result-stats">
+
+                    <article>
+
+                        <span>
+                            Benar
+                        </span>
+
+                        <strong id="subjectCorrect">
+                            0
+                        </strong>
+
+                    </article>
+
+
+                    <article>
+
+                        <span>
+                            Salah
+                        </span>
+
+                        <strong id="subjectWrong">
+                            0
+                        </strong>
+
+                    </article>
+
+
+                    <article>
+
+                        <span>
+                            Tidak dijawab
+                        </span>
+
+                        <strong id="subjectUnanswered">
+                            0
+                        </strong>
+
+                    </article>
+
+                </div>
+
+
+                <div class="tka-result-note">
+
+                    <strong>
+                        Catatan
+                    </strong>
+
+                    <p>
+                        Nilai yang ditampilkan merupakan
+                        nilai tryout internal FJIS berdasarkan
+                        sistem penilaian paket.
+                    </p>
+
+                </div>
+
+
+                <button
+                    type="button"
+                    id="continueSubjectButton"
+                    class="tka-button tka-button-primary"
+                >
+                    Lanjut ke Mapel Berikutnya
+                    <span>→</span>
+                </button>
+
+            </div>
+
+
+            <!-- =================================================
+                 SCREEN 6
+                 FINAL RESULT
+            ================================================== -->
+
+            <div
+                class="tka-screen"
+                id="screenFinal"
+                hidden
+            >
+
+                <div class="tka-result-hero">
+
+                    <div class="tka-card-icon">
+                        🏁
+                    </div>
+
+                    <div class="tka-card-label">
+                        TRYOUT SELESAI
+                    </div>
+
+                    <h2>
+                        Hasil Tryout TKA
+                    </h2>
+
+                    <p>
+                        Seluruh bagian tryout yang dipilih
+                        sudah selesai dikerjakan.
+                    </p>
+
+                </div>
+
+
+                <!-- OVERALL SCORE -->
+
+                <div class="tka-score-card tka-score-card-final">
+
+                    <div class="tka-score-label">
+                        RINGKASAN NILAI
+                    </div>
+
+                    <div
+                        class="tka-score-value"
+                        id="finalScore"
+                    >
+                        0
+                    </div>
+
+                    <div
+                        class="tka-score-category"
+                        id="finalCategory"
+                    >
+                        -
+                    </div>
+
+                </div>
+
+
+                <!-- SUBJECT RESULTS -->
+
+                <section class="tka-final-results-section">
+
+                    <div class="tka-section-heading">
+
+                        <span class="tka-section-label">
+                            HASIL PER MAPEL
+                        </span>
+
+                        <h3>
+                            Rekapitulasi
+                        </h3>
+
+                    </div>
+
+
+                    <div
+                        class="tka-final-result-list"
+                        id="finalSubjectResults"
+                    >
+                        <!-- Diisi JS -->
+                    </div>
+
+                </section>
+
+
+                <!-- TRYOUT INFO -->
+
+                <section class="tka-final-info">
+
+                    <div>
+
+                        <span>
+                            Paket
+                        </span>
+
+                        <strong id="finalPackageName">
+                            -
+                        </strong>
+
+                    </div>
+
+
+                    <div>
+
+                        <span>
+                            Kode
+                        </span>
+
+                        <strong id="finalPackageCode">
+                            -
+                        </strong>
+
+                    </div>
+
+
+                    <div>
+
+                        <span>
+                            Peserta
+                        </span>
+
+                        <strong id="finalUserName">
+                            -
+                        </strong>
+
+                    </div>
+
+                </section>
+
+
+                <div class="tka-final-actions">
+
+                    <button
+                        type="button"
+                        id="restartTKAButton"
+                        class="tka-button tka-button-secondary"
+                    >
+                        Ulangi Tryout
+                    </button>
+
+                    <a
+                        href="../kelas-12-tka-final.html"
+                        class="tka-button tka-button-primary"
+                    >
+                        Kembali ke TKA
+                        <span>→</span>
+                    </a>
+
+                </div>
+
+            </div>
+
+
+            <!-- =================================================
+                 GLOBAL ERROR / LOADING
+            ================================================== -->
+
+            <div
+                id="globalMessage"
+                class="tka-global-message"
+                aria-live="polite"
+            ></div>
+
+        </section>
+
+    </main>
+
+
+    <!-- =================================================
+         FOOTER
+    ================================================== -->
+
+    <footer class="tka-footer">
+
+        <div class="tka-footer-inner">
+
+            <div>
+
+                <strong>
+                    FJIS Academy
+                </strong>
+
+                <span>
+                    Student Learner
+                </span>
+
+            </div>
+
+            <p>
+                Belajar, bertumbuh, dan mempersiapkan diri
+                dengan langkah yang terukur.
+            </p>
+
+        </div>
+
+    </footer>
+
+</div>
+
+
+<!-- PAKET 2 COMPATIBLE: loads tka-data.js before tka-tryout.js -->
+
+<!-- =====================================================
+     JAVASCRIPT
+     
+     Urutan penting:
+     1. Data paket
+     2. Engine tryout
+====================================================== -->
+
+<script src="./tka-data.js"></script>
+
+<script src="./tka-tryout.js"></script>
+
+</body>
+</html>

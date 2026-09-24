@@ -1,0 +1,862 @@
+<!DOCTYPE html>
+<html lang="id">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0"
+    >
+
+    <meta
+        name="description"
+        content="FJIS Academy — SMA Kelas 10"
+    >
+
+    <meta
+        name="theme-color"
+        content="#073b2d"
+    >
+
+    <title>Kelas 10 — FJIS Academy</title>
+
+
+    <!-- GOOGLE FONTS -->
+
+    <link
+        rel="preconnect"
+        href="https://fonts.googleapis.com"
+    >
+
+    <link
+        rel="preconnect"
+        href="https://fonts.gstatic.com"
+        crossorigin
+    >
+
+    <link
+        href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Playfair+Display:wght@500;600;700&display=swap"
+        rel="stylesheet"
+    >
+
+
+    <!-- MAIN CSS -->
+
+    <link
+        rel="stylesheet"
+        href="../../css/style.css"
+    >
+
+    <link
+        rel="stylesheet"
+        href="../../css/components.css"
+    >
+
+    <link
+        rel="stylesheet"
+        href="../../css/landing.css"
+    >
+
+    <link
+        rel="stylesheet"
+        href="../../css/responsive.css"
+    >
+
+</head>
+
+
+<body>
+
+
+    <!-- =====================================================
+         PAGE LOADER
+    ====================================================== -->
+
+    <div
+        class="page-loader"
+        id="pageLoader"
+        aria-hidden="true"
+    >
+
+        <div class="loader-mark">
+            FJIS
+        </div>
+
+        <p>
+            Student Learner
+        </p>
+
+    </div>
+
+
+    <!-- =====================================================
+         HEADER
+    ====================================================== -->
+
+    <header
+        class="site-header"
+        id="siteHeader"
+    >
+
+        <div class="container header-inner">
+
+
+            <!-- BRAND -->
+
+            <a
+                href="../../index.html"
+                class="brand"
+                aria-label="FJIS Academy Beranda"
+            >
+
+                <div class="brand-icon">
+
+                    <span></span>
+                    <span></span>
+
+                </div>
+
+                <div class="brand-text">
+
+                    <strong>
+                        FJIS Academy
+                    </strong>
+
+                    <small>
+                        STUDENT LEARNER
+                    </small>
+
+                </div>
+
+            </a>
+
+
+            <!-- NAVIGATION -->
+
+            <nav
+                class="main-navigation"
+                id="mainNavigation"
+                aria-label="Navigasi utama"
+            >
+
+                <a
+                    href="../../index.html"
+                    class="nav-link"
+                >
+                    Beranda
+                </a>
+
+                <a
+                    href="../../index.html#tentang"
+                    class="nav-link"
+                >
+                    Tentang
+                </a>
+
+                <a
+                    href="../../index.html#program"
+                    class="nav-link active"
+                >
+                    Program
+                </a>
+
+                <a
+                    href="../../index.html#fitur"
+                    class="nav-link"
+                >
+                    Fitur
+                </a>
+
+                <a
+                    href="../../index.html#kontak"
+                    class="nav-link"
+                >
+                    Kontak
+                </a>
+
+            </nav>
+
+
+            <!-- ACTION -->
+
+            <div class="header-actions">
+
+                <a
+                    href="../login.html"
+                    class="button button-ghost"
+                >
+                    Masuk
+                </a>
+
+                <a
+                    href="../register.html"
+                    class="button button-primary"
+                >
+                    Daftar Sekarang
+                </a>
+
+            </div>
+
+
+            <!-- MOBILE -->
+
+            <button
+                class="mobile-menu-button"
+                id="mobileMenuButton"
+                type="button"
+                aria-label="Buka menu"
+                aria-expanded="false"
+            >
+
+                <span></span>
+                <span></span>
+                <span></span>
+
+            </button>
+
+        </div>
+
+    </header>
+
+
+
+    <!-- =====================================================
+         MAIN
+    ====================================================== -->
+
+    <main>
+
+
+        <!-- =================================================
+             PAGE HERO
+        ================================================== -->
+
+        <section class="hero-section">
+
+            <div class="container">
+
+                <div class="section-heading">
+
+                    <span class="section-label">
+                        SMA • KELAS 10
+                    </span>
+
+                    <h1>
+                        Kelas 10
+                    </h1>
+
+                    <p>
+                        Mulai perjalanan belajar kamu dari
+                        fondasi yang kuat. Pilih semester
+                        yang ingin kamu pelajari.
+                    </p>
+
+                </div>
+
+
+                <!-- CLOCK -->
+
+                <div class="hero-meta">
+
+                    <div class="live-indicator">
+
+                        <span></span>
+
+                        <strong>
+                            Student Learner
+                        </strong>
+
+                    </div>
+
+                    <div
+                        class="real-time-clock"
+                        data-clock
+                    >
+                        Memuat waktu...
+                    </div>
+
+                </div>
+
+            </div>
+
+        </section>
+
+
+
+        <!-- =================================================
+             SEMESTER
+        ================================================== -->
+
+        <section class="program-section">
+
+            <div class="container">
+
+
+                <div class="section-heading centered">
+
+                    <span class="section-label">
+                        PEMBELAJARAN
+                    </span>
+
+                    <h2>
+                        Pilih semester.
+                    </h2>
+
+                    <p>
+                        Materi Kelas 10 akan dipisahkan
+                        berdasarkan semester agar perjalanan
+                        belajar lebih terarah.
+                    </p>
+
+                </div>
+
+
+                <!-- =================================================
+                     SEMESTER CARDS
+
+                     DIISI DINAMIS DARI subjects.json
+                ================================================== -->
+
+                <div
+                    class="program-grid"
+                    id="semesterContainer"
+                >
+
+                    <!-- Loading -->
+
+                    <article class="program-card">
+
+                        <div class="program-card-header">
+
+                            <span class="program-index">
+                                —
+                            </span>
+
+                            <span class="program-tag">
+                                KELAS 10
+                            </span>
+
+                        </div>
+
+                        <div class="program-icon">
+                            ...
+                        </div>
+
+                        <h3>
+                            Memuat semester...
+                        </h3>
+
+                        <p>
+                            Sedang mengambil struktur
+                            pembelajaran Kelas 10.
+                        </p>
+
+                    </article>
+
+                </div>
+
+
+                <!-- ERROR MESSAGE -->
+
+                <div
+                    id="semesterError"
+                    style="
+                        display:none;
+                        margin-top:24px;
+                        padding:20px;
+                        border-radius:16px;
+                        background:rgba(7,59,45,.06);
+                        text-align:center;
+                    "
+                >
+
+                    <strong>
+                        Data semester belum dapat dimuat.
+                    </strong>
+
+                    <p>
+                        Pastikan file
+                        <code>
+                            data/sma/kelas-10/subjects.json
+                        </code>
+                        tersedia dan format JSON-nya benar.
+                    </p>
+
+                </div>
+
+            </div>
+
+        </section>
+
+
+
+        <!-- =================================================
+             ALUR BELAJAR
+        ================================================== -->
+
+        <section class="features-section">
+
+            <div class="container">
+
+
+                <div class="section-heading">
+
+                    <span class="section-label">
+                        ALUR BELAJAR
+                    </span>
+
+                    <h2>
+                        Dari semester menuju materi.
+                    </h2>
+
+                    <p>
+                        Sistem pembelajaran FJIS Academy
+                        akan mengarahkan kamu secara bertahap
+                        agar materi tidak tercampur.
+                    </p>
+
+                </div>
+
+
+                <div class="features-layout">
+
+
+                    <!-- 01 -->
+
+                    <article class="feature-item">
+
+                        <span>
+                            01
+                        </span>
+
+                        <div>
+
+                            <h3>
+                                Semester
+                            </h3>
+
+                            <p>
+                                Pilih semester yang ingin
+                                kamu pelajari.
+                            </p>
+
+                        </div>
+
+                    </article>
+
+
+                    <!-- 02 -->
+
+                    <article class="feature-item">
+
+                        <span>
+                            02
+                        </span>
+
+                        <div>
+
+                            <h3>
+                                Mata Pelajaran
+                            </h3>
+
+                            <p>
+                                Pilih mata pelajaran sesuai
+                                dengan pembelajaran yang
+                                tersedia.
+                            </p>
+
+                        </div>
+
+                    </article>
+
+
+                    <!-- 03 -->
+
+                    <article class="feature-item">
+
+                        <span>
+                            03
+                        </span>
+
+                        <div>
+
+                            <h3>
+                                Bab & Materi
+                            </h3>
+
+                            <p>
+                                Materi akan dibagi menjadi
+                                bab dan subbab agar lebih
+                                mudah dipelajari.
+                            </p>
+
+                        </div>
+
+                    </article>
+
+
+                    <!-- 04 -->
+
+                    <article class="feature-item">
+
+                        <span>
+                            04
+                        </span>
+
+                        <div>
+
+                            <h3>
+                                Latihan
+                            </h3>
+
+                            <p>
+                                Setelah memahami materi,
+                                kamu dapat melanjutkan ke
+                                latihan dan pembahasan.
+                            </p>
+
+                        </div>
+
+                    </article>
+
+                </div>
+
+            </div>
+
+        </section>
+
+
+
+        <!-- =================================================
+             INFO
+        ================================================== -->
+
+        <section class="about-section">
+
+            <div class="container">
+
+                <div class="about-quote">
+
+                    <div class="quote-mark">
+                        “
+                    </div>
+
+                    <p>
+                        Belajar hari ini bukan tentang
+                        seberapa cepat kamu selesai,
+                        tetapi tentang seberapa baik kamu
+                        memahami apa yang sedang kamu pelajari.
+                    </p>
+
+                    <span>
+                        — FJIS Academy, Student Learner
+                    </span>
+
+                </div>
+
+            </div>
+
+        </section>
+
+
+
+        <!-- =================================================
+             NAVIGATION
+        ================================================== -->
+
+        <section class="intro-section">
+
+            <div class="container">
+
+                <div class="section-heading centered">
+
+                    <span class="section-label">
+                        KELAS 10
+                    </span>
+
+                    <h2>
+                        Siap mulai belajar?
+                    </h2>
+
+                    <p>
+                        Pilih semester di atas untuk
+                        melanjutkan perjalanan belajar kamu.
+                    </p>
+
+
+                    <div class="hero-actions">
+
+                        <a
+                            href="sma.html"
+                            class="button button-outline button-large"
+                        >
+                            ← Kembali ke SMA
+                        </a>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+        </section>
+
+    </main>
+
+
+
+    <!-- =====================================================
+         JAVASCRIPT
+    ====================================================== -->
+
+    <script src="../../js/app.js"></script>
+
+    <script src="../../js/navigation.js"></script>
+
+    <script src="../../js/clock.js"></script>
+
+    <script src="../../js/motivation.js"></script>
+
+    <script src="../../js/counter.js"></script>
+
+    <script src="../../js/community.js"></script>
+
+    <script src="../../js/content-engine.js"></script>
+
+
+    <!-- =====================================================
+         KELAS 10 DATA SYSTEM
+    ====================================================== -->
+
+    <script>
+
+        document.addEventListener("DOMContentLoaded", async function () {
+
+            const semesterContainer =
+                document.getElementById("semesterContainer");
+
+            const semesterError =
+                document.getElementById("semesterError");
+
+
+            /*
+             * -------------------------------------------------
+             * LOAD DATA KELAS 10
+             * -------------------------------------------------
+             */
+
+            try {
+
+                const classData =
+                    await FJISContent.loadClass(10);
+
+
+                if (!classData) {
+
+                    throw new Error(
+                        "Data Kelas 10 tidak ditemukan."
+                    );
+
+                }
+
+
+                const semesters =
+                    classData.semesters;
+
+
+                if (
+                    !semesters ||
+                    Object.keys(semesters).length === 0
+                ) {
+
+                    throw new Error(
+                        "Data semester kosong."
+                    );
+
+                }
+
+
+                /*
+                 * -------------------------------------------------
+                 * CLEAR LOADING
+                 * -------------------------------------------------
+                 */
+
+                semesterContainer.innerHTML = "";
+
+
+                /*
+                 * -------------------------------------------------
+                 * RENDER SEMESTER
+                 * -------------------------------------------------
+                 */
+
+                const semesterKeys =
+                    Object.keys(semesters)
+                    .sort(
+                        (a, b) =>
+                            Number(a) - Number(b)
+                    );
+
+
+                semesterKeys.forEach(
+                    function (semesterNumber, index) {
+
+                        const semester =
+                            semesters[semesterNumber];
+
+
+                        const semesterTitle =
+                            semester.title ||
+                            `Semester ${semesterNumber}`;
+
+
+                        const subjectCount =
+                            Array.isArray(semester.subjects)
+                                ? semester.subjects.length
+                                : 0;
+
+
+                        const article =
+                            document.createElement("article");
+
+
+                        article.className =
+                            index === 0
+                                ? "program-card program-card-featured"
+                                : "program-card";
+
+
+                        article.innerHTML = `
+
+                            <div class="program-card-header">
+
+                                <span class="program-index">
+                                    ${String(index + 1).padStart(2, "0")}
+                                </span>
+
+                                <span class="program-tag">
+                                    KELAS 10
+                                </span>
+
+                            </div>
+
+
+                            <div class="program-icon">
+                                ${String(semesterNumber).padStart(2, "0")}
+                            </div>
+
+
+                            <h3>
+                                ${escapeHTML(semesterTitle)}
+                            </h3>
+
+
+                            <p>
+                                Pelajari materi pembelajaran
+                                ${escapeHTML(
+                                    semesterTitle.toLowerCase()
+                                )}
+                                Kelas 10 secara bertahap
+                                berdasarkan mata pelajaran.
+                            </p>
+
+
+                            <ul>
+
+                                <li>
+                                    ${subjectCount}
+                                    Mata pelajaran tersedia
+                                </li>
+
+                                <li>
+                                    Bab pembelajaran
+                                </li>
+
+                                <li>
+                                    Materi
+                                </li>
+
+                                <li>
+                                    Latihan soal
+                                </li>
+
+                                <li>
+                                    Pembahasan
+                                </li>
+
+                            </ul>
+
+
+                            <a
+                                href="materi.html?class=10&semester=${encodeURIComponent(semesterNumber)}"
+                                class="text-link"
+                            >
+
+                                Masuk ${escapeHTML(semesterTitle)}
+
+                                <span>
+                                    →
+                                </span>
+
+                            </a>
+
+                        `;
+
+
+                        semesterContainer.appendChild(
+                            article
+                        );
+
+                    }
+                );
+
+
+            } catch (error) {
+
+                console.error(
+                    "FJIS Kelas 10:",
+                    error
+                );
+
+
+                semesterContainer.innerHTML = "";
+
+
+                semesterError.style.display =
+                    "block";
+
+            }
+
+        });
+
+
+
+        /*
+         * =====================================================
+         * SIMPLE HTML ESCAPE
+         * =====================================================
+         *
+         * Mencegah data dari JSON langsung
+         * dianggap sebagai HTML.
+         */
+
+        function escapeHTML(value) {
+
+            return String(value)
+                .replace(/&/g, "&amp;")
+                .replace(/</g, "&lt;")
+                .replace(/>/g, "&gt;")
+                .replace(/"/g, "&quot;")
+                .replace(/'/g, "&#039;");
+
+        }
+
+    </script>
+
+
+</body>
+
+</html>
