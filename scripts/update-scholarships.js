@@ -1,11 +1,8 @@
 const fs = require("fs");
 const path = require("path");
 
-const BASE_URL =
-  "https://satubeasiswa.kemdiktisaintek.go.id";
-
-const SOURCE_URL =
-  `${BASE_URL}/beasiswa`;
+const BASE_URL = "https://satubeasiswa.kemdiktisaintek.go.id";
+const SOURCE_URL = `${BASE_URL}/beasiswa`;
 
 const OUTPUT = path.join(
   __dirname,
@@ -45,7 +42,6 @@ function ambilStatus(article) {
   const match = article.match(
     /<span[^>]*>\s*(Dibuka|Belum Dimulai|Selesai)\s*<\/span>/i
   );
-
   return match ? clean(match[1]) : "";
 }
 
@@ -55,10 +51,7 @@ function ambilNama(article) {
   );
 
   if (!match) {
-    return {
-      name: "",
-      url: ""
-    };
+    return { name: "", url: "" };
   }
 
   return {
@@ -92,10 +85,7 @@ function ambilMetadata(article) {
 
   for (const span of spans) {
     const value = clean(span);
-
-    if (value) {
-      hasil.push(value);
-    }
+    if (value) hasil.push(value);
   }
 
   return hasil;
@@ -159,58 +149,31 @@ function parseArticles(html) {
       ambilDeadline(article);
 
     hasil.push({
-      id:
-        `satubeasiswa-${slug(info.name)}`,
-
-      name:
-        info.name,
-
+      id: `satubeasiswa-${slug(info.name)}`,
+      name: info.name,
       organization:
         organization || "SatuBeasiswa",
-
-      level:
-        metadata[0] || "",
-
-      location:
-        metadata[1] || "Indonesia",
-
-      funding:
-        metadata[2] || "",
-
-      period:
-        deadline
-          ? deadline.slice(0, 4)
-          : "",
-
-      start:
-        "",
-
+      level: metadata[0] || "",
+      location: metadata[1] || "Indonesia",
+      funding: metadata[2] || "",
+      period: deadline
+        ? deadline.slice(0, 4)
+        : "",
+      start: "",
       deadline,
-
       status,
-
       description:
         "Informasi beasiswa dari portal resmi SatuBeasiswa.",
-
       requirements: [
         "Cek persyaratan terbaru pada halaman resmi beasiswa."
       ],
-
       benefit:
         metadata[2] ||
         "Sesuai ketentuan penyelenggara.",
-
-      applyUrl:
-        info.url,
-
-      infoUrl:
-        info.url,
-
-      linkType:
-        "official",
-
-      source:
-        "SatuBeasiswa"
+      applyUrl: info.url,
+      infoUrl: info.url,
+      linkType: "official",
+      source: "SatuBeasiswa"
     });
   }
 
@@ -220,29 +183,21 @@ function parseArticles(html) {
 function gabungkanData(lama, baru) {
   const map = new Map();
 
-  for (const item of [
-    ...lama,
-    ...baru
-  ]) {
-    if (!item || !item.name) {
-      continue;
-    }
+  for (const item of [...lama, ...baru]) {
+    if (!item || !item.name) continue;
 
-    const key =
-      slug(item.name);
+    const key = slug(item.name);
 
     if (!map.has(key)) {
       map.set(key, item);
       continue;
     }
 
-    const sebelumnya =
-      map.get(key);
+    const sebelumnya = map.get(key);
 
     map.set(key, {
       ...sebelumnya,
       ...item,
-
       requirements:
         item.requirements?.length
           ? item.requirements
@@ -254,23 +209,18 @@ function gabungkanData(lama, baru) {
 }
 
 async function ambilHalaman(url) {
-  console.log(
-    `[FJIS] Mengambil: ${url}`
-  );
+  console.log(`[FJIS] Mengambil: ${url}`);
 
-  const response =
-    await fetch(url, {
-      headers: {
-        "User-Agent":
-          "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 Chrome/142.0.0.0 Safari/537.36",
-
-        "Accept":
-          "text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8",
-
-        "Accept-Language":
-          "id-ID,id;q=0.9,en-US;q=0.8,en;q=0.7"
-      }
-    });
+  const response = await fetch(url, {
+    headers: {
+      "User-Agent":
+        "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 Chrome/142.0.0.0 Safari/537.36",
+      "Accept":
+        "text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8",
+      "Accept-Language":
+        "id-ID,id;q=0.9,en-US;q=0.8,en;q=0.7"
+    }
+  });
 
   if (!response.ok) {
     throw new Error(
@@ -281,23 +231,42 @@ async function ambilHalaman(url) {
   return await response.text();
 }
 
-/*
-  Membaca angka "81" dari teks:
-
-  Menampilkan 9 dari 81 beasiswa
-*/
 function cariTotalBeasiswa(html) {
-  const teks =
-    clean(html);
+  const teks = clean(html);
 
-  const match =
-    teks.match(
-      /Menampilkan\s+\d+\s+dari\s+(\d+)\s+beasiswa/i
+  const match = teks.match(
+    /Menampilkan\s+\d+\s+dari\s+(\d+)\s+beasiswa/i
+  );
+
+  return match ? Number(match[1]) : 0;
+}
+
+function bacaDatabaseLama() {
+  let database = {
+    version: 3,
+    updatedAt: "",
+    scholarships: []
+  };
+
+  if (!fs.existsSync(OUTPUT)) {
+    return database;
+  }
+
+  try {
+    database = JSON.parse(
+      fs.readFileSync(OUTPUT, "utf8")
     );
+  } catch {
+    console.warn(
+      "[FJIS] Feed lama tidak valid. Membuat database baru."
+    );
+  }
 
-  return match
-    ? Number(match[1])
-    : 0;
+  if (!Array.isArray(database.scholarships)) {
+    database.scholarships = [];
+  }
+
+  return database;
 }
 
 async function main() {
@@ -305,13 +274,38 @@ async function main() {
   console.log(" FJIS SCHOLARSHIP AUTO COLLECTOR");
   console.log("=================================");
 
+  const database = bacaDatabaseLama();
+
   try {
     console.log(
       "[FJIS] Memulai pengambilan data..."
     );
 
-    const halamanPertama =
-      await ambilHalaman(SOURCE_URL);
+    let halamanPertama;
+
+    try {
+      halamanPertama =
+        await ambilHalaman(SOURCE_URL);
+    } catch (error) {
+      console.warn(
+        `[FJIS] SatuBeasiswa tidak dapat diakses: ${error.message}`
+      );
+      console.warn(
+        "[FJIS] Feed lama dipertahankan. Tidak ada data baru yang ditambahkan."
+      );
+      console.warn(
+        "[FJIS] Workflow selesai tanpa mengubah feed."
+      );
+
+      console.log(
+        `[FJIS] Database tetap: ${database.scholarships.length} beasiswa`
+      );
+      console.log(
+        "[FJIS] UPDATE DILEWATI ℹ️"
+      );
+
+      return;
+    }
 
     fs.writeFileSync(
       DEBUG_OUTPUT,
@@ -324,9 +318,7 @@ async function main() {
     );
 
     const total =
-      cariTotalBeasiswa(
-        halamanPertama
-      );
+      cariTotalBeasiswa(halamanPertama);
 
     console.log(
       `[FJIS] Total beasiswa terdeteksi: ${total || "tidak diketahui"}`
@@ -335,22 +327,13 @@ async function main() {
     let semua = [];
 
     const pertama =
-      parseArticles(
-        halamanPertama
-      );
+      parseArticles(halamanPertama);
 
-    semua.push(
-      ...pertama
-    );
+    semua.push(...pertama);
 
     console.log(
       `[FJIS] Halaman pertama: ${pertama.length} beasiswa`
     );
-
-    /*
-      SatuBeasiswa menampilkan
-      9 beasiswa per halaman.
-    */
 
     const PER_PAGE = 9;
 
@@ -373,23 +356,16 @@ async function main() {
           `${SOURCE_URL}?page=${page}`;
 
         const html =
-          await ambilHalaman(
-            url
-          );
+          await ambilHalaman(url);
 
         const data =
-          parseArticles(
-            html
-          );
+          parseArticles(html);
 
         console.log(
           `[FJIS] Halaman ${page}: ${data.length} beasiswa`
         );
 
-        semua.push(
-          ...data
-        );
-
+        semua.push(...data);
       } catch (error) {
         console.warn(
           `[FJIS] Halaman ${page} gagal: ${error.message}`
@@ -401,30 +377,18 @@ async function main() {
       `[FJIS] Total hasil mentah: ${semua.length}`
     );
 
-    let database = {
-      version: 3,
-      updatedAt: "",
-      scholarships: []
-    };
+    if (semua.length === 0) {
+      console.warn(
+        "[FJIS] Tidak ada data baru yang berhasil diparse."
+      );
+      console.warn(
+        "[FJIS] Feed lama dipertahankan."
+      );
 
-    if (
-      fs.existsSync(
-        OUTPUT
-      )
-    ) {
-      try {
-        database =
-          JSON.parse(
-            fs.readFileSync(
-              OUTPUT,
-              "utf8"
-            )
-          );
-      } catch {
-        console.warn(
-          "[FJIS] Feed lama tidak valid. Membuat database baru."
-        );
-      }
+      console.log(
+        `[FJIS] Database tetap: ${database.scholarships.length} beasiswa`
+      );
+      return;
     }
 
     const gabungan =
@@ -434,7 +398,6 @@ async function main() {
       );
 
     database.version = 3;
-
     database.updatedAt =
       new Date().toISOString();
 
@@ -458,7 +421,6 @@ async function main() {
     console.log(
       "[FJIS] UPDATE BERHASIL ✅"
     );
-
   } catch (error) {
     console.error(
       "[FJIS] ERROR:",
@@ -470,3 +432,46 @@ async function main() {
 }
 
 main();
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
