@@ -1,8 +1,11 @@
 const fs = require("fs");
 const path = require("path");
 
+const BASE_URL =
+  "https://satubeasiswa.kemdiktisaintek.go.id";
+
 const SOURCE_URL =
-  "https://satubeasiswa.kemdiktisaintek.go.id/beasiswa";
+  `${BASE_URL}/beasiswa`;
 
 const OUTPUT = path.join(
   __dirname,
@@ -13,11 +16,20 @@ const OUTPUT = path.join(
   "scholarship-feed.json"
 );
 
+const DEBUG_OUTPUT = path.join(
+  __dirname,
+  "debug-satubeasiswa.html"
+);
+
 function clean(text = "") {
   return text
     .replace(/<[^>]*>/g, " ")
     .replace(/&nbsp;/gi, " ")
     .replace(/&amp;/gi, "&")
+    .replace(/&#x27;/gi, "'")
+    .replace(/&quot;/gi, '"')
+    .replace(/&#39;/gi, "'")
+    .replace(/&#x2F;/gi, "/")
     .replace(/\s+/g, " ")
     .trim();
 }
@@ -29,17 +41,69 @@ function slug(text = "") {
     .replace(/^-|-$/g, "");
 }
 
-function ambilNama(block) {
-  const match = block.match(
-    /<(h1|h2|h3|h4|strong)[^>]*>([\s\S]*?)<\/\1>/i
+function ambilStatus(article) {
+  const match = article.match(
+    /<span[^>]*>\s*(Dibuka|Belum Dimulai|Selesai)\s*<\/span>/i
   );
 
-  return match ? clean(match[2]) : "";
+  return match ? clean(match[1]) : "";
 }
 
-function ambilTanggal(text) {
-  const match = text.match(
-    /(\d{1,2})\s+(Januari|Februari|Maret|April|Mei|Juni|Juli|Agustus|September|Oktober|November|Desember)\s+(\d{4})/i
+function ambilNama(article) {
+  const match = article.match(
+    /<h3[^>]*>\s*<a[^>]*href=["']([^"']+)["'][^>]*>([\s\S]*?)<\/a>\s*<\/h3>/i
+  );
+
+  if (!match) {
+    return {
+      name: "",
+      url: ""
+    };
+  }
+
+  return {
+    name: clean(match[2]),
+    url: new URL(match[1], BASE_URL).href
+  };
+}
+
+function ambilPenyelenggara(article) {
+  const match = article.match(
+    /<h3[\s\S]*?<\/h3>\s*<p[^>]*>([\s\S]*?)<\/p>/i
+  );
+
+  return match ? clean(match[1]) : "";
+}
+
+function ambilMetadata(article) {
+  const hasil = [];
+
+  const dlMatch = article.match(
+    /<dl[\s\S]*?<\/dl>/i
+  );
+
+  if (!dlMatch) return hasil;
+
+  const spans = dlMatch[0].match(
+    /<span[^>]*>([\s\S]*?)<\/span>/gi
+  );
+
+  if (!spans) return hasil;
+
+  for (const span of spans) {
+    const value = clean(span);
+
+    if (value) {
+      hasil.push(value);
+    }
+  }
+
+  return hasil;
+}
+
+function ambilDeadline(article) {
+  const match = article.match(
+    /Batas Pendaftaran[\s\S]{0,500}?(\d{1,2})\s+(Januari|Februari|Maret|April|Mei|Juni|Juli|Agustus|September|Oktober|November|Desember)\s+(\d{4})/i
   );
 
   if (!match) return "";
@@ -59,54 +123,94 @@ function ambilTanggal(text) {
     desember: "12"
   };
 
-  return `${match[3]}-${bulan[match[2].toLowerCase()]}-${String(
-    match[1]
-  ).padStart(2, "0")}`;
+  return `${match[3]}-${
+    bulan[match[2].toLowerCase()]
+  }-${String(match[1]).padStart(2, "0")}`;
 }
 
-function parseBeasiswa(html) {
+function parseArticles(html) {
   const hasil = [];
 
-  const regex =
-    /<a[^>]+href=["']([^"']*\/beasiswa\/[^"']+)["'][^>]*>([\s\S]{0,12000}?)<\/a>/gi;
+  const articleRegex =
+    /<article\b[\s\S]*?<\/article>/gi;
 
-  let match;
+  const articles =
+    html.match(articleRegex) || [];
 
-  while ((match = regex.exec(html)) !== null) {
-    const url = new URL(
-      match[1],
-      SOURCE_URL
-    ).href;
+  console.log(
+    `[FJIS] Article ditemukan: ${articles.length}`
+  );
 
-    const block = match[2];
-    const nama = ambilNama(block);
-    const teks = clean(block);
+  for (const article of articles) {
+    const info = ambilNama(article);
 
-    if (!nama || nama.length < 4) continue;
+    if (!info.name) continue;
 
-    const deadline = ambilTanggal(teks);
+    const organization =
+      ambilPenyelenggara(article);
+
+    const status =
+      ambilStatus(article);
+
+    const metadata =
+      ambilMetadata(article);
+
+    const deadline =
+      ambilDeadline(article);
 
     hasil.push({
-      id: `satubeasiswa-${slug(nama)}`,
-      name: nama,
-      organization: "SatuBeasiswa",
-      level: "",
-      location: "Indonesia",
-      funding: "",
-      period: deadline ? deadline.slice(0, 4) : "",
-      start: "",
-      deadline: deadline,
+      id:
+        `satubeasiswa-${slug(info.name)}`,
+
+      name:
+        info.name,
+
+      organization:
+        organization || "SatuBeasiswa",
+
+      level:
+        metadata[0] || "",
+
+      location:
+        metadata[1] || "Indonesia",
+
+      funding:
+        metadata[2] || "",
+
+      period:
+        deadline
+          ? deadline.slice(0, 4)
+          : "",
+
+      start:
+        "",
+
+      deadline,
+
+      status,
+
       description:
-        "Data beasiswa dari portal SatuBeasiswa.",
+        "Informasi beasiswa dari portal resmi SatuBeasiswa.",
+
       requirements: [
-        "Cek persyaratan terbaru pada sumber resmi."
+        "Cek persyaratan terbaru pada halaman resmi beasiswa."
       ],
+
       benefit:
+        metadata[2] ||
         "Sesuai ketentuan penyelenggara.",
-      applyUrl: url,
-      infoUrl: url,
-      linkType: "official",
-      source: "SatuBeasiswa"
+
+      applyUrl:
+        info.url,
+
+      infoUrl:
+        info.url,
+
+      linkType:
+        "official",
+
+      source:
+        "SatuBeasiswa"
     });
   }
 
@@ -116,25 +220,84 @@ function parseBeasiswa(html) {
 function gabungkanData(lama, baru) {
   const map = new Map();
 
-  for (const item of [...lama, ...baru]) {
-    if (!item || !item.name) continue;
+  for (const item of [
+    ...lama,
+    ...baru
+  ]) {
+    if (!item || !item.name) {
+      continue;
+    }
 
     const key =
-      `${slug(item.name)}|${slug(item.organization || "")}`;
+      slug(item.name);
 
     if (!map.has(key)) {
       map.set(key, item);
-    } else {
-      const sebelumnya = map.get(key);
-
-      map.set(key, {
-        ...sebelumnya,
-        ...item
-      });
+      continue;
     }
+
+    const sebelumnya =
+      map.get(key);
+
+    map.set(key, {
+      ...sebelumnya,
+      ...item,
+
+      requirements:
+        item.requirements?.length
+          ? item.requirements
+          : sebelumnya.requirements
+    });
   }
 
   return [...map.values()];
+}
+
+async function ambilHalaman(url) {
+  console.log(
+    `[FJIS] Mengambil: ${url}`
+  );
+
+  const response =
+    await fetch(url, {
+      headers: {
+        "User-Agent":
+          "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 Chrome/142.0.0.0 Safari/537.36",
+
+        "Accept":
+          "text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8",
+
+        "Accept-Language":
+          "id-ID,id;q=0.9,en-US;q=0.8,en;q=0.7"
+      }
+    });
+
+  if (!response.ok) {
+    throw new Error(
+      `HTTP ${response.status} ${response.statusText}`
+    );
+  }
+
+  return await response.text();
+}
+
+/*
+  Membaca angka "81" dari teks:
+
+  Menampilkan 9 dari 81 beasiswa
+*/
+function cariTotalBeasiswa(html) {
+  const teks =
+    clean(html);
+
+  const match =
+    teks.match(
+      /Menampilkan\s+\d+\s+dari\s+(\d+)\s+beasiswa/i
+    );
+
+  return match
+    ? Number(match[1])
+    : 0;
 }
 
 async function main() {
@@ -143,58 +306,148 @@ async function main() {
   console.log("=================================");
 
   try {
-    console.log("[FJIS] Mengambil data...");
-
-    const response = await fetch(SOURCE_URL, {
-      headers: {
-        "User-Agent":
-          "FJIS-Academy-Scholarship-Collector/1.0"
-      }
-    });
-
-    if (!response.ok) {
-      throw new Error(
-        `HTTP ${response.status} ${response.statusText}`
-      );
-    }
-
-    const html = await response.text();
-
     console.log(
-      `[FJIS] Halaman berhasil diambil: ${html.length} karakter`
+      "[FJIS] Memulai pengambilan data..."
     );
 
-    const baru = parseBeasiswa(html);
+    const halamanPertama =
+      await ambilHalaman(SOURCE_URL);
+
+    fs.writeFileSync(
+      DEBUG_OUTPUT,
+      halamanPertama,
+      "utf8"
+    );
 
     console.log(
-      `[FJIS] Beasiswa ditemukan: ${baru.length}`
+      `[FJIS] HTML berhasil diambil: ${halamanPertama.length} karakter`
+    );
+
+    const total =
+      cariTotalBeasiswa(
+        halamanPertama
+      );
+
+    console.log(
+      `[FJIS] Total beasiswa terdeteksi: ${total || "tidak diketahui"}`
+    );
+
+    let semua = [];
+
+    const pertama =
+      parseArticles(
+        halamanPertama
+      );
+
+    semua.push(
+      ...pertama
+    );
+
+    console.log(
+      `[FJIS] Halaman pertama: ${pertama.length} beasiswa`
+    );
+
+    /*
+      SatuBeasiswa menampilkan
+      9 beasiswa per halaman.
+    */
+
+    const PER_PAGE = 9;
+
+    const jumlahHalaman =
+      total > 0
+        ? Math.ceil(total / PER_PAGE)
+        : 1;
+
+    console.log(
+      `[FJIS] Perkiraan jumlah halaman: ${jumlahHalaman}`
+    );
+
+    for (
+      let page = 2;
+      page <= jumlahHalaman;
+      page++
+    ) {
+      try {
+        const url =
+          `${SOURCE_URL}?page=${page}`;
+
+        const html =
+          await ambilHalaman(
+            url
+          );
+
+        const data =
+          parseArticles(
+            html
+          );
+
+        console.log(
+          `[FJIS] Halaman ${page}: ${data.length} beasiswa`
+        );
+
+        semua.push(
+          ...data
+        );
+
+      } catch (error) {
+        console.warn(
+          `[FJIS] Halaman ${page} gagal: ${error.message}`
+        );
+      }
+    }
+
+    console.log(
+      `[FJIS] Total hasil mentah: ${semua.length}`
     );
 
     let database = {
-      version: 2,
+      version: 3,
       updatedAt: "",
       scholarships: []
     };
 
-    if (fs.existsSync(OUTPUT)) {
-      database = JSON.parse(
-        fs.readFileSync(OUTPUT, "utf8")
-      );
+    if (
+      fs.existsSync(
+        OUTPUT
+      )
+    ) {
+      try {
+        database =
+          JSON.parse(
+            fs.readFileSync(
+              OUTPUT,
+              "utf8"
+            )
+          );
+      } catch {
+        console.warn(
+          "[FJIS] Feed lama tidak valid. Membuat database baru."
+        );
+      }
     }
 
-    const gabungan = gabungkanData(
-      database.scholarships || [],
-      baru
-    );
+    const gabungan =
+      gabungkanData(
+        database.scholarships || [],
+        semua
+      );
 
-    database.version = 2;
+    database.version = 3;
+
     database.updatedAt =
-      new Date().toISOString().slice(0, 10);
-    database.scholarships = gabungan;
+      new Date().toISOString();
+
+    database.scholarships =
+      gabungan;
 
     fs.writeFileSync(
       OUTPUT,
-      JSON.stringify(database, null, 2),
+      JSON.stringify(
+        database,
+        null,
+        2
+      ),
       "utf8"
     );
 
@@ -202,7 +455,9 @@ async function main() {
       `[FJIS] Database sekarang: ${gabungan.length} beasiswa`
     );
 
-    console.log("[FJIS] UPDATE BERHASIL ✅");
+    console.log(
+      "[FJIS] UPDATE BERHASIL ✅"
+    );
 
   } catch (error) {
     console.error(
